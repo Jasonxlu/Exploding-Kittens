@@ -1,8 +1,9 @@
 # PROJECT NAME
 
 ## Contributors
-- PERSON
-- PERSON
+- Isa Gonzalez
+- Brennan Benson
+- Jason Lu
 
 ## Dependencies
 - JDK 11
