@@ -1,4 +1,4 @@
-# PROJECT NAME
+# Exploding Wildcats
 
 ## Contributors
 - Isa Gonzalez
