@@ -1,3 +1,5 @@
+![Gradle Build](https://github.com/nu-cs-sqe/course-project-20242510-team-10/actions/workflows/main.yml/badge.svg)
+
 # Exploding Wildcats
 
 ## Contributors
