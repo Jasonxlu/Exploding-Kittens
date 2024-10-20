@@ -74,4 +74,20 @@ public class ExplodingWildcatsTests {
             assertEquals(names[i], players[i].getName());
         }
     }
+
+    @Test
+    public void setUpPlayers_TooManyPlayers_ThrowException() {
+        ExplodingWildcats game = new ExplodingWildcats();
+
+        int numPlayers = 5;
+        String[] names = {"John", "Jane", "Alice", "Bob", "Charlie"};
+
+        String expectedMessage = "Too many players";
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            game.setUpPlayers(numPlayers, names);
+        });
+
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
 }

@@ -16,7 +16,7 @@
 | Test Case 2  | int: 1, list: []                      | IllegalArgumentException | yes          |
 | Test Case 3  | int: 2, list: [two elements]          | None, modified fields    | yes          |
 | Test Case 4  | int: 4, list: [max size]              | None, modified fields    | yes          |
-| Test Case 5  | int: 5, list: [more than one element] | IllegalArgumentException |              |
+| Test Case 5  | int: 5, list: [more than one element] | IllegalArgumentException | yes          |
 
 ## Method 2: ```public void dealDefuses()```
 ### Step 1-3 Results

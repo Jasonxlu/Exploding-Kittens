@@ -13,6 +13,10 @@ public class ExplodingWildcats {
             throw new IllegalArgumentException("Not enough players");
         }
 
+        if (numberOfPlayers > 4) {
+            throw new IllegalArgumentException("Too many players");
+        }
+
         this.numOfPlayers = numberOfPlayers;
         this.players = new Player[numberOfPlayers];
 
