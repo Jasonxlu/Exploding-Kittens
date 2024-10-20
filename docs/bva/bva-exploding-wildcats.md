@@ -14,7 +14,7 @@
 |--------------|---------------------------------------|--------------------------|--------------|
 | Test Case 1  | int: 1, list: [one elements]          | IllegalArgumentException | yes          |
 | Test Case 2  | int: 1, list: []                      | IllegalArgumentException | yes          |
-| Test Case 3  | int: 2, list: [two elements]          | None, modified fields    |              |
+| Test Case 3  | int: 2, list: [two elements]          | None, modified fields    | yes          |
 | Test Case 4  | int: 4, list: [max size]              | None, modified fields    |              |
 | Test Case 5  | int: 5, list: [more than one element] | IllegalArgumentException |              |
 
