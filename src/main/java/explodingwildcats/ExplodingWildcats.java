@@ -13,15 +13,11 @@ public class ExplodingWildcats {
             throw new IllegalArgumentException("Not enough players");
         }
 
+        this.numOfPlayers = numberOfPlayers;
         this.players = new Player[numberOfPlayers];
 
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player(names[i]);
-        }
-
-        System.out.println("Number of players: " + this.numOfPlayers);
-        for (int i = 0; i < numberOfPlayers; i++) {
-            System.out.println("Player " + i + ": " + players[i].getName());
         }
     }
 

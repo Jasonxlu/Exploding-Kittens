@@ -43,15 +43,35 @@ public class ExplodingWildcatsTests {
         int numPlayers = 2;
         String[] names = {"John", "Jane"};
 
+        game.setUpPlayers(numPlayers, names);
+
         int expectedNumPlayers = 2;
         int actualNumPlayers = game.getNumberOfPlayers();
         assertEquals(expectedNumPlayers, actualNumPlayers);
-
-        game.setUpPlayers(numPlayers, names);
 
         Player[] players = game.getPlayers();
         assertEquals(numPlayers, players.length);
         assertEquals("John", players[0].getName());
         assertEquals("Jane", players[1].getName());
+    }
+
+    @Test
+    public void setUpPlayers_MaxPlayersMaxNames() {
+        ExplodingWildcats game = new ExplodingWildcats();
+
+        int numPlayers = 4;
+        String[] names = {"John", "Jane", "Alice", "Bob"};
+
+        game.setUpPlayers(numPlayers, names);
+
+        int expectedNumPlayers = 4;
+        int actualNumPlayers = game.getNumberOfPlayers();
+        assertEquals(expectedNumPlayers, actualNumPlayers);
+
+        Player[] players = game.getPlayers();
+        assertEquals(numPlayers, players.length);
+        for (int i = 0; i < numPlayers; i++) {
+            assertEquals(names[i], players[i].getName());
+        }
     }
 }
