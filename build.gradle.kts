@@ -1,5 +1,9 @@
+import com.github.spotbugs.snom.Confidence
+import com.github.spotbugs.snom.Effort
+
 plugins {
     id("java")
+    id("com.github.spotbugs") version "6.0.25"
 }
 
 group = "nu.csse.sqe"
@@ -26,4 +30,22 @@ tasks.compileJava {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+spotbugs {
+    ignoreFailures = false
+    showStackTraces = true
+    showProgress = true
+    effort = Effort.DEFAULT
+    reportLevel = Confidence.DEFAULT
+    visitors = listOf("FindSqlInjection", "SwitchFallthrough")
+    omitVisitors = listOf("FindNonShortCircuit")
+    reportsDir = layout.buildDirectory.dir("spotbugs").get().asFile
+    includeFilter = file("include.xml")
+    excludeFilter = file("exclude.xml")
+    baselineFile = file("baseline.xml")
+    onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
+    maxHeapSize = "1g"
+    extraArgs = listOf("-nested:false")
+    jvmArgs = listOf("-Duser.language=ja")
 }
