@@ -30,7 +30,7 @@
 
 |              | System under test                        | Expected output                                                                        | Implemented? |
 |--------------|------------------------------------------|----------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | list1: [two elements], list2: [34 cards] | None, each player gets 1 defuse, list2: [37 cards], 3 defuses inserted into draw pile  |              |
+| Test Case 1  | list1: [two elements], list2: [34 cards] | None, each player gets 1 defuse, list2: [37 cards], 3 defuses inserted into draw pile  | yes          |
 | Test Case 2  | list1: [max size], list2: [34 cards]     | None, each player gets 1 defuse, list2: [35 cards], 1 defuse inserted into draw pile   |              |
 
 ## Method 3: ```public void dealCards()```

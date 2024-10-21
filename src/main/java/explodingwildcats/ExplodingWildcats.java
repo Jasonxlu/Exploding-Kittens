@@ -4,6 +4,8 @@ public class ExplodingWildcats {
     private int numOfPlayers = 2;
     private Player[] players = null;
 
+    private DrawPile drawPile = new DrawPile();
+
     public void setUpPlayers(int numberOfPlayers, String[] names) {
         if (names.length != numberOfPlayers) {
             throw new IllegalArgumentException("Number of players and number names mismatch");
@@ -31,5 +33,19 @@ public class ExplodingWildcats {
 
     public Player[] getPlayers() {
         return players;
+    }
+
+    public void dealDefuses() {
+        int totalNumDefuses = 5;
+        for (Player p : players) {
+            p.AddCardToHand(Card.DEFUSE);
+        }
+        for (int i = 0; i < totalNumDefuses-numOfPlayers; i++) {
+            drawPile.AddCard(Card.DEFUSE);
+        }
+    }
+
+    public Card[] getDrawPile() {
+        return drawPile.getCards();
     }
 }

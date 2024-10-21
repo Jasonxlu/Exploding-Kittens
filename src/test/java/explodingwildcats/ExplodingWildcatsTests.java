@@ -1,6 +1,9 @@
 package explodingwildcats;
 
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ExplodingWildcatsTests {
@@ -89,5 +92,40 @@ public class ExplodingWildcatsTests {
 
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Test
+    public void dealDefuses_TwoPlayers() {
+        ExplodingWildcats game = new ExplodingWildcats();
+        int numPlayers = 2;
+        String[] names = {"John", "Jane"};
+        game.setUpPlayers(numPlayers, names);
+
+        game.dealDefuses();
+
+        // test that defuse was inserted into each player's hand
+        int expectedPlayerHandSize = 1;
+        Card expectedCardClass = Card.DEFUSE;
+
+        for (Player p : game.getPlayers()) {
+            Card[] actualPlayerHand = p.getHand();
+            assertEquals(expectedPlayerHandSize, actualPlayerHand.length);
+            assertEquals(expectedCardClass, actualPlayerHand[0]);
+        }
+
+        // test that remaining defuses were inserted into draw pile
+        int expectedNumDefusesInDrawPile = 3;
+        int expectedDrawPileLength = 37;
+
+        Card[] actualDrawPile = game.getDrawPile();
+        assertEquals(expectedDrawPileLength, actualDrawPile.length);
+
+        int actualNumDefusesInDrawPile = 0;
+        for (Card card : actualDrawPile) {
+            if (card == Card.DEFUSE) {
+                actualNumDefusesInDrawPile++;
+            }
+        }
+        assertEquals(expectedNumDefusesInDrawPile, actualNumDefusesInDrawPile);
     }
 }
