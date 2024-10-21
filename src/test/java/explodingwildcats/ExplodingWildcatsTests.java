@@ -128,4 +128,39 @@ public class ExplodingWildcatsTests {
         }
         assertEquals(expectedNumDefusesInDrawPile, actualNumDefusesInDrawPile);
     }
+
+    @Test
+    public void dealDefuses_MaxPlayers() {
+        ExplodingWildcats game = new ExplodingWildcats();
+        int numPlayers = 4;
+        String[] names = {"John", "Jane", "Alice", "Bob"};
+        game.setUpPlayers(numPlayers, names);
+
+        game.dealDefuses();
+
+        // test that defuse was inserted into each player's hand
+        int expectedPlayerHandSize = 1;
+        Card expectedCardClass = Card.DEFUSE;
+
+        for (Player p : game.getPlayers()) {
+            Card[] actualPlayerHand = p.getHand();
+            assertEquals(expectedPlayerHandSize, actualPlayerHand.length);
+            assertEquals(expectedCardClass, actualPlayerHand[0]);
+        }
+
+        // test that remaining defuses were inserted into draw pile
+        int expectedNumDefusesInDrawPile = 1;
+        int expectedDrawPileLength = 35;
+
+        Card[] actualDrawPile = game.getDrawPile();
+        assertEquals(expectedDrawPileLength, actualDrawPile.length);
+
+        int actualNumDefusesInDrawPile = 0;
+        for (Card card : actualDrawPile) {
+            if (card == Card.DEFUSE) {
+                actualNumDefusesInDrawPile++;
+            }
+        }
+        assertEquals(expectedNumDefusesInDrawPile, actualNumDefusesInDrawPile);
+    }
 }
