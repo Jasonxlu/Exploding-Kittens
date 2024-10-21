@@ -4,6 +4,7 @@ import com.github.spotbugs.snom.Effort
 plugins {
     id("java")
     id("com.github.spotbugs") version "6.0.25"
+    checkstyle
 }
 
 group = "nu.csse.sqe"
@@ -48,4 +49,8 @@ spotbugs {
     maxHeapSize = "1g"
     extraArgs = listOf("-nested:false")
     jvmArgs = listOf("-Duser.language=ja")
+}
+
+checkstyle {
+    toolVersion = "10.18.2"
 }
