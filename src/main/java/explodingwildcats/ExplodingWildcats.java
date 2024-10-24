@@ -2,6 +2,7 @@ package explodingwildcats;
 
 public class ExplodingWildcats {
     private int numOfPlayers = 2;
+
     private Player[] players = null;
 
     private DrawPile drawPile = new DrawPile();
