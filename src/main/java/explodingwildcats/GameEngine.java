@@ -1,11 +1,16 @@
 package explodingwildcats;
 
-public class ExplodingWildcats {
+public class GameEngine {
     private int numOfPlayers = 2;
 
     private Player[] players = null;
 
     private DrawPile drawPile = new DrawPile();
+    private PlayerFactory playerFactory;
+
+    public GameEngine(PlayerFactory playerFactory) {
+        this.playerFactory = playerFactory;
+    }
 
     public void setUpPlayers(int numberOfPlayers, String[] names) {
         if (names.length != numberOfPlayers) {
@@ -24,7 +29,7 @@ public class ExplodingWildcats {
         this.players = new Player[numberOfPlayers];
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            players[i] = new Player(names[i]);
+            players[i] = playerFactory.createPlayer(names[i]);
         }
     }
 

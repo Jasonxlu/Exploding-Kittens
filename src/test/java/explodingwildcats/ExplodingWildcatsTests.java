@@ -1,5 +1,6 @@
 package explodingwildcats;
 
+import org.easymock.EasyMock;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -9,10 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ExplodingWildcatsTests {
     @Test
     public void setUpPlayers_OnePlayerOneName_ThrowException() {
-        ExplodingWildcats game = new ExplodingWildcats();
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        GameEngine game = new GameEngine(playerFactory);
 
         int numPlayers = 1;
         String[] names = {"John"};
+
+        EasyMock.replay(playerFactory);
 
         String expectedMessage = "Not enough players";
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -21,14 +25,19 @@ public class ExplodingWildcatsTests {
 
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
+
+        EasyMock.verify(playerFactory);
     }
 
     @Test
     public void setUpPlayers_OnePlayerNoNames_ThrowException() {
-        ExplodingWildcats game = new ExplodingWildcats();
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        GameEngine game = new GameEngine(playerFactory);
 
         int numPlayers = 1;
         String[] names = {};
+
+        EasyMock.replay(playerFactory);
 
         String expectedMessage = "Number of players and number names mismatch";
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -37,14 +46,24 @@ public class ExplodingWildcatsTests {
 
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
+
+        EasyMock.verify(playerFactory);
     }
 
     @Test
     public void setUpPlayers_TwoPlayersTwoNames() {
-        ExplodingWildcats game = new ExplodingWildcats();
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        GameEngine game = new GameEngine(playerFactory);
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
 
         int numPlayers = 2;
         String[] names = {"John", "Jane"};
+
+        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+
+        EasyMock.replay(playerFactory);
 
         game.setUpPlayers(numPlayers, names);
 
@@ -54,16 +73,28 @@ public class ExplodingWildcatsTests {
 
         Player[] players = game.getPlayers();
         assertEquals(numPlayers, players.length);
-        assertEquals("John", players[0].getName());
-        assertEquals("Jane", players[1].getName());
+
+        EasyMock.verify(playerFactory);
     }
 
     @Test
     public void setUpPlayers_MaxPlayersMaxNames() {
-        ExplodingWildcats game = new ExplodingWildcats();
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        GameEngine game = new GameEngine(playerFactory);
 
         int numPlayers = 4;
         String[] names = {"John", "Jane", "Alice", "Bob"};
+
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        Player p3 = EasyMock.createMock(Player.class);
+        Player p4 = EasyMock.createMock(Player.class);
+        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+        EasyMock.expect(playerFactory.createPlayer("Alice")).andReturn(p3);
+        EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p4);
+
+        EasyMock.replay(playerFactory);
 
         game.setUpPlayers(numPlayers, names);
 
@@ -73,14 +104,16 @@ public class ExplodingWildcatsTests {
 
         Player[] players = game.getPlayers();
         assertEquals(numPlayers, players.length);
-        for (int i = 0; i < numPlayers; i++) {
-            assertEquals(names[i], players[i].getName());
-        }
+
+        EasyMock.verify(playerFactory);
     }
 
     @Test
     public void setUpPlayers_TooManyPlayers_ThrowException() {
-        ExplodingWildcats game = new ExplodingWildcats();
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        GameEngine game = new GameEngine(playerFactory);
+
+        EasyMock.replay(playerFactory);
 
         int numPlayers = 5;
         String[] names = {"John", "Jane", "Alice", "Bob", "Charlie"};
@@ -92,26 +125,32 @@ public class ExplodingWildcatsTests {
 
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
+
+        EasyMock.verify(playerFactory);
     }
 
     @Test
     public void dealDefuses_TwoPlayers() {
-        ExplodingWildcats game = new ExplodingWildcats();
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        GameEngine game = new GameEngine(playerFactory);
+
         int numPlayers = 2;
         String[] names = {"John", "Jane"};
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        p1.AddCardToHand(Card.DEFUSE);
+        EasyMock.expectLastCall();
+        p2.AddCardToHand(Card.DEFUSE);
+        EasyMock.expectLastCall();
+        EasyMock.expect(playerFactory.createPlayer("John")).andStubReturn(p1);
+        EasyMock.expect(playerFactory.createPlayer("Jane")).andStubReturn(p2);
+        EasyMock.replay(playerFactory, p1, p2);
+
         game.setUpPlayers(numPlayers, names);
 
         game.dealDefuses();
 
-        // test that defuse was inserted into each player's hand
-        int expectedPlayerHandSize = 1;
-        Card expectedCardClass = Card.DEFUSE;
-
-        for (Player p : game.getPlayers()) {
-            Card[] actualPlayerHand = p.getHand();
-            assertEquals(expectedPlayerHandSize, actualPlayerHand.length);
-            assertEquals(expectedCardClass, actualPlayerHand[0]);
-        }
+        EasyMock.verify(playerFactory, p1, p2);
 
         // test that remaining defuses were inserted into draw pile
         int expectedNumDefusesInDrawPile = 3;
@@ -131,22 +170,35 @@ public class ExplodingWildcatsTests {
 
     @Test
     public void dealDefuses_MaxPlayers() {
-        ExplodingWildcats game = new ExplodingWildcats();
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        GameEngine game = new GameEngine(playerFactory);
+
         int numPlayers = 4;
         String[] names = {"John", "Jane", "Alice", "Bob"};
+
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        Player p3 = EasyMock.createMock(Player.class);
+        Player p4 = EasyMock.createMock(Player.class);
+        p1.AddCardToHand(Card.DEFUSE);
+        EasyMock.expectLastCall();
+        p2.AddCardToHand(Card.DEFUSE);
+        EasyMock.expectLastCall();
+        p3.AddCardToHand(Card.DEFUSE);
+        EasyMock.expectLastCall();
+        p4.AddCardToHand(Card.DEFUSE);
+        EasyMock.expectLastCall();
+        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+        EasyMock.expect(playerFactory.createPlayer("Alice")).andReturn(p3);
+        EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p4);
+        EasyMock.replay(playerFactory, p1, p2, p3, p4);
+
         game.setUpPlayers(numPlayers, names);
 
         game.dealDefuses();
 
-        // test that defuse was inserted into each player's hand
-        int expectedPlayerHandSize = 1;
-        Card expectedCardClass = Card.DEFUSE;
-
-        for (Player p : game.getPlayers()) {
-            Card[] actualPlayerHand = p.getHand();
-            assertEquals(expectedPlayerHandSize, actualPlayerHand.length);
-            assertEquals(expectedCardClass, actualPlayerHand[0]);
-        }
+        EasyMock.verify(playerFactory, p1, p2, p3, p4);
 
         // test that remaining defuses were inserted into draw pile
         int expectedNumDefusesInDrawPile = 1;
@@ -163,4 +215,5 @@ public class ExplodingWildcatsTests {
         }
         assertEquals(expectedNumDefusesInDrawPile, actualNumDefusesInDrawPile);
     }
+
 }
