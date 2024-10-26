@@ -12,4 +12,8 @@ public abstract class CardPile {
     public Card[] getCards() {
         return cards.toArray(new Card[0]);
     }
+
+    public Card popCard() {
+        return cards.remove(0);
+    }
 }

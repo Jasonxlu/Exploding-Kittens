@@ -5,11 +5,12 @@ public class GameEngine {
 
     private Player[] players = null;
 
-    private DrawPile drawPile = new DrawPile();
+    private DrawPile drawPile;
     private PlayerFactory playerFactory;
 
-    public GameEngine(PlayerFactory playerFactory) {
+    public GameEngine(PlayerFactory playerFactory, DrawPile drawPile) {
         this.playerFactory = playerFactory;
+        this.drawPile = drawPile;
     }
 
     public void setUpPlayers(int numberOfPlayers, String[] names) {
@@ -48,6 +49,16 @@ public class GameEngine {
         }
         for (int i = 0; i < totalNumDefuses-numOfPlayers; i++) {
             drawPile.AddCard(Card.DEFUSE);
+        }
+    }
+
+    public void dealCards() {
+        for(Player p : players) {
+            int cardsToDealPerPlayer = 5;
+            for(int i = 0; i<cardsToDealPerPlayer; i++) {
+                Card cardToAdd = drawPile.popCard();
+                p.AddCardToHand(cardToAdd);
+            }
         }
     }
 
