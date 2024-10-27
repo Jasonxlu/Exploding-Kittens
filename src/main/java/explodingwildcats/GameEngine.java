@@ -61,6 +61,9 @@ public class GameEngine {
             }
         }
     }
+    public void insertExplodingCards() {
+        drawPile.AddCard(Card.EXPLODE);
+    }
 
     public Card[] getDrawPile() {
         return drawPile.getCards();

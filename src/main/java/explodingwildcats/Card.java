@@ -7,5 +7,6 @@ public enum Card {
     NOPE,
     SEE_THE_FUTURE,
     SHUFFLE,
-    SKIP
+    SKIP,
+    EXPLODE
 }
