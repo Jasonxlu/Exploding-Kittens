@@ -195,23 +195,33 @@ public class ExplodingWildcatsTests {
         EasyMock.expectLastCall();
         p4.AddCardToHand(Card.DEFUSE);
         EasyMock.expectLastCall();
+        drawPile.AddCard(Card.DEFUSE);
+        EasyMock.expectLastCall();
+
         EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
         EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
         EasyMock.expect(playerFactory.createPlayer("Alice")).andReturn(p3);
         EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p4);
-        EasyMock.replay(playerFactory, p1, p2, p3, p4);
+
+        Card[] cards = new Card[35];
+        for (int i = 0; i < 34; i++) {
+            cards[i] = Card.SKIP;
+        }
+        cards[34] = Card.DEFUSE;
+        EasyMock.expect(drawPile.getCards()).andStubReturn(cards);
+
+        EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
 
         game.setUpPlayers(numPlayers, names);
-
         game.dealDefuses();
+        Card[] actualDrawPile = game.getDrawPile();
 
-        EasyMock.verify(playerFactory, p1, p2, p3, p4);
+        EasyMock.verify(playerFactory, p1, p2, p3, p4,drawPile);
 
         // test that remaining defuses were inserted into draw pile
         int expectedNumDefusesInDrawPile = 1;
         int expectedDrawPileLength = 35;
 
-        Card[] actualDrawPile = game.getDrawPile();
         assertEquals(expectedDrawPileLength, actualDrawPile.length);
 
         int actualNumDefusesInDrawPile = 0;
