@@ -62,7 +62,9 @@ public class GameEngine {
         }
     }
     public void insertExplodingCards() {
-        drawPile.AddCard(Card.EXPLODE);
+        for (int i = 0; i < numOfPlayers-1; i++) {
+            drawPile.AddCard(Card.EXPLODE);
+        }
     }
 
     public Card[] getDrawPile() {

@@ -66,8 +66,8 @@
 
 |              | System under test        | Expected output                                  | Implemented? |
 |--------------|--------------------------|--------------------------------------------------|--------------|
-| Test Case 1  | list: [27 cards], int: 2 | list: [28 cards], one exploding card inserted    |              |
-| Test Case 2  | list: [15 cards], int: 4 | list: [18 cards], three exploding cards inserted |              |
+| Test Case 1  | list: [27 cards], int: 2 | list: [28 cards], one exploding card inserted    | yes          |
+| Test Case 2  | list: [15 cards], int: 4 | list: [18 cards], three exploding cards inserted | yes          |
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.

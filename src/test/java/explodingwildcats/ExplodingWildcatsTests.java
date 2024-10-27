@@ -460,6 +460,76 @@ public class ExplodingWildcatsTests {
         assertEquals(expectedDrawPileLength, actualDrawPile.length);
     }
 
+    @Test
+    public void dealCards_MaxPlayers_DrawPileAltered() {
+        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        GameEngine game = new GameEngine(playerFactory, drawPile);
+
+        int numPlayers = 4;
+        String[] names = {"John", "Jane", "Bob", "Job"};
+
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        Player p3 = EasyMock.createMock(Player.class);
+        Player p4 = EasyMock.createMock(Player.class);
+
+        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+        EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p3);
+        EasyMock.expect(playerFactory.createPlayer("Job")).andReturn(p4);
+
+        p1.AddCardToHand(Card.DEFUSE);
+        p2.AddCardToHand(Card.DEFUSE);
+        p3.AddCardToHand(Card.DEFUSE);
+        p4.AddCardToHand(Card.DEFUSE);
+
+        // Expect 1 since there are 4 players
+        drawPile.AddCard(Card.DEFUSE);
+
+        for(int x = 0; x < 5; x++) {
+            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+            p1.AddCardToHand(EasyMock.anyObject(Card.class));
+
+            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+            p2.AddCardToHand(EasyMock.anyObject(Card.class));
+
+            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+            p3.AddCardToHand(EasyMock.anyObject(Card.class));
+
+            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+            p4.AddCardToHand(EasyMock.anyObject(Card.class));
+        }
+
+        int expectedDrawPileLength = 18;
+
+        // Create array based on the expected size
+        Card[] remainingCards = new Card[expectedDrawPileLength ];
+
+        // Populate the array with expected card types or nulls (if you just need size)
+        Arrays.fill(remainingCards, Card.SKIP);
+
+        // Set up the expectations
+        EasyMock.expect(drawPile.getCards()).andReturn(remainingCards);
+
+        // Expect 3 since there are 4 players
+        drawPile.AddCard(Card.EXPLODE);
+        drawPile.AddCard(Card.EXPLODE);
+        drawPile.AddCard(Card.EXPLODE);
+
+        EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
+
+        game.setUpPlayers(numPlayers, names);
+        game.dealDefuses();
+        game.dealCards();
+        game.insertExplodingCards();
+        Card[] actualDrawPile = game.getDrawPile();
+
+        EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile);
+
+        assertEquals(expectedDrawPileLength, actualDrawPile.length);
+    }
+
 
 
 }
