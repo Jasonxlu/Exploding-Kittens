@@ -1,15 +1,18 @@
 # Instructor Project Meeting Minutes
 
-**Time**: Week X
+**Time**: Week 6
 
 **Attendees**: 
+- Isa Gonzalez
+- Brennan Benson
+- Jason Lu
 
 **Late Attendees**: 
 
 **Note Taker**: Yiji Zhang
 
 
-## Ageneda
+## Agenda
 
 ### Progress Evaluation
 progress
