@@ -530,6 +530,53 @@ public class ExplodingWildcatsTests {
         assertEquals(expectedDrawPileLength, actualDrawPile.length);
     }
 
+    @Test
+    public void createDrawPile_CorrectCardCounts() {
+        CardPile drawPile = EasyMock.niceMock(CardPile.class);
+        GameEngine game = new GameEngine(null, drawPile);
 
+        int expectedAttacks = 3;
+        int expectedShuffles = 4;
+        int expectedSkips = 3;
+        int expectedFutures = 4;
+        int expectedNopes = 4;
+        int expectedCats = 16; // 4 each, 4 cat types, 16 total
+
+        for (int i = 0; i < expectedAttacks; i++) {
+            drawPile.AddCard(Card.ATTACK);
+        }
+
+        for (int i = 0; i < expectedShuffles; i++) {
+            drawPile.AddCard(Card.SHUFFLE);
+        }
+
+        for (int i = 0; i < expectedSkips; i++) {
+            drawPile.AddCard(Card.SKIP);
+        }
+
+        for (int i = 0; i < expectedFutures; i++) {
+            drawPile.AddCard(Card.SEE_THE_FUTURE);
+        }
+
+        for (int i = 0; i < expectedNopes; i++) {
+            drawPile.AddCard(Card.NOPE);
+        }
+
+        for (int i = 0; i < expectedCats; i++) {
+            drawPile.AddCard(Card.CAT);
+        }
+
+        int expectedTotalCards = 34;
+        EasyMock.expect(drawPile.getCards()).andReturn(new Card[expectedTotalCards]);
+
+        EasyMock.replay(drawPile);
+
+        game.createDrawPile();
+
+        Card[] cards = drawPile.getCards();
+        assertEquals(expectedTotalCards, cards.length);
+
+        EasyMock.verify(drawPile);
+    }
 
 }

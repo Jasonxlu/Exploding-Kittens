@@ -1,7 +1,5 @@
 package explodingwildcats;
 
-import java.util.ArrayList;
-
 public class CardPile {
     public void AddCard(Card c) {}
 
