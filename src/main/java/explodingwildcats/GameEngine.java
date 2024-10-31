@@ -5,10 +5,10 @@ public class GameEngine {
 
     private Player[] players = null;
 
-    private DrawPile drawPile;
+    private CardPile drawPile;
     private PlayerFactory playerFactory;
 
-    public GameEngine(PlayerFactory playerFactory, DrawPile drawPile) {
+    public GameEngine(PlayerFactory playerFactory, CardPile drawPile) {
         this.playerFactory = playerFactory;
         this.drawPile = drawPile;
     }

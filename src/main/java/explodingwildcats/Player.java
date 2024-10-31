@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
     private String name;
-    private final PlayerHand hand = new PlayerHand();
+    private final CardPile hand = new CardPile();
 
     public Player(String name) {
         this.name = name;

@@ -2,7 +2,7 @@ package explodingwildcats;
 
 import java.util.ArrayList;
 
-public abstract class CardPile {
+public class CardPile {
     private final ArrayList<Card> cards = new ArrayList<Card>();
 
     public void AddCard(Card c) {

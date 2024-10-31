@@ -11,7 +11,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void setUpPlayers_OnePlayerOneName_ThrowException() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 1;
@@ -33,7 +33,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void setUpPlayers_OnePlayerNoNames_ThrowException() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 1;
@@ -55,7 +55,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void setUpPlayers_TwoPlayersTwoNames() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
         Player p1 = EasyMock.createMock(Player.class);
         Player p2 = EasyMock.createMock(Player.class);
@@ -83,7 +83,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void setUpPlayers_MaxPlayersMaxNames() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 4;
@@ -115,7 +115,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void setUpPlayers_TooManyPlayers_ThrowException() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         EasyMock.replay(playerFactory);
@@ -137,7 +137,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void dealDefuses_TwoPlayers() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 2;
@@ -195,7 +195,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void dealDefuses_MaxPlayers() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 4;
@@ -255,7 +255,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void dealCards_TwoPlayers_CorrectHandsAndPiles() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 2;
@@ -321,7 +321,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void dealCards_MaxPlayers_CorrectHandsAndPiles() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 4;
@@ -406,7 +406,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void insertExplodingCards_TwoPlayers_DrawPileAltered() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 2;
@@ -463,7 +463,7 @@ public class ExplodingWildcatsTests {
     @Test
     public void dealCards_MaxPlayers_DrawPileAltered() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        DrawPile drawPile = EasyMock.createMock(DrawPile.class);
+        CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
 
         int numPlayers = 4;
