@@ -461,7 +461,7 @@ public class ExplodingWildcatsTests {
     }
 
     @Test
-    public void dealCards_MaxPlayers_DrawPileAltered() {
+    public void insertExplodingCards_MaxPlayers_DrawPileAltered() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
         CardPile drawPile = EasyMock.createMock(CardPile.class);
         GameEngine game = new GameEngine(playerFactory, drawPile);
