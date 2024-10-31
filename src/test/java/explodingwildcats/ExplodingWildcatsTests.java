@@ -566,15 +566,9 @@ public class ExplodingWildcatsTests {
             drawPile.AddCard(Card.CAT);
         }
 
-        int expectedTotalCards = 34;
-        EasyMock.expect(drawPile.getCards()).andReturn(new Card[expectedTotalCards]);
-
         EasyMock.replay(drawPile);
 
         game.createDrawPile();
-
-        Card[] cards = drawPile.getCards();
-        assertEquals(expectedTotalCards, cards.length);
 
         EasyMock.verify(drawPile);
     }
