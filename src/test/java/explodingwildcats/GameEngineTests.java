@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExplodingWildcatsTests {
+public class GameEngineTests {
     @Test
     public void setUpPlayers_OnePlayerOneName_ThrowException() {
         PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
