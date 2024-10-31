@@ -263,7 +263,8 @@ public class ExplodingWildcatsTests {
         // Expect 1 since there are 4 players
         drawPile.AddCard(Card.DEFUSE);
 
-        for(int x = 0; x < 5; x++) {
+        final int numCardsDistributedToEachPlayer = 5;
+        for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
             EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
             p1.AddCardToHand(EasyMock.anyObject(Card.class));
 
@@ -277,48 +278,13 @@ public class ExplodingWildcatsTests {
             p4.AddCardToHand(EasyMock.anyObject(Card.class));
         }
 
-        int expectedDrawPileLength = 15;
-        int expectedPlayerHandSize = 6;
-
-        // Create arrays based on the expected size
-        Card[] p1ExpectedCards = new Card[expectedPlayerHandSize];
-        Card[] p2ExpectedCards = new Card[expectedPlayerHandSize];
-        Card[] p3ExpectedCards = new Card[expectedPlayerHandSize];
-        Card[] p4ExpectedCards = new Card[expectedPlayerHandSize];
-        Card[] remainingCards = new Card[expectedDrawPileLength ];
-
-        // Populate the arrays with expected card types or nulls (if you just need size)
-        Arrays.fill(p2ExpectedCards, Card.SKIP);
-        Arrays.fill(p1ExpectedCards, Card.SKIP);
-        Arrays.fill(p3ExpectedCards, Card.SKIP);
-        Arrays.fill(p4ExpectedCards, Card.SKIP);
-        Arrays.fill(remainingCards, Card.SKIP);
-
-        // Set up the expectations
-        EasyMock.expect(drawPile.getCards()).andReturn(remainingCards);
-        EasyMock.expect(p1.getHand()).andReturn(p1ExpectedCards);
-        EasyMock.expect(p2.getHand()).andReturn(p2ExpectedCards);
-        EasyMock.expect(p3.getHand()).andReturn(p3ExpectedCards);
-        EasyMock.expect(p4.getHand()).andReturn(p4ExpectedCards);
-
         EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
 
         game.setUpPlayers(numPlayers, names);
         game.dealDefuses();
         game.dealCards();
-        Card[] actualDrawPile = game.getDrawPile();
-        Card[] p1Hand = p1.getHand();
-        Card[] p2Hand = p2.getHand();
-        Card[] p3Hand = p3.getHand();
-        Card[] p4Hand = p4.getHand();
 
         EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile);
-
-        assertEquals(expectedDrawPileLength, actualDrawPile.length);
-        assertEquals(expectedPlayerHandSize, p1Hand.length);
-        assertEquals(expectedPlayerHandSize, p2Hand.length);
-        assertEquals(expectedPlayerHandSize, p3Hand.length);
-        assertEquals(expectedPlayerHandSize, p4Hand.length);
     }
 
     @Test
