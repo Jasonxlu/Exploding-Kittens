@@ -146,50 +146,20 @@ public class ExplodingWildcatsTests {
         Player p2 = EasyMock.createMock(Player.class);
 
         p1.AddCardToHand(Card.DEFUSE);
-        EasyMock.expectLastCall();
         p2.AddCardToHand(Card.DEFUSE);
-        EasyMock.expectLastCall();
         drawPile.AddCard(Card.DEFUSE);
-        EasyMock.expectLastCall();
         drawPile.AddCard(Card.DEFUSE);
-        EasyMock.expectLastCall();
         drawPile.AddCard(Card.DEFUSE);
-        EasyMock.expectLastCall();
 
         EasyMock.expect(playerFactory.createPlayer("John")).andStubReturn(p1);
         EasyMock.expect(playerFactory.createPlayer("Jane")).andStubReturn(p2);
-
-        Card[] cards = new Card[37];
-        for (int i = 0; i < 34; i++) {
-            cards[i] = Card.SKIP;
-        }
-        cards[34] = Card.DEFUSE;
-        cards[35] = Card.DEFUSE;
-        cards[36] = Card.DEFUSE;
-        EasyMock.expect(drawPile.getCards()).andStubReturn(cards);
 
         EasyMock.replay(playerFactory, p1, p2, drawPile);
 
         game.setUpPlayers(numPlayers, names);
         game.dealDefuses();
-        Card[] actualDrawPile = game.getDrawPile();
 
         EasyMock.verify(playerFactory, p1, p2, drawPile);
-
-        // test that remaining defuses were inserted into draw pile
-        int expectedNumDefusesInDrawPile = 3;
-        int expectedDrawPileLength = 37;
-
-
-        assertEquals(expectedDrawPileLength, actualDrawPile.length);
-
-        int actualNumDefusesInDrawPile = 0;
-        for (Card card : actualDrawPile) {
-            if (card == Card.DEFUSE) {
-                actualNumDefusesInDrawPile++;
-            }
-        }
-        assertEquals(expectedNumDefusesInDrawPile, actualNumDefusesInDrawPile);
     }
 
     @Test
