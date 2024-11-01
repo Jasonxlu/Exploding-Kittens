@@ -1,19 +1,9 @@
 package explodingwildcats;
 
-import java.util.ArrayList;
+public class CardPile {
+    public void AddCard(Card c) {}
 
-public abstract class CardPile {
-    private final ArrayList<Card> cards = new ArrayList<Card>();
+    public Card[] getCards() { return new Card[0]; }
 
-    public void AddCard(Card c) {
-        cards.add(c);
-    }
-
-    public Card[] getCards() {
-        return cards.toArray(new Card[0]);
-    }
-
-    public Card popCard() {
-        return cards.remove(0);
-    }
+    public Card popCard() { return null; }
 }

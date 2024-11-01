@@ -5,12 +5,31 @@ public class GameEngine {
 
     private Player[] players = null;
 
-    private DrawPile drawPile;
+    private CardPile drawPile;
     private PlayerFactory playerFactory;
 
-    public GameEngine(PlayerFactory playerFactory, DrawPile drawPile) {
+    public GameEngine(PlayerFactory playerFactory, CardPile drawPile) {
         this.playerFactory = playerFactory;
         this.drawPile = drawPile;
+    }
+
+    public void createDrawPile() {
+        // add all the basic cards.
+        int numSkipsAndAttacks = 3;
+        for(int i = 0; i < numSkipsAndAttacks; i++) {
+            drawPile.AddCard(Card.SKIP);
+            drawPile.AddCard(Card.ATTACK);
+        }
+        int numShufflesSeeTheFuturesNopesAndCatCardTypes = 4;
+        int numberOfEachCatCard = 4;
+        for(int i = 0; i < numShufflesSeeTheFuturesNopesAndCatCardTypes; i++) {
+            drawPile.AddCard(Card.SHUFFLE);
+            drawPile.AddCard(Card.SEE_THE_FUTURE);
+            drawPile.AddCard(Card.NOPE);
+            for(int j = 0; j < numberOfEachCatCard; j++) {
+                drawPile.AddCard(Card.CAT);
+            }
+        }
     }
 
     public void setUpPlayers(int numberOfPlayers, String[] names) {

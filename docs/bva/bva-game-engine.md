@@ -69,6 +69,21 @@
 | Test Case 1  | list: [27 cards], int: 2 | list: [28 cards], one exploding card inserted    | yes          |
 | Test Case 2  | list: [15 cards], int: 4 | list: [18 cards], three exploding cards inserted | yes          |
 
+
+## Method 5: ```public void createDrawPile()```
+### Step 1-3 Results
+|        | Input 1                            | Output                                                                     |
+|--------|------------------------------------|----------------------------------------------------------------------------|
+| Step 1 | draw pile, always starts off empty | none, draw pile gets all starting cards with no defuses or exploding cards |
+| Step 2 | Collection                         | None, draw pile field altered                                              |
+| Step 3 | []                                 | None, draw pile field altered                                              |
+### Step 4:
+##### All-combination or each-choice: YOUR-DECISION
+
+|              | System under test | Expected output                                                                            | Implemented? |
+|--------------|-------------------|--------------------------------------------------------------------------------------------|--------------|
+| Test Case 1  | list: []          | list: [34 cards], 3 attacks, 4 shuffles, 3 skips, 4 future, 4 nope, 4 of each cat (4 cats) | yes          |
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
