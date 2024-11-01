@@ -54,9 +54,9 @@ spotbugs {
     visitors = listOf("FindSqlInjection", "SwitchFallthrough")
 //    omitVisitors = listOf("FindNonShortCircuit")
     reportsDir = layout.buildDirectory.dir("spotbugs").get().asFile
-    includeFilter = file("include.xml")
-    excludeFilter = file("exclude.xml")
-    baselineFile = file("baseline.xml")
+//    includeFilter = file("include.xml")
+//    excludeFilter = file("exclude.xml")
+//    baselineFile = file("baseline.xml")
 //    onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
     maxHeapSize = "1g"
     extraArgs = listOf("-nested:false")
