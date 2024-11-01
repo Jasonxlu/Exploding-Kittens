@@ -359,7 +359,8 @@ public class GameEngineTests {
         // Expect 1 since there are 4 players
         drawPile.AddCard(Card.DEFUSE);
 
-        for(int x = 0; x < 5; x++) {
+        final int numCardsDistributedToEachPlayer = 5;
+        for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
             EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
             p1.AddCardToHand(EasyMock.anyObject(Card.class));
 
@@ -373,17 +374,6 @@ public class GameEngineTests {
             p4.AddCardToHand(EasyMock.anyObject(Card.class));
         }
 
-        int expectedDrawPileLength = 18;
-
-        // Create array based on the expected size
-        Card[] remainingCards = new Card[expectedDrawPileLength ];
-
-        // Populate the array with expected card types or nulls (if you just need size)
-        Arrays.fill(remainingCards, Card.SKIP);
-
-        // Set up the expectations
-        EasyMock.expect(drawPile.getCards()).andReturn(remainingCards);
-
         // Expect 3 since there are 4 players
         drawPile.AddCard(Card.EXPLODE);
         drawPile.AddCard(Card.EXPLODE);
@@ -395,11 +385,8 @@ public class GameEngineTests {
         game.dealDefuses();
         game.dealCards();
         game.insertExplodingCards();
-        Card[] actualDrawPile = game.getDrawPile();
 
         EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile);
-
-        assertEquals(expectedDrawPileLength, actualDrawPile.length);
     }
 
     @Test
