@@ -1,9 +1,33 @@
 package explodingwildcats;
 
+/**
+ * Class representing decks of cards (DrawPile, DiscardPile, Player hand, etc.).
+ */
 public class CardPile {
-    public void AddCard(Card c) {}
+  /**
+   * Adds a card to a pile.
+   *
+   * @param c Card being added
+   */
+  public void addCard(Card c) {
 
-    public Card[] getCards() { return new Card[0]; }
+  }
 
-    public Card popCard() { return null; }
+  /**
+   * Returns all the cards in the pile.
+   *
+   * @return Card array of all the cards
+   */
+  public Card[] getCards() {
+    return new Card[0];
+  }
+
+  /**
+   * Removes and returns the first card in the pile.
+   *
+   * @return The card popped from the card pile
+   */
+  public Card popCard() {
+    return null;
+  }
 }
