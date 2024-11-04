@@ -1,0 +1,65 @@
+@startuml
+package ui{
+
+    +class Main{
+
+        -askNumberOfPlayers(): iny
+        -askPlayerNames(): List<String>
+        -createPlayers(): List<Player>
+    }
+
+}
+
+package domain{
+    +class PlayerFactory{
+        +createPlayer(name: String): Player
+    }
+    +class GameEngine{
+        -players: List<Player>
+        -numberOfPlayers: int
+        -playerFactory: PlayerFactory
+        -drawPile: CardPile
+        -discardPile: CardPile
+
+        +GameEngine(playerFactory: PlayerFactory)
+
+        +setupPlayer(): void
+        ~dealDiffuses(): void
+        ~createDrawPile(): void
+        ~dealCards(): void
+        ~insertExplodingKittenToDeck(): void
+
+    }
+
+    +class Player{
+        -hand: collection<Card>
+
+        +addCard(c: Card): void?
+    }
+
+    +Enum Card{
+        DIFFUSE,
+        EXPLODING
+    }
+
+     class CardPile{
+        -cards: collection<Card>
+
+        +addCardToTop(c: Card): void
+        +getCards(): collection<Card>
+        +popCard(): Card
+
+    }
+}
+
+CardPile -->"*" Card
+Player -->"*" Card
+PlayerFactory ..> Player
+GameEngine --> PlayerFactory
+GameEngine -->"*" Player
+GameEngine --> "2" CardPile
+
+Main ..> PlayerFactory
+Main ..> GameEngine
+
+@enduml
