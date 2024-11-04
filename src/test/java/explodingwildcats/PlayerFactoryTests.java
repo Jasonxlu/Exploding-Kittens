@@ -1,9 +1,8 @@
 package explodingwildcats;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test suite for the player factory class.
@@ -16,7 +15,8 @@ public class PlayerFactoryTests {
 
     String expectedMessage = "Player name must be non-empty";
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      factory.createPlayer("");
+      Player player = factory.createPlayer("");
+      assertNull(player);
     });
 
     String actualMessage = exception.getMessage();
