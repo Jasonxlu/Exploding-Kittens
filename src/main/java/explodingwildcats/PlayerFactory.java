@@ -11,6 +11,10 @@ public class PlayerFactory {
    * @return Player object
    */
   public Player createPlayer(String name) {
-    throw new IllegalArgumentException("Player name must be non-empty");
+    if (name.isEmpty()) {
+      throw new IllegalArgumentException("Player name must be non-empty");
+    }
+
+    return new Player(name);
   }
 }

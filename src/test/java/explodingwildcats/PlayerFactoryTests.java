@@ -1,8 +1,11 @@
 package explodingwildcats;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test suite for the player factory class.
@@ -21,5 +24,15 @@ public class PlayerFactoryTests {
 
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void createPlayer_NonEmptyString() {
+    PlayerFactory factory = new PlayerFactory();
+
+    String name = "John";
+
+    Player player = factory.createPlayer(name);
+    assertNotNull(player);
   }
 }
