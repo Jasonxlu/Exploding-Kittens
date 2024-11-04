@@ -19,6 +19,8 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    // https://mvnrepository.com/artifact/org.easymock/easymock
+    testImplementation("org.easymock:easymock:5.4.0")
 }
 
 java {
@@ -52,9 +54,9 @@ spotbugs {
     visitors = listOf("FindSqlInjection", "SwitchFallthrough")
 //    omitVisitors = listOf("FindNonShortCircuit")
     reportsDir = layout.buildDirectory.dir("spotbugs").get().asFile
-    includeFilter = file("include.xml")
-    excludeFilter = file("exclude.xml")
-    baselineFile = file("baseline.xml")
+//    includeFilter = file("include.xml")
+//    excludeFilter = file("exclude.xml")
+//    baselineFile = file("baseline.xml")
 //    onlyAnalyze = listOf("com.foobar.MyClass", "com.foobar.mypkg.*")
     maxHeapSize = "1g"
     extraArgs = listOf("-nested:false")
@@ -83,12 +85,12 @@ tasks.jacocoTestReport {
 }
 
 tasks.build {
-//    dependsOn("pitest") // TODO: Uncomment when merged with game setup branch
+    dependsOn("pitest") // TODO: Uncomment when merged with game setup branch
 }
 
 tasks.test {
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-//    finalizedBy(tasks.pitest) // TODO: Uncomment when merged with game setup branch
+    finalizedBy(tasks.pitest) // TODO: Uncomment when merged with game setup branch
 }
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
