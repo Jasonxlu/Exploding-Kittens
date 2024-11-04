@@ -1,435 +1,439 @@
 package explodingwildcats;
 
-import org.easymock.EasyMock;
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
+import org.easymock.EasyMock;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test suite for the game engine class.
+ */
 public class GameEngineTests {
-    @Test
-    public void setUpPlayers_OnePlayerOneName_ThrowException() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
+  @Test
+  public void setUpPlayers_OnePlayerOneName_ThrowException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
 
-        final int numPlayers = 1;
-        String[] names = {"John"};
+    final int numPlayers = 1;
+    String[] names = {"John"};
 
-        EasyMock.replay(playerFactory);
+    EasyMock.replay(playerFactory);
 
-        String expectedMessage = "Not enough players";
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            game.setUpPlayers(numPlayers, names);
-        });
+    String expectedMessage = "Not enough players";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.setUpPlayers(numPlayers, names);
+    });
 
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
 
-        EasyMock.verify(playerFactory);
+    EasyMock.verify(playerFactory);
+  }
+
+  @Test
+  public void setUpPlayers_OnePlayerNoNames_ThrowException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
+
+    final int numPlayers = 1;
+    String[] names = {};
+
+    EasyMock.replay(playerFactory);
+
+    String expectedMessage = "Number of players and number names mismatch";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.setUpPlayers(numPlayers, names);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(playerFactory);
+  }
+
+  @Test
+  public void setUpPlayers_TwoPlayersTwoNames() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+
+    final int numPlayers = 2;
+    String[] names = {"John", "Jane"};
+
+    EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+
+    EasyMock.replay(playerFactory);
+
+    game.setUpPlayers(numPlayers, names);
+
+    final int expectedNumPlayers = 2;
+    int actualNumPlayers = game.getNumberOfPlayers();
+    assertEquals(expectedNumPlayers, actualNumPlayers);
+
+    Player[] players = game.getPlayers();
+    assertEquals(numPlayers, players.length);
+
+    EasyMock.verify(playerFactory);
+  }
+
+  @Test
+  public void setUpPlayers_MaxPlayersMaxNames() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
+
+    final int numPlayers = 4;
+    String[] names = {"John", "Jane", "Alice", "Bob"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+    Player p3 = EasyMock.createMock(Player.class);
+    Player p4 = EasyMock.createMock(Player.class);
+    EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+    EasyMock.expect(playerFactory.createPlayer("Alice")).andReturn(p3);
+    EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p4);
+
+    EasyMock.replay(playerFactory);
+
+    game.setUpPlayers(numPlayers, names);
+
+    final int expectedNumPlayers = 4;
+    int actualNumPlayers = game.getNumberOfPlayers();
+    assertEquals(expectedNumPlayers, actualNumPlayers);
+
+    Player[] players = game.getPlayers();
+    assertEquals(numPlayers, players.length);
+
+    EasyMock.verify(playerFactory);
+  }
+
+  @Test
+  public void setUpPlayers_TooManyPlayers_ThrowException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
+
+    EasyMock.replay(playerFactory);
+
+    final int numPlayers = 5;
+    String[] names = {"John", "Jane", "Alice", "Bob", "Charlie"};
+
+    String expectedMessage = "Too many players";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.setUpPlayers(numPlayers, names);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(playerFactory);
+  }
+
+  @Test
+  public void dealDefuses_TwoPlayers() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
+
+    final int numPlayers = 2;
+    String[] names = {"John", "Jane"};
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+
+    EasyMock.expect(playerFactory.createPlayer("John")).andStubReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andStubReturn(p2);
+
+    EasyMock.replay(playerFactory, p1, p2, drawPile);
+
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+
+    EasyMock.verify(playerFactory, p1, p2, drawPile);
+  }
+
+  @Test
+  public void dealDefuses_MaxPlayers() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
+
+    final int numPlayers = 4;
+    String[] names = {"John", "Jane", "Alice", "Bob"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+    Player p3 = EasyMock.createMock(Player.class);
+    Player p4 = EasyMock.createMock(Player.class);
+
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+    p3.addCardToHand(Card.DEFUSE);
+    p4.addCardToHand(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+
+    EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+    EasyMock.expect(playerFactory.createPlayer("Alice")).andReturn(p3);
+    EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p4);
+
+    EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
+
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+
+    EasyMock.verify(playerFactory, p1, p2, p3, p4,drawPile);
+  }
+
+  @Test
+  public void dealCards_TwoPlayers_CorrectHandsAndDrawPile() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
+
+    final int numPlayers = 2;
+    String[] names = {"John", "Jane"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+
+    // Expect 3 since there are 2 players
+    drawPile.addCard(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+
+    final int numCardsDistributedToEachPlayer = 5;
+    for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p1.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p2.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
-    @Test
-    public void setUpPlayers_OnePlayerNoNames_ThrowException() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
+    EasyMock.replay(playerFactory, p1, p2, drawPile);
 
-        final int numPlayers = 1;
-        String[] names = {};
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+    game.dealCards();
 
-        EasyMock.replay(playerFactory);
+    EasyMock.verify(playerFactory, p1, p2, drawPile);
+  }
 
-        String expectedMessage = "Number of players and number names mismatch";
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            game.setUpPlayers(numPlayers, names);
-        });
+  @Test
+  public void dealCards_MaxPlayers_CorrectHandsAndPiles() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
 
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
+    final int numPlayers = 4;
+    String[] names = {"John", "Jane", "Bob", "Job"};
 
-        EasyMock.verify(playerFactory);
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+    Player p3 = EasyMock.createMock(Player.class);
+    Player p4 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+    EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p3);
+    EasyMock.expect(playerFactory.createPlayer("Job")).andReturn(p4);
+
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+    p3.addCardToHand(Card.DEFUSE);
+    p4.addCardToHand(Card.DEFUSE);
+
+    // Expect 1 since there are 4 players
+    drawPile.addCard(Card.DEFUSE);
+
+    final int numCardsDistributedToEachPlayer = 5;
+    for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p1.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p2.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p3.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p4.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
-    @Test
-    public void setUpPlayers_TwoPlayersTwoNames() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
+    EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
 
-        final int numPlayers = 2;
-        String[] names = {"John", "Jane"};
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+    game.dealCards();
 
-        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+    EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile);
+  }
 
-        EasyMock.replay(playerFactory);
+  @Test
+  public void insertExplodingCards_TwoPlayers_DrawPileAltered() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
 
-        game.setUpPlayers(numPlayers, names);
+    final int numPlayers = 2;
+    String[] names = {"John", "Jane"};
 
-        final int expectedNumPlayers = 2;
-        int actualNumPlayers = game.getNumberOfPlayers();
-        assertEquals(expectedNumPlayers, actualNumPlayers);
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
 
-        Player[] players = game.getPlayers();
-        assertEquals(numPlayers, players.length);
+    EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
 
-        EasyMock.verify(playerFactory);
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+
+    // Expect 3 since there are 2 players
+    drawPile.addCard(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+
+    final int numCardsDistributedToEachPlayer = 5;
+    for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p1.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p2.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
-    @Test
-    public void setUpPlayers_MaxPlayersMaxNames() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
+    // Expect one since there are 2 players
+    drawPile.addCard(Card.EXPLODE);
 
-        final int numPlayers = 4;
-        String[] names = {"John", "Jane", "Alice", "Bob"};
+    EasyMock.replay(playerFactory, p1, p2, drawPile);
 
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
-        Player p3 = EasyMock.createMock(Player.class);
-        Player p4 = EasyMock.createMock(Player.class);
-        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
-        EasyMock.expect(playerFactory.createPlayer("Alice")).andReturn(p3);
-        EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p4);
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+    game.dealCards();
+    game.insertExplodingCards();
 
-        EasyMock.replay(playerFactory);
+    EasyMock.verify(playerFactory, p1, p2, drawPile);
+  }
 
-        game.setUpPlayers(numPlayers, names);
+  @Test
+  public void insertExplodingCards_MaxPlayers_DrawPileAltered() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, drawPile);
 
-        final int expectedNumPlayers = 4;
-        int actualNumPlayers = game.getNumberOfPlayers();
-        assertEquals(expectedNumPlayers, actualNumPlayers);
+    final int numPlayers = 4;
+    String[] names = {"John", "Jane", "Bob", "Job"};
 
-        Player[] players = game.getPlayers();
-        assertEquals(numPlayers, players.length);
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+    Player p3 = EasyMock.createMock(Player.class);
+    Player p4 = EasyMock.createMock(Player.class);
 
-        EasyMock.verify(playerFactory);
+    EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
+    EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p3);
+    EasyMock.expect(playerFactory.createPlayer("Job")).andReturn(p4);
+
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+    p3.addCardToHand(Card.DEFUSE);
+    p4.addCardToHand(Card.DEFUSE);
+
+    // Expect 1 since there are 4 players
+    drawPile.addCard(Card.DEFUSE);
+
+    final int numCardsDistributedToEachPlayer = 5;
+    for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p1.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p2.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p3.addCardToHand(EasyMock.anyObject(Card.class));
+
+      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      p4.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
-    @Test
-    public void setUpPlayers_TooManyPlayers_ThrowException() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
+    // Expect 3 since there are 4 players
+    drawPile.addCard(Card.EXPLODE);
+    drawPile.addCard(Card.EXPLODE);
+    drawPile.addCard(Card.EXPLODE);
 
-        EasyMock.replay(playerFactory);
+    EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
 
-        final int numPlayers = 5;
-        String[] names = {"John", "Jane", "Alice", "Bob", "Charlie"};
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+    game.dealCards();
+    game.insertExplodingCards();
 
-        String expectedMessage = "Too many players";
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            game.setUpPlayers(numPlayers, names);
-        });
+    EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile);
+  }
 
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
+  @Test
+  public void createDrawPile_CorrectCardCounts() {
+    CardPile drawPile = EasyMock.niceMock(CardPile.class);
+    GameEngine game = new GameEngine(null, drawPile);
 
-        EasyMock.verify(playerFactory);
+    final int expectedAttacks = 3;
+    final int expectedShuffles = 4;
+    final int expectedSkips = 3;
+    final int expectedFutures = 4;
+    final int expectedNopes = 4;
+    final int expectedCats = 16; // 4 each, 4 cat types, 16 total
+
+    for (int i = 0; i < expectedAttacks; i++) {
+      drawPile.addCard(Card.ATTACK);
     }
 
-    @Test
-    public void dealDefuses_TwoPlayers() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
-
-        final int numPlayers = 2;
-        String[] names = {"John", "Jane"};
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
-
-        p1.addCardToHand(Card.DEFUSE);
-        p2.addCardToHand(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-
-        EasyMock.expect(playerFactory.createPlayer("John")).andStubReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andStubReturn(p2);
-
-        EasyMock.replay(playerFactory, p1, p2, drawPile);
-
-        game.setUpPlayers(numPlayers, names);
-        game.dealDefuses();
-
-        EasyMock.verify(playerFactory, p1, p2, drawPile);
+    for (int i = 0; i < expectedShuffles; i++) {
+      drawPile.addCard(Card.SHUFFLE);
     }
 
-    @Test
-    public void dealDefuses_MaxPlayers() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
-
-        final int numPlayers = 4;
-        String[] names = {"John", "Jane", "Alice", "Bob"};
-
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
-        Player p3 = EasyMock.createMock(Player.class);
-        Player p4 = EasyMock.createMock(Player.class);
-
-        p1.addCardToHand(Card.DEFUSE);
-        p2.addCardToHand(Card.DEFUSE);
-        p3.addCardToHand(Card.DEFUSE);
-        p4.addCardToHand(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-
-        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
-        EasyMock.expect(playerFactory.createPlayer("Alice")).andReturn(p3);
-        EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p4);
-
-        EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
-
-        game.setUpPlayers(numPlayers, names);
-        game.dealDefuses();
-
-        EasyMock.verify(playerFactory, p1, p2, p3, p4,drawPile);
+    for (int i = 0; i < expectedSkips; i++) {
+      drawPile.addCard(Card.SKIP);
     }
 
-    @Test
-    public void dealCards_TwoPlayers_CorrectHandsAndDrawPile() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
-
-        final int numPlayers = 2;
-        String[] names = {"John", "Jane"};
-
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
-
-        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
-
-        p1.addCardToHand(Card.DEFUSE);
-        p2.addCardToHand(Card.DEFUSE);
-
-        // Expect 3 since there are 2 players
-        drawPile.addCard(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-
-        final int numCardsDistributedToEachPlayer = 5;
-        for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p1.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p2.addCardToHand(EasyMock.anyObject(Card.class));
-        }
-
-        EasyMock.replay(playerFactory, p1, p2, drawPile);
-
-        game.setUpPlayers(numPlayers, names);
-        game.dealDefuses();
-        game.dealCards();
-
-        EasyMock.verify(playerFactory, p1, p2, drawPile);
+    for (int i = 0; i < expectedFutures; i++) {
+      drawPile.addCard(Card.SEE_THE_FUTURE);
     }
 
-    @Test
-    public void dealCards_MaxPlayers_CorrectHandsAndPiles() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
-
-        final int numPlayers = 4;
-        String[] names = {"John", "Jane", "Bob", "Job"};
-
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
-        Player p3 = EasyMock.createMock(Player.class);
-        Player p4 = EasyMock.createMock(Player.class);
-
-        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
-        EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p3);
-        EasyMock.expect(playerFactory.createPlayer("Job")).andReturn(p4);
-
-        p1.addCardToHand(Card.DEFUSE);
-        p2.addCardToHand(Card.DEFUSE);
-        p3.addCardToHand(Card.DEFUSE);
-        p4.addCardToHand(Card.DEFUSE);
-
-        // Expect 1 since there are 4 players
-        drawPile.addCard(Card.DEFUSE);
-
-        final int numCardsDistributedToEachPlayer = 5;
-        for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p1.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p2.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p3.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p4.addCardToHand(EasyMock.anyObject(Card.class));
-        }
-
-        EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
-
-        game.setUpPlayers(numPlayers, names);
-        game.dealDefuses();
-        game.dealCards();
-
-        EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile);
+    for (int i = 0; i < expectedNopes; i++) {
+      drawPile.addCard(Card.NOPE);
     }
 
-    @Test
-    public void insertExplodingCards_TwoPlayers_DrawPileAltered() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
-
-        final int numPlayers = 2;
-        String[] names = {"John", "Jane"};
-
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
-
-        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
-
-        p1.addCardToHand(Card.DEFUSE);
-        p2.addCardToHand(Card.DEFUSE);
-
-        // Expect 3 since there are 2 players
-        drawPile.addCard(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-        drawPile.addCard(Card.DEFUSE);
-
-        final int numCardsDistributedToEachPlayer = 5;
-        for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p1.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p2.addCardToHand(EasyMock.anyObject(Card.class));
-        }
-
-        // Expect one since there are 2 players
-        drawPile.addCard(Card.EXPLODE);
-
-        EasyMock.replay(playerFactory, p1, p2, drawPile);
-
-        game.setUpPlayers(numPlayers, names);
-        game.dealDefuses();
-        game.dealCards();
-        game.insertExplodingCards();
-
-        EasyMock.verify(playerFactory, p1, p2, drawPile);
+    for (int i = 0; i < expectedCats; i++) {
+      drawPile.addCard(Card.CAT);
     }
 
-    @Test
-    public void insertExplodingCards_MaxPlayers_DrawPileAltered() {
-        PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
-        CardPile drawPile = EasyMock.createMock(CardPile.class);
-        GameEngine game = new GameEngine(playerFactory, drawPile);
+    EasyMock.replay(drawPile);
 
-        final int numPlayers = 4;
-        String[] names = {"John", "Jane", "Bob", "Job"};
+    game.createDrawPile();
 
-        Player p1 = EasyMock.createMock(Player.class);
-        Player p2 = EasyMock.createMock(Player.class);
-        Player p3 = EasyMock.createMock(Player.class);
-        Player p4 = EasyMock.createMock(Player.class);
-
-        EasyMock.expect(playerFactory.createPlayer("John")).andReturn(p1);
-        EasyMock.expect(playerFactory.createPlayer("Jane")).andReturn(p2);
-        EasyMock.expect(playerFactory.createPlayer("Bob")).andReturn(p3);
-        EasyMock.expect(playerFactory.createPlayer("Job")).andReturn(p4);
-
-        p1.addCardToHand(Card.DEFUSE);
-        p2.addCardToHand(Card.DEFUSE);
-        p3.addCardToHand(Card.DEFUSE);
-        p4.addCardToHand(Card.DEFUSE);
-
-        // Expect 1 since there are 4 players
-        drawPile.addCard(Card.DEFUSE);
-
-        final int numCardsDistributedToEachPlayer = 5;
-        for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p1.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p2.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p3.addCardToHand(EasyMock.anyObject(Card.class));
-
-            EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
-            p4.addCardToHand(EasyMock.anyObject(Card.class));
-        }
-
-        // Expect 3 since there are 4 players
-        drawPile.addCard(Card.EXPLODE);
-        drawPile.addCard(Card.EXPLODE);
-        drawPile.addCard(Card.EXPLODE);
-
-        EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile);
-
-        game.setUpPlayers(numPlayers, names);
-        game.dealDefuses();
-        game.dealCards();
-        game.insertExplodingCards();
-
-        EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile);
-    }
-
-    @Test
-    public void createDrawPile_CorrectCardCounts() {
-        CardPile drawPile = EasyMock.niceMock(CardPile.class);
-        GameEngine game = new GameEngine(null, drawPile);
-
-        final int expectedAttacks = 3;
-        final int expectedShuffles = 4;
-        final int expectedSkips = 3;
-        final int expectedFutures = 4;
-        final int expectedNopes = 4;
-        final int expectedCats = 16; // 4 each, 4 cat types, 16 total
-
-        for (int i = 0; i < expectedAttacks; i++) {
-            drawPile.addCard(Card.ATTACK);
-        }
-
-        for (int i = 0; i < expectedShuffles; i++) {
-            drawPile.addCard(Card.SHUFFLE);
-        }
-
-        for (int i = 0; i < expectedSkips; i++) {
-            drawPile.addCard(Card.SKIP);
-        }
-
-        for (int i = 0; i < expectedFutures; i++) {
-            drawPile.addCard(Card.SEE_THE_FUTURE);
-        }
-
-        for (int i = 0; i < expectedNopes; i++) {
-            drawPile.addCard(Card.NOPE);
-        }
-
-        for (int i = 0; i < expectedCats; i++) {
-            drawPile.addCard(Card.CAT);
-        }
-
-        EasyMock.replay(drawPile);
-
-        game.createDrawPile();
-
-        EasyMock.verify(drawPile);
-    }
+    EasyMock.verify(drawPile);
+  }
 
 }
