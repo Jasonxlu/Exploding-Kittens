@@ -1,6 +1,8 @@
 package explodingwildcats;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class representing decks of cards (DrawPile, DiscardPile, Player hand, etc.).
@@ -48,6 +50,12 @@ public class CardPile {
    * @return 0-3 card array representing the cards at the top of the pile
    */
   public Card[] peek() {
-    return cardList.toArray(new Card[0]);
+    ArrayList<Card> cards = new ArrayList<Card>();
+
+    for(int i = 0; i < 3 && i < cardList.size(); i++) {
+      cards.add(cardList.get(cardList.size()-1-i));
+    }
+    return cards.toArray(new Card[0]);
+
   }
 }

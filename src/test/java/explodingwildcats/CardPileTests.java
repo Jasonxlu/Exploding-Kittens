@@ -88,7 +88,26 @@ public class CardPileTests {
 
     cards = pile.peek();
     assertEquals(2, cards.length);
-    assertEquals(Card.EXPLODE, cards[0]);
-    assertEquals(Card.CAT, cards[1]);
+    assertEquals(Card.CAT, cards[0]);
+    assertEquals(Card.EXPLODE, cards[1]);
+  }
+
+  @Test
+  public void peek_FourCards_ReturnsThreeCardArr() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.EXPLODE);
+    pile.addCard(Card.CAT);
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.SKIP);
+
+    Card[] cards = pile.getCards();
+    assertEquals(4, cards.length);
+
+    cards = pile.peek();
+    assertEquals(3, cards.length);
+    assertEquals(Card.SKIP, cards[0]);
+    assertEquals(Card.DEFUSE, cards[1]);
+    assertEquals(Card.CAT, cards[2]);
   }
 }
