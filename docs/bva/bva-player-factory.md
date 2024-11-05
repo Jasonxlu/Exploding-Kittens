@@ -8,9 +8,10 @@
 | Step 2 | String                                       | Custom Object - Player (with input name) or Exception |
 | Step 3 | an empty string, a non-empty (normal) string | Custom Object - Player (with input name) or Exception |
 ### Step 4:
-##### All-combination or each-choice: YOUR-DECISION
+##### All-combination or each-choice: each-choice
 
-|              | System under test | Expected output          | Implemented? |
-|--------------|-------------------|--------------------------|--------------|
-| Test Case 1  | ""                | IllegalArgumentException | yes          |
-| Test Case 2  | "John"            | Player (name = John)     | yes          |
+|             | System under test | Expected output          | Implemented? |
+|-------------|-------------------|--------------------------|--------------|
+| Test Case 1 | ""                | IllegalArgumentException | yes          |
+| Test Case 2 | "John"            | Player (name = John)     | yes          |
+| Test Case 3 | "   "             | IllegalArgumentException | yes          |

@@ -35,4 +35,18 @@ public class PlayerFactoryTests {
     Player player = factory.createPlayer(name);
     assertNotNull(player);
   }
+
+  @Test
+  public void createPlayer_NameIsWhitespace_ThrowsIllegalArgumentException() {
+    PlayerFactory factory = new PlayerFactory();
+
+    String expectedMessage = "Player name must be non-empty";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      Player player = factory.createPlayer("   ");
+      assertNull(player);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
 }
