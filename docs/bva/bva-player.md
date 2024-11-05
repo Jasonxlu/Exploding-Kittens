@@ -19,7 +19,7 @@
 | Test Case 5 | SEE_THE_FUTURE    | CardPile.addCard called with SEE_THE_FUTURE card | yes          |
 | Test Case 6 | NOPE              | CardPile.addCard called with NOPE card           | yes          |
 | Test Case 7 | SHUFFLE           | CardPile.addCard called with SHUFFLE card        | yes          |
-| Test Case 7 | SKIP              | CardPile.addCard called with SKIP card           |              |
+| Test Case 7 | SKIP              | CardPile.addCard called with SKIP card           | yes          |
 
 
 ## Method 1: ```public void getHand()```
