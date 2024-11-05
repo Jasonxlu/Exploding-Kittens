@@ -21,6 +21,7 @@ public class CardPile {
    * Adds a card to the pile.
    *
    * @param c Card being added
+   * @throws IllegalArgumentException if the card is null
    */
   public void addCard(Card c) {
     if (c == null) {
