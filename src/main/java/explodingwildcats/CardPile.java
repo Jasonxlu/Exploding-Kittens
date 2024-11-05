@@ -41,7 +41,7 @@ public class CardPile {
    * @return The card popped from the card pile
    */
   public Card drawCard() {
-    return null;
+    throw new IllegalStateException("Empty pile on draw");
   }
 
   /**

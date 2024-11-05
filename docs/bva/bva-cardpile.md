@@ -32,7 +32,7 @@
 | Test Case 1  | ArrayList: []              | Empty card array           | yes          |
 | Test Case 2  | ArrayList: [one element]   | card array with 1 card     | yes          |
 | Test Case 3  | ArrayList: [two elements]  | card array with 2 elements | yes          |
-| Test Case 4  | ArrayList: [four elements] | card array with 3 elements |              |
+| Test Case 4  | ArrayList: [four elements] | card array with 3 elements | yes          |
 
 
 ## Method 3: ```public Card drawCard()```

@@ -110,4 +110,14 @@ public class CardPileTests {
     assertEquals(Card.DEFUSE, cards[1]);
     assertEquals(Card.CAT, cards[2]);
   }
+
+  @Test
+  public void drawCard_EmptyPile_ThrowException() {
+    CardPile pile = new CardPile();
+
+    String expectedMessage = "Empty pile on draw";
+    Exception exception = assertThrows(IllegalStateException.class, () -> pile.drawCard());
+
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 }
