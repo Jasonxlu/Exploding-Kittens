@@ -24,17 +24,21 @@ public class CardPileTests {
   }
 
   @Test
-  public void addCard_NullCard_ThrowException() {
+  public void addCard_OneCardInPile_AttackAdded() {
     CardPile pile = new CardPile();
 
-    pile.addCard(Card.CAT);
+    pile.addCard(Card.EXPLODE);
     Card[] cards = pile.getCards();
 
-    String expectedMsg = "Null Card Object";
     assertEquals(1, cards.length);
+    pile.addCard(Card.ATTACK);
+    cards = pile.getCards();
 
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> pile.addCard(null));
-    assertEquals(expectedMsg, exception.getMessage());
+    int expectedLength = 2;
+    Card expectedCard = Card.ATTACK;
+
+    assertEquals(expectedLength, cards.length);
+    assertEquals(expectedCard, pile.getCards()[cards.length - 1]);
   }
 
   @Test
