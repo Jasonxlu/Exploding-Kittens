@@ -224,10 +224,10 @@ public class GameEngineTests {
 
     final int numCardsDistributedToEachPlayer = 5;
     for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p1.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p2.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
@@ -269,16 +269,16 @@ public class GameEngineTests {
 
     final int numCardsDistributedToEachPlayer = 5;
     for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p1.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p2.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p3.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p4.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
@@ -316,10 +316,10 @@ public class GameEngineTests {
 
     final int numCardsDistributedToEachPlayer = 5;
     for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p1.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p2.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
@@ -365,16 +365,16 @@ public class GameEngineTests {
 
     final int numCardsDistributedToEachPlayer = 5;
     for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p1.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p2.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p3.addCardToHand(EasyMock.anyObject(Card.class));
 
-      EasyMock.expect(drawPile.popCard()).andStubReturn(Card.SKIP);
+      EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p4.addCardToHand(EasyMock.anyObject(Card.class));
     }
 

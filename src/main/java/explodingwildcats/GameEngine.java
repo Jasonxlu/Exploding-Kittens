@@ -99,7 +99,7 @@ public class GameEngine {
     for (Player p : players) {
       int cardsToDealPerPlayer = 5;
       for (int i = 0; i < cardsToDealPerPlayer; i++) {
-        Card cardToAdd = drawPile.popCard();
+        Card cardToAdd = drawPile.drawCard();
         p.addCardToHand(cardToAdd);
       }
     }
