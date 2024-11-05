@@ -12,9 +12,9 @@
 
 |             | System under test                                | Expected output                                          | Implemented? |
 |-------------|--------------------------------------------------|----------------------------------------------------------|--------------|
-| Test Case 1 | ArrayList: [], Card: EXPLODE                     | Explode card appended to Arraylist                       |              |
-| Test Case 2 | ArrayList: [one element], Card: null             | IllegalArgumentException                                 |              |
-| Test Case 3 | ArrayList: [more than one element], Card: DEFUSE | Defuse card appended to Arraylist with multiple elements |              |
+| Test Case 1 | ArrayList: [], Card: EXPLODE                     | Explode card appended to Arraylist                       | yes          |
+| Test Case 2 | ArrayList: [one element], Card: null             | IllegalArgumentException                                 | yes          |
+| Test Case 3 | ArrayList: [more than one element], Card: DEFUSE | Defuse card appended to Arraylist with multiple elements | yes          |
 
 
 ## Method 2: ```public Card[] peek()```
@@ -29,9 +29,9 @@
 
 |              | System under test          | Expected output            | Implemented? |
 |--------------|----------------------------|----------------------------|--------------|
-| Test Case 1  | ArrayList: []              | Empty card array           |              |
-| Test Case 2  | ArrayList: [one element]   | card array with 1 card     |              |
-| Test Case 3  | ArrayList: [two elements]  | card array with 2 elements |              |
+| Test Case 1  | ArrayList: []              | Empty card array           | yes          |
+| Test Case 2  | ArrayList: [one element]   | card array with 1 card     | yes          |
+| Test Case 3  | ArrayList: [two elements]  | card array with 2 elements | yes          |
 | Test Case 4  | ArrayList: [four elements] | card array with 3 elements |              |
 
 
