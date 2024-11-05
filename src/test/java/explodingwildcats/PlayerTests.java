@@ -1,0 +1,23 @@
+package explodingwildcats;
+
+import org.easymock.EasyMock;
+import org.junit.jupiter.api.Test;
+
+/**
+* Test suite for the Player class.
+*/
+public class PlayerTests {
+  @Test
+  public void addCardToHand_ATTACK() {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
+    Card attackCard = Card.ATTACK;
+
+    hand.addCard(attackCard);
+    EasyMock.replay(hand);
+
+    player.addCardToHand(attackCard);
+
+    EasyMock.verify(hand);
+  }
+}
