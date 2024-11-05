@@ -78,10 +78,10 @@ public class PlayerTests {
   }
 
   @Test
-  public void addCardToHand_NOPE() {
+  public void addCardToHand_SHUFFLE() {
     CardPile hand = EasyMock.createMock(CardPile.class);
     Player player = new Player("Bob", hand);
-    Card attackCard = Card.NOPE;
+    Card attackCard = Card.SHUFFLE;
 
     hand.addCard(attackCard);
     EasyMock.replay(hand);
@@ -90,4 +90,6 @@ public class PlayerTests {
 
     EasyMock.verify(hand);
   }
+
+
 }
