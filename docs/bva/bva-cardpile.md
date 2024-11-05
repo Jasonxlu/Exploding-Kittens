@@ -6,16 +6,15 @@
 |--------|------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | Step 1 | arraylist of the cards belonging to the pile                     | the card to add to the pile                                                                                                                                                 | arraylist of cards should have the original cards plus the new card or exception           |
 | Step 2 | Collection                                                       | Case                                                                                                                                                                        | The collection contains original elements and is appended an additional case  or exception |
-| Step 3 | [], [one element], [more than one element]                       | Possible: ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK; Impossible: NULL | cardpile is altered with the card input appended or IllegalArgumentException               |
+| Step 3 | [], [one element], [more than one element]                       | Possible: ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK; Impossible: null | cardpile is altered with the card input appended or IllegalArgumentException               |
 ### Step 4:
 ##### All-combination or each-choice: Each-choice
 
-|              | System under test                                | Expected output                                          | Implemented? |
-|--------------|--------------------------------------------------|----------------------------------------------------------|--------------|
-| Test Case 1  | Arraylist: [], Card: ATTACK                      | Attack card appended to Arraylist                        |              |
-| Test Case 2  | ArrayList: [], Card: EXPLODE                     | Explode card appended to Arraylist                       |              |
-| Test Case 3  | ArrayList: [one element], Card: NULL             | IllegalArgumentException                                 |              |
-| Test Case 4  | ArrayList: [more than one element], Card: DEFUSE | Defuse card appended to Arraylist with multiple elements |              |
+|             | System under test                                | Expected output                                          | Implemented? |
+|-------------|--------------------------------------------------|----------------------------------------------------------|--------------|
+| Test Case 1 | ArrayList: [], Card: EXPLODE                     | Explode card appended to Arraylist                       |              |
+| Test Case 2 | ArrayList: [one element], Card: null             | IllegalArgumentException                                 |              |
+| Test Case 3 | ArrayList: [more than one element], Card: DEFUSE | Defuse card appended to Arraylist with multiple elements |              |
 
 
 ## Method 2: ```public Card[] peek()```

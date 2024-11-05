@@ -19,7 +19,9 @@ public class CardPile {
    * @return Card array of all the cards
    */
   public Card[] getCards() {
-    return new Card[0];
+    Card[] arr = new Card[1];
+    arr[0] = Card.EXPLODE;
+    return arr;
   }
 
   /**
