@@ -21,25 +21,6 @@
 | Test Case 7 | SHUFFLE           | CardPile.addCard called with SHUFFLE card        | yes          |
 | Test Case 7 | SKIP              | CardPile.addCard called with SKIP card           | yes          |
 
-
-## Method 1: ```public void getHand()```
-### Step 1-3 Results
-|        | Input 1                                                | Output                                                      |
-|--------|--------------------------------------------------------|-------------------------------------------------------------|
-| Step 1 | hand                                                   | Player hand (CardPile.getCards called)                      |
-| Step 2 | Collection                                             | Player hand as an array of cards (CardPile.getCards called) |
-| Step 3 | [], [one element], [more than one element], [max size] | CardPile.getCards called                                    |
-### Step 4:
-##### All-combination or each-choice: each-choice
-
-|             | System under test     | Expected output           | Implemented? |
-|-------------|-----------------------|---------------------------|--------------|
-| Test Case 1 | list: []              | CardPile.getCards called  |              |
-| Test Case 2 | list: [one element]   | CardPile.getCards called  |              |
-| Test Case 3 | list: [two elements]  | CardPile.getCards called  |              |
-| Test Case 4 | list: [max size] (40) | CardPile.getCards called  |              |
-
-
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
