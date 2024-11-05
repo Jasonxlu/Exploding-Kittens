@@ -15,7 +15,7 @@
 | Test Case 1 | ATTACK            | CardPile.addCard called with ATTACK card         | yes          |
 | Test Case 2 | CAT               | CardPile.addCard called with CAT card            | yes          |
 | Test Case 3 | DEFUSE            | CardPile.addCard called with DEFUSE card         | yes          |
-| Test Case 4 | EXPLODE           | CardPile.addCard called with EXPLODE card        |              |
+| Test Case 4 | EXPLODE           | CardPile.addCard called with EXPLODE card        | yes          |
 | Test Case 5 | SEE_THE_FUTURE    | CardPile.addCard called with SEE_THE_FUTURE card |              |
 | Test Case 6 | NOPE              | CardPile.addCard called with NOPE card           |              |
 | Test Case 7 | SHUFFLE           | CardPile.addCard called with SHUFFLE card        |              |
