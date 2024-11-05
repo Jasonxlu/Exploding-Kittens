@@ -1,19 +1,27 @@
 package explodingwildcats;
 
+import java.util.ArrayList;
+
 /**
  * Class representing decks of cards (DrawPile, DiscardPile, Player hand, etc.).
  */
 public class CardPile {
+  private ArrayList<Card> cardList;
+
+  public CardPile() {
+    cardList = new ArrayList<Card>();
+  }
+
   /**
    * Adds a card to the pile.
    *
    * @param c Card being added
    */
   public void addCard(Card c) {
-
     if(c == null) {
       throw new IllegalArgumentException("Null Card Object");
     }
+    cardList.add(c);
   }
 
   /**
@@ -22,9 +30,7 @@ public class CardPile {
    * @return Card array of all the cards
    */
   public Card[] getCards() {
-    Card[] arr = new Card[1];
-    arr[0] = Card.EXPLODE;
-    return arr;
+    return cardList.toArray(new Card[0]);
   }
 
   /**
