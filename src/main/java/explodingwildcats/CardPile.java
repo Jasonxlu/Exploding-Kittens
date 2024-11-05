@@ -8,8 +8,7 @@ import java.util.List;
  * Class representing decks of cards (DrawPile, DiscardPile, Player hand, etc.).
  */
 public class CardPile {
-  @SuppressWarnings("FieldMayBeFinal")
-  private ArrayList<Card> cardList;
+  private final ArrayList<Card> cardList;
 
   /**
    * Constructor for CardPile object.
