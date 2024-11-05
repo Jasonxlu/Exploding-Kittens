@@ -5,7 +5,7 @@ package explodingwildcats;
  */
 public class CardPile {
   /**
-   * Adds a card to a pile.
+   * Adds a card to the pile.
    *
    * @param c Card being added
    */
@@ -27,7 +27,7 @@ public class CardPile {
    *
    * @return The card popped from the card pile
    */
-  public Card popCard() {
+  public Card drawCard() {
     return null;
   }
 }
