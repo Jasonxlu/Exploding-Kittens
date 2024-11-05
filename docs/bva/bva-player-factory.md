@@ -12,5 +12,5 @@
 
 |              | System under test | Expected output          | Implemented? |
 |--------------|-------------------|--------------------------|--------------|
-| Test Case 1  | ""                | IllegalArgumentException |              |
-| Test Case 2  | "John"            | Player (name = John)     |              |
+| Test Case 1  | ""                | IllegalArgumentException | yes          |
+| Test Case 2  | "John"            | Player (name = John)     | yes          |
