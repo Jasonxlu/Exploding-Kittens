@@ -24,9 +24,6 @@ public class CardPile {
    * @throws IllegalArgumentException if the card is null
    */
   public void addCard(Card c) {
-    if (c == null) {
-      throw new IllegalArgumentException("Null Card Object");
-    }
     cardList.add(c);
   }
 

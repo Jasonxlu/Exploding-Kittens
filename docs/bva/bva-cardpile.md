@@ -2,18 +2,18 @@
 
 ## Method 1: ```public void addCard(Card c)```
 ### Step 1-3 Results
-|        | Input                                                            | Input2                                                                                                                                                                      | Output                                                                                     |
-|--------|------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| Step 1 | arraylist of the cards belonging to the pile                     | the card to add to the pile                                                                                                                                                 | arraylist of cards should have the original cards plus the new card or exception           |
-| Step 2 | Collection                                                       | Case                                                                                                                                                                        | The collection contains original elements and is appended an additional case  or exception |
-| Step 3 | [], [one element], [more than one element]                       | Possible: ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK; Impossible: null | cardpile is altered with the card input appended or IllegalArgumentException               |
+|        | Input                                                            | Input2                                                                                                                                                     | Output                                                                       |
+|--------|------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| Step 1 | arraylist of the cards belonging to the pile                     | the card to add to the pile                                                                                                                                | arraylist of cards should have the original cards plus the new card          |
+| Step 2 | Collection                                                       | Case                                                                                                                                                       | The collection contains original elements and is appended an additional case |
+| Step 3 | [], [one element], [more than one element]                       | Possible: ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK  | cardpile is altered with the card input appended                             |
 ### Step 4:
 ##### All-combination or each-choice: Each-choice
 
 |             | System under test                                | Expected output                                          | Implemented? |
 |-------------|--------------------------------------------------|----------------------------------------------------------|--------------|
 | Test Case 1 | ArrayList: [], Card: EXPLODE                     | Explode card appended to Arraylist                       | yes          |
-| Test Case 2 | ArrayList: [one element], Card: null             | IllegalArgumentException                                 | yes          |
+| Test Case 2 | ArrayList: [one element], Card: ATTACK           | Attack card appended to Arraylist with one element       | yes          |
 | Test Case 3 | ArrayList: [more than one element], Card: DEFUSE | Defuse card appended to Arraylist with multiple elements | yes          |
 
 
