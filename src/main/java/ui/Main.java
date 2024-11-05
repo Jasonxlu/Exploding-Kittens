@@ -18,5 +18,11 @@ public class Main {
 
     int numberOfPlayers = ui.getNumberOfPlayers();
     System.out.println("Number of players: " + numberOfPlayers);
+
+    String[] playerNames = ui.getPlayerNames(numberOfPlayers);
+    System.out.println("Player names:");
+    for (int i = 0; i < playerNames.length; i++) {
+      System.out.println("Player " + (i + 1) + ": " + playerNames[i]);
+    }
   }
 }

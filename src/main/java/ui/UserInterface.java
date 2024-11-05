@@ -36,4 +36,34 @@ public class UserInterface {
 
     return numOfPlayers;
   }
+
+  /**
+   * Prompts the user to enter valid names for each player in the game.
+   * Reads a name for each player and stores it in an array.
+   *
+   * @param numberOfPlayers the number of players for which names are required
+   * @return an array of player names with a length equal to the number of players
+   */
+  public String[] getPlayerNames(int numberOfPlayers) {
+    String[] playerNames = new String[numberOfPlayers];
+    for (int i = 0; i < numberOfPlayers; i++) {
+      int playerNum = i + 1;
+      String name;
+
+      while (true) {
+        System.out.printf("Enter player %d's name: ", playerNum);
+        name = scanner.nextLine().trim();
+
+        if (!name.isEmpty()) {
+          break;
+        } else {
+          System.out.println("Name cannot be empty. Please enter a valid name.");
+        }
+      }
+
+      playerNames[i] = name;
+    }
+
+    return playerNames;
+  }
 }
