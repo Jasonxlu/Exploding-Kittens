@@ -11,6 +11,9 @@ public class CardPile {
    */
   public void addCard(Card c) {
 
+    if(c == null) {
+      throw new IllegalArgumentException("Null Card Object");
+    }
   }
 
   /**

@@ -23,4 +23,16 @@ public class CardPileTests {
     assertEquals(expectedLength, cards.length);
     assertEquals(expectedCard, pile.getCards()[cards.length - 1]);
   }
+
+  @Test
+  public void addCard_NullCard_ThrowException() {
+    CardPile pile = new CardPile();
+
+    Card[] cards = pile.getCards();
+    String expectedMsg = "Null Card Object";
+    assertEquals(1, cards.length);
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> pile.addCard(null));
+    assertEquals(expectedMsg, exception.getMessage());
+
+  }
 }
