@@ -45,11 +45,11 @@
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test            | Expected output       | Implemented? |
-|--------------|------------------------------|-----------------------|--------------|
-| Test Case 1  | ArrayList: []                | IllegalStateException | yes          |
-| Test Case 2  | ArrayList: [ATTACK]          | ATTACK card           |              |
-| Test Case 3  | ArrayList: [DEFUSE, IMPLODE] | IMPLODE card          |              |
+|              | System under test            | Expected output                   | Implemented? |
+|--------------|------------------------------|-----------------------------------|--------------|
+| Test Case 1  | ArrayList: []                | IllegalStateException             | yes          |
+| Test Case 2  | ArrayList: [ATTACK]          | ATTACK card, Arraylist is size 0  | yes          |
+| Test Case 3  | ArrayList: [DEFUSE, IMPLODE] | IMPLODE card, Arraylist is size 1 |              |
 
 
 ## Recall the 4 steps of BVA

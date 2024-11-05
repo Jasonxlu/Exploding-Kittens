@@ -127,6 +127,7 @@ public class CardPileTests {
   @Test
   public void drawCard_OneCard_ReturnsCorrectCard() {
     CardPile pile = new CardPile();
+
     pile.addCard(Card.ATTACK);
     Card[] cards = pile.getCards();
     assertEquals(1, cards.length);
@@ -136,5 +137,22 @@ public class CardPileTests {
 
     cards = pile.getCards();
     assertEquals(0, cards.length);
+  }
+
+  @Test
+  public void drawCard_TwoCards_ReturnsCorrectCard() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.IMPLODE);
+    Card[] cards = pile.getCards();
+    assertEquals(2, cards.length);
+
+    Card card = pile.drawCard();
+    assertEquals(Card.IMPLODE, card);
+
+    cards = pile.getCards();
+    assertEquals(1, cards.length);
+
   }
 }

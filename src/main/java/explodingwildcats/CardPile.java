@@ -45,7 +45,7 @@ public class CardPile {
     if (cardList.isEmpty()) {
       throw new IllegalStateException("Empty pile on draw");
     }
-    return cardList.remove(0);
+    return cardList.remove(cardList.size() - 1);
   }
 
   /**
@@ -57,7 +57,7 @@ public class CardPile {
     ArrayList<Card> cards = new ArrayList<Card>();
 
     for(int i = 0; i < 3 && i < cardList.size(); i++) {
-      cards.add(cardList.get(cardList.size()-1-i));
+      cards.add(cardList.get(cardList.size() - 1 - i));
     }
     return cards.toArray(new Card[0]);
 
