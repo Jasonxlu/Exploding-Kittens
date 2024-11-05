@@ -56,10 +56,24 @@ public class CardPileTests {
   @Test
   public void peek_EmptyPile_ReturnsEmpty() {
     CardPile pile = new CardPile();
+
     Card[] cards = pile.getCards();
     assertEquals(0, cards.length);
 
     Card[] peeked = pile.peek();
     assertEquals(0, peeked.length);
+  }
+
+  @Test
+  public void peek_OneCard_ReturnsOneCardArr() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.EXPLODE);
+    Card[] cards = pile.getCards();
+    assertEquals(1, cards.length);
+
+    cards = pile.peek();
+    assertEquals(1, cards.length);
+    assertEquals(Card.EXPLODE, cards[0]);
   }
 }

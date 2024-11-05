@@ -48,6 +48,6 @@ public class CardPile {
    * @return 0-3 card array representing the cards at the top of the pile
    */
   public Card[] peek() {
-    return new Card[0];
+    return cardList.toArray(new Card[0]);
   }
 }
