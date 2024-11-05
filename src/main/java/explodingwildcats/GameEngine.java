@@ -10,15 +10,20 @@ public class GameEngine {
 
   private CardPile drawPile;
   private PlayerFactory playerFactory;
+  private CardPileFactory cardPileFactory;
 
   /**
    * Constructor for GameEngine.
    *
    * @param playerFactory PlayerFactory object responsible for creating player instances
+   * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
    * @param drawPile CardPile that players draw from
    */
-  public GameEngine(PlayerFactory playerFactory, CardPile drawPile) {
+  public GameEngine(PlayerFactory playerFactory,
+                    CardPileFactory cardPileFactory,
+                    CardPile drawPile) {
     this.playerFactory = playerFactory;
+    this.cardPileFactory = cardPileFactory;
     this.drawPile = drawPile;
   }
 
@@ -67,7 +72,8 @@ public class GameEngine {
     this.players = new Player[numberOfPlayers];
 
     for (int i = 0; i < numberOfPlayers; i++) {
-      players[i] = playerFactory.createPlayer(names[i]);
+      CardPile newHand = cardPileFactory.createCardPile();
+      players[i] = playerFactory.createPlayer(names[i], newHand);
     }
   }
 
