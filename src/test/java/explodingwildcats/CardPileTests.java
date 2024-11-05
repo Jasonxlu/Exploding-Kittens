@@ -52,4 +52,14 @@ public class CardPileTests {
     assertEquals(expectedLength, cards.length);
     assertEquals(expectedCard, pile.getCards()[cards.length - 1]);
   }
+
+  @Test
+  public void peek_EmptyPile_ReturnsEmpty() {
+    CardPile pile = new CardPile();
+    Card[] cards = pile.getCards();
+    assertEquals(0, cards.length);
+
+    Card[] peeked = pile.peek();
+    assertEquals(0, peeked.length);
+  }
 }

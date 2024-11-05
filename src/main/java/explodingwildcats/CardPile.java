@@ -41,4 +41,13 @@ public class CardPile {
   public Card drawCard() {
     return null;
   }
+
+  /**
+   * Returns an array of the cards at the top of the pile
+   *
+   * @return 0-3 card array representing the cards at the top of the pile
+   */
+  public Card[] peek() {
+    return new Card[0];
+  }
 }
