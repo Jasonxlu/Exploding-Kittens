@@ -49,7 +49,7 @@
 |--------------|------------------------------|-----------------------------------|--------------|
 | Test Case 1  | ArrayList: []                | IllegalStateException             | yes          |
 | Test Case 2  | ArrayList: [ATTACK]          | ATTACK card, Arraylist is size 0  | yes          |
-| Test Case 3  | ArrayList: [DEFUSE, IMPLODE] | IMPLODE card, Arraylist is size 1 |              |
+| Test Case 3  | ArrayList: [DEFUSE, IMPLODE] | IMPLODE card, Arraylist is size 1 | yes          |
 
 
 ## Recall the 4 steps of BVA

@@ -11,6 +11,9 @@ public class CardPile {
   @SuppressWarnings("FieldMayBeFinal")
   private ArrayList<Card> cardList;
 
+  /**
+   * Constructor for CardPile object.
+   */
   public CardPile() {
     cardList = new ArrayList<Card>();
   }
@@ -21,7 +24,7 @@ public class CardPile {
    * @param c Card being added
    */
   public void addCard(Card c) {
-    if(c == null) {
+    if (c == null) {
       throw new IllegalArgumentException("Null Card Object");
     }
     cardList.add(c);
@@ -56,7 +59,7 @@ public class CardPile {
   public Card[] peek() {
     ArrayList<Card> cards = new ArrayList<Card>();
 
-    for(int i = 0; i < 3 && i < cardList.size(); i++) {
+    for (int i = 0; i < 3 && i < cardList.size(); i++) {
       cards.add(cardList.get(cardList.size() - 1 - i));
     }
     return cards.toArray(new Card[0]);
