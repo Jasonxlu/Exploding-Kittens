@@ -115,9 +115,26 @@ public class CardPileTests {
   public void drawCard_EmptyPile_ThrowException() {
     CardPile pile = new CardPile();
 
+    Card[] cards = pile.getCards();
+    assertEquals(0, cards.length);
+
     String expectedMessage = "Empty pile on draw";
     Exception exception = assertThrows(IllegalStateException.class, () -> pile.drawCard());
 
     assertEquals(expectedMessage, exception.getMessage());
+  }
+
+  @Test
+  public void drawCard_OneCard_ReturnsCorrectCard() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.ATTACK);
+    Card[] cards = pile.getCards();
+    assertEquals(1, cards.length);
+
+    Card card = pile.drawCard();
+    assertEquals(Card.ATTACK, card);
+
+    cards = pile.getCards();
+    assertEquals(0, cards.length);
   }
 }

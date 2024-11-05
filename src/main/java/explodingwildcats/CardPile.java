@@ -8,6 +8,7 @@ import java.util.List;
  * Class representing decks of cards (DrawPile, DiscardPile, Player hand, etc.).
  */
 public class CardPile {
+  @SuppressWarnings("FieldMayBeFinal")
   private ArrayList<Card> cardList;
 
   public CardPile() {
@@ -41,11 +42,14 @@ public class CardPile {
    * @return The card popped from the card pile
    */
   public Card drawCard() {
-    throw new IllegalStateException("Empty pile on draw");
+    if (cardList.isEmpty()) {
+      throw new IllegalStateException("Empty pile on draw");
+    }
+    return cardList.remove(0);
   }
 
   /**
-   * Returns an array of the cards at the top of the pile
+   * Returns an array of the cards at the top of the pile in the order of being drawn from the top.
    *
    * @return 0-3 card array representing the cards at the top of the pile
    */

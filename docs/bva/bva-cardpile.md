@@ -37,17 +37,17 @@
 
 ## Method 3: ```public Card drawCard()```
 ### Step 1-3 Results
-|        | Input                                       | Output                                                                                                                                                                                         |
-|--------|---------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | ArrayList of the cards in the pile          | The card at the top of the card pile or exception                                                                                                                                              |
-| Step 2 | Collection                                  | Case (a card enum) or exception                                                                                                                                                                |
-| Step 3 | [], [one element], [more than one element]  | One of the following: ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK or IllegalStateException |
+|        | Input                                       | Output                                                                                                                                                                                                                                 |
+|--------|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | ArrayList of the cards in the pile          | The card at the top of the card pile or exception, cardpile altered                                                                                                                                                                    |
+| Step 2 | Collection                                  | Case (a card enum) or exception, collection altered                                                                                                                                                                                    |
+| Step 3 | [], [one element], [more than one element]  | One of the following: ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK or IllegalStateException, and cardpile has one less case element |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
 |              | System under test            | Expected output       | Implemented? |
 |--------------|------------------------------|-----------------------|--------------|
-| Test Case 1  | ArrayList: []                | IllegalStateException |              |
+| Test Case 1  | ArrayList: []                | IllegalStateException | yes          |
 | Test Case 2  | ArrayList: [ATTACK]          | ATTACK card           |              |
 | Test Case 3  | ArrayList: [DEFUSE, IMPLODE] | IMPLODE card          |              |
 
