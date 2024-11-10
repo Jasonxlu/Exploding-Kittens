@@ -16,8 +16,6 @@ public class UserInterface {
    * @return the number of players as an integer between 2 and 6, inclusive
    */
   public int getNumberOfPlayers() {
-    // should ask user for an input
-    // should be a number between 2-6
     int numOfPlayers = 0;
 
     while (true) {
