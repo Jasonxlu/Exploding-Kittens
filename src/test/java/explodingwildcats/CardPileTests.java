@@ -171,4 +171,11 @@ public class CardPileTests {
     pile.addCard(Card.ATTACK);
     assertTrue(pile.contains(Card.ATTACK));
   }
+
+  @Test
+  public void contains_OneCardPile_NoMatch() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.ATTACK);
+    assertFalse(pile.contains(Card.SKIP));
+  }
 }
