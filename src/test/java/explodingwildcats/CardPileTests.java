@@ -186,4 +186,12 @@ public class CardPileTests {
     pile.addCard(Card.IMPLODE);
     assertFalse(pile.contains(Card.ATTACK));
   }
+
+  @Test
+  public void contains_TwoCardPile_Match() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.IMPLODE);
+    assertTrue(pile.contains(Card.DEFUSE));
+  }
 }

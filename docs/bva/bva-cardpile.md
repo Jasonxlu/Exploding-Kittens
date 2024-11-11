@@ -67,7 +67,7 @@
 | Test Case 3 | Pile: [ATTACK], Card: ATTACK          | true            | yes          |
 | Test Case 4 | Pile: [ATTACK], Card: SKIP            | false           | yes          |
 | Test Case 5 | Pile: [DEFUSE, IMPLODE], Card: ATTACK | false           | yes          |
-| Test Case 6 | Pile: [DEFUSE, IMPLODE], Card: DEFUSE | true            |              |
+| Test Case 6 | Pile: [DEFUSE, IMPLODE], Card: DEFUSE | true            | yes          |
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
