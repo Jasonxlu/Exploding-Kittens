@@ -35,6 +35,7 @@ java {
     }
 }
 
+
 tasks.compileJava {
     options.release = 11
 }
@@ -50,6 +51,15 @@ tasks.withType<Checkstyle>().configureEach {
         html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-noframes-severity-sorted.xsl")
     }
 }
+
+tasks.named<Checkstyle>("checkstyleMain") {
+    enabled = true
+}
+
+tasks.named<Checkstyle>("checkstyleTest") {
+    enabled = false
+}
+
 
 spotbugs {
     ignoreFailures = false
