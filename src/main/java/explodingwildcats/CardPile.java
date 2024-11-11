@@ -62,6 +62,11 @@ public class CardPile {
     return cards.toArray(new Card[0]);
   }
 
+  /**
+   * Checks if a specified card is in the pile list.
+   *
+   * @return true if the card is in the pile, false otherwise.
+   */
   public boolean contains(Card c) {
     return cardList.contains(c);
   }
