@@ -63,6 +63,6 @@ public class CardPile {
   }
 
   public boolean contains(Card c) {
-    return false;
+    return cardList.contains(c);
   }
 }
