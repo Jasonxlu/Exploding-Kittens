@@ -178,4 +178,12 @@ public class CardPileTests {
     pile.addCard(Card.ATTACK);
     assertFalse(pile.contains(Card.SKIP));
   }
+
+  @Test
+  public void contains_TwoCardPile_NoMatch() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.IMPLODE);
+    assertFalse(pile.contains(Card.ATTACK));
+  }
 }

@@ -63,10 +63,10 @@
 
 |             | System under test                     | Expected output | Implemented? |
 |-------------|---------------------------------------|-----------------|--------------|
-| Test Case 1 | Pile: [], Card: ATTACK                | false           |              |
-| Test Case 3 | Pile: [ATTACK], Card: ATTACK          | true            |              |
-| Test Case 4 | Pile: [ATTACK], Card: SKIP            | false           |              |
-| Test Case 5 | Pile: [DEFUSE, IMPLODE], Card: ATTACK | false           |              |
+| Test Case 1 | Pile: [], Card: ATTACK                | false           | yes          |
+| Test Case 3 | Pile: [ATTACK], Card: ATTACK          | true            | yes          |
+| Test Case 4 | Pile: [ATTACK], Card: SKIP            | false           | yes          |
+| Test Case 5 | Pile: [DEFUSE, IMPLODE], Card: ATTACK | false           | yes          |
 | Test Case 6 | Pile: [DEFUSE, IMPLODE], Card: DEFUSE | true            |              |
 
 ## Recall the 4 steps of BVA
