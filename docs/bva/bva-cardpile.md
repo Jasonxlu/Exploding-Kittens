@@ -64,7 +64,7 @@
 
 |             | System under test                                      | Expected output                                  | Implemented? |
 |-------------|--------------------------------------------------------|--------------------------------------------------|--------------|
-| Test Case 1 | Index: 0, card: ATTACK, pile: []                       | IllegalArgumentException                         | no           |
+| Test Case 1 | Index: 0, card: ATTACK, pile: []                       | IllegalArgumentException                         | yes          |
 | Test Case 2 | Index: 0, card: SHUFFLE, pile: [one element]           | pile[0] = SHUFFLE                                | no           |
 | Test Case 3 | Index: 0, card: DEFUSE, pile: [two elements]           | pile[0] = DEFUSE, other card unchanged.          | no           |
 | Test Case 4 | Index: 2, card: SEE_THE_FUTURE, pile: [three elements] | pile[2] = SEE_THE_FUTURE, other cards unchanged. | no           |

@@ -159,4 +159,20 @@ public class CardPileTests {
     assertEquals(1, cards.length);
 
   }
+
+  @Test
+  public void setCard_index0_ATTACK_emptyPile() {
+    CardPile pile = new CardPile();
+
+    int index = 0;
+    Card c = Card.ATTACK;
+
+    String expectedMessage = "Index is out of range.";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      pile.setCard(index, c);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
 }

@@ -69,5 +69,9 @@ public class CardPile {
    * @param i the index in the array to set to c.
    * @param c the card to set.
    */
-  public void setCard(int i, Card c) {}
+  public void setCard(int i, Card c) {
+    if (i >= cardList.size()) {
+      throw new IllegalArgumentException("Index is out of range.");
+    }
+  }
 }
