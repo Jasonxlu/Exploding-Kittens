@@ -84,6 +84,27 @@
 |--------------|-------------------|--------------------------------------------------------------------------------------------|--------------|
 | Test Case 1  | list: []          | list: [34 cards], 3 attacks, 4 shuffles, 3 skips, 4 future, 4 nope, 4 of each cat (4 cats) | yes          |
 
+
+
+## Method 6: ```public void replaceTopDrawPileCards(Card[] toSet)```
+### Step 1-3 Results
+|        | Input                                      | Input2                                                              | Output                                                                                                                                                                  |
+|--------|--------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | the cards in the draw pile                 | the new top cards in the draw pile                                  | CardPile.setCard should be called with the top n indices and top n cards, or an exception should be thrown.                                                             |
+| Step 2 | Collection                                 | Collection                                                          | The collection contains all original elements, except the last n cards are replaced with the n cards in input2.                                                         |
+| Step 3 | [], [one element], [more than one element] | [], [one element], [more than one element], [max size] (3 elements) | draw pile is altered with the last n cards, or an exception is thrown if the number if the number of cards passed is greater than the number of cards in the draw pile. |
+### Step 4:
+##### All-combination or each-choice: Each-choice
+
+|             | System under test                                                 | Expected output                                                                               | Implemented? |
+|-------------|-------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | draw pile: [], input2: [one element]                              | Exception thrown: too many cards in input2 array                                              | no           |
+| Test Case 2 | draw pile: [one element], input2: [one element]                   | CardPile.setCard(0, input2[0]) is called                                                      | no           |
+| Test Case 3 | draw pile: [two elements], input2: [two elements]                 | CardPile.setCard(1, input2[0]) and CardPile.setCard(0, input2[1]) are called                  | no           |
+| Test Case 4 | draw pile: [two elements], new order: []                          | CardPile.setCard is not called.                                                               | no           |
+| Test Case 5 | draw pile: [four elements], new order: [max size, three elements] | CardPile.setCard(2, input2[0]), .setCard(1, input2[1]), and .setCard(0, input2[2]) are called | no           |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
