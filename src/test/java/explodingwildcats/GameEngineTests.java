@@ -545,4 +545,29 @@ public class GameEngineTests {
     EasyMock.verify(drawPile);
   }
 
+  @Test
+  public void replaceTopDrawPileCards_drawPileContainsFourCards_threeCardsToSet() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    EasyMock.expect(drawPile.getCards()).andReturn(
+            new Card[] {Card.CAT, Card.DEFUSE, Card.ATTACK, Card.CAT});
+    Card newTopCard = Card.ALTER_THE_FUTURE;
+    Card newSecondFromTopCard = Card.ALTER_THE_FUTURE;
+    Card newThirdFromTopCard = Card.DRAW_FROM_BOTTOM;
+    Card[] toSet = new Card[] { newTopCard, newSecondFromTopCard, newThirdFromTopCard };
+
+    drawPile.setCard(3, newTopCard);
+    drawPile.setCard(2, newSecondFromTopCard);
+    drawPile.setCard(1, newThirdFromTopCard);
+
+    EasyMock.replay(drawPile);
+
+    game.replaceTopDrawPileCards(toSet);
+
+    EasyMock.verify(drawPile);
+  }
+
 }
