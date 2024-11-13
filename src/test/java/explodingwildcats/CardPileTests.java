@@ -193,4 +193,23 @@ public class CardPileTests {
       assertEquals(expectedPile[i], actualPile[i]);
     }
   }
+
+  @Test
+  public void setCard_index0_DEFUSE_pileContainsTwoCards() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.NOPE);
+    pile.addCard(Card.SEE_THE_FUTURE);
+
+    int index = 0;
+    Card c = Card.DEFUSE;
+
+    pile.setCard(index, c);
+
+    Card[] expectedPile = new Card[] { Card.DEFUSE, Card.SEE_THE_FUTURE };
+    Card[] actualPile = pile.getCards();
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+  }
 }
