@@ -1,5 +1,7 @@
 package explodingwildcats;
 
+import java.util.Arrays;
+
 /**
  * Class responsible for setting up the game logic.
  */
@@ -13,18 +15,30 @@ public class GameEngine {
   private CardPileFactory cardPileFactory;
 
   /**
-   * Constructor for GameEngine.
+   * Unit testing constructor for GameEngine.
    *
    * @param playerFactory PlayerFactory object responsible for creating player instances
    * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
    * @param drawPile CardPile that players draw from
    */
-  public GameEngine(PlayerFactory playerFactory,
+  GameEngine(PlayerFactory playerFactory,
                     CardPileFactory cardPileFactory,
                     CardPile drawPile) {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = drawPile;
+  }
+
+  /**
+   *  Constructor for GameEngine.
+   *
+   * @param playerFactory PlayerFactory object responsible for creating player instances
+   * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
+   */
+  public GameEngine(PlayerFactory playerFactory, CardPileFactory cardPileFactory) {
+    this.playerFactory = playerFactory;
+    this.cardPileFactory = cardPileFactory;
+    this.drawPile = new CardPile();
   }
 
   /**
@@ -82,7 +96,7 @@ public class GameEngine {
   }
 
   public Player[] getPlayers() {
-    return players;
+    return Arrays.copyOf(players, players.length);
   }
 
   /**
