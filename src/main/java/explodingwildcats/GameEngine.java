@@ -125,8 +125,9 @@ public class GameEngine {
   }
 
   /**
-   * Replace the top cards in the draw pile with the cards in toSet
-   * @param toSet the cards to set as the top of the draw pile
+   * Replace the top cards in the draw pile with the cards in toSet.
+   *
+   * @param toSet the cards to set as the top of the draw pile.
    */
   public void replaceTopDrawPileCards(Card[] toSet) {
     int numToSet = toSet.length;
@@ -135,7 +136,7 @@ public class GameEngine {
       throw new IllegalArgumentException(
               "Number of cards passed is greater than the number of cards in draw pile.");
     }
-    for(int i = 0; i < numToSet; i++) {
+    for (int i = 0; i < numToSet; i++) {
       drawPile.setCard(numInDrawPile - 1 - i, toSet[i]);
     }
   }

@@ -63,5 +63,11 @@ public class CardPile {
 
   }
 
+  /**
+   * Sets the ith card in the pile to c.
+   *
+   * @param i the index in the array to set to c.
+   * @param c the card to set.
+   */
   public void setCard(int i, Card c) {}
 }
