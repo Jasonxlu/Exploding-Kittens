@@ -73,6 +73,6 @@ public class CardPile {
     if (i >= cardList.size()) {
       throw new IllegalArgumentException("Index is out of range.");
     }
-    cardList.set(i,c);
+    cardList.set(i, c);
   }
 }

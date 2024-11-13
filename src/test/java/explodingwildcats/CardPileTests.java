@@ -187,7 +187,7 @@ public class CardPileTests {
 
     pile.setCard(index, c);
 
-    Card[] expectedPile = new Card[] { Card.SHUFFLE };
+    Card[] expectedPile = new Card[] { c };
     Card[] actualPile = pile.getCards();
     for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
       assertEquals(expectedPile[i], actualPile[i]);
@@ -198,15 +198,17 @@ public class CardPileTests {
   public void setCard_index0_DEFUSE_pileContainsTwoCards() {
     CardPile pile = new CardPile();
 
-    pile.addCard(Card.NOPE);
-    pile.addCard(Card.SEE_THE_FUTURE);
+    Card card1 = Card.NOPE;
+    Card card2 = Card.SEE_THE_FUTURE;
+    pile.addCard(card1);
+    pile.addCard(card2);
 
     int index = 0;
     Card c = Card.DEFUSE;
 
     pile.setCard(index, c);
 
-    Card[] expectedPile = new Card[] { Card.DEFUSE, Card.SEE_THE_FUTURE };
+    Card[] expectedPile = new Card[] { c, card2 };
     Card[] actualPile = pile.getCards();
     for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
       assertEquals(expectedPile[i], actualPile[i]);
