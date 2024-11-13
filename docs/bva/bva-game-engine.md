@@ -98,10 +98,10 @@
 
 |             | System under test                                              | Expected output                                                                               | Implemented? |
 |-------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | draw pile: [], input2: [one element]                           | Exception thrown: too many cards in input2 array                                              | no           |
-| Test Case 2 | draw pile: [one element], input2: [one element]                | CardPile.setCard(0, input2[0]) is called                                                      | no           |
-| Test Case 3 | draw pile: [two elements], input2: [two elements]              | CardPile.setCard(1, input2[0]) and CardPile.setCard(0, input2[1]) are called                  | no           |
-| Test Case 4 | draw pile: [two elements], input2: []                          | CardPile.setCard is not called.                                                               | no           |
+| Test Case 1 | draw pile: [], input2: [one element]                           | Exception thrown: too many cards in input2 array                                              | yes          |
+| Test Case 2 | draw pile: [one element], input2: [one element]                | CardPile.setCard(0, input2[0]) is called                                                      | yes          |
+| Test Case 3 | draw pile: [two elements], input2: [two elements]              | CardPile.setCard(1, input2[0]) and CardPile.setCard(0, input2[1]) are called                  | yes          |
+| Test Case 4 | draw pile: [two elements], input2: []                          | CardPile.setCard is not called.                                                               | yes          |
 | Test Case 5 | draw pile: [four elements], input2: [max size, three elements] | CardPile.setCard(2, input2[0]), .setCard(1, input2[1]), and .setCard(0, input2[2]) are called | no           |
 
 

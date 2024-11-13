@@ -508,7 +508,7 @@ public class GameEngineTests {
   }
 
   @Test
-  public void replaceTopDrawPileCards_drawPileContainsTwoCards_twoCardToSet() {
+  public void replaceTopDrawPileCards_drawPileContainsTwoCards_twoCardsToSet() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
@@ -521,6 +521,23 @@ public class GameEngineTests {
 
     drawPile.setCard(1, newTopCard);
     drawPile.setCard(0, newSecondFromTopCard);
+    EasyMock.replay(drawPile);
+
+    game.replaceTopDrawPileCards(toSet);
+
+    EasyMock.verify(drawPile);
+  }
+
+  @Test
+  public void replaceTopDrawPileCards_drawPileContainsTwoCards_noCardsToSet() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.CAT, Card.DEFUSE});
+    Card[] toSet = new Card[0];
+
     EasyMock.replay(drawPile);
 
     game.replaceTopDrawPileCards(toSet);
