@@ -212,4 +212,27 @@ public class CardPileTests {
       assertEquals(expectedPile[i], actualPile[i]);
     }
   }
+
+  @Test
+  public void setCard_index2_SEE_THE_FUTURE_pileContainsThreeCards() {
+    CardPile pile = new CardPile();
+
+    Card card1 = Card.SEE_THE_FUTURE;
+    Card card2 = Card.TARGETED_ATTACK;
+    Card card3 = Card.DRAW_FROM_BOTTOM;
+    pile.addCard(card1);
+    pile.addCard(card2);
+    pile.addCard(card3);
+
+    int index = 2;
+    Card c = Card.SEE_THE_FUTURE;
+
+    pile.setCard(index, c);
+
+    Card[] expectedPile = new Card[] { card1, card2, c };
+    Card[] actualPile = pile.getCards();
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+  }
 }

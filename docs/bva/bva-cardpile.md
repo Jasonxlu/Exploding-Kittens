@@ -67,7 +67,7 @@
 | Test Case 1 | Index: 0, card: ATTACK, pile: []                       | IllegalArgumentException                         | yes          |
 | Test Case 2 | Index: 0, card: SHUFFLE, pile: [one element]           | pile[0] = SHUFFLE                                | yes          |
 | Test Case 3 | Index: 0, card: DEFUSE, pile: [two elements]           | pile[0] = DEFUSE, other card unchanged.          | yes          |
-| Test Case 4 | Index: 2, card: SEE_THE_FUTURE, pile: [three elements] | pile[2] = SEE_THE_FUTURE, other cards unchanged. | no           |
+| Test Case 4 | Index: 2, card: SEE_THE_FUTURE, pile: [three elements] | pile[2] = SEE_THE_FUTURE, other cards unchanged. | yes          |
 
 
 ## Recall the 4 steps of BVA
