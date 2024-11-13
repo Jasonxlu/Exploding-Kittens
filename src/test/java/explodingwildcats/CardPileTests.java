@@ -175,4 +175,22 @@ public class CardPileTests {
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
   }
+
+  @Test
+  public void setCard_index0_SHUFFLE_pileContainsOneCard() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.NOPE);
+
+    int index = 0;
+    Card c = Card.SHUFFLE;
+
+    pile.setCard(index, c);
+
+    Card[] expectedPile = new Card[] { Card.SHUFFLE };
+    Card[] actualPile = pile.getCards();
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+  }
 }
