@@ -123,4 +123,17 @@ public class GameEngine {
   public Card[] getDrawPile() {
     return drawPile.getCards();
   }
+
+  /**
+   * Replace the top cards in the draw pile with the cards in
+   * @param toSet the cards to set as the top of the draw pile
+   */
+  public void replaceTopDrawPileCards(Card[] toSet) {
+    int numToSet = toSet.length;
+    int numInDrawPile = getDrawPile().length;
+    if (numToSet > numInDrawPile) {
+      throw new IllegalArgumentException(
+              "Number of cards passed is greater than the number of cards in draw pile.");
+    }
+  }
 }

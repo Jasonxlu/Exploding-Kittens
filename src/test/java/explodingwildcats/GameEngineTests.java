@@ -465,4 +465,27 @@ public class GameEngineTests {
     EasyMock.verify(drawPile);
   }
 
+  @Test
+  public void replaceTopDrawPileCards_emptyDrawPile_oneCardToSet() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    EasyMock.expect(drawPile.getCards()).andReturn(new Card[0]);
+    EasyMock.replay(drawPile);
+
+    Card[] toSet = new Card[] {Card.SKIP};
+
+    String expectedMessage = "Number of cards passed is greater than the number of cards in draw pile.";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.replaceTopDrawPileCards(toSet);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(drawPile);
+  }
+
 }
