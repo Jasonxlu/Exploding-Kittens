@@ -135,5 +135,8 @@ public class GameEngine {
       throw new IllegalArgumentException(
               "Number of cards passed is greater than the number of cards in draw pile.");
     }
+    for(int i = 0; i < numToSet; i++) {
+      drawPile.setCard(numInDrawPile - 1 - i, toSet[i]);
+    }
   }
 }

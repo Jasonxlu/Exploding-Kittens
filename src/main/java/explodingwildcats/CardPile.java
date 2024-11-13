@@ -62,4 +62,6 @@ public class CardPile {
     return cards.toArray(new Card[0]);
 
   }
+
+  public void setCard(int i, Card c) {}
 }
