@@ -11,5 +11,11 @@ public enum Card {
     SEE_THE_FUTURE,
     SHUFFLE,
     SKIP,
-    EXPLODE
+    EXPLODE,
+    ALTER_THE_FUTURE,
+    DRAW_FROM_BOTTOM,
+    FERAL,
+    IMPLODE,
+    REVERSE,
+    TARGETED_ATTACK
 }

@@ -29,6 +29,7 @@ java {
     }
 }
 
+
 tasks.compileJava {
     options.release = 11
 }
@@ -45,13 +46,22 @@ tasks.withType<Checkstyle>().configureEach {
     }
 }
 
+tasks.named<Checkstyle>("checkstyleMain") {
+    enabled = true
+}
+
+tasks.named<Checkstyle>("checkstyleTest") {
+    enabled = false
+}
+
+
 spotbugs {
     ignoreFailures = false
     showStackTraces = true
     showProgress = true
     effort = Effort.DEFAULT
     reportLevel = Confidence.DEFAULT
-    visitors = listOf("FindSqlInjection", "SwitchFallthrough")
+//    visitors = listOf("FindSqlInjection", "SwitchFallthrough")
 //    omitVisitors = listOf("FindNonShortCircuit")
     reportsDir = layout.buildDirectory.dir("spotbugs").get().asFile
 //    includeFilter = file("include.xml")

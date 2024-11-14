@@ -6,13 +6,28 @@ import java.util.ArrayList;
  * Class representing a player in the game.
  */
 public class Player {
+  private String name;
+  private CardPile hand;
+
   /**
-   * Constructor for player object.
+   * Unit testing constructor for player object.
+   *
+   * @param name name of the player
+   * @param hand the player's hand
+   */
+ Player(String name, CardPile hand) {
+    this.name = name;
+    this.hand = hand;
+  }
+
+  /**
+   * Constructor for player object
    *
    * @param name name of the player
    */
   public Player(String name) {
-
+    this.name = name;
+    this.hand = new CardPile();
   }
 
   /**
@@ -21,7 +36,7 @@ public class Player {
    * @return string name of player
    */
   public String getName() {
-    return "";
+    return name;
   }
 
   /**
@@ -30,7 +45,7 @@ public class Player {
    * @param c card to add to player hand
    */
   public void addCardToHand(Card c) {
-
+    this.hand.addCard(c);
   }
 
   /**
