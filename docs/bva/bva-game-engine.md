@@ -87,18 +87,18 @@
 
 ## Method 6: ```public void reverseTurnOrder()```
 ### Step 1-3 Results
-|        | Input 1                                           | Output                                 |
-|--------|---------------------------------------------------|----------------------------------------|
-| Step 1 | Current turn order (state of isReversed variable) | none, isReversed toggled               |
-| Step 2 | Boolean (0 = not reversed, 1 = reversed)          | None, isReversed is set to !isReversed |
-| Step 3 | 0,1                                               | None, boolean                          |
+|        | Input 1                                                    | Output                                                   |
+|--------|------------------------------------------------------------|----------------------------------------------------------|
+| Step 1 | Current turn order (state of isTurnOrderReversed variable) | none, isTurnOrderReversed toggled                        |
+| Step 2 | Boolean (True = reversed, False = normal order)            | None, isTurnOrderReversed is set to !isTurnOrderReversed |
+| Step 3 | True, False                                                | None, isTurnOrderReversed set to !isTurnOrderReversed    |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test | Expected output | Implemented? |
-|-------------|-------------------|-----------------|--------------|
-| Test Case 1 | isReversed: 0     | isReversed = 1  | no           |
-| Test Case 2 | isReversed: 1     | isReversed = 0  | no           |
+|             | System under test          | Expected output             | Implemented? |
+|-------------|----------------------------|-----------------------------|--------------|
+| Test Case 1 | isTurnOrderReversed: False | isTurnOrderReversed = True  | no           |
+| Test Case 2 | isTurnOrderReversed: True  | isTurnOrderReversed = False | no           |
 
 
 ## Recall the 4 steps of BVA
