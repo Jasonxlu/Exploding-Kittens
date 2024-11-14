@@ -1,9 +1,6 @@
 package ui;
 
-import explodingwildcats.CardPile;
-import explodingwildcats.GameEngine;
-import explodingwildcats.Player;
-import explodingwildcats.PlayerFactory;
+import explodingwildcats.*;
 
 /**
  * Entry point for the Exploding Wildcats game, responsible for initializing the user interface.
@@ -25,8 +22,8 @@ public class Main {
     String[] playerNames = ui.getPlayerNames(numberOfPlayers);
 
     PlayerFactory playerFactory = new PlayerFactory();
-    CardPile drawPile = new CardPile();
-    GameEngine gameEngine = new GameEngine(playerFactory, drawPile);
+    CardPileFactory cardPileFactory = new CardPileFactory();
+    GameEngine gameEngine = new GameEngine(playerFactory, cardPileFactory);
 
     // Setting up game engine
     gameEngine.setUpPlayers(numberOfPlayers, playerNames);
