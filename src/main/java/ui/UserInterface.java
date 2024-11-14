@@ -1,5 +1,6 @@
 package ui;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
-  private final Scanner scanner = new Scanner(System.in);
+  private final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
   /**
    * Prompts the user to enter the number of players for the game.

@@ -1,6 +1,8 @@
 package ui;
 
-import explodingwildcats.*;
+import explodingwildcats.CardPileFactory;
+import explodingwildcats.GameEngine;
+import explodingwildcats.PlayerFactory;
 
 /**
  * Entry point for the Exploding Wildcats game, responsible for initializing the user interface.
