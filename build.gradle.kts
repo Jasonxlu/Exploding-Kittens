@@ -61,7 +61,7 @@ spotbugs {
     showProgress = true
     effort = Effort.DEFAULT
     reportLevel = Confidence.DEFAULT
-    visitors = listOf("FindSqlInjection", "SwitchFallthrough")
+//    visitors = listOf("FindSqlInjection", "SwitchFallthrough")
 //    omitVisitors = listOf("FindNonShortCircuit")
     reportsDir = layout.buildDirectory.dir("spotbugs").get().asFile
 //    includeFilter = file("include.xml")
