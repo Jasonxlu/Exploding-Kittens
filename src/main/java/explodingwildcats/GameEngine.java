@@ -14,6 +14,8 @@ public class GameEngine {
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
 
+  private boolean isTurnOrderReversed;
+
   /**
    * Unit testing constructor for GameEngine.
    *
@@ -27,6 +29,7 @@ public class GameEngine {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = drawPile;
+    isTurnOrderReversed = false;
   }
 
   /**
@@ -39,6 +42,7 @@ public class GameEngine {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = new CardPile();
+    isTurnOrderReversed = false;
   }
 
   /**
@@ -136,5 +140,16 @@ public class GameEngine {
 
   public Card[] getDrawPile() {
     return drawPile.getCards();
+  }
+
+  /**
+   * Reverses the turn order.
+   */
+  public void reverseTurnOrder() {
+    isTurnOrderReversed = !isTurnOrderReversed;
+  }
+
+  public boolean getIsTurnOrderReversed() {
+    return isTurnOrderReversed;
   }
 }
