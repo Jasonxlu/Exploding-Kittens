@@ -15,13 +15,13 @@ public class Player {
    * @param name name of the player
    * @param hand the player's hand
    */
- Player(String name, CardPile hand) {
+  Player(String name, CardPile hand) {
     this.name = name;
     this.hand = hand;
   }
 
   /**
-   * Constructor for player object
+   * Constructor for player object.
    *
    * @param name name of the player
    */
