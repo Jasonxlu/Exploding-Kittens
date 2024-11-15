@@ -81,7 +81,10 @@ public class UserInterface {
    * @param numToReorder the string to print.
    */
   public int[] promptNewOrder(int numToReorder) {
-    System.out.println("Please enter the new order in the format: <# of first card>, <# of second card>, <# of third card>.");
+    System.out.println("Please enter the new order in the format: "
+            + "<# of first card>, "
+            + "<# of second card>, "
+            + "<# of third card>.");
     int[] newOrder = new int[numToReorder];
 
     boolean orderSet = false;
@@ -99,10 +102,11 @@ public class UserInterface {
           int num = Integer.parseInt(enteredOrder[i].trim());
           if (num < 1 || num > numToReorder) {
             orderSet = false;
-            System.out.println("You entered a number outside of the range to reorder (1-" + numToReorder + ").");
+            System.out.println("You entered a number outside of the range to reorder (1-"
+                    + numToReorder + ").");
             break;
           }
-          seenNums[num-1] = true;
+          seenNums[num - 1] = true;
           newOrder[i] = num;
         }
       } catch (NumberFormatException e) {

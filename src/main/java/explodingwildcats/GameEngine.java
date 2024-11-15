@@ -1,8 +1,7 @@
 package explodingwildcats;
 
-import ui.UserInterface;
-
 import java.util.Arrays;
+import ui.UserInterface;
 
 /**
  * Class responsible for setting up the game logic.
@@ -15,8 +14,6 @@ public class GameEngine {
   private CardPile drawPile;
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
-  private UserInterface ui;
-  private TurnManager turnManager;
 
   /**
    * Unit testing constructor for GameEngine.
@@ -24,17 +21,13 @@ public class GameEngine {
    * @param playerFactory PlayerFactory object responsible for creating player instances
    * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
    * @param drawPile CardPile that players draw from
-   * @param ui UserInterface responsible for user I/O
    */
   GameEngine(PlayerFactory playerFactory,
                     CardPileFactory cardPileFactory,
-                    CardPile drawPile,
-                    UserInterface ui) {
+                    CardPile drawPile) {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = drawPile;
-    this.ui = ui;
-    this.turnManager = new TurnManager(ui,this);
   }
 
   /**
@@ -42,16 +35,12 @@ public class GameEngine {
    *
    * @param playerFactory PlayerFactory object responsible for creating player instances
    * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
-   * @param ui UserInterface responsible for user I/O
    */
   public GameEngine(PlayerFactory playerFactory,
-                    CardPileFactory cardPileFactory,
-                    UserInterface ui) {
+                    CardPileFactory cardPileFactory) {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = new CardPile();
-    this.ui = ui;
-    this.turnManager = new TurnManager(ui,this);
   }
 
   /**

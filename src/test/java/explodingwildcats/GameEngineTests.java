@@ -18,7 +18,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 1;
     String[] names = {"John"};
@@ -41,7 +41,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 1;
     String[] names = {};
@@ -65,7 +65,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
     Player p1 = EasyMock.createMock(Player.class);
     Player p2 = EasyMock.createMock(Player.class);
 
@@ -96,7 +96,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 4;
     String[] names = {"John", "Jane", "Alice", "Bob"};
@@ -130,7 +130,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     EasyMock.replay(playerFactory, cardPileFactory);
 
@@ -154,7 +154,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 2;
     String[] names = {"John", "Jane"};
@@ -186,7 +186,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 4;
     String[] names = {"John", "Jane", "Alice", "Bob"};
@@ -222,7 +222,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 2;
     String[] names = {"John", "Jane"};
@@ -266,7 +266,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 4;
     String[] names = {"John", "Jane", "Bob", "Job"};
@@ -320,7 +320,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 2;
     String[] names = {"John", "Jane"};
@@ -368,7 +368,7 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     final int numPlayers = 4;
     String[] names = {"John", "Jane", "Bob", "Job"};
@@ -426,7 +426,7 @@ public class GameEngineTests {
   public void createDrawPile_CorrectCardCounts() {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.niceMock(CardPile.class);
-    GameEngine game = new GameEngine(null, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(null, cardPileFactory, drawPile);
 
     final int expectedAttacks = 3;
     final int expectedShuffles = 4;
@@ -471,7 +471,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     EasyMock.expect(drawPile.getCards()).andReturn(new Card[0]);
     EasyMock.replay(drawPile);
@@ -494,7 +494,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.CAT});
     Card newCard = Card.SKIP;
@@ -513,7 +513,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.CAT, Card.DEFUSE});
     Card newTopCard = Card.SKIP;
@@ -534,7 +534,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.CAT, Card.DEFUSE});
     Card[] toSet = new Card[0];
@@ -551,7 +551,7 @@ public class GameEngineTests {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
-    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, null);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     EasyMock.expect(drawPile.getCards()).andReturn(
             new Card[] {Card.CAT, Card.DEFUSE, Card.ATTACK, Card.CAT});

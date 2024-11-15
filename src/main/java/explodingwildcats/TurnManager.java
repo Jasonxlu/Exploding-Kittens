@@ -35,7 +35,7 @@ public class TurnManager {
     int[] newOrder = ui.promptNewOrder(numToReorder);
     Card[] newTopCards = new Card[numToReorder];
     for (int i = 0; i < numToReorder; i++) {
-      newTopCards[i] = peekedCards[newOrder[i]-1];
+      newTopCards[i] = peekedCards[newOrder[i] - 1];
     }
     gameEngine.replaceTopDrawPileCards(newTopCards);
   }
