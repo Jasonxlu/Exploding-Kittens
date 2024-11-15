@@ -60,7 +60,6 @@ public class CardPile {
       cards.add(cardList.get(cardList.size() - 1 - i));
     }
     return cards.toArray(new Card[0]);
-
   }
 
   /**

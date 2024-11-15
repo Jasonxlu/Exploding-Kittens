@@ -1,5 +1,7 @@
 package explodingwildcats;
 
+import ui.UserInterface;
+
 import java.util.Arrays;
 
 /**
@@ -13,6 +15,8 @@ public class GameEngine {
   private CardPile drawPile;
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
+  private UserInterface ui;
+  private TurnManager turnManager;
 
   /**
    * Unit testing constructor for GameEngine.
@@ -20,13 +24,17 @@ public class GameEngine {
    * @param playerFactory PlayerFactory object responsible for creating player instances
    * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
    * @param drawPile CardPile that players draw from
+   * @param ui UserInterface responsible for user I/O
    */
   GameEngine(PlayerFactory playerFactory,
                     CardPileFactory cardPileFactory,
-                    CardPile drawPile) {
+                    CardPile drawPile,
+                    UserInterface ui) {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = drawPile;
+    this.ui = ui;
+    this.turnManager = new TurnManager(ui,this);
   }
 
   /**
@@ -34,11 +42,16 @@ public class GameEngine {
    *
    * @param playerFactory PlayerFactory object responsible for creating player instances
    * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
+   * @param ui UserInterface responsible for user I/O
    */
-  public GameEngine(PlayerFactory playerFactory, CardPileFactory cardPileFactory) {
+  public GameEngine(PlayerFactory playerFactory,
+                    CardPileFactory cardPileFactory,
+                    UserInterface ui) {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = new CardPile();
+    this.ui = ui;
+    this.turnManager = new TurnManager(ui,this);
   }
 
   /**
@@ -134,8 +147,18 @@ public class GameEngine {
     }
   }
 
+  /**
+   * Getter for draw pile cards.
+   */
   public Card[] getDrawPile() {
     return drawPile.getCards();
+  }
+
+  /**
+   * Getter method for drawPile.peek().
+   */
+  public Card[] peekDrawPile() {
+    return drawPile.peek();
   }
 
   /**

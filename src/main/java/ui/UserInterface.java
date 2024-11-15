@@ -65,4 +65,61 @@ public class UserInterface {
 
     return playerNames;
   }
+
+  /**
+   * Prints out the given string in a new line.
+   *
+   * @param s the string to print.
+   */
+  public void println(String s) {
+    System.out.println(s);
+  }
+
+  /**
+   * Prompts the user to reorder the numbers from 1-numToReorder.
+   *
+   * @param numToReorder the string to print.
+   */
+  public int[] promptNewOrder(int numToReorder) {
+    System.out.println("Please enter the new order in the format: <# of first card>, <# of second card>, <# of third card>.");
+    int[] newOrder = new int[numToReorder];
+
+    boolean orderSet = false;
+    while (!orderSet) {
+      orderSet = true;
+      String[] enteredOrder = scanner.nextLine().trim().split(",");
+      if (enteredOrder.length != numToReorder) {
+        orderSet = false;
+        System.out.println("Error: Please enter exactly " + numToReorder + " numbers.");
+        continue;
+      }
+      boolean[] seenNums = new boolean[numToReorder];
+      try {
+        for (int i = 0; i < enteredOrder.length; i++) {
+          int num = Integer.parseInt(enteredOrder[i].trim());
+          if (num < 1 || num > numToReorder) {
+            orderSet = false;
+            System.out.println("You entered a number outside of the range to reorder (1-" + numToReorder + ").");
+            break;
+          }
+          seenNums[num-1] = true;
+          newOrder[i] = num;
+        }
+      } catch (NumberFormatException e) {
+        orderSet = false;
+        System.out.println("You entered an invalid number.");
+        continue;
+      }
+
+      // check if all numbers in range were covered
+      for (int i = 0; i < seenNums.length; i++) {
+        if (!seenNums[i]) {
+          orderSet = false;
+          System.out.println("You forgot to set " + i + " in your new order.");
+          break;
+        }
+      }
+    }
+    return newOrder;
+  }
 }
