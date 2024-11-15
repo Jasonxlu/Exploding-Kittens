@@ -68,7 +68,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void doAlterTheFuture_threeCardsInDrawPile_swapTopTwo() {
+  public void doAlterTheFuture_threeCardsInDrawPile_reverseCards() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
@@ -83,12 +83,12 @@ public class TurnManagerTests {
 
     // 2. ui.println called with peeked cards
     ui.println("Top: IMPLODE, 2nd: DEFUSE, 3rd: REVERSE");
-    int[] newOrder = new int[] {2, 1, 3};
+    int[] newOrder = new int[] {3, 2, 1};
 
     // 3. ui.promptNewOrder called with number of peeked cards
     EasyMock.expect(ui.promptNewOrder(3)).andReturn(newOrder);
 
-    Card[] reorderedDrawPile = new Card[] { secondCardInDrawPile, topCardInDrawPile, thirdCardInDrawPile };
+    Card[] reorderedDrawPile = new Card[] { thirdCardInDrawPile, secondCardInDrawPile, topCardInDrawPile };
     // 4. GameEngine.replaceTopDrawPileCards called with the new order converted to the cards.
     gameEngine.replaceTopDrawPileCards(reorderedDrawPile);
 
