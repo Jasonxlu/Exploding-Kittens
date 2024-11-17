@@ -569,4 +569,23 @@ public class GameEngineTests {
     EasyMock.verify(drawPile);
   }
 
+  @Test
+  public void popBottomCard_callsAndReturnsDrawPileDrawCardFromBottom() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    Card returnedPoppedCard = Card.ATTACK;
+    EasyMock.expect(drawPile.drawCardFromBottom()).andReturn(returnedPoppedCard);
+
+    EasyMock.replay(drawPile);
+
+    Card actualPoppedCard = game.popBottomCard();
+
+    assertEquals(returnedPoppedCard, actualPoppedCard);
+
+    EasyMock.verify(drawPile);
+  }
+
 }

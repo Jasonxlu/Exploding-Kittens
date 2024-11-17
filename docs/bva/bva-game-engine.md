@@ -116,10 +116,9 @@
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                                | Expected output                                            | Implemented? |
-|-------------|--------------------------------------------------|------------------------------------------------------------|--------------|
-| Test Case 1 | draw pile: [one element: ATTACK]                 | drawPile.drawCardFromBottom() called, and result returned. | no           |
-| Test Case 2 | draw pile: [two elements: SEE_THE_FUTURE, SKIP], | drawPile.drawCardFromBottom() called, and result returned. | no           |
+|             | System under test                                                                      | Expected output                                            | Implemented? |
+|-------------|----------------------------------------------------------------------------------------|------------------------------------------------------------|--------------|
+| Test Case 1 | draw pile (the object will be mocked, and drawCardFromBottom set to return an ATTACK.) | drawPile.drawCardFromBottom() called, and result returned. | yes          |
 
 
 ## Recall the 4 steps of BVA
