@@ -1,7 +1,6 @@
 package explodingwildcats;
 
 import java.util.Arrays;
-import ui.UserInterface;
 
 /**
  * Class responsible for setting up the game logic.

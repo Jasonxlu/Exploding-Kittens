@@ -3,10 +3,8 @@ package explodingwildcats;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Arrays;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
-import ui.UserInterface;
 
 
 /**
