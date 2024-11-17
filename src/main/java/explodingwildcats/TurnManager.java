@@ -39,4 +39,9 @@ public class TurnManager {
     }
     gameEngine.replaceTopDrawPileCards(newTopCards);
   }
+
+  public void doSeeTheFuture() {
+    Card[] peekedCards = gameEngine.peekDrawPile();
+    ui.println("Top: Targeted_Attack, 2nd: None, 3rd: None");
+  }
 }

@@ -98,4 +98,27 @@ public class TurnManagerTests {
 
     EasyMock.verify(ui, gameEngine);
   }
+
+  @Test
+  public void doSeeTheFuture_oneCardInDrawPile_oneCardPrinted() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card cardInDrawPile = Card.TARGETED_ATTACK;
+    Card[] peekedDrawPile = new Card[] { cardInDrawPile };
+
+    // 1. GameEngine.peek() called
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedDrawPile);
+
+    // 2. ui.println called with the peeked cards
+    ui.println("Top: Targeted_Attack, 2nd: None, 3rd: None");
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.doSeeTheFuture();
+
+    EasyMock.verify(ui, gameEngine);
+  }
 }
+
