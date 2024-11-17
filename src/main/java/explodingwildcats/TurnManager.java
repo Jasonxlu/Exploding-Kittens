@@ -42,6 +42,12 @@ public class TurnManager {
 
   public void doSeeTheFuture() {
     Card[] peekedCards = gameEngine.peekDrawPile();
-    ui.println("Top: Targeted_Attack, 2nd: None, 3rd: None");
+
+    String peekedCardsMessage = "Top: " + peekedCards[0].name();
+    if (peekedCards.length > 1) {
+      peekedCardsMessage += ", 2nd: " + peekedCards[1].name();
+    }
+
+    ui.println(peekedCardsMessage);
   }
 }

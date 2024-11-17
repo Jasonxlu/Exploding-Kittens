@@ -34,6 +34,6 @@
 
 |              | System under test                                        | Expected output                                     | Implemented? |
 |--------------|----------------------------------------------------------|-----------------------------------------------------|--------------|
-| Test Case 1  | drawPile: [one element] (TARGETED_ATTACK)                | GameEngine.peek() called, UI prints the single card |              |
-| Test Case 2  | drawPile: [two elements] (DEFUSE, IMPLODE)               | GameEngine.peek() called, UI prints two cards       |              |
+| Test Case 1  | drawPile: [one element] (TARGETED_ATTACK)                | GameEngine.peek() called, UI prints the single card | yes          |
+| Test Case 2  | drawPile: [two elements] (DEFUSE, IMPLODE)               | GameEngine.peek() called, UI prints two cards       | yes          |
 | Test Case 3  | drawPile: [four elements] (NOPE, EXPLODE, REVERSE, SKIP) | GameEngine.peek() called, UI prints three cards     |              |
