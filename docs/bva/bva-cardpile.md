@@ -82,8 +82,8 @@
 
 |             | System under test                                 | Expected output                              | Implemented? |
 |-------------|---------------------------------------------------|----------------------------------------------|--------------|
-| Test Case 1 | cardList: [one element: EXPLODE]                  | EXPLODE returned, cardList: []               | no           |
-| Test Case 2 | cardList: [two elements: SEE_THE_FUTURE, EXPLODE] | SEE_THE_FUTURE returned, cardList: [EXPLODE] | no           |
+| Test Case 1 | cardList: [one element: EXPLODE]                  | EXPLODE returned, cardList: []               | yes          |
+| Test Case 2 | cardList: [two elements: SEE_THE_FUTURE, EXPLODE] | SEE_THE_FUTURE returned, cardList: [EXPLODE] | yes          |
 
 
 ## Recall the 4 steps of BVA
