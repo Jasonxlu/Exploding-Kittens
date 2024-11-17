@@ -20,3 +20,20 @@
 # Note: drawPile could have four elements, but we can't unit test this, because 
 # in the unit test, we test the behavior of the TurnManager by setting the results of gameEngine.peek(),
 # so we never actually set the number of cards in the GameEngine's draw pile.
+
+
+## Method 1: ```public void doSeeTheFuture()```
+### Step 1-3 Results
+|        | Input                                   | Output                                                              |
+|--------|-----------------------------------------|---------------------------------------------------------------------|
+| Step 1 | GameEngine's drawPile                   | Calls GameEngine.peek(), then UI.print 3x with the resulting cards. |
+| Step 2 | Collection (of Card enums - cases)      | None (outputs top 3 cards to the user via UI)                       |
+| Step 3 | [one element], [more than one element]  | None (Calls UI and GameEngine functions)                            |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                                        | Expected output                                     | Implemented? |
+|--------------|----------------------------------------------------------|-----------------------------------------------------|--------------|
+| Test Case 1  | drawPile: [one element] (TARGETED_ATTACK)                | GameEngine.peek() called, UI prints the single card |              |
+| Test Case 2  | drawPile: [two elements] (DEFUSE, IMPLODE)               | GameEngine.peek() called, UI prints two cards       |              |
+| Test Case 3  | drawPile: [four elements] (NOPE, EXPLODE, REVERSE, SKIP) | GameEngine.peek() called, UI prints three cards     |              |
