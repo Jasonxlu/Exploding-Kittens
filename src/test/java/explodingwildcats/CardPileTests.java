@@ -159,4 +159,82 @@ public class CardPileTests {
     assertEquals(1, cards.length);
 
   }
+
+  @Test
+  public void setCard_index0_ATTACK_emptyPile() {
+    CardPile pile = new CardPile();
+
+    int index = 0;
+    Card c = Card.ATTACK;
+
+    String expectedMessage = "Index is out of range.";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      pile.setCard(index, c);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void setCard_index0_SHUFFLE_pileContainsOneCard() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.NOPE);
+
+    int index = 0;
+    Card c = Card.SHUFFLE;
+
+    pile.setCard(index, c);
+
+    Card[] expectedPile = new Card[] { c };
+    Card[] actualPile = pile.getCards();
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+  }
+
+  @Test
+  public void setCard_index0_DEFUSE_pileContainsTwoCards() {
+    CardPile pile = new CardPile();
+
+    Card card1 = Card.NOPE;
+    Card card2 = Card.SEE_THE_FUTURE;
+    pile.addCard(card1);
+    pile.addCard(card2);
+
+    int index = 0;
+    Card c = Card.DEFUSE;
+
+    pile.setCard(index, c);
+
+    Card[] expectedPile = new Card[] { c, card2 };
+    Card[] actualPile = pile.getCards();
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+  }
+
+  @Test
+  public void setCard_index2_SEE_THE_FUTURE_pileContainsThreeCards() {
+    CardPile pile = new CardPile();
+
+    Card card1 = Card.SEE_THE_FUTURE;
+    Card card2 = Card.TARGETED_ATTACK;
+    Card card3 = Card.DRAW_FROM_BOTTOM;
+    pile.addCard(card1);
+    pile.addCard(card2);
+    pile.addCard(card3);
+
+    int index = 2;
+    Card c = Card.SEE_THE_FUTURE;
+
+    pile.setCard(index, c);
+
+    Card[] expectedPile = new Card[] { card1, card2, c };
+    Card[] actualPile = pile.getCards();
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+  }
 }
