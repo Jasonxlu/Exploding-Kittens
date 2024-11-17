@@ -47,6 +47,9 @@ public class TurnManager {
     if (peekedCards.length > 1) {
       peekedCardsMessage += ", 2nd: " + peekedCards[1].name();
     }
+    if (peekedCards.length == 3) {
+      peekedCardsMessage += ", 3rd: " + peekedCards[2].name();
+    }
 
     ui.println(peekedCardsMessage);
   }

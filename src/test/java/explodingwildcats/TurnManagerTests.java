@@ -127,21 +127,47 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
-    Card topCardInDrawPile = Card.IMPLODE;
-    Card secondCardInDrawPile = Card.DEFUSE;
+    Card topCardInDrawPile = Card.DEFUSE;
+    Card secondCardInDrawPile = Card.IMPLODE;
     Card[] peekedDrawPile = new Card[] { topCardInDrawPile, secondCardInDrawPile };
 
     // 1. GameEngine.peek() called
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedDrawPile);
 
     // 2. ui.println called with the peeked cards
-    ui.println("Top: IMPLODE, 2nd: DEFUSE");
+    ui.println("Top: DEFUSE, 2nd: IMPLODE");
 
     EasyMock.replay(ui, gameEngine);
 
     turnManager.doSeeTheFuture();
 
     EasyMock.verify(ui, gameEngine);
+  }
+
+  @Test
+  public void doSeeTheFuture_fourCardsInDrawPile_threeCardsPrinted() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card topCardInDrawPile = Card.NOPE;
+    Card secondCardInDrawPile = Card.EXPLODE;
+    Card thirdCardInDrawPile = Card.REVERSE;
+    Card fourthCardInDrawPile = Card.SKIP;
+    Card[] peekedDrawPile = new Card[] {topCardInDrawPile, secondCardInDrawPile, thirdCardInDrawPile};
+
+    // 1. GameEngine.peek() called
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedDrawPile);
+
+    // 2. ui.println called with the peeked cards
+    ui.println("Top: NOPE, 2nd: EXPLODE, 3rd: REVERSE");
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.doSeeTheFuture();
+
+    EasyMock.verify(ui, gameEngine);
+
   }
 }
 
