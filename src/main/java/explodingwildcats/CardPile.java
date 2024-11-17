@@ -76,11 +76,11 @@ public class CardPile {
   }
 
   /**
-   * TODO: Removes and returns the bottom card in the pile.
+   * Removes and returns the bottom card in the pile.
    *
    * @return The card popped from the bottom of the card pile
    */
   public Card drawCardFromBottom() {
-    return Card.NOPE;
+    return cardList.remove(0);
   }
 }

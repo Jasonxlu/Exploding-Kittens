@@ -237,4 +237,20 @@ public class CardPileTests {
       assertEquals(expectedPile[i], actualPile[i]);
     }
   }
+
+  @Test
+  public void drawCardFromBottom_singleCardEXPLODE() {
+    CardPile pile = new CardPile();
+
+    Card card1 = Card.EXPLODE;
+    pile.addCard(card1);
+
+    Card actualDrawnCard = pile.drawCardFromBottom();
+
+    assertEquals(card1, actualDrawnCard);
+
+    int expectedCardPileLength = 0;
+    Card[] actualPile = pile.getCards();
+    assertEquals(expectedCardPileLength, actualPile.length);
+  }
 }
