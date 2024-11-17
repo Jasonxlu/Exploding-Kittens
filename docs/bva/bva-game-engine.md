@@ -116,10 +116,10 @@
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test         | Expected output                                    | Implemented? |
-|-------------|---------------------------|----------------------------------------------------|--------------|
-| Test Case 1 | draw pile: [one element]  | draw pile: []. Single element returned.            | no           |
-| Test Case 2 | draw pile: [two elements] | draw pile: [second element]. drawPile[0] returned. | no           |
+|             | System under test                                | Expected output                                            | Implemented? |
+|-------------|--------------------------------------------------|------------------------------------------------------------|--------------|
+| Test Case 1 | draw pile: [one element: ATTACK]                 | drawPile.drawCardFromBottom() called, and result returned. | no           |
+| Test Case 2 | draw pile: [two elements: SEE_THE_FUTURE, SKIP], | drawPile.drawCardFromBottom() called, and result returned. | no           |
 
 
 ## Recall the 4 steps of BVA
