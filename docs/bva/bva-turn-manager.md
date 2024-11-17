@@ -21,22 +21,19 @@
 
 ## Method 1: ```public void doDrawFromBottom()```
 ### Step 1-3 Results
-|        | Input 1                                | Input 2                      | Output                                                                                                                                                   |
-|--------|----------------------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | GameEngine's draw pile                 | field drawNextCardFromBottom | Sets field drawNextCardFromBottom to true for this turn, so that drawAndProcessCard() calls gameEngine.popBottomCard() instead of gameEngine.drawCard(). |
-| Step 2 | Collection (of Cards - cases)          | Boolean                      | None (sets the field drawNextCardFromBottom to true).                                                                                                    |
-| Step 3 | [one element], [more than one element] | false                        | None (sets drawNextCardFromBottom to true.)                                                                                                              |
-# Note: drawNextCardFromBottom can only be false when doDrawFromBottom is called, 
-# since doDrawFromBottom is the only method that sets the field to true, 
-# and it calls endTurn, which sets it back to false.
+|        | Input 1                                | Output                                                                                                                                               |
+|--------|----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | GameEngine's draw pile                 | Calls drawAndProcessCard(drawFromBottom = true), so that gameEngine.popBottomCard() is called instead of gameEngine.drawCard(), and calls endTurn(). |
+| Step 2 | Collection (of Cards - cases)          | None (calls drawAndProcessCard(drawFromBottom = true), and calls endTurn(), so turnActive field should be set to false).                             |
+| Step 3 | [one element], [more than one element] | None (calls drawAndProcessCard(drawFromBottom = true), calls endTurn() to set turnActive to false).                                                  |
 
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                                                                      | Expected output                                                                                | Implemented? |
-|--------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | Mocked GameEngine.popBottomCard() set to return EXPLODE, drawNextCardFromBottom: false | Next call to drawAndProcessCard calls gameEngine.popBottomCard instead of gameEngine.drawCard. | no           |
+|              | System under test                                       | Expected output                                                                                                      | Implemented? |
+|--------------|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1  | Mocked GameEngine.popBottomCard() set to return EXPLODE | drawAndProcessCard is called, and calls gameEngine.popBottomCard instead of gameEngine.drawCard. turnActive = false. | no           |
 
 # Note: drawPile could have four elements, but we can't unit test this, because 
 # in the unit test, we test the behavior of the TurnManager by setting the results of gameEngine.peek(),

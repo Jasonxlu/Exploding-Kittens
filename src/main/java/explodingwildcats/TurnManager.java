@@ -9,11 +9,13 @@ public class TurnManager {
 
   private UserInterface ui;
   private GameEngine gameEngine;
+  private boolean drawNextCardFromBottom;
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
     this.ui = ui;
     this.gameEngine = gameEngine;
+    this.drawNextCardFromBottom = false;
   }
 
   /**
