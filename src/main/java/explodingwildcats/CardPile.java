@@ -49,15 +49,6 @@ public class CardPile {
   }
 
   /**
-   * TODO: Removes and returns the bottom card in the pile.
-   *
-   * @return The card popped from the bottom of the card pile
-   */
-  public Card drawCardFromBottom() {
-    return Card.NOPE;
-  }
-
-  /**
    * Returns an array of the cards at the top of the pile in the order of being drawn from the top.
    *
    * @return 0-3 card array representing the cards at the top of the pile
@@ -82,5 +73,14 @@ public class CardPile {
       throw new IllegalArgumentException("Index is out of range.");
     }
     cardList.set(i, c);
+  }
+
+  /**
+   * TODO: Removes and returns the bottom card in the pile.
+   *
+   * @return The card popped from the bottom of the card pile
+   */
+  public Card drawCardFromBottom() {
+    return Card.NOPE;
   }
 }
