@@ -40,6 +40,9 @@ public class TurnManager {
     gameEngine.replaceTopDrawPileCards(newTopCards);
   }
 
+  /**
+   * Does the effect of a see the future card.
+   */
   public void doSeeTheFuture() {
     Card[] peekedCards = gameEngine.peekDrawPile();
 

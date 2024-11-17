@@ -153,7 +153,7 @@ public class TurnManagerTests {
     Card topCardInDrawPile = Card.NOPE;
     Card secondCardInDrawPile = Card.EXPLODE;
     Card thirdCardInDrawPile = Card.REVERSE;
-    Card fourthCardInDrawPile = Card.SKIP;
+//    Card fourthCardInDrawPile = Card.SKIP;
     Card[] peekedDrawPile = new Card[] {topCardInDrawPile, secondCardInDrawPile, thirdCardInDrawPile};
 
     // 1. GameEngine.peek() called

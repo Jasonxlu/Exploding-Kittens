@@ -22,7 +22,7 @@
 # so we never actually set the number of cards in the GameEngine's draw pile.
 
 
-## Method 1: ```public void doSeeTheFuture()```
+## Method 2: ```public void doSeeTheFuture()```
 ### Step 1-3 Results
 |        | Input                                   | Output                                                              |
 |--------|-----------------------------------------|---------------------------------------------------------------------|
@@ -36,4 +36,4 @@
 |--------------|----------------------------------------------------------|-----------------------------------------------------|--------------|
 | Test Case 1  | drawPile: [one element] (TARGETED_ATTACK)                | GameEngine.peek() called, UI prints the single card | yes          |
 | Test Case 2  | drawPile: [two elements] (DEFUSE, IMPLODE)               | GameEngine.peek() called, UI prints two cards       | yes          |
-| Test Case 3  | drawPile: [four elements] (NOPE, EXPLODE, REVERSE, SKIP) | GameEngine.peek() called, UI prints three cards     |              |
+| Test Case 3  | drawPile: [four elements] (NOPE, EXPLODE, REVERSE, SKIP) | GameEngine.peek() called, UI prints three cards     | yes          |
