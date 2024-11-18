@@ -20,3 +20,23 @@
 # Note: drawPile could have four elements, but we can't unit test this, because 
 # in the unit test, we test the behavior of the TurnManager by setting the results of gameEngine.peek(),
 # so we never actually set the number of cards in the GameEngine's draw pile.
+
+
+
+
+
+## Method 2: ```public void doReverse()```
+### Step 1-3 Results
+|        | Input 1                                                             | Input 2                                                   | Output                                                                |
+|--------|---------------------------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------------------------|
+| Step 1 | Current player's turn                                               | GameEngine.isTurnOrderReversed                            | Calls GameEngine.reverseTurnOrder, then TurnManager.endTurn().        |
+| Step 2 | Cases (different Players) (changed by TurnManager.endTurn function) | Boolean (changed by GameEngine.reverseTurnOrder function) | None (Calls GameEngine.reverseTurnOrder, then TurnManager.endTurn()). |
+| Step 3 | TurnManager.endTurn function                                        | GameEngine.reverseTurnOrder                               | N/A (Calls GameEngine.reverseTurnOrder, then TurnManager.endTurn()).  |
+# Note: drawpile will never be empty; UI class will ensure that promptNewOrder(n) returns an array of size n that contains elements 1-n.
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                                          | Expected output                                                         | Implemented? |
+|--------------|------------------------------------------------------------|-------------------------------------------------------------------------|--------------|
+| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder() called, then TurnManager.endTurn() called | no           |
