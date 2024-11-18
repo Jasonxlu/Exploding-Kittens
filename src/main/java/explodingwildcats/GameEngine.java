@@ -38,7 +38,8 @@ public class GameEngine {
    * @param playerFactory PlayerFactory object responsible for creating player instances
    * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
    */
-  public GameEngine(PlayerFactory playerFactory, CardPileFactory cardPileFactory) {
+  public GameEngine(PlayerFactory playerFactory,
+                    CardPileFactory cardPileFactory) {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = new CardPile();
@@ -138,8 +139,18 @@ public class GameEngine {
     }
   }
 
+  /**
+   * Getter for draw pile cards.
+   */
   public Card[] getDrawPile() {
     return drawPile.getCards();
+  }
+
+  /**
+   * Getter method for drawPile.peek().
+   */
+  public Card[] peekDrawPile() {
+    return drawPile.peek();
   }
 
   /**
@@ -149,7 +160,27 @@ public class GameEngine {
     isTurnOrderReversed = !isTurnOrderReversed;
   }
 
+  /**
+   * Getter for isTurnOrderReversed.
+   */
   public boolean getIsTurnOrderReversed() {
     return isTurnOrderReversed;
+  }
+
+  /**
+   * Replace the top cards in the draw pile with the cards in toSet.
+   *
+   * @param toSet the cards to set as the top of the draw pile.
+   */
+  public void replaceTopDrawPileCards(Card[] toSet) {
+    int numToSet = toSet.length;
+    int numInDrawPile = getDrawPile().length;
+    if (numToSet > numInDrawPile) {
+      throw new IllegalArgumentException(
+              "Number of cards passed is greater than the number of cards in draw pile.");
+    }
+    for (int i = 0; i < numToSet; i++) {
+      drawPile.setCard(numInDrawPile - 1 - i, toSet[i]);
+    }
   }
 }
