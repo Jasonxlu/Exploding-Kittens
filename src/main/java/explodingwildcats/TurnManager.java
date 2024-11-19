@@ -41,4 +41,35 @@ public class TurnManager {
     }
     gameEngine.replaceTopDrawPileCards(newTopCards);
   }
+
+  /**
+   * Does the effect of a reverse card.
+   */
+  public void doReverse() {
+    gameEngine.reverseTurnOrder();
+    ui.println("Turn order was reversed.");
+    endTurn();
+  }
+
+  /**
+   * TODO: Ends the current player's turn.
+   */
+  public void endTurn() {}
+
+  /**
+   * Does the effect of a see the future card.
+   */
+  public void doSeeTheFuture() {
+    Card[] peekedCards = gameEngine.peekDrawPile();
+
+    String peekedCardsMessage = "Top: " + peekedCards[0].name();
+    if (peekedCards.length > 1) {
+      peekedCardsMessage += ", 2nd: " + peekedCards[1].name();
+    }
+    if (peekedCards.length == 3) {
+      peekedCardsMessage += ", 3rd: " + peekedCards[2].name();
+    }
+
+    ui.println(peekedCardsMessage);
+  }
 }

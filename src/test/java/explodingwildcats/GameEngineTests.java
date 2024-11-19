@@ -470,7 +470,6 @@ public class GameEngineTests {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
     GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
-
     EasyMock.expect(drawPile.getCards()).andReturn(new Card[0]);
     EasyMock.replay(drawPile);
 
@@ -570,6 +569,35 @@ public class GameEngineTests {
   }
 
   @Test
+  public void reverseTurnOrder_isTurnOrderReversedIsFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    game.reverseTurnOrder();
+
+    boolean expectedTurnOrder = true;
+    boolean actualTurnOrder = game.getIsTurnOrderReversed();
+    assertEquals(expectedTurnOrder, actualTurnOrder);
+  }
+
+  @Test
+  public void reverseTurnOrder_isTurnOrderReversedIsTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    game.reverseTurnOrder();
+    game.reverseTurnOrder();
+
+    boolean expectedTurnOrder = false;
+    boolean actualTurnOrder = game.getIsTurnOrderReversed();
+    assertEquals(expectedTurnOrder, actualTurnOrder);
+  }
+
+  @Test
   public void popBottomCard_callsAndReturnsDrawPileDrawCardFromBottom() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
@@ -587,5 +615,4 @@ public class GameEngineTests {
 
     EasyMock.verify(drawPile);
   }
-
 }
