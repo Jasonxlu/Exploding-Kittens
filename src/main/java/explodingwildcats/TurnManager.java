@@ -52,5 +52,5 @@ public class TurnManager {
   /**
    * TODO: Ends the current player's turn.
    */
-  public void endTurn() { }
+  public void endTurn() {}
 }
