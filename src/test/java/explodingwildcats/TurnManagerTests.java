@@ -166,7 +166,26 @@ public class TurnManagerTests {
     turnManager.doSeeTheFuture();
 
     EasyMock.verify(ui, gameEngine);
+  }
+  
+  @Test
+  public void doReverse_callsCorrectFunctions() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
 
+    gameEngine.reverseTurnOrder();
+    ui.println("Turn order was reversed.");
+    turnManager.endTurn();
+
+    EasyMock.replay(ui, gameEngine, turnManager);
+
+    turnManager.doReverse();
+
+    EasyMock.verify(ui, gameEngine, turnManager);
   }
 }
 

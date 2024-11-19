@@ -41,6 +41,20 @@ public class TurnManager {
   }
 
   /**
+   * Does the effect of a reverse card.
+   */
+  public void doReverse() {
+    gameEngine.reverseTurnOrder();
+    ui.println("Turn order was reversed.");
+    endTurn();
+  }
+
+  /**
+   * TODO: Ends the current player's turn.
+   */
+  public void endTurn() {}
+
+  /**
    * Does the effect of a see the future card.
    */
   public void doSeeTheFuture() {

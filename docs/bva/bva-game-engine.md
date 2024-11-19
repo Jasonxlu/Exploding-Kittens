@@ -85,7 +85,6 @@
 | Test Case 1  | list: []          | list: [34 cards], 3 attacks, 4 shuffles, 3 skips, 4 future, 4 nope, 4 of each cat (4 cats) | yes          |
 
 
-
 ## Method 6: ```public void replaceTopDrawPileCards(Card[] toSet)```
 ### Step 1-3 Results
 |        | Input                                      | Input2                                                              | Output                                                                                                                                                                  |
@@ -103,6 +102,23 @@
 | Test Case 3 | draw pile: [two elements], input2: [two elements]              | CardPile.setCard(1, input2[0]) and CardPile.setCard(0, input2[1]) are called                  | yes          |
 | Test Case 4 | draw pile: [two elements], input2: []                          | CardPile.setCard is not called.                                                               | yes          |
 | Test Case 5 | draw pile: [four elements], input2: [max size, three elements] | CardPile.setCard(2, input2[0]), .setCard(1, input2[1]), and .setCard(0, input2[2]) are called | yes          |
+
+
+## Method 7: ```public void reverseTurnOrder()```
+### Step 1-3 Results
+|        | Input 1                                                    | Output                                                   |
+|--------|------------------------------------------------------------|----------------------------------------------------------|
+| Step 1 | Current turn order (state of isTurnOrderReversed variable) | none, isTurnOrderReversed toggled                        |
+| Step 2 | Boolean (True = reversed, False = normal order)            | None, isTurnOrderReversed is set to !isTurnOrderReversed |
+| Step 3 | True, False                                                | None, isTurnOrderReversed set to !isTurnOrderReversed    |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test          | Expected output             | Implemented? |
+|-------------|----------------------------|-----------------------------|--------------|
+| Test Case 1 | isTurnOrderReversed: False | isTurnOrderReversed = True  | yes          |
+| Test Case 1 | isTurnOrderReversed: True  | isTurnOrderReversed = False | yes          |
+
 
 
 ## Recall the 4 steps of BVA
