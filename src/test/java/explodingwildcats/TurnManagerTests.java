@@ -7,16 +7,16 @@ import ui.UserInterface;
 public class TurnManagerTests {
 
   @Test
-  public void doAlterTheFuture_oneCardInDrawPile_reorderInSamePlace() {
+  public void doAlterTheFuture_oneCardPeeked_reorderInSamePlace() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
-    Card cardInDrawPile = Card.SKIP;
-    Card[] peekedDrawPile = new Card[] { cardInDrawPile };
+    Card cardPeeked = Card.SKIP;
+    Card[] peekedCards = new Card[] { cardPeeked };
 
     // 1. GameEngine.peek() called
-    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedDrawPile);
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with peeked cards
     ui.println("Top: SKIP");
@@ -25,9 +25,9 @@ public class TurnManagerTests {
     // 3. ui.promptNewOrder called with number of peeked cards
     EasyMock.expect(ui.promptNewOrder(1)).andReturn(newOrder);
 
-    Card[] reorderedDrawPile = new Card[] { cardInDrawPile };
+    Card[] reorderedPeekedCards = new Card[] { cardPeeked };
     // 4. GameEngine.replaceTopDrawPileCards called with the new order converted to the cards.
-    gameEngine.replaceTopDrawPileCards(reorderedDrawPile);
+    gameEngine.replaceTopDrawPileCards(reorderedPeekedCards);
 
     EasyMock.replay(ui, gameEngine);
 
@@ -37,17 +37,17 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void doAlterTheFuture_twoCardsInDrawPile_reorderOppositeOrder() {
+  public void doAlterTheFuture_twoCardsPeeked_reorderOppositeOrder() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
-    Card topCardInDrawPile = Card.NOPE;
-    Card secondCardInDrawPile = Card.ATTACK;
-    Card[] peekedDrawPile = new Card[] { topCardInDrawPile, secondCardInDrawPile };
+    Card topCardPeeked = Card.NOPE;
+    Card secondCardPeeked = Card.ATTACK;
+    Card[] peekedCards = new Card[] { topCardPeeked, secondCardPeeked };
 
     // 1. GameEngine.peek() called
-    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedDrawPile);
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with peeked cards
     ui.println("Top: NOPE, 2nd: ATTACK");
@@ -56,9 +56,9 @@ public class TurnManagerTests {
     // 3. ui.promptNewOrder called with number of peeked cards
     EasyMock.expect(ui.promptNewOrder(2)).andReturn(newOrder);
 
-    Card[] reorderedDrawPile = new Card[] { secondCardInDrawPile, topCardInDrawPile };
+    Card[] reorderedPeekedCards = new Card[] { secondCardPeeked, topCardPeeked };
     // 4. GameEngine.replaceTopDrawPileCards called with the new order converted to the cards.
-    gameEngine.replaceTopDrawPileCards(reorderedDrawPile);
+    gameEngine.replaceTopDrawPileCards(reorderedPeekedCards);
 
     EasyMock.replay(ui, gameEngine);
 
@@ -68,18 +68,18 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void doAlterTheFuture_threeCardsInDrawPile_reverseCards() {
+  public void doAlterTheFuture_maxCardsPeeked_reverseCards() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
-    Card topCardInDrawPile = Card.IMPLODE;
-    Card secondCardInDrawPile = Card.DEFUSE;
-    Card thirdCardInDrawPile = Card.REVERSE;
-    Card[] peekedDrawPile = new Card[] { topCardInDrawPile, secondCardInDrawPile, thirdCardInDrawPile };
+    Card topCardPeeked = Card.IMPLODE;
+    Card secondCardPeeked = Card.DEFUSE;
+    Card thirdCardPeeked = Card.REVERSE;
+    Card[] peekedCards = new Card[] { topCardPeeked, secondCardPeeked, thirdCardPeeked };
 
     // 1. GameEngine.peek() called
-    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedDrawPile);
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with peeked cards
     ui.println("Top: IMPLODE, 2nd: DEFUSE, 3rd: REVERSE");
@@ -88,9 +88,9 @@ public class TurnManagerTests {
     // 3. ui.promptNewOrder called with number of peeked cards
     EasyMock.expect(ui.promptNewOrder(3)).andReturn(newOrder);
 
-    Card[] reorderedDrawPile = new Card[] { thirdCardInDrawPile, secondCardInDrawPile, topCardInDrawPile };
+    Card[] reorderedPeekedCards = new Card[] { thirdCardPeeked, secondCardPeeked, topCardPeeked };
     // 4. GameEngine.replaceTopDrawPileCards called with the new order converted to the cards.
-    gameEngine.replaceTopDrawPileCards(reorderedDrawPile);
+    gameEngine.replaceTopDrawPileCards(reorderedPeekedCards);
 
     EasyMock.replay(ui, gameEngine);
 
@@ -99,7 +99,75 @@ public class TurnManagerTests {
     EasyMock.verify(ui, gameEngine);
   }
 
+  @Test
+  public void doSeeTheFuture_oneCardPeeked_oneCardPrinted() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
 
+    Card cardPeeked = Card.TARGETED_ATTACK;
+    Card[] peekedCards = new Card[] { cardPeeked };
+
+    // 1. GameEngine.peek() called
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
+
+    // 2. ui.println called with the peeked cards
+    ui.println("Top: TARGETED_ATTACK");
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.doSeeTheFuture();
+
+    EasyMock.verify(ui, gameEngine);
+  }
+
+  @Test
+  public void doSeeTheFuture_twoCardsPeeked_twoCardsPrinted() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card topCardPeeked = Card.DEFUSE;
+    Card secondCardPeeked = Card.IMPLODE;
+    Card[] peekedCards = new Card[] { topCardPeeked, secondCardPeeked };
+
+    // 1. GameEngine.peek() called
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
+
+    // 2. ui.println called with the peeked cards
+    ui.println("Top: DEFUSE, 2nd: IMPLODE");
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.doSeeTheFuture();
+
+    EasyMock.verify(ui, gameEngine);
+  }
+
+  @Test
+  public void doSeeTheFuture_maxCardsPeeked_threeCardsPrinted() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card topCardPeeked = Card.NOPE;
+    Card secondCardPeeked = Card.EXPLODE;
+    Card thirdCardPeeked = Card.REVERSE;
+    Card[] peekedCards = new Card[] {topCardPeeked, secondCardPeeked, thirdCardPeeked};
+
+    // 1. GameEngine.peek() called
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
+
+    // 2. ui.println called with the peeked cards
+    ui.println("Top: NOPE, 2nd: EXPLODE, 3rd: REVERSE");
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.doSeeTheFuture();
+
+    EasyMock.verify(ui, gameEngine);
+  }
+  
   @Test
   public void doReverse_callsCorrectFunctions() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
@@ -120,3 +188,4 @@ public class TurnManagerTests {
     EasyMock.verify(ui, gameEngine, turnManager);
   }
 }
+
