@@ -51,7 +51,7 @@
 
 |              | System under test                                          | Expected output                                                                                                          | Implemented? |
 |--------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn() called | no           |
+| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn() called | yes          |
 
 
 ## Method 4: ```public void doDrawFromBottom()```
@@ -67,5 +67,5 @@
 ##### All-combination or each-choice: each-choice
 |              | System under test                                       | Expected output                                                                    | Implemented? |
 |--------------|---------------------------------------------------------|------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | Current state of GameEngine's draw pile & player's turn | drawAndProcessCard(drawFromBottom = true) is called, and then endTurn() is called. | no           |
+| Test Case 1  | Current state of GameEngine's draw pile & player's turn | drawAndProcessCard(drawFromBottom = true) is called, and then endTurn() is called. | yes          |
 
