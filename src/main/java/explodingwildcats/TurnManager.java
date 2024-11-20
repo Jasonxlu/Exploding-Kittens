@@ -9,7 +9,7 @@ public class TurnManager {
 
   private UserInterface ui;
   private GameEngine gameEngine;
-  private int numExtraCardsToDraw;
+  int numExtraCardsToDraw; // Package private to support unit testing.
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
@@ -92,14 +92,9 @@ public class TurnManager {
   public void doAttack() {
     if (numExtraCardsToDraw == 0) {
       numExtraCardsToDraw += 1;
+    } else {
+      numExtraCardsToDraw += 2;
     }
     endTurn();
-  }
-
-  /**
-   * Getter for numExtraCardsToDraw.
-   */
-  public int getNumExtraCardsToDraw() {
-    return numExtraCardsToDraw;
   }
 }

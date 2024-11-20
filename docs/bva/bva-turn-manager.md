@@ -85,5 +85,5 @@
 ##### All-combination or each-choice: each-choice
 |             | System under test                              | Expected output                          | Implemented? |
 |-------------|------------------------------------------------|------------------------------------------|--------------|
-| Test Case 1 | numExtraCardsToDraw = 0, current player's turn | numCardsToDraw = 1, endTurn() is called. | no           |
-| Test Case 2 | numExtraCardsToDraw = 7, current player's turn | numCardsToDraw = 9, endTurn() is called. | no           |
+| Test Case 1 | numExtraCardsToDraw = 0, current player's turn | numCardsToDraw = 1, endTurn() is called. | yes          |
+| Test Case 2 | numExtraCardsToDraw = 7, current player's turn | numCardsToDraw = 9, endTurn() is called. | yes          |
