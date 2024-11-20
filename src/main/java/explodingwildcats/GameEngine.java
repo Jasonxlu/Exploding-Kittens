@@ -183,4 +183,12 @@ public class GameEngine {
       drawPile.setCard(numInDrawPile - 1 - i, toSet[i]);
     }
   }
+
+  /**
+   * Removes and returns the bottom card in the draw pile.
+   *
+   */
+  public Card popBottomCard() {
+    return drawPile.drawCardFromBottom();
+  }
 }

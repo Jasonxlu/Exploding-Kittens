@@ -55,6 +55,11 @@ public class TurnManager {
   public void endTurn() {}
 
   /**
+   * TODO: Draws a card from the Game Engine's draw pile.
+   */
+  public void drawAndProcessCard(boolean drawFromBottom) {}
+
+  /**
    * Does the effect of a see the future card.
    */
   public void doSeeTheFuture() {
@@ -69,5 +74,13 @@ public class TurnManager {
     }
 
     ui.println(peekedCardsMessage);
+  }
+
+  /**
+   * Does the effect of a draw from bottom card.
+   */
+  public void doDrawFromBottom() {
+    drawAndProcessCard(true);
+    endTurn();
   }
 }

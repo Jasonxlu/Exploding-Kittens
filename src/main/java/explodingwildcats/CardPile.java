@@ -74,4 +74,13 @@ public class CardPile {
     }
     cardList.set(i, c);
   }
+
+  /**
+   * Removes and returns the bottom card in the pile.
+   *
+   * @return The card popped from the bottom of the card pile
+   */
+  public Card drawCardFromBottom() {
+    return cardList.remove(0);
+  }
 }

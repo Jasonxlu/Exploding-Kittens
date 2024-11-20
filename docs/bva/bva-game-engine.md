@@ -120,6 +120,22 @@
 | Test Case 1 | isTurnOrderReversed: True  | isTurnOrderReversed = False | yes          |
 
 
+## Method 7: ```public Card popBottomCard()```
+### Step 1-3 Results
+|        | Input 1                                | Output                                                                                                          |
+|--------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Step 1 | draw pile                              | The card at the bottom of draw pile is removed from the pile and returned (drawPile.popBottomCard() is called). |
+| Step 2 | Collection                             | Card (cases)                                                                                                    |
+| Step 3 | [one element], [more than one element] | One of the possible cards in the card enum.                                                                     |
+(In step 3, the array cannot be empty, as there will always be at least one exploding kitten in the draw pile.)
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                                                      | Expected output                                            | Implemented? |
+|-------------|----------------------------------------------------------------------------------------|------------------------------------------------------------|--------------|
+| Test Case 1 | draw pile (the object will be mocked, and drawCardFromBottom set to return an ATTACK.) | drawPile.drawCardFromBottom() called, and result returned. | yes          |
+
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.

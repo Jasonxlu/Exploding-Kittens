@@ -187,5 +187,25 @@ public class TurnManagerTests {
 
     EasyMock.verify(ui, gameEngine, turnManager);
   }
+
+  @Test
+  public void doDrawFromBottom_callsDrawAndProcessCardWithTrueThenEndTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("drawAndProcessCard")
+            .createMock();
+
+    boolean drawAndProcessCardParameter = true;
+    turnManager.drawAndProcessCard(drawAndProcessCardParameter);
+    turnManager.endTurn();
+    EasyMock.replay(ui, gameEngine, turnManager);
+
+    turnManager.doDrawFromBottom();
+
+    EasyMock.verify(ui, gameEngine, turnManager);
+  }
 }
 

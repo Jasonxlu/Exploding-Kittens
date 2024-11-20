@@ -11,7 +11,6 @@
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-
 |              | System under test                                                                         | Expected output                                                                                                                                                                          | Implemented? |
 |--------------|-------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
 | Test Case 1  | Card[]: [one element] (SKIP), newOrder: [one element] (1)                                 | GameEngine.peek() called, UI.print("Top: SKIP") called, UI.promptNewOrder(1) called, GameEngine.replaceTopDrawPileCards([Skip]) called                                                   | yes          |
@@ -52,5 +51,21 @@
 
 |              | System under test                                          | Expected output                                                                                                          | Implemented? |
 |--------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn() called | no           |
-=======
+| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn() called | yes          |
+
+
+## Method 4: ```public void doDrawFromBottom()```
+### Step 1-3 Results
+|        | Input 1                                                                                              | Output                                                                                                                                                |
+|--------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | GameEngine's draw pile                                                                               | Calls drawAndProcessCard(drawFromBottom = true), so that gameEngine.popBottomCard() is called instead of gameEngine.drawCard(). Then calls endTurn(). |
+| Step 2 | Collection (of Cards - cases)                                                                        | None (calls drawAndProcessCard(drawFromBottom = true), then endTurn()).                                                                               |
+| Step 3 | [one element], [more than one element] (Both tests covered by mocked drawAndProcessCard() function.) | None (calls drawAndProcessCard(drawFromBottom = true), then endTurn()).                                                                               |
+
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|              | System under test                                       | Expected output                                                                    | Implemented? |
+|--------------|---------------------------------------------------------|------------------------------------------------------------------------------------|--------------|
+| Test Case 1  | Current state of GameEngine's draw pile & player's turn | drawAndProcessCard(drawFromBottom = true) is called, and then endTurn() is called. | yes          |
+
