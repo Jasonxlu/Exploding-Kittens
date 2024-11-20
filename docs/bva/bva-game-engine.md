@@ -30,11 +30,12 @@
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                                  | Expected output                                                                                | Implemented? |
-|-------------|----------------------------------------------------|------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | list1: [two elements], list2: [53 cards]           | None, each player gets 1 defuse, list2: [55 cards], 2 defuses inserted into draw pile          | no           |
-| Test Case 2 | list1: [max size], list2: [53 cards]               | None, each player gets 1 defuse, list2: [53 cards], 0 defuse inserted into draw pile           | no           |
-| Test Case 3 | list1: [more than one elements], list2: [53 cards] | None, each of the 5 player gets 1 defuse, list2: [54 cards], 1 defuses inserted into draw pile | no           |
+|             | System under test                          | Expected output                                                                       | Implemented? |
+|-------------|--------------------------------------------|---------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | list1: [two elements], list2: [53 cards]   | None, each player gets 1 defuse, list2: [55 cards], 2 defuses inserted into draw pile | no           |
+| Test Case 2 | list1: [max size], list2: [53 cards]       | None, each player gets 1 defuse, list2: [53 cards], 0 defuse inserted into draw pile  | no           |
+| Test Case 3 | list1: [five elements], list2: [53 cards]  | None, each player gets 1 defuse, list2: [54 cards], 1 defuses inserted into draw pile | no           |
+| Test Case 4 | list1: [three elements], list2: [53 cards] | None, each player gets 1 defuse, list2: [55 cards], 2 defuses inserted into draw pile | no           |
 
 
 
