@@ -83,7 +83,7 @@ public class GameEngine {
       throw new IllegalArgumentException("Not enough players");
     }
 
-    if (numberOfPlayers > 4) {
+    if (numberOfPlayers > 6) {
       throw new IllegalArgumentException("Too many players");
     }
 

@@ -96,29 +96,33 @@ public class GameEngineTests {
     CardPile drawPile = EasyMock.createMock(CardPile.class);
     GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
-    final int numPlayers = 4;
-    String[] names = {"John", "Jane", "Alice", "Bob"};
+    final int numPlayers = 6;
+    String[] names = {"John", "Jane", "Alice", "Bob", "Charlie", "David"};
 
     Player p1 = EasyMock.createMock(Player.class);
     Player p2 = EasyMock.createMock(Player.class);
     Player p3 = EasyMock.createMock(Player.class);
     Player p4 = EasyMock.createMock(Player.class);
+    Player p5 = EasyMock.createMock(Player.class);
+    Player p6 = EasyMock.createMock(Player.class);
     EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
     EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
     EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
     EasyMock.expect(playerFactory.createPlayer("Alice", playerHand)).andReturn(p3);
     EasyMock.expect(playerFactory.createPlayer("Bob", playerHand)).andReturn(p4);
+    EasyMock.expect(playerFactory.createPlayer("Charlie", playerHand)).andReturn(p5);
+    EasyMock.expect(playerFactory.createPlayer("David", playerHand)).andReturn(p6);
 
     EasyMock.replay(playerFactory, cardPileFactory);
 
     game.setUpPlayers(numPlayers, names);
 
-    final int expectedNumPlayers = 4;
+    final int expectedNumPlayers = 6;
     int actualNumPlayers = game.getNumberOfPlayers();
     assertEquals(expectedNumPlayers, actualNumPlayers);
 
     Player[] players = game.getPlayers();
-    assertEquals(numPlayers, players.length);
+    assertEquals(expectedNumPlayers, players.length);
 
     EasyMock.verify(playerFactory, cardPileFactory);
   }
@@ -132,8 +136,8 @@ public class GameEngineTests {
 
     EasyMock.replay(playerFactory, cardPileFactory);
 
-    final int numPlayers = 5;
-    String[] names = {"John", "Jane", "Alice", "Bob", "Charlie"};
+    final int numPlayers = 7;
+    String[] names = {"John", "Jane", "Alice", "Bob", "Charlie", "David", "Emma"};
 
     String expectedMessage = "Too many players";
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
