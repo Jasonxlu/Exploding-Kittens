@@ -9,11 +9,13 @@ public class TurnManager {
 
   private UserInterface ui;
   private GameEngine gameEngine;
+  int numExtraCardsToDraw; // Package private to support unit testing.
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
     this.ui = ui;
     this.gameEngine = gameEngine;
+    this.numExtraCardsToDraw = 0;
   }
 
   /**
@@ -81,6 +83,18 @@ public class TurnManager {
    */
   public void doDrawFromBottom() {
     drawAndProcessCard(true);
+    endTurn();
+  }
+
+  /**
+   * Does the effect of an attack card.
+   */
+  public void doAttack() {
+    if (numExtraCardsToDraw == 0) {
+      numExtraCardsToDraw += 1;
+    } else {
+      numExtraCardsToDraw += 2;
+    }
     endTurn();
   }
 }

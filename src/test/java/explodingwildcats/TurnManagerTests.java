@@ -4,6 +4,8 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import ui.UserInterface;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TurnManagerTests {
 
   @Test
@@ -204,6 +206,52 @@ public class TurnManagerTests {
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doDrawFromBottom();
+
+    EasyMock.verify(ui, gameEngine, turnManager);
+  }
+
+  @Test
+  public void doAttack_numExtraCardsToDrawIs0_adds1AndEndTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    turnManager.endTurn();
+    EasyMock.replay(ui, gameEngine, turnManager);
+
+    turnManager.doAttack();
+
+    int expectedNumExtraCardsToDraw = 1;
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+
+    EasyMock.verify(ui, gameEngine, turnManager);
+  }
+
+  @Test
+  public void doAttack_numExtraCardsToDrawIs7_adds2AndEndTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    turnManager.numExtraCardsToDraw = 7;
+
+    turnManager.endTurn();
+    EasyMock.replay(ui, gameEngine, turnManager);
+
+    turnManager.doAttack();
+
+    int expectedNumExtraCardsToDraw = 9;
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
 
     EasyMock.verify(ui, gameEngine, turnManager);
   }
