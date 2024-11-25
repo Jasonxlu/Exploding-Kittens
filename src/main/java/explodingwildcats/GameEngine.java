@@ -128,7 +128,7 @@ public class GameEngine {
    */
   public void dealCards() {
     for (Player p : players) {
-      int cardsToDealPerPlayer = 5;
+      final int cardsToDealPerPlayer = 7;
       for (int i = 0; i < cardsToDealPerPlayer; i++) {
         Card cardToAdd = drawPile.drawCard();
         p.addCardToHand(cardToAdd);

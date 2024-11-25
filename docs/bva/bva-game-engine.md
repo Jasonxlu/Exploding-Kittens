@@ -43,7 +43,7 @@
 ### Step 1-3 Results
 |        | Input 1                                               | Input 2                             | Output                                           |
 |--------|-------------------------------------------------------|-------------------------------------|--------------------------------------------------|
-| Step 1 | draw pile                                             | list of player objects              | each player gets 7 cards and 1 defuse cards      |
+| Step 1 | draw pile                                             | list of player objects              | each player gets 7 more cards                    |
 | Step 2 | Collection                                            | Collection                          | None (players are dealt correct number of cards) |
 | Step 3 | [max size based on number of players], 53 to 55 cards | [more than one element], [max size] | N/A (players hand altered, draw pile altered)    |
 ### Step 4:
@@ -51,7 +51,7 @@
 
 |              | System under test                         | Expected output                                                                       | Implemented? |
 |--------------|-------------------------------------------|---------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | list1: [55 cards], list2: [two elements]  | None, list1: [41 cards], list2: [two elements], with player objects card hand altered | no           |
+| Test Case 1  | list1: [55 cards], list2: [two elements]  | None, list1: [41 cards], list2: [two elements], with player objects card hand altered | yes          |
 | Test Case 2  | list1: [53 cards], list2: [max size]      | None, list1: [11 cards], list2: [max size], with player objects card hand altered     | no           |
 | Test Case 2  | list1: [54 cards], list2: [five elements] | None, list1: [19 cards], list2: [max size], with player objects card hand altered     | no           |
 

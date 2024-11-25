@@ -316,12 +316,11 @@ public class GameEngineTests {
     p1.addCardToHand(Card.DEFUSE);
     p2.addCardToHand(Card.DEFUSE);
 
-    // Expect 3 since there are 2 players
-    drawPile.addCard(Card.DEFUSE);
+    // Expect 2 since there are 2 players
     drawPile.addCard(Card.DEFUSE);
     drawPile.addCard(Card.DEFUSE);
 
-    final int numCardsDistributedToEachPlayer = 5;
+    final int numCardsDistributedToEachPlayer = 7;
     for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
       EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p1.addCardToHand(EasyMock.anyObject(Card.class));
