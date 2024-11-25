@@ -141,9 +141,10 @@ public class GameEngine {
   }
 
   /**
-   * Insert the exploding bomb cards into the drawPile.
+   * Insert the exploding bomb cards and imploding card into the drawPile.
    */
-  public void insertExplodingCards() {
+  public void insertExplodingAndImplodingCards() {
+    drawPile.addCard(Card.IMPLODE);
     for (int i = 0; i < numOfPlayers - 1; i++) {
       drawPile.addCard(Card.EXPLODE);
     }

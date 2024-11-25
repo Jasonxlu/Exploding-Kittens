@@ -462,7 +462,7 @@ public class GameEngineTests {
   }
 
   @Test
-  public void insertExplodingCards_TwoPlayers_DrawPileAltered() {
+  public void insertExplodingAndImplodingCards_TwoPlayers_DrawPileAltered() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
@@ -482,12 +482,11 @@ public class GameEngineTests {
     p1.addCardToHand(Card.DEFUSE);
     p2.addCardToHand(Card.DEFUSE);
 
-    // Expect 3 since there are 2 players
-    drawPile.addCard(Card.DEFUSE);
+    // Expect 2 since there are 2 players
     drawPile.addCard(Card.DEFUSE);
     drawPile.addCard(Card.DEFUSE);
 
-    final int numCardsDistributedToEachPlayer = 5;
+    final int numCardsDistributedToEachPlayer = 7;
     for(int x = 0; x < numCardsDistributedToEachPlayer; x++) {
       EasyMock.expect(drawPile.drawCard()).andStubReturn(Card.SKIP);
       p1.addCardToHand(EasyMock.anyObject(Card.class));
@@ -496,21 +495,22 @@ public class GameEngineTests {
       p2.addCardToHand(EasyMock.anyObject(Card.class));
     }
 
-    // Expect one since there are 2 players
+    // Expect one exploding and one imploding since there are 2 players
     drawPile.addCard(Card.EXPLODE);
+    drawPile.addCard(Card.IMPLODE);
 
     EasyMock.replay(playerFactory, p1, p2, drawPile, cardPileFactory);
 
     game.setUpPlayers(numPlayers, names);
     game.dealDefuses();
     game.dealCards();
-    game.insertExplodingCards();
+    game.insertExplodingAndImplodingCards();
 
     EasyMock.verify(playerFactory, p1, p2, drawPile, cardPileFactory);
   }
 
   @Test
-  public void insertExplodingCards_MaxPlayers_DrawPileAltered() {
+  public void insertExplodingAndImplodingCards_MaxPlayers_DrawPileAltered() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile playerHand = EasyMock.createMock(CardPile.class);
@@ -564,7 +564,7 @@ public class GameEngineTests {
     game.setUpPlayers(numPlayers, names);
     game.dealDefuses();
     game.dealCards();
-    game.insertExplodingCards();
+    game.insertExplodingAndImplodingCards();
 
     EasyMock.verify(playerFactory, p1, p2, p3, p4, drawPile, cardPileFactory);
   }
