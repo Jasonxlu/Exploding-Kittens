@@ -511,7 +511,11 @@ public class GameEngineTests {
     final int expectedSkips = 3;
     final int expectedFutures = 4;
     final int expectedNopes = 4;
-    final int expectedCats = 16; // 4 each, 4 cat types, 16 total
+    final int expectedCats = 20; // 4 each, 5 cat types, 20 total
+    final int expectedReverses = 4;
+    final int expectedDrawBottoms = 4;
+    final int expectedAlterFutures = 4;
+    final int expectedTargetedAttacks = 3;
 
     for (int i = 0; i < expectedAttacks; i++) {
       drawPile.addCard(Card.ATTACK);
@@ -535,6 +539,22 @@ public class GameEngineTests {
 
     for (int i = 0; i < expectedCats; i++) {
       drawPile.addCard(Card.CAT);
+    }
+
+    for (int i = 0; i < expectedReverses; i++) {
+      drawPile.addCard(Card.REVERSE);
+    }
+
+    for (int i = 0; i < expectedDrawBottoms; i++) {
+      drawPile.addCard(Card.DRAW_FROM_BOTTOM);
+    }
+
+    for (int i = 0; i < expectedAlterFutures; i++) {
+      drawPile.addCard(Card.ALTER_THE_FUTURE);
+    }
+
+    for (int i = 0; i < expectedTargetedAttacks; i++) {
+      drawPile.addCard(Card.TARGETED_ATTACK);
     }
 
     EasyMock.replay(drawPile);
