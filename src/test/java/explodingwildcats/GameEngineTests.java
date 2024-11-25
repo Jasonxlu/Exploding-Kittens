@@ -189,32 +189,37 @@ public class GameEngineTests {
     CardPile drawPile = EasyMock.createMock(CardPile.class);
     GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
-    final int numPlayers = 4;
-    String[] names = {"John", "Jane", "Alice", "Bob"};
+    final int numPlayers = 6;
+    String[] names = {"John", "Jane", "Alice", "Bob", "Charlie", "David"};
 
     Player p1 = EasyMock.createMock(Player.class);
     Player p2 = EasyMock.createMock(Player.class);
     Player p3 = EasyMock.createMock(Player.class);
     Player p4 = EasyMock.createMock(Player.class);
+    Player p5 = EasyMock.createMock(Player.class);
+    Player p6 = EasyMock.createMock(Player.class);
 
     p1.addCardToHand(Card.DEFUSE);
     p2.addCardToHand(Card.DEFUSE);
     p3.addCardToHand(Card.DEFUSE);
     p4.addCardToHand(Card.DEFUSE);
-    drawPile.addCard(Card.DEFUSE);
+    p5.addCardToHand(Card.DEFUSE);
+    p6.addCardToHand(Card.DEFUSE);
 
     EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
     EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
     EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
     EasyMock.expect(playerFactory.createPlayer("Alice", playerHand)).andReturn(p3);
     EasyMock.expect(playerFactory.createPlayer("Bob", playerHand)).andReturn(p4);
+    EasyMock.expect(playerFactory.createPlayer("Charlie", playerHand)).andReturn(p5);
+    EasyMock.expect(playerFactory.createPlayer("David", playerHand)).andReturn(p6);
 
-    EasyMock.replay(playerFactory, p1, p2, p3, p4, drawPile, cardPileFactory);
+    EasyMock.replay(playerFactory, p1, p2, p3, p4, p5, p6, drawPile, cardPileFactory);
 
     game.setUpPlayers(numPlayers, names);
     game.dealDefuses();
 
-    EasyMock.verify(playerFactory, p1, p2, p3, p4,drawPile, cardPileFactory);
+    EasyMock.verify(playerFactory, p1, p2, p3, p4, p5, p6, drawPile, cardPileFactory);
   }
 
   @Test
