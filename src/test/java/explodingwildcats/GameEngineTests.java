@@ -583,7 +583,7 @@ public class GameEngineTests {
   @Test
   public void createDrawPile_CorrectCardCounts() {
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
-    CardPile drawPile = EasyMock.niceMock(CardPile.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
     GameEngine game = new GameEngine(null, cardPileFactory, drawPile);
 
     final int expectedAttacks = 3;
@@ -597,45 +597,35 @@ public class GameEngineTests {
     final int expectedAlterFutures = 4;
     final int expectedTargetedAttacks = 3;
 
-    for (int i = 0; i < expectedAttacks; i++) {
-      drawPile.addCard(Card.ATTACK);
-    }
+    drawPile.addCard(Card.ATTACK);
+    EasyMock.expectLastCall().times(expectedAttacks);
 
-    for (int i = 0; i < expectedShuffles; i++) {
-      drawPile.addCard(Card.SHUFFLE);
-    }
+    drawPile.addCard(Card.SHUFFLE);
+    EasyMock.expectLastCall().times(expectedShuffles);
 
-    for (int i = 0; i < expectedSkips; i++) {
-      drawPile.addCard(Card.SKIP);
-    }
+    drawPile.addCard(Card.SKIP);
+    EasyMock.expectLastCall().times(expectedSkips);
 
-    for (int i = 0; i < expectedFutures; i++) {
-      drawPile.addCard(Card.SEE_THE_FUTURE);
-    }
+    drawPile.addCard(Card.SEE_THE_FUTURE);
+    EasyMock.expectLastCall().times(expectedFutures);
 
-    for (int i = 0; i < expectedNopes; i++) {
-      drawPile.addCard(Card.NOPE);
-    }
+    drawPile.addCard(Card.NOPE);
+    EasyMock.expectLastCall().times(expectedNopes);
 
-    for (int i = 0; i < expectedCats; i++) {
-      drawPile.addCard(Card.CAT);
-    }
+    drawPile.addCard(Card.CAT);
+    EasyMock.expectLastCall().times(expectedCats);
 
-    for (int i = 0; i < expectedReverses; i++) {
-      drawPile.addCard(Card.REVERSE);
-    }
+    drawPile.addCard(Card.REVERSE);
+    EasyMock.expectLastCall().times(expectedReverses);
 
-    for (int i = 0; i < expectedDrawBottoms; i++) {
-      drawPile.addCard(Card.DRAW_FROM_BOTTOM);
-    }
+    drawPile.addCard(Card.DRAW_FROM_BOTTOM);
+    EasyMock.expectLastCall().times(expectedDrawBottoms);
 
-    for (int i = 0; i < expectedAlterFutures; i++) {
-      drawPile.addCard(Card.ALTER_THE_FUTURE);
-    }
+    drawPile.addCard(Card.ALTER_THE_FUTURE);
+    EasyMock.expectLastCall().times(expectedAlterFutures);
 
-    for (int i = 0; i < expectedTargetedAttacks; i++) {
-      drawPile.addCard(Card.TARGETED_ATTACK);
-    }
+    drawPile.addCard(Card.TARGETED_ATTACK);
+    EasyMock.expectLastCall().times(expectedTargetedAttacks);
 
     EasyMock.replay(drawPile);
 
