@@ -167,7 +167,6 @@ public class GameEngineTests {
     p2.addCardToHand(Card.DEFUSE);
     drawPile.addCard(Card.DEFUSE);
     drawPile.addCard(Card.DEFUSE);
-    drawPile.addCard(Card.DEFUSE);
 
     EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
 

@@ -112,7 +112,13 @@ public class GameEngine {
     for (Player p : players) {
       p.addCardToHand(Card.DEFUSE);
     }
-    for (int i = 0; i < totalNumDefuses - numOfPlayers; i++) {
+
+    int numOfDefuses = 2;
+    if (numOfPlayers > 2) {
+      numOfDefuses = totalNumDefuses - numOfPlayers;
+    }
+
+    for (int i = 0; i < numOfDefuses; i++) {
       drawPile.addCard(Card.DEFUSE);
     }
   }
