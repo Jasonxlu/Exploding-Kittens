@@ -108,7 +108,7 @@ public class GameEngine {
    * Add defuse cards to both player hands and the draw pile.
    */
   public void dealDefuses() {
-    int totalNumDefuses = 5;
+    final int totalNumDefuses = 6;
     for (Player p : players) {
       p.addCardToHand(Card.DEFUSE);
     }

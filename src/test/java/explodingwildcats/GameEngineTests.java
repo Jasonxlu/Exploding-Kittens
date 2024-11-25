@@ -223,6 +223,45 @@ public class GameEngineTests {
   }
 
   @Test
+  public void dealDefuses_FivePlayers() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile playerHand = EasyMock.createMock(CardPile.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    final int numPlayers = 5;
+    String[] names = {"John", "Jane", "Alice", "Bob", "Charlie"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+    Player p3 = EasyMock.createMock(Player.class);
+    Player p4 = EasyMock.createMock(Player.class);
+    Player p5 = EasyMock.createMock(Player.class);
+
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+    p3.addCardToHand(Card.DEFUSE);
+    p4.addCardToHand(Card.DEFUSE);
+    p5.addCardToHand(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
+    EasyMock.expect(playerFactory.createPlayer("Alice", playerHand)).andReturn(p3);
+    EasyMock.expect(playerFactory.createPlayer("Bob", playerHand)).andReturn(p4);
+    EasyMock.expect(playerFactory.createPlayer("Charlie", playerHand)).andReturn(p5);
+
+    EasyMock.replay(playerFactory, p1, p2, p3, p4, p5, drawPile, cardPileFactory);
+
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+
+    EasyMock.verify(playerFactory, p1, p2, p3, p4, p5, drawPile, cardPileFactory);
+  }
+
+  @Test
   public void dealCards_TwoPlayers_CorrectHandsAndDrawPile() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
