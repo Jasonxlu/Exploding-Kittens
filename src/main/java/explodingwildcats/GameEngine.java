@@ -57,9 +57,9 @@ public class GameEngine {
       drawPile.addCard(Card.ATTACK);
       drawPile.addCard(Card.TARGETED_ATTACK);
     }
-    int numShufflesSeeTheFuturesNopesCatCardTypesReversesDrawFromBottomsAndAlterTheFutures = 4;
+    int numShufflesFuturesNopesCatTypesReversesDrawBottomsAndAlterFutures = 4;
     int numberOfEachCatCard = 5;
-    for (int i = 0; i < numShufflesSeeTheFuturesNopesCatCardTypesReversesDrawFromBottomsAndAlterTheFutures; i++) {
+    for (int i = 0; i < numShufflesFuturesNopesCatTypesReversesDrawBottomsAndAlterFutures; i++) {
       drawPile.addCard(Card.SHUFFLE);
       drawPile.addCard(Card.SEE_THE_FUTURE);
       drawPile.addCard(Card.NOPE);
