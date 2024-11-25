@@ -69,8 +69,8 @@
 
 |              | System under test        | Expected output                                                 | Implemented? |
 |--------------|--------------------------|-----------------------------------------------------------------|--------------|
-| Test Case 1  | list: [41 cards], int: 2 | list: [43 cards], one exploding and one imploding card inserted | no           |
-| Test Case 2  | list: [11 cards], int: 6 | list: [16 cards], four exploding and 1 imploding cards inserted | no           |
+| Test Case 1  | list: [41 cards], int: 2 | list: [43 cards], one exploding and one imploding card inserted | yes          |
+| Test Case 2  | list: [11 cards], int: 6 | list: [16 cards], four exploding and 1 imploding cards inserted | yes          |
 
 
 ## Method 5: ```public void createDrawPile()```

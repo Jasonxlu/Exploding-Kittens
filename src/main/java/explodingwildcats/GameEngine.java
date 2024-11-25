@@ -145,7 +145,12 @@ public class GameEngine {
    */
   public void insertExplodingAndImplodingCards() {
     drawPile.addCard(Card.IMPLODE);
-    for (int i = 0; i < numOfPlayers - 1; i++) {
+
+    int numOfExploding = numOfPlayers - 2;
+    if (numOfPlayers == 2) {
+      numOfExploding = 1;
+    }
+    for (int i = 0; i < numOfExploding; i++) {
       drawPile.addCard(Card.EXPLODE);
     }
   }
