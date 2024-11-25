@@ -52,7 +52,7 @@
 |              | System under test                         | Expected output                                                                       | Implemented? |
 |--------------|-------------------------------------------|---------------------------------------------------------------------------------------|--------------|
 | Test Case 1  | list1: [55 cards], list2: [two elements]  | None, list1: [41 cards], list2: [two elements], with player objects card hand altered | yes          |
-| Test Case 2  | list1: [53 cards], list2: [max size]      | None, list1: [11 cards], list2: [max size], with player objects card hand altered     | no           |
+| Test Case 2  | list1: [53 cards], list2: [max size]      | None, list1: [11 cards], list2: [max size], with player objects card hand altered     | yes          |
 | Test Case 2  | list1: [54 cards], list2: [five elements] | None, list1: [19 cards], list2: [max size], with player objects card hand altered     | no           |
 
 
