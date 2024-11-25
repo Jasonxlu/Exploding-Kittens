@@ -262,6 +262,40 @@ public class GameEngineTests {
   }
 
   @Test
+  public void dealDefuses_ThreePlayers() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile playerHand = EasyMock.createMock(CardPile.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    final int numPlayers = 3;
+    String[] names = {"John", "Jane", "Alice"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+    Player p3 = EasyMock.createMock(Player.class);
+
+    p1.addCardToHand(Card.DEFUSE);
+    p2.addCardToHand(Card.DEFUSE);
+    p3.addCardToHand(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+    drawPile.addCard(Card.DEFUSE);
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
+    EasyMock.expect(playerFactory.createPlayer("Alice", playerHand)).andReturn(p3);
+
+    EasyMock.replay(playerFactory, p1, p2, p3, drawPile, cardPileFactory);
+
+    game.setUpPlayers(numPlayers, names);
+    game.dealDefuses();
+
+    EasyMock.verify(playerFactory, p1, p2, p3, drawPile, cardPileFactory);
+  }
+
+  @Test
   public void dealCards_TwoPlayers_CorrectHandsAndDrawPile() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);

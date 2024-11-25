@@ -114,7 +114,7 @@ public class GameEngine {
     }
 
     int numOfDefuses = 2;
-    if (numOfPlayers > 2) {
+    if (numOfPlayers > 3) {
       numOfDefuses = totalNumDefuses - numOfPlayers;
     }
 
