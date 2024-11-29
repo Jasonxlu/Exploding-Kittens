@@ -49,23 +49,23 @@
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                         | Expected output                                                                       | Implemented? |
-|--------------|-------------------------------------------|---------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | list1: [55 cards], list2: [two elements]  | None, list1: [41 cards], list2: [two elements], with player objects card hand altered | yes          |
-| Test Case 2  | list1: [53 cards], list2: [max size]      | None, list1: [11 cards], list2: [max size], with player objects card hand altered     | yes          |
-| Test Case 2  | list1: [54 cards], list2: [five elements] | None, list1: [19 cards], list2: [max size], with player objects card hand altered     | yes          |
+|             | System under test                         | Expected output                                                                       | Implemented? |
+|-------------|-------------------------------------------|---------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | list1: [55 cards], list2: [two elements]  | None, list1: [41 cards], list2: [two elements], with player objects card hand altered | yes          |
+| Test Case 2 | list1: [53 cards], list2: [max size]      | None, list1: [11 cards], list2: [max size], with player objects card hand altered     | yes          |
+| Test Case 3 | list1: [54 cards], list2: [five elements] | None, list1: [19 cards], list2: [max size], with player objects card hand altered     | yes          |
 
 
 
 ## Method 4: ```public void insertExplodingAndImplodingCards()```
 ### Step 1-3 Results
-|        | Input 1                                               | Input 2           | Output                                                                                                                                                                 |
-|--------|-------------------------------------------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | draw pile                                             | number of players | none, draw pile gets exploding cards and imploding card                                                                                                                |
-| Step 2 | Collection                                            | Interval [2, 6]   | None, draw pile field altered                                                                                                                                          |
-| Step 3 | [max size based on number of players], 11 to 41 cards | 2, 6              | None, draw pile field altered if 2-3 players, then it's 1 exploding card and 1 imploding card, otherwise, (number of players - 2) exploding cards and 1 imploding card |
+|        | Input 1                                               | Input 2           | Output                                                                                                                                                               |
+|--------|-------------------------------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | draw pile                                             | number of players | none, draw pile gets exploding cards and imploding card                                                                                                              |
+| Step 2 | Collection                                            | Interval [2, 6]   | None, draw pile field altered                                                                                                                                        |
+| Step 3 | [max size based on number of players], 11 to 41 cards | 2, 6              | None, draw pile field altered if 2 players, then it's 1 exploding card and 1 imploding card, otherwise, (number of players - 2) exploding cards and 1 imploding card |
 ### Step 4:
-##### All-combination or each-choice: YOUR-DECISION
+##### All-combination or each-choice: each-choice
 
 |              | System under test        | Expected output                                                 | Implemented? |
 |--------------|--------------------------|-----------------------------------------------------------------|--------------|
@@ -81,7 +81,7 @@
 | Step 2 | Collection                         | None, draw pile field altered                                              |
 | Step 3 | []                                 | None, draw pile field altered                                              |
 ### Step 4:
-##### All-combination or each-choice: YOUR-DECISION
+##### All-combination or each-choice: each-choice
 
 |              | System under test | Expected output                                                                                                                                             | Implemented? |
 |--------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
@@ -120,7 +120,7 @@
 |             | System under test          | Expected output             | Implemented? |
 |-------------|----------------------------|-----------------------------|--------------|
 | Test Case 1 | isTurnOrderReversed: False | isTurnOrderReversed = True  | yes          |
-| Test Case 1 | isTurnOrderReversed: True  | isTurnOrderReversed = False | yes          |
+| Test Case 2 | isTurnOrderReversed: True  | isTurnOrderReversed = False | yes          |
 
 
 ## Method 8: ```public Card popBottomCard()```
