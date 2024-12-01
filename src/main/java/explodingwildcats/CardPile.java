@@ -70,4 +70,26 @@ public class CardPile {
   public boolean contains(Card c) {
     return cardList.contains(c);
   }
+
+  /**
+   * Sets the ith card in the pile to c.
+   *
+   * @param i the index in the array to set to c.
+   * @param c the card to set.
+   */
+  public void setCard(int i, Card c) {
+    if (i >= cardList.size()) {
+      throw new IllegalArgumentException("Index is out of range.");
+    }
+    cardList.set(i, c);
+  }
+
+  /**
+   * Removes and returns the bottom card in the pile.
+   *
+   * @return The card popped from the bottom of the card pile
+   */
+  public Card drawCardFromBottom() {
+    return cardList.remove(0);
+  }
 }

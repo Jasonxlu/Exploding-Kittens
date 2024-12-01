@@ -69,6 +69,40 @@
 | Test Case 5 | Pile: [DEFUSE, IMPLODE], Card: ATTACK | false           | yes          |
 | Test Case 6 | Pile: [DEFUSE, IMPLODE], Card: DEFUSE | true            | yes          |
 
+## Method 4: ```public Card setCard(int i, Card c)```
+### Step 1-3 Results
+|        | Input                           | Input2                                                                                                                                           | Input3                                      | Output                                                                                         |
+|--------|---------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|------------------------------------------------------------------------------------------------|
+| Step 1 | Index of element to set         | Card to set                                                                                                                                      | Cards in pile                               | Card at index input1 set to input2 in the pile, or exception if the index is out of the range. |
+| Step 2 | Interval                        | Cases                                                                                                                                            | Collection                                  | Card pile altered to set card at index input1 to input2, or IllegalArgumentException.          |
+| Step 3 | [0 - number of cards in pile-1] | ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK  | [], [one element], [more than one element]  | Cards in pile[input1] = input2, or IllegalArgumentException if input1 >= length of card pile.  |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                      | Expected output                                  | Implemented? |
+|-------------|--------------------------------------------------------|--------------------------------------------------|--------------|
+| Test Case 1 | Index: 0, card: ATTACK, pile: []                       | IllegalArgumentException                         | yes          |
+| Test Case 2 | Index: 0, card: SHUFFLE, pile: [one element]           | pile[0] = SHUFFLE                                | yes          |
+| Test Case 3 | Index: 0, card: DEFUSE, pile: [two elements]           | pile[0] = DEFUSE, other card unchanged.          | yes          |
+| Test Case 4 | Index: 2, card: SEE_THE_FUTURE, pile: [three elements] | pile[2] = SEE_THE_FUTURE, other cards unchanged. | yes          |
+
+
+## Method 4: ```public Card drawCardFromBottom()```
+### Step 1-3 Results
+|        | Input                                  | Output                                   |
+|--------|----------------------------------------|------------------------------------------|
+| Step 1 | cardList                               | Card at index 0 in cardList popped       |
+| Step 2 | Collection (of cases)                  | cardList[0] removed and returned         |
+| Step 3 | [one element], [more than one element] | Card at cardList[0] removed and returned |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                 | Expected output                              | Implemented? |
+|-------------|---------------------------------------------------|----------------------------------------------|--------------|
+| Test Case 1 | cardList: [one element: EXPLODE]                  | EXPLODE returned, cardList: []               | yes          |
+| Test Case 2 | cardList: [two elements: SEE_THE_FUTURE, EXPLODE] | SEE_THE_FUTURE returned, cardList: [EXPLODE] | yes          |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
