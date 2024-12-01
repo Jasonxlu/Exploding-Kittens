@@ -16,7 +16,7 @@ public enum Card {
     IMPLODE,
     REVERSE,
     TARGETED_ATTACK,
-    FERAL,
+    FERAL_CAT,
     TACO_CAT,
     HAIRY_POTATO_CAT,
     BEARD_CAT,
