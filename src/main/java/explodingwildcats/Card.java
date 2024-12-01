@@ -5,7 +5,6 @@ package explodingwildcats;
  */
 public enum Card {
     ATTACK,
-    CAT,
     DEFUSE,
     NOPE,
     SEE_THE_FUTURE,
@@ -14,8 +13,12 @@ public enum Card {
     EXPLODE,
     ALTER_THE_FUTURE,
     DRAW_FROM_BOTTOM,
-    FERAL,
     IMPLODE,
     REVERSE,
-    TARGETED_ATTACK
+    TARGETED_ATTACK,
+    FERAL,
+    TACO_CAT,
+    HAIRY_POTATO_CAT,
+    BEARD_CAT,
+    RAINBOW_CAT
 }
