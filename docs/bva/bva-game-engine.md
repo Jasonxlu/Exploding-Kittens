@@ -5,8 +5,8 @@
 |        | Input 1           | Input 2                                                | Output                                                          |
 |--------|-------------------|--------------------------------------------------------|-----------------------------------------------------------------|
 | Step 1 | number of players | list of player names                                   | modified Player and numberOfPlayer fields of the class or error |
-| Step 2 | interval [2, 4]   | Collection                                             | None (modified fields) or Exception                             |
-| Step 3 | 1, 2, 4, 5        | [], [one element], [more than one element], [max size] | N/A (modified fields) or Exception                              |
+| Step 2 | interval [2, 6]   | Collection                                             | None (modified fields) or Exception                             |
+| Step 3 | 1, 2, 6, 7        | [], [one element], [more than one element], [max size] | N/A (modified fields) or Exception                              |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
@@ -15,8 +15,8 @@
 | Test Case 1  | int: 1, list: [one elements]          | IllegalArgumentException | yes          |
 | Test Case 2  | int: 1, list: []                      | IllegalArgumentException | yes          |
 | Test Case 3  | int: 2, list: [two elements]          | None, modified fields    | yes          |
-| Test Case 4  | int: 4, list: [max size]              | None, modified fields    | yes          |
-| Test Case 5  | int: 5, list: [more than one element] | IllegalArgumentException | yes          |
+| Test Case 4  | int: 6, list: [max size]              | None, modified fields    | yes          |
+| Test Case 5  | int: 7, list: [more than one element] | IllegalArgumentException | yes          |
 
 
 
@@ -26,14 +26,16 @@
 |--------|-------------------------------------|------------|----------------------------------------------------------------|
 | Step 1 | list of players                     | draw pile  | None, each player gets one defuse and draw pile gets remaining |
 | Step 2 | Collection                          | Collection | None, modified player hand and draw pile                       |
-| Step 3 | [more than one element], [max size] | [34 cards] | N/A, modified fields                                           |
+| Step 3 | [more than one element], [max size] | [53 cards] | N/A, modified fields                                           |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                        | Expected output                                                                        | Implemented? |
-|--------------|------------------------------------------|----------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | list1: [two elements], list2: [34 cards] | None, each player gets 1 defuse, list2: [37 cards], 3 defuses inserted into draw pile  | yes          |
-| Test Case 2  | list1: [max size], list2: [34 cards]     | None, each player gets 1 defuse, list2: [35 cards], 1 defuse inserted into draw pile   | yes          |
+|             | System under test                          | Expected output                                                                       | Implemented? |
+|-------------|--------------------------------------------|---------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | list1: [two elements], list2: [53 cards]   | None, each player gets 1 defuse, list2: [55 cards], 2 defuses inserted into draw pile | yes          |
+| Test Case 2 | list1: [max size], list2: [53 cards]       | None, each player gets 1 defuse, list2: [53 cards], 0 defuse inserted into draw pile  | yes          |
+| Test Case 3 | list1: [five elements], list2: [53 cards]  | None, each player gets 1 defuse, list2: [54 cards], 1 defuses inserted into draw pile | yes          |
+| Test Case 4 | list1: [three elements], list2: [53 cards] | None, each player gets 1 defuse, list2: [55 cards], 2 defuses inserted into draw pile | yes          |
 
 
 
@@ -41,33 +43,34 @@
 ### Step 1-3 Results
 |        | Input 1                                               | Input 2                             | Output                                           |
 |--------|-------------------------------------------------------|-------------------------------------|--------------------------------------------------|
-| Step 1 | draw pile                                             | list of player objects              | each player gets 5 cards and 1 defuse cards      |
+| Step 1 | draw pile                                             | list of player objects              | each player gets 7 more cards                    |
 | Step 2 | Collection                                            | Collection                          | None (players are dealt correct number of cards) |
-| Step 3 | [max size based on number of players], 35 to 37 cards | [more than one element], [max size] | N/A (players hand altered, draw pile altered)    |
+| Step 3 | [max size based on number of players], 53 to 55 cards | [more than one element], [max size] | N/A (players hand altered, draw pile altered)    |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                        | Expected output                                                                       | Implemented? |
-|--------------|------------------------------------------|---------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | list1: [37 cards], list2: [two elements] | None, list1: [27 cards], list2: [two elements], with player objects card hand altered | yes          |
-| Test Case 2  | list1: [35 cards], list2: [max size]     | None, list1: [15 cards], list2: [max size], with player objects card hand altered     | yes          |
+|             | System under test                         | Expected output                                                                       | Implemented? |
+|-------------|-------------------------------------------|---------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | list1: [55 cards], list2: [two elements]  | None, list1: [41 cards], list2: [two elements], with player objects card hand altered | yes          |
+| Test Case 2 | list1: [53 cards], list2: [max size]      | None, list1: [11 cards], list2: [max size], with player objects card hand altered     | yes          |
+| Test Case 3 | list1: [54 cards], list2: [five elements] | None, list1: [19 cards], list2: [max size], with player objects card hand altered     | yes          |
 
 
 
-## Method 4: ```public void insertExplodingCards()```
+## Method 4: ```public void insertExplodingAndImplodingCards()```
 ### Step 1-3 Results
-|        | Input 1                                               | Input 2           | Output                                                               |
-|--------|-------------------------------------------------------|-------------------|----------------------------------------------------------------------|
-| Step 1 | draw pile                                             | number of players | none, draw pile gets exploding cards                                 |
-| Step 2 | Collection                                            | Interval [2, 4]   | None, draw pile field altered                                        |
-| Step 3 | [max size based on number of players], 15 to 27 cards | 2, 4              | None, draw pile field altered (number of player - 1) exploding cards |
+|        | Input 1                                               | Input 2           | Output                                                                                                                                                               |
+|--------|-------------------------------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | draw pile                                             | number of players | none, draw pile gets exploding cards and imploding card                                                                                                              |
+| Step 2 | Collection                                            | Interval [2, 6]   | None, draw pile field altered                                                                                                                                        |
+| Step 3 | [max size based on number of players], 11 to 41 cards | 2, 6              | None, draw pile field altered if 2 players, then it's 1 exploding card and 1 imploding card, otherwise, (number of players - 2) exploding cards and 1 imploding card |
 ### Step 4:
-##### All-combination or each-choice: YOUR-DECISION
+##### All-combination or each-choice: each-choice
 
-|              | System under test        | Expected output                                  | Implemented? |
-|--------------|--------------------------|--------------------------------------------------|--------------|
-| Test Case 1  | list: [27 cards], int: 2 | list: [28 cards], one exploding card inserted    | yes          |
-| Test Case 2  | list: [15 cards], int: 4 | list: [18 cards], three exploding cards inserted | yes          |
+|              | System under test        | Expected output                                                 | Implemented? |
+|--------------|--------------------------|-----------------------------------------------------------------|--------------|
+| Test Case 1  | list: [41 cards], int: 2 | list: [43 cards], one exploding and one imploding card inserted | yes          |
+| Test Case 2  | list: [11 cards], int: 6 | list: [16 cards], four exploding and 1 imploding cards inserted | yes          |
 
 
 ## Method 5: ```public void createDrawPile()```
@@ -78,11 +81,11 @@
 | Step 2 | Collection                         | None, draw pile field altered                                              |
 | Step 3 | []                                 | None, draw pile field altered                                              |
 ### Step 4:
-##### All-combination or each-choice: YOUR-DECISION
+##### All-combination or each-choice: each-choice
 
-|              | System under test | Expected output                                                                            | Implemented? |
-|--------------|-------------------|--------------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | list: []          | list: [34 cards], 3 attacks, 4 shuffles, 3 skips, 4 future, 4 nope, 4 of each cat (4 cats) | yes          |
+|              | System under test | Expected output                                                                                                                                             | Implemented? |
+|--------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1  | list: []          | list: [53 cards], 3 attacks, 4 shuffles, 3 skips, 4 future, 4 nope, 4 alter the future, 3 targeted attack, 4 reverse, 4 draw bottom, 4 of each cat (5 cats) | yes          |
 
 
 ## Method 6: ```public void replaceTopDrawPileCards(Card[] toSet)```
@@ -117,10 +120,10 @@
 |             | System under test          | Expected output             | Implemented? |
 |-------------|----------------------------|-----------------------------|--------------|
 | Test Case 1 | isTurnOrderReversed: False | isTurnOrderReversed = True  | yes          |
-| Test Case 1 | isTurnOrderReversed: True  | isTurnOrderReversed = False | yes          |
+| Test Case 2 | isTurnOrderReversed: True  | isTurnOrderReversed = False | yes          |
 
 
-## Method 7: ```public Card popBottomCard()```
+## Method 8: ```public Card popBottomCard()```
 ### Step 1-3 Results
 |        | Input 1                                | Output                                                                                                          |
 |--------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------|

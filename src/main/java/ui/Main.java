@@ -32,7 +32,7 @@ public class Main {
     gameEngine.createDrawPile();
     gameEngine.dealDefuses();
     gameEngine.dealCards();
-    gameEngine.insertExplodingCards();
+    gameEngine.insertExplodingAndImplodingCards();
 
     System.out.println("Let's get started!");
 
