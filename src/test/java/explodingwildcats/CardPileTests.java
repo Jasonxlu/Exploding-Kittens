@@ -86,13 +86,13 @@ public class CardPileTests {
     CardPile pile = new CardPile();
 
     pile.addCard(Card.EXPLODE);
-    pile.addCard(Card.CAT);
+    pile.addCard(Card.TACO_CAT);
     Card[] cards = pile.peek();
     assertEquals(2, cards.length);
 
     cards = pile.peek();
     assertEquals(2, cards.length);
-    assertEquals(Card.CAT, cards[0]);
+    assertEquals(Card.TACO_CAT, cards[0]);
     assertEquals(Card.EXPLODE, cards[1]);
   }
 
@@ -101,7 +101,7 @@ public class CardPileTests {
     CardPile pile = new CardPile();
 
     pile.addCard(Card.EXPLODE);
-    pile.addCard(Card.CAT);
+    pile.addCard(Card.TACO_CAT);
     pile.addCard(Card.DEFUSE);
     pile.addCard(Card.SKIP);
 
@@ -112,7 +112,7 @@ public class CardPileTests {
     assertEquals(3, cards.length);
     assertEquals(Card.SKIP, cards[0]);
     assertEquals(Card.DEFUSE, cards[1]);
-    assertEquals(Card.CAT, cards[2]);
+    assertEquals(Card.TACO_CAT, cards[2]);
   }
 
   @Test
