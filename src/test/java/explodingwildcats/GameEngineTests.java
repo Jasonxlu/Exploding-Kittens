@@ -663,7 +663,7 @@ public class GameEngineTests {
     CardPile drawPile = EasyMock.createMock(CardPile.class);
     GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
-    EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.CAT});
+    EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.TACO_CAT});
     Card newCard = Card.SKIP;
     Card[] toSet = new Card[] {newCard};
 
@@ -682,7 +682,7 @@ public class GameEngineTests {
     CardPile drawPile = EasyMock.createMock(CardPile.class);
     GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
-    EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.CAT, Card.DEFUSE});
+    EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.TACO_CAT, Card.DEFUSE});
     Card newTopCard = Card.SKIP;
     Card newSecondFromTopCard = Card.EXPLODE;
     Card[] toSet = new Card[] { newTopCard, newSecondFromTopCard };
@@ -703,7 +703,7 @@ public class GameEngineTests {
     CardPile drawPile = EasyMock.createMock(CardPile.class);
     GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
-    EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.CAT, Card.DEFUSE});
+    EasyMock.expect(drawPile.getCards()).andReturn(new Card[] {Card.TACO_CAT, Card.DEFUSE});
     Card[] toSet = new Card[0];
 
     EasyMock.replay(drawPile);
@@ -721,7 +721,7 @@ public class GameEngineTests {
     GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
 
     EasyMock.expect(drawPile.getCards()).andReturn(
-            new Card[] {Card.CAT, Card.DEFUSE, Card.ATTACK, Card.CAT});
+            new Card[] {Card.TACO_CAT, Card.DEFUSE, Card.ATTACK, Card.TACO_CAT});
     Card newTopCard = Card.ALTER_THE_FUTURE;
     Card newSecondFromTopCard = Card.ALTER_THE_FUTURE;
     Card newThirdFromTopCard = Card.DRAW_FROM_BOTTOM;
