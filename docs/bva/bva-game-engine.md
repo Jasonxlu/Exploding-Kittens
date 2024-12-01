@@ -85,7 +85,7 @@
 
 |              | System under test | Expected output                                                                                                                                                                                                   | Implemented? |
 |--------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | list: []          | list: [53 cards], 3 attacks, 4 shuffles, 3 skips, 4 future, 4 nope, 4 alter the future, 3 targeted attack, 4 reverse, 4 draw bottom, 4 taco cats, 4 hairy potato cats, 4 beard cats, 4 rainbow cats, 4 feral cats | no           |
+| Test Case 1  | list: []          | list: [53 cards], 3 attacks, 4 shuffles, 3 skips, 4 future, 4 nope, 4 alter the future, 3 targeted attack, 4 reverse, 4 draw bottom, 4 taco cats, 4 hairy potato cats, 4 beard cats, 4 rainbow cats, 4 feral cats | yes          |
 
 
 ## Method 6: ```public void replaceTopDrawPileCards(Card[] toSet)```
