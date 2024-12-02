@@ -87,3 +87,36 @@
 |-------------|------------------------------------------------|------------------------------------------|--------------|
 | Test Case 1 | numExtraCardsToDraw = 0, current player's turn | numCardsToDraw = 1, endTurn() is called. | yes          |
 | Test Case 2 | numExtraCardsToDraw = 7, current player's turn | numCardsToDraw = 9, endTurn() is called. | yes          |
+
+
+## Method 6: ```public void endTurn()```
+### Step 1-3 Results
+|        | Input 1           | Input 2                        | Input 3                        | Output                                                        |
+|--------|-------------------|--------------------------------|--------------------------------|---------------------------------------------------------------|
+| Step 1 | Number of players | Current player index           | GameEngine.isTurnOrderReversed | Current player index is updated                               |
+| Step 2 | Interval          | Interval                       | Boolean                        | None (sets currPlayerIndex to [0, GameEngine.numOfPlayers-1]) |
+| Step 3 | [2, 6]            | [0, GameEngine.numOfPlayers-1] | True, False                    | None                                                          |
+
+_Note: By the game rules and previous checks, there can only be up to 6 players, therefore, the indices can only range from [0,5]_
+
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|              | System under test                                          | Expected output    | Implemented? |
+|--------------|------------------------------------------------------------|--------------------|--------------|
+| Test Case 1  | numOfPlayers: 6, currPlayerIndex: 0, Reversed order: false | currPlayerIndex: 1 | no           |
+| Test Case 2  | numOfPlayers: 6, currPlayerIndex: 5, Reversed order: false | currPlayerIndex: 0 | no           |
+| Test Case 3  | numOfPlayers: 6, currPlayerIndex: 3, Reversed order: false | currPlayerIndex: 4 | no           |
+| Test Case 4  | numOfPlayers: 2, currPlayerIndex: 0, Reversed order: false | currPlayerIndex: 1 | no           |
+| Test Case 5  | numOfPlayers: 2, currPlayerIndex: 1, Reversed order: false | currPlayerIndex: 0 | no           |
+| Test Case 6  | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: false | currPlayerIndex: 1 | no           |
+| Test Case 7  | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: false | currPlayerIndex: 0 | no           |
+| Test Case 8  | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: false | currPlayerIndex: 3 | no           |
+| Test Case 9  | numOfPlayers: 6, currPlayerIndex: 0, Reversed order: true  | currPlayerIndex: 5 | no           |
+| Test Case 10 | numOfPlayers: 6, currPlayerIndex: 5, Reversed order: true  | currPlayerIndex: 4 | no           |
+| Test Case 11 | numOfPlayers: 6, currPlayerIndex: 3, Reversed order: true  | currPlayerIndex: 2 | no           |
+| Test Case 12 | numOfPlayers: 2, currPlayerIndex: 0, Reversed order: true  | currPlayerIndex: 1 | no           |
+| Test Case 13 | numOfPlayers: 2, currPlayerIndex: 1, Reversed order: true  | currPlayerIndex: 0 | no           |
+| Test Case 14 | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: true  | currPlayerIndex: 3 | no           |
+| Test Case 15 | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: true  | currPlayerIndex: 2 | no           |
+| Test Case 16 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true  | currPlayerIndex: 1 | no           |
