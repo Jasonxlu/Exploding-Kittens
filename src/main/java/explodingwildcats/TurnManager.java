@@ -57,7 +57,7 @@ public class TurnManager {
    * Calls the corresponding function.
    */
   public void drawAndProcessCard(boolean drawFromBottom) {
-    Card drawnCard = gameEngine.popTopCard();
+    Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
     handleRegularCard(drawnCard);
   }
 
