@@ -10,6 +10,7 @@ public class TurnManager {
   private UserInterface ui;
   private GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
+  int currPlayerIndex; // Package private to support unit testing.
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
@@ -52,9 +53,12 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Ends the current player's turn.
+   * Ends the current player's turn by updating who's turn it is.
    */
-  public void endTurn() {}
+  public void endTurn() {
+    int numOfPlayers = gameEngine.getNumberOfPlayers();
+    currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
+  }
 
   /**
    * TODO: Draws a card from the Game Engine's draw pile.

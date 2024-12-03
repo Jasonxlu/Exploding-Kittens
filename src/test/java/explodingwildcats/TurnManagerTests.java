@@ -2,6 +2,8 @@ package explodingwildcats;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import ui.UserInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -254,6 +256,33 @@ public class TurnManagerTests {
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
 
     EasyMock.verify(ui, gameEngine, turnManager);
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+          "6, 0", "6, 5", "6, 3",
+          "2, 0", "2, 1",
+          "4, 0", "4, 3", "4, 2",
+  })
+  public void endTurn_ReversedOrderFalse(int numOfPlayers, int currPlayerIndex) {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(false).anyTimes();
+    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
+    EasyMock.replay(gameEngine);
+
+    turnManager.numExtraCardsToDraw = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    turnManager.endTurn();
+
+    int expected = (currPlayerIndex + 1) % numOfPlayers;
+    int actual = turnManager.currPlayerIndex;
+    assertEquals(expected, actual);
+
+    EasyMock.verify(gameEngine);
   }
 }
 
