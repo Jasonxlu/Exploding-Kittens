@@ -311,5 +311,26 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine);
   }
+
+  @Test
+  public void drawAndProcessCard_regularCardFromTop_callsHandleRegularCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("handleRegularCard")
+            .createMock();
+
+    Card regularCard = Card.SKIP;
+
+    EasyMock.expect(gameEngine.popTopCard()).andReturn(regularCard);
+    turnManager.handleRegularCard(regularCard);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.drawAndProcessCard(false);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 

@@ -53,6 +53,17 @@ public class TurnManager {
   }
 
   /**
+   * Draws a card from the Game Engine's draw pile.
+   * Calls the corresponding function.
+   */
+  public void drawAndProcessCard(boolean drawFromBottom) {
+    Card drawnCard = gameEngine.popTopCard();
+    handleRegularCard(drawnCard);
+  }
+
+  public void handleRegularCard(Card card) {}
+
+  /**
    * TODO: Ends a player's turn
    */
   public void endTurn() {}
@@ -70,11 +81,6 @@ public class TurnManager {
       currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
     }
   }
-
-  /**
-   * TODO: Draws a card from the Game Engine's draw pile.
-   */
-  public void drawAndProcessCard(boolean drawFromBottom) {}
 
   /**
    * Does the effect of a see the future card.

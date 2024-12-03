@@ -134,7 +134,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test                                  | Expected output               | Implemented? |
 |-------------|----------------------------------------------------|-------------------------------|--------------|
-| Test Case 1 | Card drawn: all other cases, drawFromBottom: False | Calls handleRegularCard()     | no           |
+| Test Case 1 | Card drawn: all other cases, drawFromBottom: False | Calls handleRegularCard()     | yes          |
 | Test Case 2 | Card drawn: all other cases, drawFromBottom: True  | Calls handleRegularCard()     | no           |
 | Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False         | Calls handleExplodingKitten() | no           |
 | Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True          | Calls handleExplodingKitten() | no           |

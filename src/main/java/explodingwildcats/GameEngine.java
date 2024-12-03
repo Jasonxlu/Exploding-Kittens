@@ -207,4 +207,12 @@ public class GameEngine {
   public Card popBottomCard() {
     return drawPile.drawCardFromBottom();
   }
+
+  /**
+   * TODO: Removes and returns the top card in the draw pile.
+   *
+   */
+  public Card popTopCard() {
+    return Card.ATTACK;
+  }
 }
