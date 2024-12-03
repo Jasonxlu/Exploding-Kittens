@@ -97,7 +97,11 @@ public class TurnManager {
    * TODO: Ends a player's turn.
    */
   public void endTurn() {
-    advanceTurn();
+    if (numExtraCardsToDraw > 0) {
+      drawAndProcessCard(false);
+    } else {
+      advanceTurn();
+    }
   }
 
   /**
