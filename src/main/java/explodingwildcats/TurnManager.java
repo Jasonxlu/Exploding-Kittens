@@ -73,24 +73,24 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Adds the card to the player's hand and calls endTurn
+   * TODO: Adds the card to the player's hand and calls endTurn.
    *
    * @param card the card drawn from the draw pile
    */
   public void handleRegularCard(Card card) {}
 
   /**
-   * TODO: handles the case where the exploding kitten is drawn
+   * TODO: handles the case where the exploding kitten is drawn.
    */
   public void handleExplodingKitten() {}
 
   /**
-   * TODO: handles the case where the imploding cat is drawn
+   * TODO: handles the case where the imploding cat is drawn.
    */
   public void handleImplodingCat() {}
 
   /**
-   * TODO: Ends a player's turn
+   * TODO: Ends a player's turn.
    */
   public void endTurn() {}
 
