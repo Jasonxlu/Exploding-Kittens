@@ -25,7 +25,7 @@ public class PlayerTests {
   public void addCardToHand_CAT() {
     CardPile hand = EasyMock.createMock(CardPile.class);
     Player player = new Player("Bob", hand);
-    Card attackCard = Card.CAT;
+    Card attackCard = Card.TACO_CAT; // TODO: revise addCardToHand Player BVA
 
     hand.addCard(attackCard);
     EasyMock.replay(hand);
