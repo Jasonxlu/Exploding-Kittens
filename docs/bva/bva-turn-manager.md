@@ -154,7 +154,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test | Expected output                         | Implemented? |
 |-------------|-------------------|-----------------------------------------|--------------|
-| Test Case 1 | Card: SKIP        | SKIP gets added to the player's hand    | no           |
+| Test Case 1 | Card: SKIP        | SKIP gets added to the player's hand    | yes          |
 
 
 ## Method 9: ```public void handleExplodingKitten()```

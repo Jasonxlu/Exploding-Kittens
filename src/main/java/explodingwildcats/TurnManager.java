@@ -73,11 +73,15 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Adds the card to the player's hand and calls endTurn.
+   * Adds the card to the player's hand and calls endTurn.
    *
    * @param card the card drawn from the draw pile
    */
-  public void handleRegularCard(Card card) {}
+  public void handleRegularCard(Card card) {
+    Player currPlayer = gameEngine.getPlayers()[currPlayerIndex];
+    currPlayer.addCardToHand(card);
+    endTurn();
+  }
 
   /**
    * TODO: handles the case where the exploding kitten is drawn.

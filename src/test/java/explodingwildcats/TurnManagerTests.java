@@ -449,5 +449,29 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+  @Test
+  public void handleRegularCard_addsCardToPlayerHand() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    Player player = EasyMock.createMock(Player.class);
+    Card card = Card.SKIP;
+    Player[] players = new Player[] {player};
+
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+    player.addCardToHand(card);
+    turnManager.endTurn();
+
+    EasyMock.replay(gameEngine, player, ui, turnManager);
+
+    turnManager.handleRegularCard(card);
+
+    EasyMock.verify(gameEngine, player, ui, turnManager);
+  }
 }
 
