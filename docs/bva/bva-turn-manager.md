@@ -89,7 +89,7 @@
 | Test Case 2 | numExtraCardsToDraw = 7, current player's turn | numCardsToDraw = 9, endTurn() is called. | yes          |
 
 
-## Method 6: ```public void endTurn()```
+## Method 6: ```public void advanceTurn()```
 ### Step 1-3 Results
 |        | Input 1           | Input 2                        | Input 3                        | Output                                                        |
 |--------|-------------------|--------------------------------|--------------------------------|---------------------------------------------------------------|

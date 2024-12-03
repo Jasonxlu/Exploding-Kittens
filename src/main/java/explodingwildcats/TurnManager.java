@@ -53,9 +53,14 @@ public class TurnManager {
   }
 
   /**
-   * Ends the current player's turn by updating who's turn it is.
+   * TODO: Ends a player's turn
    */
-  public void endTurn() {
+  public void endTurn() {}
+
+  /**
+   * Updates whose turn it is.
+   */
+  public void advanceTurn() {
     int numOfPlayers = gameEngine.getNumberOfPlayers();
     boolean orderReversed = gameEngine.getIsTurnOrderReversed();
 
