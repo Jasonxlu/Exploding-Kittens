@@ -96,7 +96,9 @@ public class TurnManager {
   /**
    * TODO: Ends a player's turn.
    */
-  public void endTurn() {}
+  public void endTurn() {
+    advanceTurn();
+  }
 
   /**
    * Updates whose turn it is.
