@@ -57,7 +57,13 @@ public class TurnManager {
    */
   public void endTurn() {
     int numOfPlayers = gameEngine.getNumberOfPlayers();
-    currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
+    boolean orderReversed = gameEngine.getIsTurnOrderReversed();
+
+    if (orderReversed) {
+      currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
+    } else {
+      currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
+    }
   }
 
   /**

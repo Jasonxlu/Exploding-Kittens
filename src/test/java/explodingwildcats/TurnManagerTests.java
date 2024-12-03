@@ -284,5 +284,32 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine);
   }
+
+  @ParameterizedTest
+  @CsvSource({
+          "6, 0", "6, 5", "6, 3",
+          "2, 0", "2, 1",
+          "4, 0", "4, 3", "4, 2",
+  })
+  public void endTurn_ReversedOrderTrue(int numOfPlayers, int currPlayerIndex) {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(true).anyTimes();
+    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
+    EasyMock.replay(gameEngine);
+
+    turnManager.numExtraCardsToDraw = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    turnManager.endTurn();
+
+    int expected = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
+    int actual = turnManager.currPlayerIndex;
+    assertEquals(expected, actual);
+
+    EasyMock.verify(gameEngine);
+  }
 }
 
