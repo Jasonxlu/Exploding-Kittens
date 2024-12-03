@@ -62,10 +62,13 @@ public class TurnManager {
     switch (drawnCard) {
       case EXPLODE:
         handleExplodingKitten();
+        break;
       case IMPLODE:
         handleImplodingCat();
+        break;
       default:
         handleRegularCard(drawnCard);
+        break;
     }
   }
 
