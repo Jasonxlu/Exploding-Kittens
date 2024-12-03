@@ -58,7 +58,6 @@ public class TurnManager {
    */
   public void drawAndProcessCard(boolean drawFromBottom) {
     Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
-    numExtraCardsToDraw--;
 
     switch (drawnCard) {
       case EXPLODE:
@@ -95,10 +94,11 @@ public class TurnManager {
   public void handleImplodingCat() {}
 
   /**
-   * TODO: Ends a player's turn.
+   * Ends a player's turn.
    */
   public void endTurn() {
     if (numExtraCardsToDraw > 0) {
+      numExtraCardsToDraw--;
       drawAndProcessCard(false);
     } else {
       advanceTurn();

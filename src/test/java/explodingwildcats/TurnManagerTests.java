@@ -492,6 +492,10 @@ public class TurnManagerTests {
 
     turnManager.endTurn();
 
+    int expected = 0;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
+
     EasyMock.verify(gameEngine, turnManager);
   }
 
@@ -512,6 +516,10 @@ public class TurnManagerTests {
     EasyMock.replay(gameEngine, turnManager);
 
     turnManager.endTurn();
+
+    int expected = 0;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
 
     EasyMock.verify(gameEngine, turnManager);
   }
@@ -534,6 +542,10 @@ public class TurnManagerTests {
 
     turnManager.endTurn();
 
+    int expected = 2;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
+
     EasyMock.verify(gameEngine, turnManager);
   }
 
@@ -554,6 +566,10 @@ public class TurnManagerTests {
     EasyMock.replay(gameEngine, turnManager);
 
     turnManager.endTurn();
+
+    int expected = 6;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
 
     EasyMock.verify(gameEngine, turnManager);
   }
