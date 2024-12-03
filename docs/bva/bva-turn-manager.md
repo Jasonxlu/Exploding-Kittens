@@ -144,18 +144,17 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 8: ```public void handleRegularCard(Card drawnCard)```
 ### Step 1-3 Results
-|        | Input 1 | Output |
-|--------|---------|--------|
-| Step 1 |         |        |
-| Step 2 |         |        |
-| Step 3 |         |        |
+|        | Input 1                | Output                                           |
+|--------|------------------------|--------------------------------------------------|
+| Step 1 | Drawn card             | Adds the card to the player's hand               |
+| Step 2 | Pointer                | None, adds the card to the current player's hand |
+| Step 3 | Valid card enum/object | None, player hand is updated and turn proceeds   |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output | Implemented? |
-|-------------|-------------------|-----------------|--------------|
-| Test Case 1 |                   |                 | no           |
-| Test Case 2 |                   |                 | no           |
+|             | System under test | Expected output                         | Implemented? |
+|-------------|-------------------|-----------------------------------------|--------------|
+| Test Case 1 | Card: SKIP        | SKIP gets added to the player's hand    | no           |
 
 
 ## Method 9: ```public void handleExplodingKitten()```
@@ -174,7 +173,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 2 |                   |                 | no           |
 
 
-## Method 9: ```public void handleImplodingCat()```
+## Method 10: ```public void handleImplodingCat()```
 ### Step 1-3 Results
 |        | Input 1 | Output |
 |--------|---------|--------|
