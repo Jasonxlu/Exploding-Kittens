@@ -58,10 +58,26 @@ public class TurnManager {
    */
   public void drawAndProcessCard(boolean drawFromBottom) {
     Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
-    handleRegularCard(drawnCard);
+
+    switch (drawnCard) {
+      case EXPLODE:
+        handleExplodingKitten();
+      default:
+        handleRegularCard(drawnCard);
+    }
   }
 
+  /**
+   * TODO: Adds the card to the player's hand and calls endTurn
+   *
+   * @param card the card drawn from the draw pile
+   */
   public void handleRegularCard(Card card) {}
+
+  /**
+   * TODO: handles the case where the exploding kitten is drawn
+   */
+  public void handleExplodingKitten() {}
 
   /**
    * TODO: Ends a player's turn
