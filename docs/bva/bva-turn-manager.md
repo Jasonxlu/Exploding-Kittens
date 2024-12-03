@@ -120,3 +120,71 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 14 | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: true  | currPlayerIndex: 3 | yes          |
 | Test Case 15 | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: true  | currPlayerIndex: 2 | yes          |
 | Test Case 16 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true  | currPlayerIndex: 1 | yes          |
+
+
+## Method 7: ```public void drawAndProcessCard(boolean drawFromBottom)```
+### Step 1-3 Results
+|        | Input 1                           | Input 2        | Output                                                                                                                           |
+|--------|-----------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Card drawn from the draw pile     | drawFromBottom | Executes the respective function based on the type (either calls handleExplodingKitten, handleImplodingCat or handleRegularCard) |
+| Step 2 | Case                              | Boolean        |                                                                                                                                  |
+| Step 3 | EXPLODE, IMPLODE, all other cases | True, False    |                                                                                                                                  |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                                  | Expected output               | Implemented? |
+|-------------|----------------------------------------------------|-------------------------------|--------------|
+| Test Case 1 | Card drawn: all other cases, drawFromBottom: False | Calls handleRegularCard()     | no           |
+| Test Case 2 | Card drawn: all other cases, drawFromBottom: True  | Calls handleRegularCard()     | no           |
+| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False         | Calls handleExplodingKitten() | no           |
+| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True          | Calls handleExplodingKitten() | no           |
+| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False         | Calls handleImplodingCat()    | no           |
+| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True          | Calls handleImplodingCat()    | no           |
+
+
+## Method 8: ```public void handleRegularCard(Card drawnCard)```
+### Step 1-3 Results
+|        | Input 1 | Output |
+|--------|---------|--------|
+| Step 1 |         |        |
+| Step 2 |         |        |
+| Step 3 |         |        |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test | Expected output | Implemented? |
+|-------------|-------------------|-----------------|--------------|
+| Test Case 1 |                   |                 | no           |
+| Test Case 2 |                   |                 | no           |
+
+
+## Method 9: ```public void handleExplodingKitten()```
+### Step 1-3 Results
+|        | Input 1 | Output |
+|--------|---------|--------|
+| Step 1 |         |        |
+| Step 2 |         |        |
+| Step 3 |         |        |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test | Expected output | Implemented? |
+|-------------|-------------------|-----------------|--------------|
+| Test Case 1 |                   |                 | no           |
+| Test Case 2 |                   |                 | no           |
+
+
+## Method 9: ```public void handleImplodingCat()```
+### Step 1-3 Results
+|        | Input 1 | Output |
+|--------|---------|--------|
+| Step 1 |         |        |
+| Step 2 |         |        |
+| Step 3 |         |        |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test | Expected output | Implemented? |
+|-------------|-------------------|-----------------|--------------|
+| Test Case 1 |                   |                 | no           |
+| Test Case 2 |                   |                 | no           |
