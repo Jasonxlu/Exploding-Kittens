@@ -319,6 +319,8 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("handleRegularCard")
+            .addMockedMethod("handleExplodingKitten")
+            .addMockedMethod("handleImplodingCat")
             .createMock();
 
     Card regularCard = Card.SKIP;
@@ -340,6 +342,8 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("handleRegularCard")
+            .addMockedMethod("handleExplodingKitten")
+            .addMockedMethod("handleImplodingCat")
             .createMock();
 
     Card regularCard = Card.SKIP;
@@ -360,7 +364,9 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
+            .addMockedMethod("handleRegularCard")
             .addMockedMethod("handleExplodingKitten")
+            .addMockedMethod("handleImplodingCat")
             .createMock();
 
     Card explodingCard = Card.EXPLODE;
@@ -381,7 +387,9 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
+            .addMockedMethod("handleRegularCard")
             .addMockedMethod("handleExplodingKitten")
+            .addMockedMethod("handleImplodingCat")
             .createMock();
 
     Card explodingCard = Card.EXPLODE;
@@ -402,6 +410,8 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
+            .addMockedMethod("handleRegularCard")
+            .addMockedMethod("handleExplodingKitten")
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
