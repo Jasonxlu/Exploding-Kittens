@@ -58,6 +58,7 @@ public class TurnManager {
    */
   public void drawAndProcessCard(boolean drawFromBottom) {
     Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
+    numExtraCardsToDraw--;
 
     switch (drawnCard) {
       case EXPLODE:
