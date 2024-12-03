@@ -536,5 +536,26 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+  @Test
+  public void endTurn_drawCounterMaxValue_callsDrawAndProcessCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .addMockedMethod("drawAndProcessCard")
+            .createMock();
+
+    turnManager.numExtraCardsToDraw = 7;
+
+    turnManager.drawAndProcessCard(false);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.endTurn();
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 

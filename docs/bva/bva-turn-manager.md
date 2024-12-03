@@ -172,7 +172,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 1 | draw counter: 0   | Calls advanceTurn        | yes          |
 | Test Case 2 | draw counter: 1   | Calls drawAndProcessCard | yes          |
 | Test Case 3 | draw counter: >1  | Calls drawAndProcessCard | yes          |
-| Test Case 4 | draw counter: >7  | Calls drawAndProcessCard | no           |
+| Test Case 4 | draw counter: 7   | Calls drawAndProcessCard | yes          |
 
 
 ## Method 10: ```public void handleExplodingKitten()```
