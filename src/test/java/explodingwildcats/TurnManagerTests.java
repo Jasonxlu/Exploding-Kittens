@@ -395,5 +395,26 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+  @Test
+  public void drawAndProcessCard_implodeCardFromTop_callsHandleImplodingCat() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("handleImplodingCat")
+            .createMock();
+
+    Card explodingCard = Card.IMPLODE;
+
+    EasyMock.expect(gameEngine.popTopCard()).andReturn(explodingCard);
+    turnManager.handleImplodingCat();
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.drawAndProcessCard(false);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 

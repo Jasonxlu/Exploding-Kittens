@@ -62,6 +62,8 @@ public class TurnManager {
     switch (drawnCard) {
       case EXPLODE:
         handleExplodingKitten();
+      case IMPLODE:
+        handleImplodingCat();
       default:
         handleRegularCard(drawnCard);
     }
@@ -78,6 +80,11 @@ public class TurnManager {
    * TODO: handles the case where the exploding kitten is drawn
    */
   public void handleExplodingKitten() {}
+
+  /**
+   * TODO: handles the case where the imploding cat is drawn
+   */
+  public void handleImplodingCat() {}
 
   /**
    * TODO: Ends a player's turn
