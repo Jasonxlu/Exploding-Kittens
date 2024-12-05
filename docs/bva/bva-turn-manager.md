@@ -207,3 +207,21 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |-------------|-------------------|-----------------|--------------|
 | Test Case 1 |                   |                 | no           |
 | Test Case 2 |                   |                 | no           |
+
+
+## Method 12: ```public void promptPlayNope()```
+### Step 1-3 Results
+|        | Input 1                                                | Input 2                                                                              | Output                                                                                                                              |
+|--------|--------------------------------------------------------|--------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Someone wants to play a nope card (from UserInterface) | Someone wants to play a Nope card on the Nope (from recursive call to this function) | Whether or not to Nope a previously played card (T if a single Nope was played, F if input 1 is F or input 1 is T and input 2 is T) |
+| Step 2 | Boolean                                                | Boolean                                                                              | Boolean                                                                                                                             |
+| Step 3 | T/F                                                    | T/F                                                                                  |                                                                                                                                     |
+
+
+### Step 4:
+##### All-combination or each-choice: all-combination
+|             | System under test                                         | Expected output | Implemented? |
+|-------------|-----------------------------------------------------------|-----------------|--------------|
+| Test Case 1 | UI.promptNope() returns false. Input 2 is never obtained. | false           | no           |
+| Test Case 2 | UI.promptNope() returns true. Input 2 returns true.       | false           | no           |
+| Test Case 3 | UI.promptNope() returns true. Input 2 returns false.      | true            | no           |
