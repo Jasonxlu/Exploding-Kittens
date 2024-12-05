@@ -80,6 +80,7 @@ public class TurnManager {
   public void handleRegularCard(Card card) {
     switch (card) {
       case EXPLODE:
+      case IMPLODE:
         throw new IllegalArgumentException("Cannot add this card type to a player's hand");
       default:
         Player currPlayer = gameEngine.getPlayers()[currPlayerIndex];

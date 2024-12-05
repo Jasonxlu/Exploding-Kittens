@@ -498,6 +498,28 @@ public class TurnManagerTests {
   }
 
   @Test
+  public void handleRegularCard_ImplodeCard_ThrowsIllegalArgumentException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card card = Card.IMPLODE;
+    String expectedMessage = "Cannot add this card type to a player's hand";
+
+    EasyMock.replay(gameEngine, ui);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.handleRegularCard(card);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+
+    EasyMock.verify(gameEngine, ui);
+  }
+
+  @Test
   public void endTurn_drawCounterZero_callsAdvanceTurn() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);

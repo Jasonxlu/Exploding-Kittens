@@ -155,7 +155,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |             | System under test | Expected output                      | Implemented? |
 |-------------|-------------------|--------------------------------------|--------------|
 | Test Case 1 | Card: SKIP        | SKIP gets added to the player's hand | yes          |
-| Test Case 2 | Card: IMPLODE     | IllegalArgumentException             | no           |
+| Test Case 2 | Card: IMPLODE     | IllegalArgumentException             | yes          |
 | Test Case 3 | Card: EXPLODE     | IllegalArgumentException             | yes          |
 
 
