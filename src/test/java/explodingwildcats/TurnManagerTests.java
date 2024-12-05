@@ -259,7 +259,20 @@ public class TurnManagerTests {
     EasyMock.verify(ui, gameEngine, turnManager);
   }
 
- 
+  @Test
+  public void doShuffle_singleCardInDrawPile_shuffleDrawPileCalled() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    gameEngine.shuffleDrawPile();
+
+    EasyMock.replay(gameEngine);
+
+    turnManager.doShuffle();
+
+    EasyMock.verify(gameEngine);
+  }
 
 
 }
