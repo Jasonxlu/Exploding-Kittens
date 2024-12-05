@@ -399,4 +399,60 @@ public class CardPileTests {
 
     assertTrue(isShuffled);
   }
+
+  @Test
+  public void shuffle_maxCardsInPile_cardsAreShuffled() {
+    CardPile pile = EasyMock.partialMockBuilder(CardPile.class)
+            .addMockedMethod("shuffleList")
+            .withConstructor()
+            .createMock();
+
+    // Expect that shuffleList is called and override it to do nothing
+    pile.shuffleList(EasyMock.anyObject());
+    // make sure shuffleList does not do anything
+    EasyMock.expectLastCall().andAnswer(() -> {
+      List<Card> list = (List<Card>) EasyMock.getCurrentArguments()[0]; // Get the argument passed to shuffleList
+      Collections.swap(list, 0, list.size() - 1); // Swap the first and last cards as a simple shuffle
+      return null; // shuffleList is void, so return null
+    }).anyTimes();
+    EasyMock.replay(pile);
+
+    final int numSkipsAttacksAndTargetedAttacks = 3;
+    for (int i = 0; i < numSkipsAttacksAndTargetedAttacks; i++) {
+      pile.addCard(Card.SKIP);
+      pile.addCard(Card.ATTACK);
+      pile.addCard(Card.TARGETED_ATTACK);
+    }
+    int numShufflesFuturesNopesCatTypesReversesDrawBottomsAlterFuturesCats = 4;
+    for (int i = 0; i < numShufflesFuturesNopesCatTypesReversesDrawBottomsAlterFuturesCats; i++) {
+      pile.addCard(Card.SHUFFLE);
+      pile.addCard(Card.SEE_THE_FUTURE);
+      pile.addCard(Card.NOPE);
+      pile.addCard(Card.REVERSE);
+      pile.addCard(Card.DRAW_FROM_BOTTOM);
+      pile.addCard(Card.ALTER_THE_FUTURE);
+      pile.addCard(Card.TACO_CAT);
+      pile.addCard(Card.HAIRY_POTATO_CAT);
+      pile.addCard(Card.BEARD_CAT);
+      pile.addCard(Card.RAINBOW_CAT);
+      pile.addCard(Card.FERAL_CAT);
+    }
+
+    Card[] expectedPile = pile.getCards();
+    pile.shuffle();
+    Card[] actualPile = pile.getCards();
+
+    boolean isShuffled = false;
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      if (expectedPile[i] != actualPile[i]) {
+        isShuffled = true;
+        break;
+      }
+    }
+
+    // Check size of each pile
+    assertEquals(expectedPile.length, actualPile.length);
+
+    assertTrue(isShuffled);
+  }
 }
