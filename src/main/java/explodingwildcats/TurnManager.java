@@ -102,8 +102,7 @@ public class TurnManager {
    * Does the effect of a shuffle card.
    */
   public void doShuffle() {
-//    gameEngine.shuffleDrawPile();
-    ui.println("Draw pile was shuffled.");
+    gameEngine.shuffleDrawPile();
     endTurn();
   }
 }
