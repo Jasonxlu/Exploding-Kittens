@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 
 /**
  * Test suite for the game engine class.
@@ -82,8 +84,8 @@ public class GameEngineTests {
     int actualNumPlayers = game.getNumberOfPlayers();
     assertEquals(expectedNumPlayers, actualNumPlayers);
 
-    Player[] players = game.getPlayers();
-    assertEquals(numPlayers, players.length);
+    List<Player> players = game.getPlayers();
+    assertEquals(numPlayers, players.size());
 
     EasyMock.verify(playerFactory, cardPileFactory);
   }
@@ -121,8 +123,8 @@ public class GameEngineTests {
     int actualNumPlayers = game.getNumberOfPlayers();
     assertEquals(expectedNumPlayers, actualNumPlayers);
 
-    Player[] players = game.getPlayers();
-    assertEquals(expectedNumPlayers, players.length);
+    List<Player> players = game.getPlayers();
+    assertEquals(numPlayers, players.size());
 
     EasyMock.verify(playerFactory, cardPileFactory);
   }
