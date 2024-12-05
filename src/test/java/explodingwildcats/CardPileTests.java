@@ -288,6 +288,23 @@ public class CardPileTests {
     for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
       assertEquals(expectedPile[i], actualPile[i]);
     }
+  }
 
+  @Test
+  public void shuffle_multipleCardsInPile_noChange() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.ATTACK);
+    pile.addCard(Card.REVERSE);
+    pile.addCard(Card.NOPE);
+
+    Card[] expectedPile = new Card[]{Card.ATTACK, Card.REVERSE, Card.NOPE};
+    Card[] actualPile = pile.getCards();
+
+    pile.shuffle();
+
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
   }
   }
