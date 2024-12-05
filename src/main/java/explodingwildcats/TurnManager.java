@@ -182,8 +182,8 @@ public class TurnManager {
    * @return a boolean representing whether the previously played card should be noped.
    */
   public boolean promptPlayNope() {
-    boolean somebodyPlayedANope = promptAndValidateNopePlayerAndPlayNopeIfSo();
-    if (somebodyPlayedANope) {
+    boolean somebodyPlayedNopeCard = promptAndValidateNopePlayerAndPlayNopeIfSo();
+    if (somebodyPlayedNopeCard) {
       return !promptPlayNope();
     }
     return false;
