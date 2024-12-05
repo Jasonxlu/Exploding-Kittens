@@ -86,6 +86,26 @@
 | Test Case 2 | cardList: [two elements: SEE_THE_FUTURE, EXPLODE] | SEE_THE_FUTURE returned, cardList: [EXPLODE] | yes          |
 
 
+## Method 5: ```public void shuffle()```
+### Step 1-3 Results
+|        | Input                                                                             | Output                                                                                         |
+|--------|-----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| Step 1 | Card Pile array list of card objects                                              | Changes the order of the draw pile card arraylist randomly, could end up being the same order  |
+| Step 2 | Collection (of Card enums - cases)                                                | None (Changes order of arraylist of cases or keeps the ordering the same)                      |
+| Step 3 | [one element], [more than one element], [max size (53 elements at start of game)] | None (Changes order of arraylist of cases or keeps the ordering the same)                      | 
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                       | Expected output    | Implemented? |
+|--------------|-----------------------------------------|--------------------|--------------|
+| Test Case 1  | Card Pile: [DEFUSE]                     | Same Ordering      |              |
+| Test Case 2  | Card Pile: [ATTACK, REVERSE, NOPE]      | Same Ordering      |              |
+| Test Case 3  | Card Pile: [Max Cards: All 53 Cards]    | Same Ordering      |              |
+| Test Case 4  | Card Pile: [IMPLODE, EXPLODE, TACO_CAT] | Different Ordering |              |
+| Test Case 5  | Card Pile: [Max Cards: All 53 Cards]    | Different Ordering |              |
+
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
