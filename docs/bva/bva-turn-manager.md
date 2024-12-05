@@ -190,7 +190,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |             | System under test | Expected output                                                                                                                                                                | Implemented? |
 |-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
 | Test Case 1 | hasDefuse: False  | gameEngine.eliminatePlayer(currPlayerIndex) gets called with the current player index                                                                                          | yes          |
-| Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index) | yes           |
+| Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index) | yes          |
 
 
 ## Method 11: ```public void handleImplodingCat()```

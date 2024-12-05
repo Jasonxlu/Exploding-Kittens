@@ -99,7 +99,8 @@ public class TurnManager {
       gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex);
       gameEngine.discardCard(Card.DEFUSE);
 
-      int placementIndex = ui.promptKittenPlacementInDrawPile();
+      int drawPileSize = gameEngine.getDrawPile().length;
+      int placementIndex = ui.promptKittenPlacementInDrawPile(drawPileSize);
       gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
     } else {
       gameEngine.eliminatePlayer(currPlayerIndex);

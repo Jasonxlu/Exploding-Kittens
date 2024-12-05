@@ -655,11 +655,13 @@ public class TurnManagerTests {
     turnManager.currPlayerIndex = 0;
     boolean hasDefuse = true;
     int placementLocation = 0;
+    int drawPileSize = 3;
 
     EasyMock.expect(gameEngine.playerHasCard(Card.DEFUSE, turnManager.currPlayerIndex)).andReturn(hasDefuse);
     gameEngine.removeCardFromPlayer(Card.DEFUSE, turnManager.currPlayerIndex);
     gameEngine.discardCard(Card.DEFUSE);
-    EasyMock.expect(ui.promptKittenPlacementInDrawPile()).andReturn(placementLocation);
+    EasyMock.expect(gameEngine.getDrawPile()).andReturn(new Card[drawPileSize]);
+    EasyMock.expect(ui.promptKittenPlacementInDrawPile(drawPileSize)).andReturn(placementLocation);
     gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementLocation);
 
     EasyMock.replay(gameEngine, ui, turnManager);
