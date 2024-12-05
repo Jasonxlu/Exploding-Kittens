@@ -210,10 +210,10 @@ public class GameEngine {
   }
 
   /**
-   * TODO: Removes and returns the top card in the draw pile.
+   * Removes and returns the top card in the draw pile.
    *
    */
   public Card popTopCard() {
-    return Card.ATTACK;
+    return drawPile.drawCard();
   }
 }

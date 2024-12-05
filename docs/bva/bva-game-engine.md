@@ -154,7 +154,7 @@
 
 |             | System under test                                                                      | Expected output                                  | Implemented? |
 |-------------|----------------------------------------------------------------------------------------|--------------------------------------------------|--------------|
-| Test Case 1 | draw pile (the object will be mocked, and drawCardFromBottom set to return an ATTACK.) | drawPile.drawCard() called, and result returned. | no           |
+| Test Case 1 | draw pile (the object will be mocked, and drawCardFromBottom set to return an ATTACK.) | drawPile.drawCard() called, and result returned. | yes          |
 
 
 ## Recall the 4 steps of BVA
