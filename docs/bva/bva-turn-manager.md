@@ -87,3 +87,21 @@
 |-------------|------------------------------------------------|------------------------------------------|--------------|
 | Test Case 1 | numExtraCardsToDraw = 0, current player's turn | numCardsToDraw = 1, endTurn() is called. | yes          |
 | Test Case 2 | numExtraCardsToDraw = 7, current player's turn | numCardsToDraw = 9, endTurn() is called. | yes          |
+
+
+
+## Method 6: ```public void doShuffle()```
+### Step 1-3 Results
+|        | Input                                                             | Output                                                     |
+|--------|-------------------------------------------------------------------|------------------------------------------------------------|
+| Step 1 | Draw pile card arraylist                                          | Changes the order of the draw pile card arraylist randomly |
+| Step 2 | Collection (of Card enums - cases)                                | None (Changes order of arraylist of cases)                 |
+| Step 3 | [one element], [more than one element], [max size (53 elements)]  | None (Changes order of draw pile)                          |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                 | Expected output                     | Implemented? |
+|--------------|-----------------------------------|-------------------------------------|--------------|
+| Test Case 1  | Drawpile: [DEFUSE]                | Same Ordering                       |              |
+| Test Case 2  | Drawpile: [ATTACK, REVERSE, NOPE] | Same Ordering or Different Ordering |              |
+| Test Case 3  | Drawpile: [All 53 Cards]          | Same Ordering or Different Ordering |              |
