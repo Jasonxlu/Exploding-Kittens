@@ -618,5 +618,28 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+
+
+  @Test
+  public void promptPlayNope_UIPromptNopeReturnsFalse_returnFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("promptAndValidateNopePlayerAndPlayNopeIfSo")
+            .createMock();
+
+    EasyMock.expect(turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo()).andReturn(false);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    boolean actualNopeWasPlayed = turnManager.promptPlayNope();
+    boolean expectedNopeWasPlayed = false;
+
+    assertEquals(expectedNopeWasPlayed, actualNopeWasPlayed);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 
