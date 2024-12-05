@@ -51,6 +51,23 @@
 | Test Case 2  | ArrayList: [ATTACK]          | ATTACK card, Arraylist is size 0  | yes          |
 | Test Case 3  | ArrayList: [DEFUSE, IMPLODE] | IMPLODE card, Arraylist is size 1 | yes          |
 
+## Method 4: ```public boolean contains(Card c)```
+### Step 1-3 Results
+|        | Input                                      | Input2                                                                                                                                                                | Output                                           |
+|--------|--------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| Step 1 | the cards in the pile                      | a card                                                                                                                                                                | Checks whether the specified card is in the list |
+| Step 2 | Collection                                 | Case                                                                                                                                                                  | Boolean                                          |
+| Step 3 | [], [one element], [more than one element] | One of the following: ATTACK, CAT, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, FERAL, IMPLODE, REVERSE, TARGETED_ATTACK | Match not found (false), match found (true)      |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                     | Expected output | Implemented? |
+|-------------|---------------------------------------|-----------------|--------------|
+| Test Case 1 | Pile: [], Card: ATTACK                | false           | yes          |
+| Test Case 3 | Pile: [ATTACK], Card: ATTACK          | true            | yes          |
+| Test Case 4 | Pile: [ATTACK], Card: SKIP            | false           | yes          |
+| Test Case 5 | Pile: [DEFUSE, IMPLODE], Card: ATTACK | false           | yes          |
+| Test Case 6 | Pile: [DEFUSE, IMPLODE], Card: DEFUSE | true            | yes          |
 
 ## Method 4: ```public Card setCard(int i, Card c)```
 ### Step 1-3 Results

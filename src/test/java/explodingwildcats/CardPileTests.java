@@ -1,11 +1,10 @@
 package explodingwildcats;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.Arrays;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CardPileTests {
@@ -158,6 +157,42 @@ public class CardPileTests {
     cards = pile.getCards();
     assertEquals(1, cards.length);
 
+  }
+
+  @Test
+  public void contains_EmptyPile_NoMatch() {
+    CardPile pile = new CardPile();
+    assertFalse(pile.contains(Card.ATTACK));
+  }
+
+  @Test
+  public void contains_OneCardPile_Match() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.ATTACK);
+    assertTrue(pile.contains(Card.ATTACK));
+  }
+
+  @Test
+  public void contains_OneCardPile_NoMatch() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.ATTACK);
+    assertFalse(pile.contains(Card.SKIP));
+  }
+
+  @Test
+  public void contains_TwoCardPile_NoMatch() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.IMPLODE);
+    assertFalse(pile.contains(Card.ATTACK));
+  }
+
+  @Test
+  public void contains_TwoCardPile_Match() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.IMPLODE);
+    assertTrue(pile.contains(Card.DEFUSE));
   }
 
   @Test
