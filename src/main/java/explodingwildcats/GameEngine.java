@@ -1,6 +1,7 @@
 package explodingwildcats;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for setting up the game logic.
@@ -8,7 +9,7 @@ import java.util.Arrays;
 public class GameEngine {
   private int numOfPlayers = 2;
 
-  private Player[] players = null;
+  private List<Player> players = new ArrayList<>();
 
   private CardPile drawPile;
   private PlayerFactory playerFactory;
@@ -93,11 +94,10 @@ public class GameEngine {
     }
 
     this.numOfPlayers = numberOfPlayers;
-    this.players = new Player[numberOfPlayers];
 
     for (int i = 0; i < numberOfPlayers; i++) {
       CardPile newHand = cardPileFactory.createCardPile();
-      players[i] = playerFactory.createPlayer(names[i], newHand);
+      players.add(playerFactory.createPlayer(names[i], newHand));
     }
   }
 
@@ -105,8 +105,8 @@ public class GameEngine {
     return numOfPlayers;
   }
 
-  public Player[] getPlayers() {
-    return Arrays.copyOf(players, players.length);
+  public List<Player> getPlayers() {
+    return new ArrayList<>(players);
   }
 
   /**
