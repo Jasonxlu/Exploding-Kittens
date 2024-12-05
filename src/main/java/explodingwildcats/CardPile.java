@@ -88,5 +88,11 @@ public class CardPile {
    * Shuffles the cards in the pile.
    */
   public void shuffle() {
+    shuffleList(cardList);
   }
+
+  void shuffleList(List<Card> list) {
+    Collections.shuffle(list);
+  }
+
 }
