@@ -78,9 +78,14 @@ public class TurnManager {
    * @param card the card drawn from the draw pile
    */
   public void handleRegularCard(Card card) {
-    Player currPlayer = gameEngine.getPlayers()[currPlayerIndex];
-    currPlayer.addCardToHand(card);
-    endTurn();
+    switch (card) {
+      case EXPLODE:
+        throw new IllegalArgumentException("Cannot add this card type to a player's hand");
+      default:
+        Player currPlayer = gameEngine.getPlayers()[currPlayerIndex];
+        currPlayer.addCardToHand(card);
+        endTurn();
+    }
   }
 
   /**

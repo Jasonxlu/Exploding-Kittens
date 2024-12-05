@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import ui.UserInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TurnManagerTests {
 
@@ -472,6 +473,28 @@ public class TurnManagerTests {
     turnManager.handleRegularCard(card);
 
     EasyMock.verify(gameEngine, player, ui, turnManager);
+  }
+
+  @Test
+  public void handleRegularCard_ExplodeCard_ThrowsIllegalArgumentException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card card = Card.EXPLODE;
+    String expectedMessage = "Cannot add this card type to a player's hand";
+
+    EasyMock.replay(gameEngine, ui);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.handleRegularCard(card);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+
+    EasyMock.verify(gameEngine, ui);
   }
 
   @Test
