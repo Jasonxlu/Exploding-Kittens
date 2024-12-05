@@ -83,7 +83,7 @@ public class TurnManager {
       case IMPLODE:
         throw new IllegalArgumentException("Cannot add this card type to a player's hand");
       default:
-        Player currPlayer = gameEngine.getPlayers()[currPlayerIndex];
+        Player currPlayer = gameEngine.getPlayers().get(currPlayerIndex);
         currPlayer.addCardToHand(card);
         endTurn();
     }

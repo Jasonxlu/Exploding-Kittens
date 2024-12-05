@@ -6,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ui.UserInterface;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -462,7 +464,7 @@ public class TurnManagerTests {
 
     Player player = EasyMock.createMock(Player.class);
     Card card = Card.SKIP;
-    Player[] players = new Player[] {player};
+    List<Player> players = List.of(player);
 
     EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
     player.addCardToHand(card);
