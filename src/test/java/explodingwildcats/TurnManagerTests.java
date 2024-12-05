@@ -282,7 +282,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void doShuffle_multipleCardsInDrawPile_shuffled() {
+  public void doShuffle_multipleCardsInDrawPile_noChange() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
@@ -294,6 +294,44 @@ public class TurnManagerTests {
 
     turnManager.doShuffle();
 
+    Card[] actualDrawPile = gameEngine.getDrawPile();
+
+    // Check that the draw pile is in the same order
+    boolean isShuffled = false;
+    for (int i = 0; i < actualDrawPile.length; i++) {
+      if (actualDrawPile[i] != drawPile[i]) {
+        isShuffled = true;
+        break;
+      }
+    }
+
+    assertFalse(isShuffled);
+
+    EasyMock.verify(gameEngine);
+  }
+
+  @Test
+  public void doShuffle_maxCardsInDrawPile_noChange() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card[] drawPile = new Card[] { Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK, Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK,
+            Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK,
+            Card.SHUFFLE, Card.SEE_THE_FUTURE, Card.NOPE, Card.REVERSE, Card.DRAW_FROM_BOTTOM,
+            Card.ALTER_THE_FUTURE, Card.TACO_CAT, Card.HAIRY_POTATO_CAT, Card.BEARD_CAT,
+            Card.RAINBOW_CAT, Card.FERAL_CAT, Card.SHUFFLE, Card.SEE_THE_FUTURE, Card.NOPE, Card.REVERSE, Card.DRAW_FROM_BOTTOM,
+            Card.ALTER_THE_FUTURE, Card.TACO_CAT, Card.HAIRY_POTATO_CAT, Card.BEARD_CAT,
+            Card.RAINBOW_CAT, Card.FERAL_CAT, Card.SHUFFLE, Card.SEE_THE_FUTURE, Card.NOPE, Card.REVERSE, Card.DRAW_FROM_BOTTOM,
+            Card.ALTER_THE_FUTURE, Card.TACO_CAT, Card.HAIRY_POTATO_CAT, Card.BEARD_CAT,
+            Card.RAINBOW_CAT, Card.FERAL_CAT, Card.SHUFFLE, Card.SEE_THE_FUTURE, Card.NOPE, Card.REVERSE, Card.DRAW_FROM_BOTTOM,
+            Card.ALTER_THE_FUTURE, Card.TACO_CAT, Card.HAIRY_POTATO_CAT, Card.BEARD_CAT,
+            Card.RAINBOW_CAT, Card.FERAL_CAT };
+    EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
+
+    EasyMock.replay(gameEngine);
+
+    turnManager.doShuffle();
     Card[] actualDrawPile = gameEngine.getDrawPile();
 
     // Check that the draw pile is in the same order

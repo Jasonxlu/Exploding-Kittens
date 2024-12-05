@@ -104,6 +104,6 @@
 |-------------|-----------------------------------------|--------------------|--------------|
 | Test Case 1 | Draw pile: [DEFUSE]                     | Same Ordering      | yes          |
 | Test Case 2 | Draw pile: [ATTACK, REVERSE, NOPE]      | Same Ordering      | yes          |
-| Test Case 3 | Draw pile: [All 53 Cards]               | Same Ordering      |              |
+| Test Case 3 | Draw pile: [All 53 Cards]               | Same Ordering      | yes          |
 | Test Case 4 | Draw pile: [IMPLODE, EXPLODE, TACO_CAT] | Different Ordering |              |
 | Test Case 5 | Draw pile: [All 53 Cards]               | Different Ordering |              |
