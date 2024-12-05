@@ -216,4 +216,16 @@ public class GameEngine {
   public Card popTopCard() {
     return drawPile.drawCard();
   }
+
+  /**
+   * TODO: checks if a player has a specified card.
+   */
+  public boolean playerHasCard(Card card, int playerIndex) {
+    return true;
+  }
+
+  /**
+   * TODO: eliminates the player at that index.
+   */
+  public void eliminatePlayer(int playerIndex) {}
 }

@@ -92,7 +92,10 @@ public class TurnManager {
   /**
    * TODO: handles the case where the exploding kitten is drawn.
    */
-  public void handleExplodingKitten() {}
+  public void handleExplodingKitten() {
+    boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
+    gameEngine.eliminatePlayer(currPlayerIndex);
+  }
 
   /**
    * TODO: handles the case where the imploding cat is drawn.
