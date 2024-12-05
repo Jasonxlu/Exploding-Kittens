@@ -263,15 +263,19 @@ public class TurnManagerTests {
   public void doShuffle_singleCardInDrawPile_shuffleDrawPileCalled() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
 
     // One card in the draw pile
     Card[] drawPile = new Card[] { Card.DEFUSE };
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
+    turnManager.endTurn();
 
-    EasyMock.replay(gameEngine);
+    EasyMock.replay(turnManager, gameEngine);
 
     turnManager.doShuffle();
 
@@ -279,22 +283,27 @@ public class TurnManagerTests {
     Card[] actualDrawPile = gameEngine.getDrawPile();
     assertEquals(drawPile.length, actualDrawPile.length);
 
-    EasyMock.verify(gameEngine);
+    EasyMock.verify(turnManager, gameEngine);
   }
 
   @Test
   public void doShuffle_multipleCardsInDrawPile_shuffleDrawPileCalled() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
 
     // One card in the draw pile
     Card[] drawPile = new Card[] { Card.ATTACK, Card.REVERSE, Card.NOPE };
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
+    turnManager.endTurn();
 
-    EasyMock.replay(gameEngine);
+    EasyMock.replay(turnManager, gameEngine);
 
     turnManager.doShuffle();
 
@@ -302,14 +311,18 @@ public class TurnManagerTests {
     Card[] actualDrawPile = gameEngine.getDrawPile();
     assertEquals(drawPile.length, actualDrawPile.length);
 
-    EasyMock.verify(gameEngine);
+    EasyMock.verify(turnManager, gameEngine);
   }
 
   @Test
   public void doShuffle_maxCardsInDrawPile_shuffleDrawPileCalled() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
 
     // One card in the draw pile
     Card[] drawPile = new Card[] { Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK, Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK,
@@ -321,8 +334,9 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
+    turnManager.endTurn();
 
-    EasyMock.replay(gameEngine);
+    EasyMock.replay(turnManager, gameEngine);
 
     turnManager.doShuffle();
 
@@ -330,11 +344,8 @@ public class TurnManagerTests {
     Card[] actualDrawPile = gameEngine.getDrawPile();
     assertEquals(drawPile.length, actualDrawPile.length);
 
-    EasyMock.verify(gameEngine);
+    EasyMock.verify(turnManager, gameEngine);
   }
-
-
-
 
 }
 
