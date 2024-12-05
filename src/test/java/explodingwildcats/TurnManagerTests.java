@@ -255,5 +255,31 @@ public class TurnManagerTests {
 
     EasyMock.verify(ui, gameEngine, turnManager);
   }
+
+  @Test
+  public void doShuffle_singleCardInDrawPile_noChange() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card[] drawPile = new Card[] { Card.DEFUSE };
+    EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
+
+    EasyMock.replay(gameEngine);
+
+    turnManager.doShuffle();
+
+    Card[] expectedDrawPile = new Card[] { Card.DEFUSE };
+    Card[] actualDrawPile = gameEngine.getDrawPile();
+
+    // Check each element of the array is equal
+    for (int i = 0; i < actualDrawPile.length; i++) {
+      assertEquals(expectedDrawPile[i], actualDrawPile[i]);
+    }
+
+    EasyMock.verify(gameEngine);
+  }
+
 }
+
 

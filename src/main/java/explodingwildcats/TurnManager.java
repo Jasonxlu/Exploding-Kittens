@@ -97,4 +97,10 @@ public class TurnManager {
     }
     endTurn();
   }
+
+  /**
+   * Does the effect of a shuffle card.
+   */
+  public void doShuffle() {
+  }
 }
