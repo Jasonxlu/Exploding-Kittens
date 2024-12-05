@@ -280,10 +280,9 @@ public class CardPileTests {
 
     pile.addCard(Card.DEFUSE);
 
-    Card[] expectedPile = new Card[]{Card.DEFUSE};
-    Card[] actualPile = pile.getCards();
-
+    Card[] expectedPile = pile.getCards();
     pile.shuffle();
+    Card[] actualPile = pile.getCards();
 
     for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
       assertEquals(expectedPile[i], actualPile[i]);
@@ -298,10 +297,43 @@ public class CardPileTests {
     pile.addCard(Card.REVERSE);
     pile.addCard(Card.NOPE);
 
-    Card[] expectedPile = new Card[]{Card.ATTACK, Card.REVERSE, Card.NOPE};
+    Card[] expectedPile = pile.getCards();
+    pile.shuffle();
     Card[] actualPile = pile.getCards();
 
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+  }
+
+  @Test
+  public void shuffle_maxCardsInPile_noChange() {
+    CardPile pile = new CardPile();
+
+    final int numSkipsAttacksAndTargetedAttacks = 3;
+    for (int i = 0; i < numSkipsAttacksAndTargetedAttacks; i++) {
+      pile.addCard(Card.SKIP);
+      pile.addCard(Card.ATTACK);
+      pile.addCard(Card.TARGETED_ATTACK);
+    }
+    int numShufflesFuturesNopesCatTypesReversesDrawBottomsAlterFuturesCats = 4;
+    for (int i = 0; i < numShufflesFuturesNopesCatTypesReversesDrawBottomsAlterFuturesCats; i++) {
+      pile.addCard(Card.SHUFFLE);
+      pile.addCard(Card.SEE_THE_FUTURE);
+      pile.addCard(Card.NOPE);
+      pile.addCard(Card.REVERSE);
+      pile.addCard(Card.DRAW_FROM_BOTTOM);
+      pile.addCard(Card.ALTER_THE_FUTURE);
+      pile.addCard(Card.TACO_CAT);
+      pile.addCard(Card.HAIRY_POTATO_CAT);
+      pile.addCard(Card.BEARD_CAT);
+      pile.addCard(Card.RAINBOW_CAT);
+      pile.addCard(Card.FERAL_CAT);
+    }
+
+    Card[] expectedPile = pile.getCards();
     pile.shuffle();
+    Card[] actualPile = pile.getCards();
 
     for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
       assertEquals(expectedPile[i], actualPile[i]);
