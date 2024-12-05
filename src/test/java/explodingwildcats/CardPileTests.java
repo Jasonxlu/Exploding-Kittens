@@ -273,4 +273,21 @@ public class CardPileTests {
       assertEquals(expectedPile[i], actualPile[i]);
     }
   }
-}
+
+  @Test
+  public void shuffle_oneCardInPile_noChange() {
+    CardPile pile = new CardPile();
+
+    pile.addCard(Card.DEFUSE);
+
+    Card[] expectedPile = new Card[]{Card.DEFUSE};
+    Card[] actualPile = pile.getCards();
+
+    pile.shuffle();
+
+    for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
+      assertEquals(expectedPile[i], actualPile[i]);
+    }
+
+  }
+  }

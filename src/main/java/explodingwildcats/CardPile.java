@@ -83,4 +83,10 @@ public class CardPile {
   public Card drawCardFromBottom() {
     return cardList.remove(0);
   }
+
+  /**
+   * Shuffles the cards in the pile.
+   */
+  public void shuffle() {
+  }
 }
