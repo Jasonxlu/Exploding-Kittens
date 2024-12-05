@@ -126,4 +126,11 @@ public class UserInterface {
     }
     return newOrder;
   }
+
+  /**
+   * TODO: ask the user where they want to place the exploding kitten in the draw pile.
+   */
+  public int promptKittenPlacementInDrawPile() {
+    return 0;
+  }
 }

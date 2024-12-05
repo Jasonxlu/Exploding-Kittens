@@ -228,4 +228,19 @@ public class GameEngine {
    * TODO: eliminates the player at that index.
    */
   public void eliminatePlayer(int playerIndex) {}
+
+  /**
+   * TODO: removes specified card from the player at that index.
+   */
+  public void removeCardFromPlayer(Card card, int playerIndex) {}
+
+  /**
+   * TODO: add a card to the discard pile.
+   */
+  public void discardCard(Card card) {}
+
+  /**
+   * TODO: add the specified card to a specified location in the card pile.
+   */
+  public void addCardToDrawPileAt(Card card, int index) {}
 }

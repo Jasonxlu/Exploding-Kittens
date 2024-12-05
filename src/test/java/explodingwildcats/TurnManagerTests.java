@@ -642,5 +642,31 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+  @Test
+  public void handleExplodingKitten_hasDefuseTrue() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    turnManager.currPlayerIndex = 0;
+    boolean hasDefuse = true;
+    int placementLocation = 0;
+
+    EasyMock.expect(gameEngine.playerHasCard(Card.DEFUSE, turnManager.currPlayerIndex)).andReturn(hasDefuse);
+    gameEngine.removeCardFromPlayer(Card.DEFUSE, turnManager.currPlayerIndex);
+    gameEngine.discardCard(Card.DEFUSE);
+    EasyMock.expect(ui.promptKittenPlacementInDrawPile()).andReturn(placementLocation);
+    gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementLocation);
+
+    EasyMock.replay(gameEngine, ui, turnManager);
+
+    turnManager.handleExplodingKitten();
+
+    EasyMock.verify(gameEngine, ui, turnManager);
+  }
 }
 

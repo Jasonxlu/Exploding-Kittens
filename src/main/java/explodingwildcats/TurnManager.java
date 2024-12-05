@@ -90,11 +90,20 @@ public class TurnManager {
   }
 
   /**
-   * TODO: handles the case where the exploding kitten is drawn.
+   * Handles the case where the exploding kitten is drawn.
    */
   public void handleExplodingKitten() {
     boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
-    gameEngine.eliminatePlayer(currPlayerIndex);
+
+    if (hasDefuse) {
+      gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex);
+      gameEngine.discardCard(Card.DEFUSE);
+
+      int placementIndex = ui.promptKittenPlacementInDrawPile();
+      gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
+    } else {
+      gameEngine.eliminatePlayer(currPlayerIndex);
+    }
   }
 
   /**
