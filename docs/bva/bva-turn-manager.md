@@ -144,17 +144,19 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 8: ```public void handleRegularCard(Card drawnCard)```
 ### Step 1-3 Results
-|        | Input 1                | Output                                           |
-|--------|------------------------|--------------------------------------------------|
-| Step 1 | Drawn card             | Adds the card to the player's hand               |
-| Step 2 | Pointer                | None, adds the card to the current player's hand |
-| Step 3 | Valid card enum/object | None, player hand is updated and turn proceeds   |
+|        | Input 1                                                                                                                                                                                            | Output                                                                      |
+|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Step 1 | Drawn card                                                                                                                                                                                         | Adds the card to the player's hand or Exception (if EXPLODE/IMPLODE)        |
+| Step 2 | Cases                                                                                                                                                                                              | None (adds the card to the current player's hand) or Exception              |
+| Step 3 | ATTACK, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, IMPLODE, REVERSE, TARGETED_ATTACK, FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT, BEARD_CAT, RAINBOW_CAT | None (player hand is updated and turn proceeds) or IllegalArgumentException |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output                         | Implemented? |
-|-------------|-------------------|-----------------------------------------|--------------|
-| Test Case 1 | Card: SKIP        | SKIP gets added to the player's hand    | yes          |
+|             | System under test | Expected output                      | Implemented? |
+|-------------|-------------------|--------------------------------------|--------------|
+| Test Case 1 | Card: SKIP        | SKIP gets added to the player's hand | yes          |
+| Test Case 2 | Card: IMPLODE     | IllegalArgumentException             | no           |
+| Test Case 3 | Card: EXPLODE     | IllegalArgumentException             | no           |
 
 
 ## Method 9: ```public void endTurn()```
