@@ -222,6 +222,6 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: all-combination
 |             | System under test                                                                                  | Expected output | Implemented? |
 |-------------|----------------------------------------------------------------------------------------------------|-----------------|--------------|
-| Test Case 1 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns false. Input 2 is never obtained. | false           | no           |
-| Test Case 2 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns true. Input 2 returns true.       | false           | no           |
+| Test Case 1 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns false. Input 2 is never obtained. | false           | yes          |
+| Test Case 2 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns true. Input 2 returns true.       | false           | yes          |
 | Test Case 3 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns true. Input 2 returns false.      | true            | no           |

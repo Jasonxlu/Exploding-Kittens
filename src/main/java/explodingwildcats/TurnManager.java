@@ -177,14 +177,9 @@ public class TurnManager {
   }
 
   /**
-   * TODO: prompts if a player wants to play a nope card w/ UI.promptNope().
-   * If not, returns false - nobody played a nope.
-   * If so, checks if the input player is a valid player,
-   * If so, checks if the player has a Nope card.
-   * If any of these cases is not true, it informs the users and prompts again.
-   * If all of the cases passed, play the nope.
+   * Decides whether to nope the previously played card.
    *
-   * @return a boolean representing whether a player played a nope card.
+   * @return a boolean representing whether the previously played card should be noped.
    */
   public boolean promptPlayNope() {
     boolean somebodyPlayedANope = promptAndValidateNopePlayerAndPlayNopeIfSo();
