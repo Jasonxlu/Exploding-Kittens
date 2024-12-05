@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ui.UserInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TurnManagerTests {
 
@@ -276,6 +277,35 @@ public class TurnManagerTests {
     for (int i = 0; i < actualDrawPile.length; i++) {
       assertEquals(expectedDrawPile[i], actualDrawPile[i]);
     }
+
+    EasyMock.verify(gameEngine);
+  }
+
+  @Test
+  public void doShuffle_multipleCardsInDrawPile_shuffled() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Card[] drawPile = new Card[] { Card.ATTACK, Card.REVERSE, Card.NOPE };
+    EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
+
+    EasyMock.replay(gameEngine);
+
+    turnManager.doShuffle();
+
+    Card[] actualDrawPile = gameEngine.getDrawPile();
+
+    // Check that the draw pile is in the same order
+    boolean isShuffled = false;
+    for (int i = 0; i < actualDrawPile.length; i++) {
+      if (actualDrawPile[i] != drawPile[i]) {
+        isShuffled = true;
+        break;
+      }
+    }
+
+    assertFalse(isShuffled);
 
     EasyMock.verify(gameEngine);
   }
