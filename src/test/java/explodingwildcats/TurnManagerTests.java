@@ -745,5 +745,27 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+  @Test
+  public void handleImplodingCat_faceUp_EliminatesPlayer() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    turnManager.currPlayerIndex = 0;
+    turnManager.isImplodingCatFaceUp = true;
+
+    gameEngine.eliminatePlayer(turnManager.currPlayerIndex);
+    turnManager.endTurn();
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.handleImplodingCat();
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 
