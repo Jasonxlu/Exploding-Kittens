@@ -98,11 +98,11 @@
 
 |              | System under test                       | Expected output    | Implemented? |
 |--------------|-----------------------------------------|--------------------|--------------|
-| Test Case 1  | Card Pile: [DEFUSE]                     | Same Ordering      |              |
-| Test Case 2  | Card Pile: [ATTACK, REVERSE, NOPE]      | Same Ordering      |              |
-| Test Case 3  | Card Pile: [Max Cards: All 53 Cards]    | Same Ordering      |              |
-| Test Case 4  | Card Pile: [IMPLODE, EXPLODE, TACO_CAT] | Different Ordering |              |
-| Test Case 5  | Card Pile: [Max Cards: All 53 Cards]    | Different Ordering |              |
+| Test Case 1  | Card Pile: [DEFUSE]                     | Same Ordering      | yes          |
+| Test Case 2  | Card Pile: [ATTACK, REVERSE, NOPE]      | Same Ordering      | yes          |
+| Test Case 3  | Card Pile: [Max Cards: All 53 Cards]    | Same Ordering      | yes          |
+| Test Case 4  | Card Pile: [IMPLODE, EXPLODE, TACO_CAT] | Different Ordering | yes          |
+| Test Case 5  | Card Pile: [Max Cards: All 53 Cards]    | Different Ordering | yes          |
 
 
 

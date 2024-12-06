@@ -103,5 +103,5 @@
 |             | System under test                       | Expected output        | Implemented? |
 |-------------|-----------------------------------------|------------------------|--------------|
 | Test Case 1 | Draw pile: [DEFUSE]                     | shuffleDrawPile Called | yes          |
-| Test Case 2 | Draw pile: [ATTACK, REVERSE, NOPE]      | shuffleDrawPile Called |              |
-| Test Case 3 | Draw pile: [All 53 Cards]               | shuffleDrawPile Called |              |
+| Test Case 2 | Draw pile: [ATTACK, REVERSE, NOPE]      | shuffleDrawPile Called | yes          |
+| Test Case 3 | Draw pile: [All 53 Cards]               | shuffleDrawPile Called | yes          |
