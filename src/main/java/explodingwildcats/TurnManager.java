@@ -90,9 +90,22 @@ public class TurnManager {
   }
 
   /**
-   * TODO: handles the case where the exploding kitten is drawn.
+   * Handles the case where the exploding kitten is drawn.
    */
-  public void handleExplodingKitten() {}
+  public void handleExplodingKitten() {
+    boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
+
+    if (hasDefuse) {
+      gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex);
+      gameEngine.discardCard(Card.DEFUSE);
+
+      int drawPileSize = gameEngine.getDrawPile().length;
+      int placementIndex = ui.promptKittenPlacementInDrawPile(drawPileSize);
+      gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
+    } else {
+      gameEngine.eliminatePlayer(currPlayerIndex);
+    }
+  }
 
   /**
    * TODO: handles the case where the imploding cat is drawn.

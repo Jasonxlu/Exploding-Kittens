@@ -218,6 +218,33 @@ public class GameEngine {
   }
 
   /**
+   * TODO: checks if a player has a specified card.
+   */
+  public boolean playerHasCard(Card card, int playerIndex) {
+    return true;
+  }
+
+  /**
+   * TODO: eliminates the player at that index.
+   */
+  public void eliminatePlayer(int playerIndex) {}
+
+  /**
+   * TODO: removes specified card from the player at that index.
+   */
+  public void removeCardFromPlayer(Card card, int playerIndex) {}
+
+  /**
+   * TODO: add a card to the discard pile.
+   */
+  public void discardCard(Card card) {}
+
+  /**
+   * TODO: add the specified card to a specified location in the card pile.
+   */
+  public void addCardToDrawPileAt(Card card, int index) {}
+
+  /**
    * TODO: Gets the player in the GameEngine's Player List by their name.
    * Throws an exception if the name does not exist in the List.
    *
