@@ -1,6 +1,7 @@
 package explodingwildcats;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for setting up the game logic.
@@ -8,7 +9,7 @@ import java.util.Arrays;
 public class GameEngine {
   private int numOfPlayers = 2;
 
-  private Player[] players = null;
+  private List<Player> players = new ArrayList<>();
 
   private CardPile drawPile;
   private PlayerFactory playerFactory;
@@ -93,11 +94,10 @@ public class GameEngine {
     }
 
     this.numOfPlayers = numberOfPlayers;
-    this.players = new Player[numberOfPlayers];
 
     for (int i = 0; i < numberOfPlayers; i++) {
       CardPile newHand = cardPileFactory.createCardPile();
-      players[i] = playerFactory.createPlayer(names[i], newHand);
+      players.add(playerFactory.createPlayer(names[i], newHand));
     }
   }
 
@@ -105,8 +105,8 @@ public class GameEngine {
     return numOfPlayers;
   }
 
-  public Player[] getPlayers() {
-    return Arrays.copyOf(players, players.length);
+  public List<Player> getPlayers() {
+    return new ArrayList<>(players);
   }
 
   /**
@@ -214,5 +214,52 @@ public class GameEngine {
    */
   public Card popBottomCard() {
     return drawPile.drawCardFromBottom();
+  }
+
+  /**
+   * Removes and returns the top card in the draw pile.
+   *
+   */
+  public Card popTopCard() {
+    return drawPile.drawCard();
+  }
+
+  /**
+   * TODO: checks if a player has a specified card.
+   */
+  public boolean playerHasCard(Card card, int playerIndex) {
+    return true;
+  }
+
+  /**
+   * TODO: eliminates the player at that index.
+   */
+  public void eliminatePlayer(int playerIndex) {}
+
+  /**
+   * TODO: removes specified card from the player at that index.
+   */
+  public void removeCardFromPlayer(Card card, int playerIndex) {}
+
+  /**
+   * TODO: add a card to the discard pile.
+   */
+  public void discardCard(Card card) {}
+
+  /**
+   * TODO: add the specified card to a specified location in the card pile.
+   */
+  public void addCardToDrawPileAt(Card card, int index) {}
+
+  /**
+   * TODO: Gets the player in the GameEngine's Player List by their name.
+   * Throws an exception if the name does not exist in the List.
+   *
+   * @param name the name to look for.
+   *
+   * @return the Player object that has that name.
+   */
+  public Player getPlayerByName(String name) {
+    return new Player("");
   }
 }

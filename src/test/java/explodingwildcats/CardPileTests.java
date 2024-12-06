@@ -163,6 +163,42 @@ public class CardPileTests {
   }
 
   @Test
+  public void contains_EmptyPile_NoMatch() {
+    CardPile pile = new CardPile();
+    assertFalse(pile.contains(Card.ATTACK));
+  }
+
+  @Test
+  public void contains_OneCardPile_Match() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.ATTACK);
+    assertTrue(pile.contains(Card.ATTACK));
+  }
+
+  @Test
+  public void contains_OneCardPile_NoMatch() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.ATTACK);
+    assertFalse(pile.contains(Card.SKIP));
+  }
+
+  @Test
+  public void contains_TwoCardPile_NoMatch() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.IMPLODE);
+    assertFalse(pile.contains(Card.ATTACK));
+  }
+
+  @Test
+  public void contains_TwoCardPile_Match() {
+    CardPile pile = new CardPile();
+    pile.addCard(Card.DEFUSE);
+    pile.addCard(Card.IMPLODE);
+    assertTrue(pile.contains(Card.DEFUSE));
+  }
+
+  @Test
   public void setCard_index0_ATTACK_emptyPile() {
     CardPile pile = new CardPile();
 

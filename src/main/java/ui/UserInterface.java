@@ -126,4 +126,33 @@ public class UserInterface {
     }
     return newOrder;
   }
+
+  /**
+   * Prompts the user to enter a valid new position for the exploding kitten in the draw pile.
+   * The position must be between 0 (inclusive) and drawPileSize (exclusive).
+   *
+   * @param drawPileSize the size of the draw pile
+   * @return a valid position within the range 0 to drawPileSize - 1
+   */
+  public int promptKittenPlacementInDrawPile(int drawPileSize) {
+    int placementIndex = -1;
+
+    while (true) {
+      System.out.printf("Enter the position to place the "
+              + "Exploding Kitten (0-%d): ", drawPileSize - 1);
+      try {
+        placementIndex = Integer.parseInt(scanner.nextLine().trim());
+        if (placementIndex >= 0 && placementIndex < drawPileSize) {
+          break;
+        } else {
+          System.out.printf("Invalid position. "
+                  + "Please enter a number between 0 and %d.%n", drawPileSize - 1);
+        }
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid input. Please enter a valid integer.");
+      }
+    }
+
+    return placementIndex;
+  }
 }
