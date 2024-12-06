@@ -91,6 +91,11 @@ public class CardPile {
     shuffleList(cardList);
   }
 
+  /**
+   * Shuffles the given list of cards.
+   *
+   * @param list the list of cards to shuffle.
+   */
   void shuffleList(List<Card> list) {
     Collections.shuffle(list);
   }

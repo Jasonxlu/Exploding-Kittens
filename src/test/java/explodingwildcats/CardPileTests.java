@@ -316,6 +316,7 @@ public class CardPileTests {
     for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
       assertEquals(expectedPile[i], actualPile[i]);
     }
+    EasyMock.verify(pile);
   }
 
   @Test
@@ -359,6 +360,7 @@ public class CardPileTests {
     for (int i = 0; i < actualPile.length && i < expectedPile.length; i++) {
       assertEquals(expectedPile[i], actualPile[i]);
     }
+    EasyMock.verify(pile);
   }
 
   @Test
@@ -368,9 +370,8 @@ public class CardPileTests {
             .withConstructor()
             .createMock();
 
-    // Expect that shuffleList is called and override it to do nothing
+
     pile.shuffleList(EasyMock.anyObject());
-    // make sure shuffleList does not do anything
     EasyMock.expectLastCall().andAnswer(() -> {
       List<Card> list = (List<Card>) EasyMock.getCurrentArguments()[0]; // Get the argument passed to shuffleList
       Collections.swap(list, 0, list.size() - 1); // Swap the first and last cards as a simple shuffle
@@ -398,6 +399,7 @@ public class CardPileTests {
     assertEquals(expectedPile.length, actualPile.length);
 
     assertTrue(isShuffled);
+    EasyMock.verify(pile);
   }
 
   @Test
@@ -407,9 +409,7 @@ public class CardPileTests {
             .withConstructor()
             .createMock();
 
-    // Expect that shuffleList is called and override it to do nothing
     pile.shuffleList(EasyMock.anyObject());
-    // make sure shuffleList does not do anything
     EasyMock.expectLastCall().andAnswer(() -> {
       List<Card> list = (List<Card>) EasyMock.getCurrentArguments()[0]; // Get the argument passed to shuffleList
       Collections.swap(list, 0, list.size() - 1); // Swap the first and last cards as a simple shuffle
@@ -454,5 +454,7 @@ public class CardPileTests {
     assertEquals(expectedPile.length, actualPile.length);
 
     assertTrue(isShuffled);
+
+    EasyMock.verify(pile);
   }
 }

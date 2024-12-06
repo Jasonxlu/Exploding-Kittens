@@ -296,7 +296,6 @@ public class TurnManagerTests {
             .createMock();
 
 
-    // One card in the draw pile
     Card[] drawPile = new Card[] { Card.ATTACK, Card.REVERSE, Card.NOPE };
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
@@ -324,7 +323,6 @@ public class TurnManagerTests {
             .createMock();
 
 
-    // One card in the draw pile
     Card[] drawPile = new Card[] { Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK, Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK,
             Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK, Card.SHUFFLE, Card.SEE_THE_FUTURE, Card.NOPE, Card.REVERSE, Card.DRAW_FROM_BOTTOM,
             Card.ALTER_THE_FUTURE, Card.TACO_CAT, Card.HAIRY_POTATO_CAT, Card.BEARD_CAT, Card.RAINBOW_CAT, Card.FERAL_CAT, Card.SHUFFLE, Card.SEE_THE_FUTURE, Card.NOPE, Card.REVERSE, Card.DRAW_FROM_BOTTOM,
