@@ -101,7 +101,7 @@ public class TurnManager {
       gameEngine.discardCard(Card.DEFUSE);
 
       int drawPileSize = gameEngine.getDrawPile().length;
-      int placementIndex = ui.promptKittenPlacementInDrawPile(drawPileSize);
+      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, true);
       gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
     } else {
       gameEngine.eliminatePlayer(currPlayerIndex);
@@ -116,7 +116,7 @@ public class TurnManager {
       gameEngine.eliminatePlayer(currPlayerIndex);
     } else {
       int drawPileSize = gameEngine.getDrawPile().length;
-      int placementIndex = ui.promptKittenPlacementInDrawPile(drawPileSize);
+      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
       gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
     }
     endTurn();

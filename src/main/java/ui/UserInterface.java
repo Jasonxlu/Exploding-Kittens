@@ -128,18 +128,20 @@ public class UserInterface {
   }
 
   /**
-   * Prompts the user to enter a valid new position for the exploding kitten in the draw pile.
+   * Prompts the user to enter a valid new position for the
+   * exploding kitten or the imploding cat in the draw pile.
    * The position must be between 0 (inclusive) and drawPileSize (exclusive).
    *
    * @param drawPileSize the size of the draw pile
    * @return a valid position within the range 0 to drawPileSize - 1
    */
-  public int promptKittenPlacementInDrawPile(int drawPileSize) {
+  public int promptPlacementForExplodeOrImplode(int drawPileSize, boolean explodingKitten) {
     int placementIndex = -1;
+    String cardName = explodingKitten ? "Exploding Kitten" : "Imploding Cat";
 
     while (true) {
-      System.out.printf("Enter the position to place the "
-              + "Exploding Kitten (0-%d): ", drawPileSize - 1);
+      System.out.printf("Enter the position to place "
+              + "the %s (0-%d): ", cardName, drawPileSize - 1);
       try {
         placementIndex = Integer.parseInt(scanner.nextLine().trim());
         if (placementIndex >= 0 && placementIndex < drawPileSize) {
