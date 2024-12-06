@@ -109,10 +109,16 @@ public class TurnManager {
   }
 
   /**
-   * TODO: handles the case where the imploding cat is drawn.
+   * Handles the case where the imploding cat is drawn.
    */
   public void handleImplodingCat() {
-    gameEngine.eliminatePlayer(currPlayerIndex);
+    if (isImplodingCatFaceUp) {
+      gameEngine.eliminatePlayer(currPlayerIndex);
+    } else {
+      int drawPileSize = gameEngine.getDrawPile().length;
+      int placementIndex = ui.promptKittenPlacementInDrawPile(drawPileSize);
+      gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
+    }
     endTurn();
   }
 

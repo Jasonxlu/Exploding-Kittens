@@ -767,5 +767,31 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+  @Test
+  public void handleImplodingCat_faceDown_CardInsertedBack() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    turnManager.currPlayerIndex = 0;
+    turnManager.isImplodingCatFaceUp = false;
+    int placementLocation = 0;
+    int drawPileSize = 3;
+
+    EasyMock.expect(gameEngine.getDrawPile()).andReturn(new Card[drawPileSize]);
+    EasyMock.expect(ui.promptKittenPlacementInDrawPile(drawPileSize)).andReturn(placementLocation);
+    gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementLocation);
+    turnManager.endTurn();
+
+    EasyMock.replay(gameEngine, ui, turnManager);
+
+    turnManager.handleImplodingCat();
+
+    EasyMock.verify(gameEngine, ui, turnManager);
+  }
 }
 

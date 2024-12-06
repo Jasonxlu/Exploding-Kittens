@@ -206,7 +206,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |             | System under test            | Expected output                                                                           | Implemented? |
 |-------------|------------------------------|-------------------------------------------------------------------------------------------|--------------|
 | Test Case 1 | isImplodingCardFaceUp: True  | gameEngine.eliminatePlayer(currPlayerIndex) gets called with the current player index     | yes          |
-| Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up | no           |
+| Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up | yes          |
 
 
 ## Method 12: ```public boolean promptPlayNope()```
