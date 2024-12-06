@@ -216,4 +216,16 @@ public class GameEngine {
   public Card popTopCard() {
     return drawPile.drawCard();
   }
+
+  /**
+   * TODO: Gets the player in the GameEngine's Player List by their name.
+   * Throws an exception if the name does not exist in the List.
+   *
+   * @param name the name to look for.
+   *
+   * @return the Player object that has that name.
+   */
+  public Player getPlayerByName(String name) {
+    return new Player("");
+  }
 }

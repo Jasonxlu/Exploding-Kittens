@@ -620,5 +620,82 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, turnManager);
   }
+
+
+
+  @Test
+  public void promptPlayNope_UIPromptNopeReturnsFalse_returnFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("promptAndValidateNopePlayerAndPlayNopeIfSo")
+            .createMock();
+
+    EasyMock.expect(turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo()).andReturn(false);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    boolean actualNopeWasPlayed = turnManager.promptPlayNope();
+    boolean expectedNopeWasPlayed = false;
+
+    assertEquals(expectedNopeWasPlayed, actualNopeWasPlayed);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void promptPlayNope_UIPromptNopeReturnsTrue_promptPlayNopeReturnsTrue_returnFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("promptAndValidateNopePlayerAndPlayNopeIfSo")
+            .createMock();
+
+    // We want the first call to promptAndValidateNopePlayerAndPlayNopeIfSo to return true
+    // as we want it to be that somebody did play a Nope.
+    // We want the second call to it to also return true and the third to return false,
+    // representing somebody playing another nope, but nobody noping that nope.
+    // thus, the nope was noped, so we should return false.
+    EasyMock.expect(turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo()).andReturn(true);
+    EasyMock.expect(turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo()).andReturn(true);
+    EasyMock.expect(turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo()).andReturn(false);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    boolean actualNopeWasPlayed = turnManager.promptPlayNope();
+    boolean expectedNopeWasPlayed = false;
+
+    assertEquals(expectedNopeWasPlayed, actualNopeWasPlayed);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void promptPlayNope_UIPromptNopeReturnsTrue_promptPlayNopeReturnsFalse_returnTrue() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("promptAndValidateNopePlayerAndPlayNopeIfSo")
+            .createMock();
+
+    // We want the first call to promptAndValidateNopePlayerAndPlayNopeIfSo to return true
+    // as we want it to be that somebody did play a Nope.
+    // We want the second call to it to return false, representing nobody noping that nope.
+    // Thus, the previous card got noped, so we should return true.
+    EasyMock.expect(turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo()).andReturn(true);
+    EasyMock.expect(turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo()).andReturn(false);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    boolean actualNopeWasPlayed = turnManager.promptPlayNope();
+    boolean expectedNopeWasPlayed = true;
+
+    assertEquals(expectedNopeWasPlayed, actualNopeWasPlayed);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 
