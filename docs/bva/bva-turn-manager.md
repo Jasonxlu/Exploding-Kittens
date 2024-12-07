@@ -225,3 +225,21 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 1 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns false. Input 2 is never obtained. | false           | yes          |
 | Test Case 2 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns true. Input 2 returns true.       | false           | yes          |
 | Test Case 3 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns true. Input 2 returns false.      | true            | yes          |
+
+
+
+## Method 13: ```public void doShuffle()```
+### Step 1-3 Results
+|        | Input                                                                                                           | Output                                  |
+|--------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| Step 1 | Game Engine's State                                                                                             | Game Engine's shuffleDrawPile is called |
+| Step 2 | Cases (Different game engine draw piles)                                                                        | None (shuffleDrawPile is called)        |
+| Step 3 | draw pile [one element], draw pile [more than one element], draw pile [max size (53 elements at start of game)] | None (shuffleDrawPile is called)        |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                       | Expected output        | Implemented? |
+|-------------|-----------------------------------------|------------------------|--------------|
+| Test Case 1 | Draw pile: [DEFUSE]                     | shuffleDrawPile Called | yes          |
+| Test Case 2 | Draw pile: [ATTACK, REVERSE, NOPE]      | shuffleDrawPile Called | yes          |
+| Test Case 3 | Draw pile: [All 53 Cards]               | shuffleDrawPile Called | yes          |

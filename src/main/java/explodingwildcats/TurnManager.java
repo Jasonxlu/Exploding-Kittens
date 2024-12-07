@@ -207,4 +207,12 @@ public class TurnManager {
     }
     return false;
   }
+
+  /**
+   * Does the effect of a shuffle card.
+   */
+  public void doShuffle() {
+    gameEngine.shuffleDrawPile();
+    endTurn();
+  }
 }
