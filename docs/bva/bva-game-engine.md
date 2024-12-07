@@ -174,7 +174,7 @@
 | Test Case 3 | card: SKIP, index: 0             | Calls Player.hasCard() with the card, returns false | yes          |
 | Test Case 4 | card: ATTACK, index: 5           | Calls Player.hasCard() with the card, returns true  | yes          |
 | Test Case 5 | card: BEARD_CAT, index: 5        | Calls Player.hasCard() with the card, returns false | yes          |
-| Test Case 6 | card: DRAW_FROM_BOTTOM, index: 6 | IndexOutOfBoundsException                           | no           |
+| Test Case 6 | card: DRAW_FROM_BOTTOM, index: 6 | IndexOutOfBoundsException                           | yes          |
 
 
 ## Recall the 4 steps of BVA
