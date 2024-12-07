@@ -105,6 +105,8 @@ public class TurnManager {
     } else {
       gameEngine.eliminatePlayer(currPlayerIndex);
     }
+
+    endTurn();
   }
 
   /**
