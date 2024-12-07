@@ -190,17 +190,23 @@ public class TurnManager {
   public boolean promptAndValidateNopePlayerAndPlayNopeIfSo() {
     String name = ui.promptNope(false);
     Player p;
+    while (true) {
+      if (name.isEmpty()) {
+        return false;
+      }
+      try {
+        p = gameEngine.getPlayerByName(name);
+      } catch(Exception e) {
+        return false;
+      }
 
-    if (name.isEmpty()) {
-      return false;
+      if (p.removeCardFromHand(Card.NOPE)) { // 'plays' the card.
+        return true;
+      }
+      ui.println(p.getName() + " does not have a Nope card in their hand." +
+              "Please type in a different player.");
+      name = ui.getTrimmedNextLine();
     }
-    try {
-      p = gameEngine.getPlayerByName(name);
-    } catch(Exception e) {
-      return false;
-    }
-
-    return p.removeCardFromHand(Card.NOPE);
   }
 
   /**

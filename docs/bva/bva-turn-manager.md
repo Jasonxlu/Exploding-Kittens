@@ -242,6 +242,6 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|--------------|
 | Test Case 1 | input1 = "". Inputs 2 and 3 are never obtained.                                                                                                                  | false           | yes          |
 | Test Case 2 | input1 = valid player name, input2 = Player with that name, input3 = true                                                                                        | true            | yes          |
-| Test Case 3 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = ""                                                               | false           | no           |
+| Test Case 3 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = ""                                                               | false           | yes          |
 | Test Case 4 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = valid player name, input2 = Player with that name, input3 = true | true            | no           |
 | Test Case 5 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = invalid player name, input2 = exception, retry with input1 = ""  | false           | no           |
