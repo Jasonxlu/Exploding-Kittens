@@ -188,6 +188,10 @@ public class TurnManager {
    * @return a boolean representing whether a player played a nope card.
    */
   public boolean promptAndValidateNopePlayerAndPlayNopeIfSo() {
+    String name = ui.promptNope(false);
+    if (name.isEmpty()) {
+      return false;
+    }
     return true;
   }
 

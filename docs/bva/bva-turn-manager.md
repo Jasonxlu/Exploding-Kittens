@@ -240,7 +240,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test                                                                                                                                                | Expected output | Implemented? |
 |-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|--------------|
-| Test Case 1 | input1 = "". Inputs 2 and 3 are never obtained.                                                                                                                  | false           | no           |
+| Test Case 1 | input1 = "". Inputs 2 and 3 are never obtained.                                                                                                                  | false           | yes          |
 | Test Case 2 | input1 = valid player name, input2 = Player with that name, input3 = true                                                                                        | true            | no           |
 | Test Case 3 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = ""                                                               | false           | no           |
 | Test Case 4 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = valid player name, input2 = Player with that name, input3 = true | true            | no           |
