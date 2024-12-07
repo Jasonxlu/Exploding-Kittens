@@ -221,7 +221,7 @@ public class GameEngine {
    * TODO: checks if a player has a specified card.
    */
   public boolean playerHasCard(Card card, int playerIndex) {
-    return true;
+    throw new IndexOutOfBoundsException("Player does not exist at this index");
   }
 
   /**
