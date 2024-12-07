@@ -758,7 +758,7 @@ public class TurnManagerTests {
 
     EasyMock.replay(gameEngine, ui);
 
-    boolean actualReturnValue = turnManager.promptPlayNope();
+    boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
     boolean expectedReturnValue = false;
 
     assertEquals(expectedReturnValue, actualReturnValue);
