@@ -189,11 +189,18 @@ public class TurnManager {
    */
   public boolean promptAndValidateNopePlayerAndPlayNopeIfSo() {
     String name = ui.promptNope(false);
+    Player p;
+
     if (name.isEmpty()) {
       return false;
     }
-    return true;
+    try {
+      p = gameEngine.getPlayerByName(name);
+    } catch(Exception e) {
+      return false;
+    }
 
+    return p.removeCardFromHand(Card.NOPE);
   }
 
   /**
