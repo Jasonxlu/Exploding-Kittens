@@ -67,7 +67,11 @@ public class TurnManager {
         handleImplodingCat();
         break;
       default:
-        handleRegularCard(drawnCard);
+        try {
+          handleRegularCard(drawnCard);
+        } catch (Exception e) {
+          System.out.println(e.getMessage());
+        }
         break;
     }
   }
