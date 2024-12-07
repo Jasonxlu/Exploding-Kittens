@@ -56,4 +56,13 @@ public class Player {
   public Card[] getHand() {
     return new Card[0];
   }
+
+  /**
+   * TODO: Returns true if the player has the card, false otherwise.
+   *
+   * @param card card to check if a player has
+   */
+  public boolean hasCard(Card card) {
+    return true;
+  }
 }

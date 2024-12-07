@@ -221,7 +221,12 @@ public class GameEngine {
    * TODO: checks if a player has a specified card.
    */
   public boolean playerHasCard(Card card, int playerIndex) {
-    throw new IndexOutOfBoundsException("Player does not exist at this index");
+    if (playerIndex < 0) {
+      throw new IndexOutOfBoundsException("Player does not exist at this index");
+    }
+
+    Player targetPlayer = players.get(playerIndex);
+    return targetPlayer.hasCard(card);
   }
 
   /**

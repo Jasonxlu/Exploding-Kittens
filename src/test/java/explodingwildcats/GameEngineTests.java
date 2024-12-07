@@ -1,12 +1,11 @@
 package explodingwildcats;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -820,7 +819,7 @@ public class GameEngineTests {
   }
 
   @Test
-  public void playerHasCard_Neg1_IndexOutOfBoundsException() {
+  public void playerHasCard_IndexNeg1_IndexOutOfBoundsException() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
@@ -852,5 +851,33 @@ public class GameEngineTests {
     assertEquals(expectedMessage, actualMessage);
 
     EasyMock.verify(playerFactory, cardPileFactory);
+  }
+
+  @Test
+  public void playerHasCard_IndexZero_returnsTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    int numPlayers = 2;
+    String[] names = {"John", "Jane"};
+    CardPile playerHand = EasyMock.createMock(CardPile.class);
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
+    EasyMock.expect(p1.hasCard(Card.SHUFFLE)).andReturn(true);
+
+    EasyMock.replay(playerFactory, cardPileFactory, p1, p2);
+
+    game.setUpPlayers(numPlayers, names);
+
+    boolean result = game.playerHasCard(Card.SHUFFLE, 0);
+    assertTrue(result);
+
+    EasyMock.verify(playerFactory, cardPileFactory, p1, p2);
   }
 }
