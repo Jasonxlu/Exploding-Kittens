@@ -157,6 +157,26 @@
 | Test Case 1 | draw pile (the object will be mocked, and drawCardFromBottom set to return an ATTACK.) | drawPile.drawCard() called, and result returned. | yes          |
 
 
+## Method 10: ```public boolean public boolean playerHasCard(Card card, int playerIndex)```
+### Step 1-3 Results
+|        | Input 1             | Input 2               | Output                                                                     |
+|--------|---------------------|-----------------------|----------------------------------------------------------------------------|
+| Step 1 | card                | player index in array | checks whether the player has a card or errors if the player doesn't exist |
+| Step 2 | cases               | interval [0, 5]       | Boolean or exception                                                       |
+| Step 3 | All Card enum cases | -1, 0, 5, 6           | True, False or IndexOutOfBoundsException                                   |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                | Expected output                                     | Implemented? |
+|-------------|----------------------------------|-----------------------------------------------------|--------------|
+| Test Case 1 | card: DEFUSE, index: -1          | IndexOutOfBoundsException                           | no           |
+| Test Case 2 | card: SHUFFLE, index: 0          | Calls Player.hasCard() with the card, returns true  | no           |
+| Test Case 3 | card: SKIP, index: 0             | Calls Player.hasCard() with the card, returns false | no           |
+| Test Case 4 | card: ATTACK, index: 5           | Calls Player.hasCard() with the card, returns true  | no           |
+| Test Case 5 | card: BEARD_CAT, index: 5        | Calls Player.hasCard() with the card, returns true  | no           |
+| Test Case 6 | card: DRAW_FROM_BOTTOM, index: 6 | IndexOutOfBoundsException                           | no           |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
