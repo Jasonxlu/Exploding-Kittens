@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import ui.UserInterface;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -847,6 +848,29 @@ public class TurnManagerTests {
     assertEquals(expectedReturnValue, actualReturnValue);
 
     EasyMock.verify(gameEngine, ui, player1, player2);
+  }
+
+  @Test
+  public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsInvalidPlayerName_gameEngineThrowsException_retry_uiNewNameReturnsEmpty_returnFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName = "John";
+    Player player = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName);
+    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andThrow(new NoSuchElementException("No player with that name could be found."));
+    EasyMock.expect(ui.promptNope(true)).andReturn("");
+
+    EasyMock.replay(gameEngine, ui, player);
+
+    boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
+    boolean expectedReturnValue = false;
+
+    assertEquals(expectedReturnValue, actualReturnValue);
+
+    EasyMock.verify(gameEngine, ui, player);
   }
 }
 
