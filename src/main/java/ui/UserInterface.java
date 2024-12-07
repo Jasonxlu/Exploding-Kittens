@@ -155,4 +155,23 @@ public class UserInterface {
 
     return placementIndex;
   }
+
+  public String promptNope(boolean isRetry) {
+    String printMessage;
+    if (isRetry) {
+      printMessage = "Unable to find that player. " +
+              "Please type in a valid player name, " +
+              "or hit enter if nobody wants to play a Nope.";
+    } else {
+      printMessage = "Does anyone want to play a Nope card? " +
+              "If so, type in the player's name. " +
+              "If not, hit enter.";
+    }
+    System.out.println(printMessage);
+    return scanner.nextLine().trim();
+  }
+
+  public String getTrimmedNextLine() {
+    return scanner.nextLine().trim();
+  }
 }
