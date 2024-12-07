@@ -156,16 +156,22 @@ public class UserInterface {
     return placementIndex;
   }
 
+  /**
+   * Prompts the users for the name of a player who wants to play a Nope card.
+   *
+   * @param isRetry whether this was already called in the TurnManager promptNope loop.
+   * @return the user's input.
+   */
   public String promptNope(boolean isRetry) {
     String printMessage;
     if (isRetry) {
-      printMessage = "Unable to find that player. " +
-              "Please type in a valid player name, " +
-              "or hit enter if nobody wants to play a Nope.";
+      printMessage = "Unable to find that player. "
+              + "Please type in a valid player name, "
+              + "or hit enter if nobody wants to play a Nope.";
     } else {
-      printMessage = "Does anyone want to play a Nope card? " +
-              "If so, type in the player's name. " +
-              "If not, hit enter.";
+      printMessage = "Does anyone want to play a Nope card? "
+              + "If so, type in the player's name. "
+              + "If not, hit enter.";
     }
     System.out.println(printMessage);
     return scanner.nextLine().trim();

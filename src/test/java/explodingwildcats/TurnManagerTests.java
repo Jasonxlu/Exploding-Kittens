@@ -803,7 +803,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andReturn(player);
     EasyMock.expect(player.removeCardFromHand(Card.NOPE)).andReturn(false);
     EasyMock.expect(player.getName()).andReturn(validPlayerName);
-    String retryMessage = "John does not have a Nope card in their hand." +
+    String retryMessage = "John does not have a Nope card in their hand. " +
             "Please type in a different player.";
     ui.println(retryMessage);
     EasyMock.expect(ui.getTrimmedNextLine()).andReturn("");
@@ -833,7 +833,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getPlayerByName(validPlayerName1)).andReturn(player1);
     EasyMock.expect(player1.removeCardFromHand(Card.NOPE)).andReturn(false);
     EasyMock.expect(player1.getName()).andReturn(validPlayerName1);
-    String retryMessage = "John does not have a Nope card in their hand." +
+    String retryMessage = "John does not have a Nope card in their hand. " +
             "Please type in a different player.";
     ui.println(retryMessage);
     EasyMock.expect(ui.getTrimmedNextLine()).andReturn(validPlayerName2);
