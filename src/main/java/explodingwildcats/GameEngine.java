@@ -232,11 +232,7 @@ public class GameEngine {
    * @param playerIndex index of the player in the players list.
    */
   public boolean playerHasCard(Card card, int playerIndex) {
-    if (playerIndex < 0 || playerIndex >= numOfPlayers) {
-      throw new IndexOutOfBoundsException("Player does not exist at this index");
-    }
-
-    Player targetPlayer = players.get(playerIndex);
+    Player targetPlayer = getPlayerByIndex(playerIndex);
     return targetPlayer.hasCard(card);
   }
 
