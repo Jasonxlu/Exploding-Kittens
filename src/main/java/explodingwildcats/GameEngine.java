@@ -171,6 +171,13 @@ public class GameEngine {
   }
 
   /**
+   * Method for shuffling the draw pile.
+   */
+  public void shuffleDrawPile() {
+    drawPile.shuffle();
+  }
+
+  /**
    * Reverses the turn order.
    */
   public void reverseTurnOrder() {

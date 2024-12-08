@@ -225,3 +225,40 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 1 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns false. Input 2 is never obtained. | false           | yes          |
 | Test Case 2 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns true. Input 2 returns true.       | false           | yes          |
 | Test Case 3 | TurnManager.promptAndValidateNopePlayerAndPlayNopeIfSo() returns true. Input 2 returns false.      | true            | yes          |
+
+
+## Method 13: ```public void doShuffle()```
+### Step 1-3 Results
+|        | Input                                                                                                           | Output                                  |
+|--------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| Step 1 | Game Engine's State                                                                                             | Game Engine's shuffleDrawPile is called |
+| Step 2 | Cases (Different game engine draw piles)                                                                        | None (shuffleDrawPile is called)        |
+| Step 3 | draw pile [one element], draw pile [more than one element], draw pile [max size (53 elements at start of game)] | None (shuffleDrawPile is called)        |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                       | Expected output        | Implemented? |
+|-------------|-----------------------------------------|------------------------|--------------|
+| Test Case 1 | Draw pile: [DEFUSE]                     | shuffleDrawPile Called | yes          |
+| Test Case 2 | Draw pile: [ATTACK, REVERSE, NOPE]      | shuffleDrawPile Called | yes          |
+| Test Case 3 | Draw pile: [All 53 Cards]               | shuffleDrawPile Called | yes          |
+
+
+## Method 14: ```public boolean promptAndValidateNopePlayerAndPlayNopeIfSo()```
+### Step 1-3 Results
+|        | Input 1                                    | Input 2                                                 | Input 3                                                                   | Output                                                     |
+|--------|--------------------------------------------|---------------------------------------------------------|---------------------------------------------------------------------------|------------------------------------------------------------|
+| Step 1 | name of the player (from ui.promptNope)    | Player with that name (from gameEngine.getPlayerByName) | Player's hand contains a Nope card (from p.removeCardFromHand(Card.NOPE)) | Whether or not a Nope card was played, T if so & F if not. |
+| Step 2 | String                                     | Cases                                                   | Boolean                                                                   | Boolean                                                    |
+| Step 3 | "", valid player name, invalid player name | One of the Players in the GameEngine, Exception         | T/F                                                                       | T/F                                                        |
+### Note: inputs 1-3 are taken again if 1 is true and 2 is an exception or 3 is false.
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                                                                                                                                                | Expected output | Implemented? |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|--------------|
+| Test Case 1 | input1 = "". Inputs 2 and 3 are never obtained.                                                                                                                  | false           | yes          |
+| Test Case 2 | input1 = valid player name, input2 = Player with that name, input3 = true                                                                                        | true            | yes          |
+| Test Case 3 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = ""                                                               | false           | yes          |
+| Test Case 4 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = valid player name, input2 = Player with that name, input3 = true | true            | yes          |
+| Test Case 5 | input1 = invalid player name, input2 = exception thrown, retry with input1 = ""                                                                                  | false           | yes          |

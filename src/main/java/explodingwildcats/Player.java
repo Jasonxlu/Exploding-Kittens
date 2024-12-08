@@ -49,7 +49,7 @@ public class Player {
   }
 
   /**
-   * Returns the entirety of player's hand.
+   * TODO: Returns the entirety of player's hand.
    *
    * @return card array of the players hand
    */
@@ -63,6 +63,16 @@ public class Player {
    * @param card card to check if a player has
    */
   public boolean hasCard(Card card) {
+    return true;
+  }
+
+  /**
+   * TODO: Removes one instance of the specified card from the player's hand.
+   *
+   * @param card the card to remove.
+   * @return true if successful and false otherwise.
+   */
+  public boolean removeCardFromHand(Card card) {
     return true;
   }
 }
