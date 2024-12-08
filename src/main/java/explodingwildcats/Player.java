@@ -63,7 +63,7 @@ public class Player {
    * @param card card to check if a player has
    */
   public boolean hasCard(Card card) {
-    return true;
+    return hand.contains(card);
   }
 
   /**

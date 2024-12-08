@@ -34,7 +34,7 @@
 
 |             | System under test              | Expected output                           | Implemented? |
 |-------------|--------------------------------|-------------------------------------------|--------------|
-| Test Case 1 | ATTACK, contains card: true    | Calls CardPile.contains and returns true  | no           |
+| Test Case 1 | ATTACK, contains card: true    | Calls CardPile.contains and returns true  | yes          |
 | Test Case 2 | TACO_CAT, contains card: false | Calls CardPile.contains and returns false | no           |
 
 
