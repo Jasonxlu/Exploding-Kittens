@@ -1113,7 +1113,7 @@ public class GameEngineTests {
   }
 
   @Test
-  public void removeCardFromPlayer_IndexZero_doesNotHaveCard_RemovesCard() {
+  public void removeCardFromPlayer_IndexZero_doesNotHaveCard_NoSuchElementException() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
