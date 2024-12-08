@@ -248,8 +248,10 @@ public class GameEngine {
    * TODO: removes specified card from the player at that index.
    */
   public void removeCardFromPlayer(Card card, int playerIndex) {
-    boolean hasCard = playerHasCard(card, playerIndex);
-    throw new IndexOutOfBoundsException("Player does not exist at this index");
+    if (playerHasCard(card, playerIndex)) {
+      Player player = getPlayerByIndex(playerIndex);
+      player.removeCardFromHand(card);
+    }
   }
 
   /**
