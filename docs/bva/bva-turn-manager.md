@@ -278,5 +278,5 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |--------------|----------------------------------------------------------------|-----------------------------------------------|--------------|
 | Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented               | yes          |
 | Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented               | yes          |
-| Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | currPlayerIndex advanced to next player index |              |
-| Test Case 4  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 0 | currPlayerIndex advanced to next player index |              |
+| Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | currPlayerIndex advanced to next player index | yes          |
+| Test Case 4  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 0 | currPlayerIndex advanced to next player index | yes          |

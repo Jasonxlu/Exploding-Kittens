@@ -1090,6 +1090,34 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine);
   }
+
+  @Test
+  public void doSkip_lastPlayerIndexNoExtraCards_indexAdvanced() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int numOfPlayers = 2;
+    int currPlayerInd = 1;
+    int extraCards = 0;
+    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(false).anyTimes();
+    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
+    EasyMock.replay(gameEngine);
+
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.currPlayerIndex = currPlayerInd;
+
+    turnManager.doSkip();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int actualPlayerInd = turnManager.currPlayerIndex;
+    int expectedPlayerInd = 0;
+
+    assertEquals(extraCards, actualNumExtraCardsToDraw);
+    assertEquals(expectedPlayerInd, actualPlayerInd);
+
+    EasyMock.verify(gameEngine);
+  }
 }
 
 
