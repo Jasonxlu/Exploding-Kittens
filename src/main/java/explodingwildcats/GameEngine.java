@@ -2,6 +2,7 @@ package explodingwildcats;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Class responsible for setting up the game logic.
@@ -248,10 +249,12 @@ public class GameEngine {
    * TODO: removes specified card from the player at that index.
    */
   public void removeCardFromPlayer(Card card, int playerIndex) {
-    if (playerHasCard(card, playerIndex)) {
-      Player player = getPlayerByIndex(playerIndex);
-      player.removeCardFromHand(card);
+    if (!playerHasCard(card, playerIndex)) {
+      throw new NoSuchElementException("Player does not have the specified card");
     }
+
+    Player player = getPlayerByIndex(playerIndex);
+    player.removeCardFromHand(card);
   }
 
   /**

@@ -4,6 +4,7 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -1084,5 +1085,34 @@ public class GameEngineTests {
     game.removeCardFromPlayer(card, playerIndex);
 
     EasyMock.verify(playerFactory, cardPileFactory, drawPile, game, p1, p2);
+  }
+
+  @Test
+  public void removeCardFromPlayer_IndexZero_doesNotHaveCard_RemovesCard() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("playerHasCard")
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card card = Card.ATTACK;
+    int playerIndex = 0;
+
+    EasyMock.expect(game.playerHasCard(card, playerIndex)).andReturn(false);
+
+    EasyMock.replay(playerFactory, cardPileFactory, drawPile, game);
+
+    String expectedMessage = "Player does not have the specified card";
+    Exception exception = assertThrows(NoSuchElementException.class, () -> {
+      game.removeCardFromPlayer(card, playerIndex);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(playerFactory, cardPileFactory, drawPile, game);
   }
 }
