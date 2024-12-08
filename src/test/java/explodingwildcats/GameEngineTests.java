@@ -1189,4 +1189,36 @@ public class GameEngineTests {
 
     EasyMock.verify(playerFactory, cardPileFactory, drawPile, game);
   }
+
+  @Test
+  public void getPlayerByIndex_IndexNeg1_IndexOutOfBoundsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    int numPlayers = 2;
+    String[] names = {"John", "Jane"};
+    CardPile playerHand = EasyMock.createMock(CardPile.class);
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
+
+    EasyMock.replay(playerFactory, cardPileFactory, p1, p2);
+
+    game.setUpPlayers(numPlayers, names);
+
+    String expectedMessage = "Player does not exist at this index";
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.getPlayerByIndex(-1);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(playerFactory, cardPileFactory, p1, p2);
+  }
 }

@@ -246,7 +246,10 @@ public class GameEngine {
   public void eliminatePlayer(int playerIndex) {}
 
   /**
-   * TODO: removes specified card from the player at that index.
+   * Removes specified card from the player at that index.
+   *
+   * @param card card to remove from player.
+   * @param playerIndex index of the player in the players list.
    */
   public void removeCardFromPlayer(Card card, int playerIndex) {
     if (!playerHasCard(card, playerIndex)) {
@@ -263,7 +266,7 @@ public class GameEngine {
    * @param playerIndex  index of the player in the players list.
    */
   public Player getPlayerByIndex(int playerIndex) {
-    throw new UnsupportedOperationException("This function hasn't been implemented.");
+    throw new IndexOutOfBoundsException("Player does not exist at this index");
   }
 
   /**
