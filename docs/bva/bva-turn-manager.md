@@ -266,15 +266,17 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 15: ```public void doSkip()```
 ### Step 1-3 Results
-|        | Input                               | Output                                                                |
-|--------|-------------------------------------|-----------------------------------------------------------------------|
-| Step 1 | TurnManager's currPlayerIndex State | Turn manager's current player index is modified from turn advancement |
-| Step 2 | Interval                            | None (player index modified)                                          |
-| Step 3 | [0, Number of players)              | None, player index advanced to next player index                      |
+|        | Input                         | Input 2                                          | Output                                                                                 |
+|--------|-------------------------------|--------------------------------------------------|----------------------------------------------------------------------------------------|
+| Step 1 | TurnManager's currPlayerIndex | TurnManager's numExtraCardsToDraw                | Turn manager's current player index is advanced or numExtraCardsToDraw is decremented  |
+| Step 2 | Interval                      | Cases                                            | None (player index modified or number of extra cards to draw is modified)              |
+| Step 3 | [0, Number of players)        | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0 | None, player index advanced to next player index or extra cards to draw is decremented |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                      | Expected output                     | Implemented? |
-|-------------|----------------------------------------|-------------------------------------|--------------|
-| Test Case 1 | currPlayerIndex: 0                     | player index modified to next index | yes          |
-| Test Case 2 | currPlayerIndex: Number of players - 1 | player index modified to next index |              |
+|              | System under test                                              | Expected output                               | Implemented? |
+|--------------|----------------------------------------------------------------|-----------------------------------------------|--------------|
+| Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented               |              |
+| Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented               |              |
+| Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | currPlayerIndex advanced to next player index |              |
+| Test Case 4  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 0 | currPlayerIndex advanced to next player index |              |
