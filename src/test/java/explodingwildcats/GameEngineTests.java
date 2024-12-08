@@ -1221,4 +1221,32 @@ public class GameEngineTests {
 
     EasyMock.verify(playerFactory, cardPileFactory, p1, p2);
   }
+
+  @Test
+  public void getPlayerByIndex_IndexZero_ReturnsPlayer() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile playerHand = EasyMock.createMock(CardPile.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    int numPlayers = 2;
+    String[] names = {"John", "Jane"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
+
+    EasyMock.replay(playerFactory, cardPileFactory);
+
+    game.setUpPlayers(numPlayers, names);
+
+    Player actualPlayer = game.getPlayerByIndex(0);
+    assertEquals(p1, actualPlayer);
+
+    EasyMock.verify(playerFactory, cardPileFactory);
+  }
 }
