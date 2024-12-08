@@ -133,6 +133,9 @@ public class UserInterface {
    * The position must be between 0 (inclusive) and drawPileSize (exclusive).
    *
    * @param drawPileSize the size of the draw pile
+   * @param explodingKitten determines whether it's asking for the placement
+   *                        of an exploding kitten or imploding cat.
+   *
    * @return a valid position within the range 0 to drawPileSize - 1
    */
   public int promptPlacementForExplodeOrImplode(int drawPileSize, boolean explodingKitten) {
