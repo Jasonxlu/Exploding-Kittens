@@ -247,6 +247,10 @@ public class TurnManager {
    * Does the effect of a skip card.
    */
   public void doSkip() {
-    numExtraCardsToDraw--;
+    if (numExtraCardsToDraw > 0) {
+      numExtraCardsToDraw--;
+    } else {
+      endTurn();
+    }
   }
 }
