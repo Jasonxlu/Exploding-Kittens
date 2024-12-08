@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import ui.UserInterface;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -837,6 +838,124 @@ public class TurnManagerTests {
     assertEquals(expectedNopeWasPlayed, actualNopeWasPlayed);
 
     EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsEmptyString_returnFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    EasyMock.expect(ui.promptNope(false)).andReturn("");
+
+    EasyMock.replay(gameEngine, ui);
+
+    boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
+    boolean expectedReturnValue = false;
+
+    assertEquals(expectedReturnValue, actualReturnValue);
+
+    EasyMock.verify(gameEngine, ui);
+  }
+
+  @Test
+  public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsValidPlayerName_gameEngineReturnsPlayer_playerHasCard_returnTrue() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName = "John";
+    Player player = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName);
+    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andReturn(player);
+    EasyMock.expect(player.removeCardFromHand(Card.NOPE)).andReturn(true);
+
+    EasyMock.replay(gameEngine, ui, player);
+
+    boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
+    boolean expectedReturnValue = true;
+
+    assertEquals(expectedReturnValue, actualReturnValue);
+
+    EasyMock.verify(gameEngine, ui, player);
+  }
+
+  @Test
+  public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsValidPlayerName_gameEngineReturnsPlayer_playerDoesNotHaveCard_retry_uiNewNameReturnsEmpty_returnFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName = "John";
+    Player player = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName);
+    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andReturn(player);
+    EasyMock.expect(player.removeCardFromHand(Card.NOPE)).andReturn(false);
+    EasyMock.expect(player.getName()).andReturn(validPlayerName);
+    EasyMock.expect(ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(validPlayerName)).andReturn("");
+
+    EasyMock.replay(gameEngine, ui, player);
+
+    boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
+    boolean expectedReturnValue = false;
+
+    assertEquals(expectedReturnValue, actualReturnValue);
+
+    EasyMock.verify(gameEngine, ui, player);
+  }
+
+  @Test
+  public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsValidPlayerName_gameEngineReturnsPlayer_playerDoesNotHaveCard_retry_uiNewNameReturnsValidName_gameEngineReturnsPlayer_playerHasCard_returnTrue() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName1 = "John";
+    String validPlayerName2 = "Joe";
+    Player player1 = EasyMock.createMock(Player.class);
+    Player player2 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName1);
+    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName1)).andReturn(player1);
+    EasyMock.expect(player1.removeCardFromHand(Card.NOPE)).andReturn(false);
+    EasyMock.expect(player1.getName()).andReturn(validPlayerName1);
+    EasyMock.expect(ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(validPlayerName1)).andReturn(validPlayerName2);
+    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName2)).andReturn(player2);
+    EasyMock.expect(player2.removeCardFromHand(Card.NOPE)).andReturn(true);
+
+    EasyMock.replay(gameEngine, ui, player1, player2);
+
+    boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
+    boolean expectedReturnValue = true;
+
+    assertEquals(expectedReturnValue, actualReturnValue);
+
+    EasyMock.verify(gameEngine, ui, player1, player2);
+  }
+
+  @Test
+  public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsInvalidPlayerName_gameEngineThrowsException_retry_uiNewNameReturnsEmpty_returnFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName = "John";
+    Player player = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName);
+    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andThrow(new NoSuchElementException("No player with that name could be found."));
+    EasyMock.expect(ui.promptNope(true)).andReturn("");
+
+    EasyMock.replay(gameEngine, ui, player);
+
+    boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
+    boolean expectedReturnValue = false;
+
+    assertEquals(expectedReturnValue, actualReturnValue);
+
+    EasyMock.verify(gameEngine, ui, player);
   }
 }
 

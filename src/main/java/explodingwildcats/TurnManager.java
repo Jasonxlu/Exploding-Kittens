@@ -182,17 +182,34 @@ public class TurnManager {
   }
 
   /**
-   * TODO: prompts if a player wants to play a nope card w/ UI.promptNope().
+   * Prompts if a player wants to play a nope card w/ UI.promptNope().
    * If not, returns false - nobody played a nope.
    * If so, checks if the input player is a valid player,
    * If so, checks if the player has a Nope card.
    * If any of these cases is not true, it informs the users and prompts again.
-   * If all of the cases passed, play the nope.
+   * If all the cases passed, play the nope.
    *
    * @return a boolean representing whether a player played a nope card.
    */
   public boolean promptAndValidateNopePlayerAndPlayNopeIfSo() {
-    return true;
+    String name = ui.promptNope(false);
+    Player p;
+    while (true) {
+      if (name.isEmpty()) {
+        return false;
+      }
+      try {
+        p = gameEngine.getPlayerByName(name);
+      } catch (Exception e) {
+        name = ui.promptNope(true);
+        continue;
+      }
+
+      if (p.removeCardFromHand(Card.NOPE)) { // 'plays' the card.
+        return true;
+      }
+      name = ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(p.getName());
+    }
   }
 
   /**
