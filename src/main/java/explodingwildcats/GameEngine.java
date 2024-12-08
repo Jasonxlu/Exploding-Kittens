@@ -266,7 +266,7 @@ public class GameEngine {
    * @param playerIndex  index of the player in the players list.
    */
   public Player getPlayerByIndex(int playerIndex) {
-    if (playerIndex < 0) {
+    if (playerIndex < 0 || playerIndex >= numOfPlayers) {
       throw new IndexOutOfBoundsException("Player does not exist at this index");
     }
 

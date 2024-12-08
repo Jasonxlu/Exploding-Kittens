@@ -211,7 +211,7 @@
 | Test Case 1 | index: -1, num of players: 2 | IndexOutOfBoundsException                | yes          |
 | Test Case 2 | index: 0, num of players: 2  | Returns the player at 0 in the list      | yes          |
 | Test Case 3 | index: 5, num of players: 6  | Returns the player at 5 in the list      | yes          |
-| Test Case 4 | index: 6, num of players: 6  | IndexOutOfBoundsException                | no           |
+| Test Case 4 | index: 6, num of players: 6  | IndexOutOfBoundsException                | yes          |
 
 
 ## Recall the 4 steps of BVA
