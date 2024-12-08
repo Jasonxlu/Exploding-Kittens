@@ -269,12 +269,12 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |        | Input                               | Output                                                                |
 |--------|-------------------------------------|-----------------------------------------------------------------------|
 | Step 1 | TurnManager's currPlayerIndex State | Turn manager's current player index is modified from turn advancement |
-| Step 2 | Interval                            | None (advanceTurn is called)                                          |
-| Step 3 | [0, Number of players)              | None, Turn advancement and player index modified                      |
+| Step 2 | Interval                            | None (player index modified)                                          |
+| Step 3 | [0, Number of players)              | None, player index advanced to next player index                      |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                      | Expected output                                            | Implemented? |
-|-------------|----------------------------------------|------------------------------------------------------------|--------------|
-| Test Case 1 | currPlayerIndex: 0                     | advanceTurn Called and player index modified to next index |              |
-| Test Case 2 | currPlayerIndex: Number of players - 1 | advanceTurn Called and player index modified to next index |              |
+|             | System under test                      | Expected output                     | Implemented? |
+|-------------|----------------------------------------|-------------------------------------|--------------|
+| Test Case 1 | currPlayerIndex: 0                     | player index modified to next index | yes          |
+| Test Case 2 | currPlayerIndex: Number of players - 1 | player index modified to next index |              |
