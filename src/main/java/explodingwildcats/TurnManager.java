@@ -67,7 +67,11 @@ public class TurnManager {
         handleImplodingCat();
         break;
       default:
-        handleRegularCard(drawnCard);
+        try {
+          handleRegularCard(drawnCard);
+        } catch (Exception e) {
+          System.out.println(e.getMessage());
+        }
         break;
     }
   }
@@ -219,5 +223,13 @@ public class TurnManager {
       return !promptPlayNope();
     }
     return false;
+  }
+
+  /**
+   * Does the effect of a shuffle card.
+   */
+  public void doShuffle() {
+    gameEngine.shuffleDrawPile();
+    endTurn();
   }
 }
