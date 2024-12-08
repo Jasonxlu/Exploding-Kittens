@@ -177,7 +177,15 @@ public class UserInterface {
     return scanner.nextLine().trim();
   }
 
-  public String getTrimmedNextLine() {
+  /**
+   * Prints that the last user did not have a Nope card and prompts for a new player name.
+   *
+   * @param playerName the player that did not have a nope card.
+   * @return the new user input.
+   */
+  public String printLastPlayerDidNotHaveNopeAndGetNewPlayer(String playerName) {
+    System.out.printf("%s does not have a Nope card in their hand. "
+            + "Please type in a different player.%n", playerName);
     return scanner.nextLine().trim();
   }
 }

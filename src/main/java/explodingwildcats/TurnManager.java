@@ -204,10 +204,7 @@ public class TurnManager {
       if (p.removeCardFromHand(Card.NOPE)) { // 'plays' the card.
         return true;
       }
-      ui.println(p.getName()
-              + " does not have a Nope card in their hand. "
-              + "Please type in a different player.");
-      name = ui.getTrimmedNextLine();
+      name = ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(p.getName());
     }
   }
 
