@@ -2,6 +2,7 @@ package explodingwildcats;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Class responsible for setting up the game logic.
@@ -231,11 +232,7 @@ public class GameEngine {
    * @param playerIndex index of the player in the players list.
    */
   public boolean playerHasCard(Card card, int playerIndex) {
-    if (playerIndex < 0 || playerIndex >= numOfPlayers) {
-      throw new IndexOutOfBoundsException("Player does not exist at this index");
-    }
-
-    Player targetPlayer = players.get(playerIndex);
+    Player targetPlayer = getPlayerByIndex(playerIndex);
     return targetPlayer.hasCard(card);
   }
 
@@ -245,9 +242,32 @@ public class GameEngine {
   public void eliminatePlayer(int playerIndex) {}
 
   /**
-   * TODO: removes specified card from the player at that index.
+   * Removes specified card from the player at that index.
+   *
+   * @param card card to remove from player.
+   * @param playerIndex index of the player in the players list.
    */
-  public void removeCardFromPlayer(Card card, int playerIndex) {}
+  public void removeCardFromPlayer(Card card, int playerIndex) {
+    if (!playerHasCard(card, playerIndex)) {
+      throw new NoSuchElementException("Player does not have the specified card");
+    }
+
+    Player player = getPlayerByIndex(playerIndex);
+    player.removeCardFromHand(card);
+  }
+
+  /**
+   * Returns the player at the index in the list or errors if it doesn't exist.
+   *
+   * @param playerIndex  index of the player in the players list.
+   */
+  public Player getPlayerByIndex(int playerIndex) {
+    if (playerIndex < 0 || playerIndex >= numOfPlayers) {
+      throw new IndexOutOfBoundsException("Player does not exist at this index");
+    }
+
+    return players.get(playerIndex);
+  }
 
   /**
    * TODO: add a card to the discard pile.
