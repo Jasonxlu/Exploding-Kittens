@@ -262,3 +262,19 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 3 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = ""                                                               | false           | yes          |
 | Test Case 4 | input1 = valid player name, input2 = Player with that name, input3 = false, retry with input1 = valid player name, input2 = Player with that name, input3 = true | true            | yes          |
 | Test Case 5 | input1 = invalid player name, input2 = exception thrown, retry with input1 = ""                                                                                  | false           | yes          |
+
+
+## Method 15: ```public void doSkip()```
+### Step 1-3 Results
+|        | Input                               | Output                                                                |
+|--------|-------------------------------------|-----------------------------------------------------------------------|
+| Step 1 | TurnManager's currPlayerIndex State | Turn manager's current player index is modified from turn advancement |
+| Step 2 | Interval                            | None (advanceTurn is called)                                          |
+| Step 3 | [0, Number of players)              | None, Turn advancement and player index modified                      |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                      | Expected output                                            | Implemented? |
+|-------------|----------------------------------------|------------------------------------------------------------|--------------|
+| Test Case 1 | currPlayerIndex: 0                     | advanceTurn Called and player index modified to next index |              |
+| Test Case 2 | currPlayerIndex: Number of players - 1 | advanceTurn Called and player index modified to next index |              |
