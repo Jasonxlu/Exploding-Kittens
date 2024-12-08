@@ -21,6 +21,23 @@
 | Test Case 7 | SHUFFLE           | CardPile.addCard called with SHUFFLE card        | yes          |
 | Test Case 7 | SKIP              | CardPile.addCard called with SKIP card           | yes          |
 
+
+## Method 2: ```public boolean hasCard(Card c)```
+### Step 1-3 Results
+|        | Input 1                       | Output                                       |
+|--------|-------------------------------|----------------------------------------------|
+| Step 1 | a card                        | whether the player hand's contains that card |
+| Step 2 | Case                          | Boolean                                      |
+| Step 3 | All card cases from Card enum | True, False                                  |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test              | Expected output                           | Implemented? |
+|-------------|--------------------------------|-------------------------------------------|--------------|
+| Test Case 1 | ATTACK, contains card: true    | Calls CardPile.contains and returns true  | no           |
+| Test Case 2 | TACO_CAT, contains card: false | Calls CardPile.contains and returns false | no           |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
