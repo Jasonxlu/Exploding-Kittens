@@ -157,7 +157,7 @@
 | Test Case 1 | draw pile (the object will be mocked, and drawCardFromBottom set to return an ATTACK.) | drawPile.drawCard() called, and result returned. | yes          |
 
 
-## Method 10: ```public boolean public boolean playerHasCard(Card card, int playerIndex)```
+## Method 10: ```public boolean playerHasCard(Card card, int playerIndex)```
 ### Step 1-3 Results
 |        | Input 1             | Input 2               | Output                                                                     |
 |--------|---------------------|-----------------------|----------------------------------------------------------------------------|
@@ -175,6 +175,43 @@
 | Test Case 4 | card: ATTACK, index: 5           | Calls Player.hasCard() with the card, returns true  | yes          |
 | Test Case 5 | card: BEARD_CAT, index: 5        | Calls Player.hasCard() with the card, returns false | yes          |
 | Test Case 6 | card: DRAW_FROM_BOTTOM, index: 6 | IndexOutOfBoundsException                           | yes          |
+
+
+## Method 11: ```public void removeCardFromPlayer(Card card, int playerIndex)```
+### Step 1-3 Results
+|        | Input 1             | Input 2               | Input               | Output                                                                                                          |
+|--------|---------------------|-----------------------|---------------------|-----------------------------------------------------------------------------------------------------------------|
+| Step 1 | card                | player index in array | player has the card | removes the specified card from the player or errors if the player doesn't exist or if they don't have the card |
+| Step 2 | cases               | interval [0, 5]       | Boolean             | Boolean or exception                                                                                            |
+| Step 3 | All Card enum cases | -1, 0, 5, 6           | True, False         | True, False or IndexOutOfBoundsException or NoSuchElementException                                              |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                         | Expected output                                  | Implemented? |
+|-------------|-------------------------------------------|--------------------------------------------------|--------------|
+| Test Case 1 | card: DEFUSE, index: -1                   | IndexOutOfBoundsException                        | no           |
+| Test Case 2 | card: SKIP, index: 0, has card: true      | Calls Player.removeCardFromHandCard to remove it | no           |
+| Test Case 2 | card: ATTACK, index: 0, has card: false   | NoSuchElementException                           | no           |
+| Test Case 3 | card: BEARD_CAT, index: 5, has card: true | Calls Player.removeCardFromHandCard to remove it | no           |
+| Test Case 4 | card: DRAW_FROM_BOTTOM, index: 6          | IndexOutOfBoundsException                        | no           |
+
+
+## Method 12: ```public Player getPlayerByIndex(int playerIndex)```
+### Step 1-3 Results
+|        | Input 1               | Input 2           | Output                                                                              |
+|--------|-----------------------|-------------------|-------------------------------------------------------------------------------------|
+| Step 1 | player index in array | number of players | Returns the player specified by an index in the players list if it exists or errors |
+| Step 2 | interval [0, 5]       | interval [2, 6]   | Pointer (reference to a player) reference or Exception                              |
+| Step 3 | -1, 0, 5, 6           | 1, 2, 6, 7        | Valid pointer or IndexOutOfBoundsException                                          |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test            | Expected output                          | Implemented? |
+|-------------|------------------------------|------------------------------------------|--------------|
+| Test Case 1 | index: -1, num of players: 3 | IndexOutOfBoundsException                | no           |
+| Test Case 2 | index: 0, num of players: 2  | Returns the player at 0 in the list      | no           |
+| Test Case 3 | index: 5, num of players: 6  | Returns the player at 5 in the list      | no           |
+| Test Case 4 | index: 6, num of players: 6  | IndexOutOfBoundsException                | no           |
 
 
 ## Recall the 4 steps of BVA
