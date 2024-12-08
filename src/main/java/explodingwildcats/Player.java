@@ -58,6 +58,15 @@ public class Player {
   }
 
   /**
+   * TODO: Returns true if the player has the card, false otherwise.
+   *
+   * @param card card to check if a player has
+   */
+  public boolean hasCard(Card card) {
+    return true;
+  }
+
+  /**
    * TODO: Removes one instance of the specified card from the player's hand.
    *
    * @param card the card to remove.

@@ -225,10 +225,18 @@ public class GameEngine {
   }
 
   /**
-   * TODO: checks if a player has a specified card.
+   * Checks if a player has a specified card.
+   *
+   * @param card card to check if a player has.
+   * @param playerIndex index of the player in the players list.
    */
   public boolean playerHasCard(Card card, int playerIndex) {
-    return true;
+    if (playerIndex < 0 || playerIndex >= numOfPlayers) {
+      throw new IndexOutOfBoundsException("Player does not exist at this index");
+    }
+
+    Player targetPlayer = players.get(playerIndex);
+    return targetPlayer.hasCard(card);
   }
 
   /**
