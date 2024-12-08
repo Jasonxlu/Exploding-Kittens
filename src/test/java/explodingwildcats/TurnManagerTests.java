@@ -1011,27 +1011,14 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
-    int numOfPlayers = 2;
-    int currPlayerInd = 0;
-    int extraCards = 1;
-    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(false).anyTimes();
-    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
-    EasyMock.replay(gameEngine);
-
-    turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.currPlayerIndex = currPlayerInd;
+    turnManager.numExtraCardsToDraw = 1;
 
     turnManager.doSkip();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
     int expectedNumExtraCardsToDraw = 0;
-    int actualPlayerInd = turnManager.currPlayerIndex;
-    int expectedPlayerInd = 0;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
-    assertEquals(expectedPlayerInd, actualPlayerInd);
-
-    EasyMock.verify(gameEngine);
   }
 
   @Test
@@ -1040,84 +1027,42 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
-    int numOfPlayers = 2;
-    int currPlayerInd = 1;
     int extraCards = 2;
-    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(false).anyTimes();
-    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
-    EasyMock.replay(gameEngine);
 
-    turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.currPlayerIndex = currPlayerInd;
+    turnManager.numExtraCardsToDraw = 2;
 
     turnManager.doSkip();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
     int expectedNumExtraCardsToDraw = extraCards - 1;
-    int actualPlayerInd = turnManager.currPlayerIndex;
-    int expectedPlayerInd = 1;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
-    assertEquals(expectedPlayerInd, actualPlayerInd);
-
-    EasyMock.verify(gameEngine);
   }
 
   @Test
-  public void doSkip_firstPlayerIndexNoExtraCards_indexAdvanced() {
+  public void doSkip_NoExtraCardsToDraw_turnEnded() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
 
-    int numOfPlayers = 2;
-    int currPlayerInd = 0;
     int extraCards = 0;
-    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(false).anyTimes();
-    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
-    EasyMock.replay(gameEngine);
-
+    turnManager.endTurn();
     turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.currPlayerIndex = currPlayerInd;
+
+    EasyMock.replay(turnManager);
 
     turnManager.doSkip();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
-    int actualPlayerInd = turnManager.currPlayerIndex;
-    int expectedPlayerInd = (currPlayerInd + 1) % numOfPlayers;
 
     assertEquals(extraCards, actualNumExtraCardsToDraw);
-    assertEquals(expectedPlayerInd, actualPlayerInd);
 
-    EasyMock.verify(gameEngine);
+    EasyMock.verify(turnManager);
   }
 
-  @Test
-  public void doSkip_lastPlayerIndexNoExtraCards_indexAdvanced() {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
-
-    int numOfPlayers = 2;
-    int currPlayerInd = 1;
-    int extraCards = 0;
-    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(false).anyTimes();
-    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
-    EasyMock.replay(gameEngine);
-
-    turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.currPlayerIndex = currPlayerInd;
-
-    turnManager.doSkip();
-
-    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
-    int actualPlayerInd = turnManager.currPlayerIndex;
-    int expectedPlayerInd = 0;
-
-    assertEquals(extraCards, actualNumExtraCardsToDraw);
-    assertEquals(expectedPlayerInd, actualPlayerInd);
-
-    EasyMock.verify(gameEngine);
-  }
 }
 
 

@@ -266,17 +266,16 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 15: ```public void doSkip()```
 ### Step 1-3 Results
-|        | Input                         | Input 2                                          | Output                                                                                 |
-|--------|-------------------------------|--------------------------------------------------|----------------------------------------------------------------------------------------|
-| Step 1 | TurnManager's currPlayerIndex | TurnManager's numExtraCardsToDraw                | Turn manager's current player index is advanced or numExtraCardsToDraw is decremented  |
-| Step 2 | Interval                      | Cases                                            | None (player index modified or number of extra cards to draw is modified)              |
-| Step 3 | [0, Number of players)        | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0 | None, player index advanced to next player index or extra cards to draw is decremented |
+|        | Input                                            | Output                                                                 |
+|--------|--------------------------------------------------|------------------------------------------------------------------------|
+| Step 1 | TurnManager's numExtraCardsToDraw                | Turn manager's endTurn is called or numExtraCardsToDraw is decremented |
+| Step 2 | Cases                                            | None (endTurn is called or number of extra cards to draw is modified)  |
+| Step 3 | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0 | None, turn ended or extra cards to draw is decremented                 |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                                              | Expected output                               | Implemented? |
-|--------------|----------------------------------------------------------------|-----------------------------------------------|--------------|
-| Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented               | yes          |
-| Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented               | yes          |
-| Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | currPlayerIndex advanced to next player index | yes          |
-| Test Case 4  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 0 | currPlayerIndex advanced to next player index | yes          |
+|              | System under test                                              | Expected output                 | Implemented? |
+|--------------|----------------------------------------------------------------|---------------------------------|--------------|
+| Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented | yes          |
+| Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented | yes          |
+| Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | endTurn() is called             | yes          |
