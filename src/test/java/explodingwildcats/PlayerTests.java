@@ -3,6 +3,9 @@ package explodingwildcats;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
 * Test suite for the Player class.
 */
@@ -101,6 +104,40 @@ public class PlayerTests {
     EasyMock.replay(hand);
 
     player.addCardToHand(attackCard);
+
+    EasyMock.verify(hand);
+  }
+
+  @Test
+  public void hasCard_ReturnsTrue() {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
+
+    Card card = Card.ATTACK;
+
+    EasyMock.expect(hand.contains(card)).andReturn(true);
+
+    EasyMock.replay(hand);
+
+    boolean result = player.hasCard(card);
+    assertTrue(result);
+
+    EasyMock.verify(hand);
+  }
+
+  @Test
+  public void hasCard_ReturnsFalse() {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
+
+    Card card = Card.TACO_CAT;
+
+    EasyMock.expect(hand.contains(card)).andReturn(false);
+
+    EasyMock.replay(hand);
+
+    boolean result = player.hasCard(card);
+    assertFalse(result);
 
     EasyMock.verify(hand);
   }

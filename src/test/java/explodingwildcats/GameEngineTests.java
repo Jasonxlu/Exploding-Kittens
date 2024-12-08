@@ -850,7 +850,7 @@ public class GameEngineTests {
     game.setUpPlayers(numPlayers, names);
 
     Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-      game.playerHasCard(Card.DEFUSE, -1);
+      boolean hasCard = game.playerHasCard(Card.DEFUSE, -1);
     });
 
     String actualMessage = exception.getMessage();
@@ -1043,7 +1043,7 @@ public class GameEngineTests {
     game.setUpPlayers(numPlayers, names);
 
     Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-      game.playerHasCard(Card.DRAW_FROM_BOTTOM, 6);
+      boolean hasCard = game.playerHasCard(Card.DRAW_FROM_BOTTOM, 6);
     });
 
     String actualMessage = exception.getMessage();
