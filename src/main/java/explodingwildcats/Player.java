@@ -58,12 +58,12 @@ public class Player {
   }
 
   /**
-   * TODO: Returns true if the player has the card, false otherwise.
+   * Returns true if the player has the card, false otherwise.
    *
-   * @param card card to check if a player has
+   * @param card card to check if the player has
    */
   public boolean hasCard(Card card) {
-    return true;
+    return hand.contains(card);
   }
 
   /**
