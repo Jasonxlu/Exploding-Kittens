@@ -189,7 +189,7 @@
 ##### All-combination or each-choice: each-choice
 |             | System under test                         | Expected output                                  | Implemented? |
 |-------------|-------------------------------------------|--------------------------------------------------|--------------|
-| Test Case 1 | card: DEFUSE, index: -1                   | IndexOutOfBoundsException                        | no           |
+| Test Case 1 | card: DEFUSE, index: -1                   | IndexOutOfBoundsException                        | yes          |
 | Test Case 2 | card: SKIP, index: 0, has card: true      | Calls Player.removeCardFromHandCard to remove it | no           |
 | Test Case 2 | card: ATTACK, index: 0, has card: false   | NoSuchElementException                           | no           |
 | Test Case 3 | card: BEARD_CAT, index: 5, has card: true | Calls Player.removeCardFromHandCard to remove it | no           |

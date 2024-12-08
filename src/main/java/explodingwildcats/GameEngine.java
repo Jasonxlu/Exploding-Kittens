@@ -247,7 +247,19 @@ public class GameEngine {
   /**
    * TODO: removes specified card from the player at that index.
    */
-  public void removeCardFromPlayer(Card card, int playerIndex) {}
+  public void removeCardFromPlayer(Card card, int playerIndex) {
+    boolean hasCard = playerHasCard(card, playerIndex);
+    throw new IndexOutOfBoundsException("Player does not exist at this index");
+  }
+
+  /**
+   * Returns the player at the index in the list or errors if it doesn't exist.
+   *
+   * @param playerIndex  index of the player in the players list.
+   */
+  public Player getPlayerByIndex(int playerIndex) {
+    throw new UnsupportedOperationException("This function hasn't been implemented.");
+  }
 
   /**
    * TODO: add a card to the discard pile.
