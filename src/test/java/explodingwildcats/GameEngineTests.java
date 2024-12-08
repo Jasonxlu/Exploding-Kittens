@@ -1085,6 +1085,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile)
             .addMockedMethod("playerHasCard")
+            .addMockedMethod("getPlayerByIndex")
             .createMock();
 
     Card card = Card.SKIP;
@@ -1119,6 +1120,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile)
             .addMockedMethod("playerHasCard")
+            .addMockedMethod("getPlayerByIndex")
             .createMock();
 
     Card card = Card.ATTACK;
@@ -1147,6 +1149,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile)
             .addMockedMethod("playerHasCard")
+            .addMockedMethod("getPlayerByIndex")
             .createMock();
 
     Card card = Card.BEARD_CAT;
@@ -1235,7 +1238,7 @@ public class GameEngineTests {
 
     String expectedMessage = "Player does not exist at this index";
     Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-      game.getPlayerByIndex(-1);
+      Player player = game.getPlayerByIndex(-1);
     });
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
@@ -1339,7 +1342,7 @@ public class GameEngineTests {
 
     String expectedMessage = "Player does not exist at this index";
     Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-      game.getPlayerByIndex(6);
+      Player player = game.getPlayerByIndex(6);
     });
 
     String actualMessage = exception.getMessage();
