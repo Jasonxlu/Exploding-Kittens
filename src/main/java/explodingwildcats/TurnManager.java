@@ -11,6 +11,7 @@ public class TurnManager {
   private GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
+  boolean isImplodingCatFaceUp = false;
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
@@ -104,7 +105,7 @@ public class TurnManager {
       gameEngine.discardCard(Card.DEFUSE);
 
       int drawPileSize = gameEngine.getDrawPile().length;
-      int placementIndex = ui.promptKittenPlacementInDrawPile(drawPileSize);
+      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, true);
       gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
     } else {
       gameEngine.eliminatePlayer(currPlayerIndex);
@@ -114,9 +115,18 @@ public class TurnManager {
   }
 
   /**
-   * TODO: handles the case where the imploding cat is drawn.
+   * Handles the case where the imploding cat is drawn.
    */
-  public void handleImplodingCat() {}
+  public void handleImplodingCat() {
+    if (isImplodingCatFaceUp) {
+      gameEngine.eliminatePlayer(currPlayerIndex);
+    } else {
+      int drawPileSize = gameEngine.getDrawPile().length;
+      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
+      gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
+    }
+    endTurn();
+  }
 
   /**
    * Ends a player's turn.

@@ -195,18 +195,18 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 11: ```public void handleImplodingCat()```
 ### Step 1-3 Results
-|        | Input 1 | Output |
-|--------|---------|--------|
-| Step 1 |         |        |
-| Step 2 |         |        |
-| Step 3 |         |        |
+|        | Input 1              | Output                                                                             |
+|--------|----------------------|------------------------------------------------------------------------------------|
+| Step 1 | isImplodingCatFaceUp | Cases: player gets eliminated or imploding card is placed in the draw pile face up |
+| Step 2 | Boolean              | None, cases: player elimination or not                                             |
+| Step 3 | True, False          | None, cases: player elimination or not                                             |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output | Implemented? |
-|-------------|-------------------|-----------------|--------------|
-| Test Case 1 |                   |                 | no           |
-| Test Case 2 |                   |                 | no           |
+|             | System under test            | Expected output                                                                           | Implemented? |
+|-------------|------------------------------|-------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | isImplodingCardFaceUp: True  | gameEngine.eliminatePlayer(currPlayerIndex) gets called with the current player index     | yes          |
+| Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up | yes          |
 
 
 ## Method 12: ```public boolean promptPlayNope()```

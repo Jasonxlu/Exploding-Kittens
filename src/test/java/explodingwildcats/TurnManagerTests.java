@@ -754,7 +754,7 @@ public class TurnManagerTests {
     gameEngine.removeCardFromPlayer(Card.DEFUSE, turnManager.currPlayerIndex);
     gameEngine.discardCard(Card.DEFUSE);
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(new Card[drawPileSize]);
-    EasyMock.expect(ui.promptKittenPlacementInDrawPile(drawPileSize)).andReturn(placementLocation);
+    EasyMock.expect(ui.promptPlacementForExplodeOrImplode(drawPileSize, true)).andReturn(placementLocation);
     gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementLocation);
     turnManager.endTurn();
 
@@ -841,6 +841,53 @@ public class TurnManagerTests {
   }
 
   @Test
+  public void handleImplodingCat_faceUp_EliminatesPlayer() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    turnManager.currPlayerIndex = 0;
+    turnManager.isImplodingCatFaceUp = true;
+
+    gameEngine.eliminatePlayer(turnManager.currPlayerIndex);
+    turnManager.endTurn();
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.handleImplodingCat();
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void handleImplodingCat_faceDown_CardInsertedBack() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    turnManager.currPlayerIndex = 0;
+    turnManager.isImplodingCatFaceUp = false;
+    int placementLocation = 0;
+    int drawPileSize = 3;
+
+    EasyMock.expect(gameEngine.getDrawPile()).andReturn(new Card[drawPileSize]);
+    EasyMock.expect(ui.promptPlacementForExplodeOrImplode(drawPileSize, false)).andReturn(placementLocation);
+    gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementLocation);
+    turnManager.endTurn();
+
+    EasyMock.replay(gameEngine, ui, turnManager);
+
+    turnManager.handleImplodingCat();
+
+    EasyMock.verify(gameEngine, ui, turnManager);
+  }
+
   public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsEmptyString_returnFalse() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
