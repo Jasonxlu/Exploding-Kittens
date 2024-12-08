@@ -1159,4 +1159,34 @@ public class GameEngineTests {
 
     EasyMock.verify(playerFactory, cardPileFactory, drawPile, game, p1, p2, p3, p4, p5, p6);
   }
+
+  @Test
+  public void removeCardFromPlayer_IndexSix_IndexOutOfBoundsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("playerHasCard")
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card card = Card.DRAW_FROM_BOTTOM;
+    int playerIndex = 6;
+    String expectedMessage = "Player does not exist at this index";
+
+    EasyMock.expect(game.playerHasCard(card, playerIndex))
+            .andThrow(new IndexOutOfBoundsException(expectedMessage));
+
+    EasyMock.replay(playerFactory, cardPileFactory, drawPile, game);
+
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.removeCardFromPlayer(card, playerIndex);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(playerFactory, cardPileFactory, drawPile, game);
+  }
 }
