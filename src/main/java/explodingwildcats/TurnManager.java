@@ -119,7 +119,7 @@ public class TurnManager {
    */
   public void handleImplodingCat() {
     if (isImplodingCatFaceUp) {
-      gameEngine.eliminatePlayer(currPlayerIndex);
+      eliminateCurrentPlayer();
     } else {
       int drawPileSize = gameEngine.getDrawPile().length;
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);

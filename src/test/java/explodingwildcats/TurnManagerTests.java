@@ -848,12 +848,14 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
+            .addMockedMethod("eliminateCurrentPlayer")
             .createMock();
 
     turnManager.currPlayerIndex = 0;
     turnManager.isImplodingCatFaceUp = true;
 
-    gameEngine.eliminatePlayer(turnManager.currPlayerIndex);
+    // Expectations
+    turnManager.eliminateCurrentPlayer();
     turnManager.endTurn();
 
     EasyMock.replay(gameEngine, turnManager);
