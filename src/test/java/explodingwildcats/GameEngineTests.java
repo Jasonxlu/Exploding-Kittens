@@ -1436,4 +1436,42 @@ public class GameEngineTests {
 
     EasyMock.verify(discardPile);
   }
+
+  @Test
+  public void discardCard_TwelveCardsDiscardPile() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card cardToDiscard = Card.SHUFFLE;
+
+    Card[] discardPileMock = {
+            Card.ATTACK, Card.DEFUSE, Card.SKIP, Card.NOPE,
+            Card.ATTACK, Card.DEFUSE, Card.SKIP, Card.NOPE,
+            Card.ATTACK, Card.DEFUSE, Card.SKIP, Card.NOPE,
+            Card.ATTACK, Card.DEFUSE, Card.SKIP, Card.NOPE,
+    };
+
+    // Expectations for class state
+    for (Card c : discardPileMock) {
+      discardPile.addCard(c);
+    }
+
+    // Except the CardPile's addCard function to be called with the card to discard
+    discardPile.addCard(cardToDiscard);
+
+    EasyMock.replay(discardPile);
+
+    // Set class state based on expectations
+    for (Card c : discardPileMock) {
+      game.discardCard(c);
+    }
+
+    // Actual Test
+    game.discardCard(cardToDiscard);
+
+    EasyMock.verify(discardPile);
+  }
 }

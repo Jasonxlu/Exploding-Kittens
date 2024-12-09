@@ -229,7 +229,7 @@ Note: I do not believe there is a max size for the discard pile.
 |-------------|-----------------------------------------|--------------------------------------|--------------|
 | Test Case 1 | discard pile: [], card: DEFUSE          | calls CardPile.addCard(Card.DEFUSE)  | yes          |
 | Test Case 2 | discard pile: [ATTACK], card: SKIP      | calls CardPile.addCard(Card.SKIP)    | yes          |
-| Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | no           |
+| Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | yes          |
 
 
 ## Recall the 4 steps of BVA
