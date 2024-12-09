@@ -71,7 +71,7 @@ public class TurnManager {
         try {
           handleRegularCard(drawnCard);
         } catch (Exception e) {
-          System.out.println(e.getMessage());
+          ui.println(e.getMessage());
         }
         break;
     }

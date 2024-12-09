@@ -546,6 +546,33 @@ public class TurnManagerTests {
   }
 
   @Test
+  public void drawAndProcessCard_regularCardThrowsException_callsUiPrintln() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("handleRegularCard")
+            .addMockedMethod("handleExplodingKitten")
+            .addMockedMethod("handleImplodingCat")
+            .createMock();
+
+    Card regularCard = Card.SKIP;
+    String errorMessage = "Cannot add this card type to a player's hand";
+
+    EasyMock.expect(gameEngine.popTopCard()).andReturn(regularCard);
+
+    turnManager.handleRegularCard(regularCard);
+    EasyMock.expectLastCall().andThrow(new IllegalArgumentException(errorMessage));
+    ui.println(errorMessage);
+
+    EasyMock.replay(gameEngine, turnManager, ui);
+
+    turnManager.drawAndProcessCard(false);
+
+    EasyMock.verify(gameEngine, turnManager, ui);
+  }
+
+  @Test
   public void handleRegularCard_addsCardToPlayerHand() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);

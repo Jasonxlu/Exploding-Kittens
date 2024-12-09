@@ -140,7 +140,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True          | Calls handleExplodingKitten()           | yes          |
 | Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False         | Calls handleImplodingCat()              | yes          |
 | Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True          | Calls handleImplodingCat()              | yes          |
-| Test Case 7 | Card drawn: all other cases, drawFromBottom: False | Calls handleRegularCard() and it throws | no           |
+| Test Case 7 | Card drawn: all other cases, drawFromBottom: False | Calls handleRegularCard() and it throws | yes          |
 
 
 ## Method 8: ```public void handleRegularCard(Card drawnCard)```
