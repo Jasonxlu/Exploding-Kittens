@@ -214,6 +214,24 @@
 | Test Case 4 | index: 6, num of players: 6  | IndexOutOfBoundsException                | yes          |
 
 
+## Method 13: ```public void discardCard(Card card)```
+### Step 1-3 Results
+|        | Input 1                                    | Input 2             | Output                                  |
+|--------|--------------------------------------------|---------------------|-----------------------------------------|
+| Step 1 | discard pile                               | card to discard     | None, adds the card to the discard pile |
+| Step 2 | Collection                                 | Cases               | None, discard pile altered              |
+| Step 3 | [], [one element], [more than one element] | All card enum cases | None, discard pile altered              |
+Note: I do not believe there is a max size for the discard pile.
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                       | Expected output                      | Implemented? |
+|-------------|-----------------------------------------|--------------------------------------|--------------|
+| Test Case 1 | discard pile: [], card: DEFUSE          | calls CardPile.addCard(Card.DEFUSE)  | no           |
+| Test Case 2 | discard pile: [ATTACK], card: SKIP      | calls CardPile.addCard(Card.SKIP)    | no           |
+| Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | no           |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
