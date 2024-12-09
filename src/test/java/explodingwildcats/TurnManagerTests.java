@@ -1004,6 +1004,65 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, ui, player);
   }
+
+  @Test
+  public void doSkip_numExtraCardsToDrawOne_numExtraCardsToDrawDecremented() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    turnManager.numExtraCardsToDraw = 1;
+
+    turnManager.doSkip();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int expectedNumExtraCardsToDraw = 0;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+  }
+
+  @Test
+  public void doSkip_numExtraCardsToDrawTwo_numExtraCardsToDrawDecremented() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int extraCards = 2;
+
+    turnManager.numExtraCardsToDraw = 2;
+
+    turnManager.doSkip();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int expectedNumExtraCardsToDraw = extraCards - 1;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+  }
+
+  @Test
+  public void doSkip_NoExtraCardsToDraw_turnEnded() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    int extraCards = 0;
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.endTurn();
+
+    EasyMock.replay(turnManager);
+
+    turnManager.doSkip();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+
+    assertEquals(extraCards, actualNumExtraCardsToDraw);
+
+    EasyMock.verify(turnManager);
+  }
+
 }
 
 

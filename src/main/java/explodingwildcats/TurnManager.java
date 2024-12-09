@@ -242,4 +242,15 @@ public class TurnManager {
     gameEngine.shuffleDrawPile();
     endTurn();
   }
+
+  /**
+   * Does the effect of a skip card.
+   */
+  public void doSkip() {
+    if (numExtraCardsToDraw > 0) {
+      numExtraCardsToDraw--;
+    } else {
+      endTurn();
+    }
+  }
 }
