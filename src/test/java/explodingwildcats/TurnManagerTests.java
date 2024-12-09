@@ -1049,8 +1049,8 @@ public class TurnManagerTests {
             .createMock();
 
     int extraCards = 0;
-    turnManager.endTurn();
     turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.endTurn();
 
     EasyMock.replay(turnManager);
 
