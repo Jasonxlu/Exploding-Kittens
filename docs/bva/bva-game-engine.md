@@ -228,7 +228,7 @@ Note: I do not believe there is a max size for the discard pile.
 |             | System under test                       | Expected output                      | Implemented? |
 |-------------|-----------------------------------------|--------------------------------------|--------------|
 | Test Case 1 | discard pile: [], card: DEFUSE          | calls CardPile.addCard(Card.DEFUSE)  | yes          |
-| Test Case 2 | discard pile: [ATTACK], card: SKIP      | calls CardPile.addCard(Card.SKIP)    | no           |
+| Test Case 2 | discard pile: [ATTACK], card: SKIP      | calls CardPile.addCard(Card.SKIP)    | yes          |
 | Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | no           |
 
 

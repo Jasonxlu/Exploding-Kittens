@@ -276,9 +276,11 @@ public class GameEngine {
 
   /**
    * Add the card to the discard pile.
+   *
+   * @param card card to discard
    */
   public void discardCard(Card card) {
-    discardPile.addCard(Card.DEFUSE);
+    discardPile.addCard(card);
   }
 
   /**

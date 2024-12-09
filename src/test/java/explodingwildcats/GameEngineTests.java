@@ -1409,4 +1409,31 @@ public class GameEngineTests {
 
     EasyMock.verify(discardPile);
   }
+
+  @Test
+  public void discardCard_OneCardDiscardPile() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card cardToDiscard = Card.SKIP;
+
+    // Expectations for class state
+    discardPile.addCard(Card.ATTACK); // setup
+
+    // Except the CardPile's addCard function to be called with the card to discard
+    discardPile.addCard(cardToDiscard);
+
+    EasyMock.replay(discardPile);
+
+    // Set class state based on expectations
+    game.discardCard(Card.ATTACK);
+
+    // Actual Test
+    game.discardCard(cardToDiscard);
+
+    EasyMock.verify(discardPile);
+  }
 }
