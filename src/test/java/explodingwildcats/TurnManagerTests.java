@@ -720,13 +720,14 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
+            .addMockedMethod("eliminateCurrentPlayer")
             .createMock();
 
     turnManager.currPlayerIndex = 0;
     boolean hasDefuse = false;
 
     EasyMock.expect(gameEngine.playerHasCard(Card.DEFUSE, turnManager.currPlayerIndex)).andReturn(hasDefuse);
-    gameEngine.eliminatePlayer(turnManager.currPlayerIndex);
+    turnManager.eliminateCurrentPlayer();
     turnManager.endTurn();
 
     EasyMock.replay(gameEngine, turnManager);

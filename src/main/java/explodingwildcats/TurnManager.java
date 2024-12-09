@@ -108,7 +108,7 @@ public class TurnManager {
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, true);
       gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
     } else {
-      gameEngine.eliminatePlayer(currPlayerIndex);
+      eliminateCurrentPlayer();
     }
 
     endTurn();
@@ -253,4 +253,9 @@ public class TurnManager {
       endTurn();
     }
   }
+
+  /**
+   * TODO: Eliminates the current player.
+   */
+  public void eliminateCurrentPlayer() {}
 }

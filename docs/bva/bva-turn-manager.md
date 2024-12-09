@@ -189,7 +189,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test | Expected output                                                                                                                                                                | Implemented? |
 |-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called                                                                                                                            | no           |
+| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called                                                                                                                            | yes          |
 | Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index) | yes          |
 
 
