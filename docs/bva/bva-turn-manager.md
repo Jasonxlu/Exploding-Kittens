@@ -353,6 +353,7 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 |-------------|-----------------------------------------------------------------------------------------------------------|------------------|--------------|
 | Test Case 1 | input 1 = 2. Input 2 = ["feral cat", "taco cat"]. Input 3 = [Card.FERAL_CAT, Card.TACO_CAT].              | false            | yes          |
 | Test Case 2 | input 1 = 2. Input 2 = ["shuffle", "taco cat"]. Input 3 = exception.                                      | true             | yes          |
-| Test Case 3 | input 1 = 3. Input 2 = ["attack", "attack", "attack"]. Input 3 = [Card.ATTACK, Card.ATTACK, Card.ATTACK]. | true             | no           |
+| Test Case 3 | input 1 = 3. Input 2 = ["attack", "attack", "attack"]. Input 3 = [Card.ATTACK, Card.ATTACK, Card.ATTACK]. | false            | yes          |
 | Test Case 4 | input 1 = 3. Input 2 = [] (impossible). Input 3 = N/A.                                                    | Exception thrown | no           |
 | Test Case 5 | input 1 = 2. Input 2 = ["beard cat", "beard cat cat"]. Input 3 = [].                                      | Exception thrown | no           |
+| Test Case 5 | input 1 = 1 (impossible). Input 2 = N/A. Input 3 = N/A.                                                   | Exception thrown | no           |

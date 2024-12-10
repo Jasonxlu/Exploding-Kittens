@@ -1755,9 +1755,6 @@ public class TurnManagerTests {
             .addMockedMethod("do2CardCombo")
             .createMock();
 
-    int currPlayerIndex = 0;
-    turnManager.currPlayerIndex = 0;
-
     int numCards = 2;
     String[] stringCards = new String[] { "feral cat", "taco cat" };
     EasyMock.expect(ui.promptPlayComboCards(numCards)).andReturn(stringCards);
