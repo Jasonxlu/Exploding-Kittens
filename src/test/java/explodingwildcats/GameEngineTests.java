@@ -1879,4 +1879,35 @@ public class GameEngineTests {
 
     EasyMock.verify(game);
   }
+
+  @Test
+  public void validateComboCards_3xFeral_validCardList_validPlayer_returnCardList() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("getCardByName")
+            .addMockedMethod("playerHasCards")
+            .createMock();
+
+    int playerIndex = 0;
+
+    String c1String = "feral cat";
+    Card c1 = Card.FERAL_CAT;
+    String[] cardStrings = new String[] { c1String, c1String, c1String };
+    Card[] cards = new Card[] { c1, c1, c1 };
+
+    boolean playerHasC1 = true;
+
+    EasyMock.expect(game.getCardByName(c1String)).andReturn(c1).times(3);
+    EasyMock.expect(game.playerHasCards(c1, playerIndex, 3)).andReturn(playerHasC1);
+
+    EasyMock.replay(game);
+
+    Card[] actualCards = game.validateComboCards(cardStrings, playerIndex);
+    assertArrayEquals(cards, actualCards);
+
+    EasyMock.verify(game);
+  }
 }

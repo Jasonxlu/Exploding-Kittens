@@ -404,7 +404,7 @@ public class GameEngine {
       int feralCatSetSizeDifference = (hasSomeFeralCats ? 1 : 0);
       boolean isAllFeralCats = (returnCards.length - numFeralCats) == 0;
       if (isAllFeralCats) {
-        if (!cardsPlayedHashMap.keySet().isEmpty()) {
+        if (cardsPlayedHashMap.keySet().size() != 1) {
           throw new IllegalArgumentException("Cat cards must be matching or feral.");
         }
       } else {
@@ -417,7 +417,6 @@ public class GameEngine {
         throw new IllegalArgumentException("Cards must be matching.");
       }
     }
-
 
     return returnCards;
   }
