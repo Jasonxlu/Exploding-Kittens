@@ -1746,7 +1746,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void promptAndPlayCombo_2Cards_inputShuffleCatAndTacoCat_cardsAreAsExpected_returnsFalse() {
+  public void promptAndPlayCombo_2Cards_inputShuffleCatAndTacoCat_validateCardsThrowsException_returnTrue() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
