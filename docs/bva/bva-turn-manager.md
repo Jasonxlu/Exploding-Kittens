@@ -72,11 +72,11 @@
 
 ## Method 5: ```public void doAttack()```
 ### Step 1-3 Results
-|        | Input 1                                                     | Output                                                                           |
-|--------|-------------------------------------------------------------|----------------------------------------------------------------------------------|
-| Step 1 | Current number of extra cards to draw (numExtraCardsToDraw) | Adds 1 to numExtraCardsToDraw if it is 0, and 2 otherwise, then calls endTurn(). |
-| Step 2 | Cases                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls endTurn()). |
-| Step 3 | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0            | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls endTurn()). |
+|        | Input 1                                                     | Output                                                                               |
+|--------|-------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Step 1 | Current number of extra cards to draw (numExtraCardsToDraw) | Adds 1 to numExtraCardsToDraw if it is 0, and 2 otherwise, then calls advanceTurn(). |
+| Step 2 | Cases                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
+| Step 3 | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0            | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
