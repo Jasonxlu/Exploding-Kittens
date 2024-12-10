@@ -1762,4 +1762,48 @@ public class GameEngineTests {
 
     EasyMock.verify(game);
   }
+
+  @Test
+  public void validateComboCards_feralAndTwoDifferentCats_validCardList_validPlayer_throwException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("getCardByName")
+            .addMockedMethod("playerHasCards")
+            .createMock();
+
+    int playerIndex = 0;
+
+    String c1String = "feral cat";
+    Card c1 = Card.FERAL_CAT;
+    String c2String = "taco cat";
+    Card c2 = Card.TACO_CAT;
+    String c3String = "hairy potato cat";
+    Card c3 = Card.HAIRY_POTATO_CAT;
+    String[] cardStrings = new String[] { c1String, c2String, c3String };
+
+    boolean playerHasC1 = true;
+    boolean playerHasC2 = true;
+    boolean playerHasC3 = true;
+
+    EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
+    EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
+    EasyMock.expect(game.getCardByName(c3String)).andReturn(c3);
+    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasCards(c2, playerIndex, 1)).andReturn(playerHasC2);
+    EasyMock.expect(game.playerHasCards(c3, playerIndex, 1)).andReturn(playerHasC3);
+
+    EasyMock.replay(game);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.validateComboCards(cardStrings, playerIndex);
+    });
+    String expectedMessage = "Cat cards must be matching or feral.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
 }
