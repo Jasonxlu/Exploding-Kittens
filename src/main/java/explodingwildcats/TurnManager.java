@@ -73,7 +73,7 @@ public class TurnManager {
         try {
           handleRegularCard(drawnCard);
         } catch (Exception e) {
-          System.out.println(e.getMessage());
+          ui.println(e.getMessage());
         }
         break;
     }
@@ -92,7 +92,6 @@ public class TurnManager {
       default:
         Player currPlayer = gameEngine.getPlayers().get(currPlayerIndex);
         currPlayer.addCardToHand(card);
-        endTurn();
     }
   }
 
@@ -112,8 +111,6 @@ public class TurnManager {
     } else {
       gameEngine.eliminatePlayer(currPlayerIndex);
     }
-
-    endTurn();
   }
 
   /**
@@ -127,7 +124,6 @@ public class TurnManager {
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
       gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
     }
-    endTurn();
   }
 
   /**
