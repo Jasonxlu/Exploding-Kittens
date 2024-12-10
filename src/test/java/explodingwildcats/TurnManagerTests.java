@@ -1089,6 +1089,19 @@ public class TurnManagerTests {
     assertEquals(expectedCard, actualCard);
   }
 
+  @Test
+  public void getPlayableCard_targetedAttack() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "targeted attack";
+    Card expectedCard = Card.TARGETED_ATTACK;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
 }
 
 
