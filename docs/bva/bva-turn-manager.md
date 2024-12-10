@@ -367,4 +367,5 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 1 | input 1: 2, input 2: ["Jane", "John"]                               | TurnManager is set up by calling the setup functions in order. | yes          |
 | Test Case 2 | input 1: 6, input 2: ["Jane", "John", "Foo", "Bar", "Alice", "Joe"] | TurnManager is set up by calling the setup functions in order. | yes          |
 | Test Case 3 | input 1: 1, input 2: N/A                                            | Throw exception                                                | yes          |
-| Test Case 3 | input 1: 3, input 2: ["Bob", "Jeff"]                                | Throw exception                                                | yes          |
+| Test Case 4 | input 1: 3, input 2: ["Bob", "Jeff"]                                | Throw exception                                                | yes          |
+| Test Case 5 | input 1: 7, input 2: N/A                                            | Throw exception                                                | no           |

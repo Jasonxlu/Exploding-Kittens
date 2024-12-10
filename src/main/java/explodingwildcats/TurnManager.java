@@ -15,6 +15,12 @@ public class TurnManager {
   boolean isImplodingCatFaceUp = false;
   boolean playerTurnHasEnded = false;
 
+  /**
+   * Constructor for TurnManager.
+   *
+   * @param ui user interface for printing.
+   * @param gameEngine game engine for running the game.
+   */
   public TurnManager(UserInterface ui, GameEngine gameEngine) {
     this.ui = ui;
 
