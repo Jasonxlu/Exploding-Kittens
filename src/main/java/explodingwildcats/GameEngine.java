@@ -235,6 +235,17 @@ public class GameEngine {
   }
 
   /**
+   * TODO: Checks if a player a number of the specified card.
+   *
+   * @param card card to check if a player has.
+   * @param playerIndex index of the player in the players list.
+   * @param numCards the number of cards to check for.
+   */
+  public boolean playerHasCards(Card card, int playerIndex, int numCards) {
+    return true;
+  }
+
+  /**
    * TODO: eliminates the player at that index.
    */
   public void eliminatePlayer(int playerIndex) {}
@@ -352,12 +363,21 @@ public class GameEngine {
     return 0;
   }
 
-  public Card[] validateComboCards(String[] cards) {
-    HashMap<Card, Integer> cardsPlayedHashMap = new HashMap<>();
+
+  /**
+   * Validates that the player has the given cards and that they can be played as a combo.
+   *
+   * @param cards the string representation of the cards.
+   * @param currPlayerIndex the player name to look for.
+   * @return a Card array or throws exception if the player cannot play the cards.
+   */
+  public Card[] validateComboCards(String[] cards, int currPlayerIndex) {
+    if (cards.length != 2 && cards.length != 3) {
+      throw new IllegalArgumentException("Not a valid combo size.");
+    }
     Card[] returnCards = Arrays.stream(cards)
             .map(this::getCardByName)
             .toArray(Card[]::new);
-
     return returnCards;
   }
 }

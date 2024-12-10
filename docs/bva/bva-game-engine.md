@@ -248,28 +248,29 @@
 
 ## Method 14: ```public Card[] validateComboCards(String[] cards)```
 ### Step 1-3 Results
-|        | Input 1                                     | Input 2                                                                                                                                           | Input 3              | Output                                            |
-|--------|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|---------------------------------------------------|
-| Step 1 | string array of cards                       | array of Card objects                                                                                                                             | Player has each card | The validated array of Card objects, or exception |
-| Step 2 | Collection                                  | Collection of Cases                                                                                                                               | Boolean              | Collection of Cases or exception                  |
-| Step 3 | [], [one element], [more than one element]  | [], [one element], [2x cat card], [3x cat card], [2x non-cat-card], [3x non-cat-card], [cat card combo with one feral cat], [invalid pair/triple] | T/F                  | input2 or IllegalArgumentException                |
+|        | Input 1                                     | Input 2                                                                                                                                           | Input 3              | Input 4                        | Output                                            |
+|--------|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|--------------------------------|---------------------------------------------------|
+| Step 1 | string array of cards                       | array of Card objects                                                                                                                             | Player has each card | Player (from getPlayerByIndex) | The validated array of Card objects, or exception |
+| Step 2 | Collection                                  | Collection of Cases                                                                                                                               | Boolean              | Cases                          | Collection of Cases or exception                  |
+| Step 3 | [], [one element], [more than one element]  | [], [one element], [2x cat card], [3x cat card], [2x non-cat-card], [3x non-cat-card], [cat card combo with one feral cat], [invalid pair/triple] | T/F                  | valid player, exception        | input2 or IllegalArgumentException                |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|              | System under test                                                                                                    | Expected output          | Implemented? |
-|--------------|----------------------------------------------------------------------------------------------------------------------|--------------------------|--------------|
-| Test Case 1  | input1: [], input2: [], input 3: N/A                                                                                 | input 2                  | no           |
-| Test Case 2  | input1: ["taco cat"], input2: [TACO_CAT], input 3: T                                                                 | input 2                  | no           |
-| Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F                                       | IllegalArgumentException | no           |
-| Test Case 4  | input1: ["rainbow cat", "rainbow cat", "rainbow cat"], input2: [RAINBOW_CAT, RAINBOW_CAT, RAINBOW_CAT], input 3: T   | input 2                  | no           |
-| Test Case 5  | input1: ["shuffle", "shuffle"], input2: [SHUFFLE, SHUFFLE], input 3: T                                               | input 2                  | no           |
-| Test Case 6  | input1: ["see the future", "see the future", "see the future"], input2: [SEE_THE_FUTURE, SEE_THE_FUTURE], input 3: T | input 2                  | no           |
-| Test Case 7  | input1: ["feral cat", "hairy beard cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT], input 3: T                           | input 2                  | no           |
-| Test Case 8  | input1: ["feral cat", "hairy beard cat", "feral cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT, FERAL_CAT], input 3: T   | input 2                  | no           |
-| Test Case 9  | input1: ["shuffle", "attack"], input2: [SHUFFLE, ATTACK], input 3: T                                                 | IllegalArgumentException | no           |
-| Test Case 10 | input1: ["shuffle", "feral cat"], input2: [SHUFFLE, FERAL_CAT], input 3: T                                           | IllegalArgumentException | no           |
-| Test Case 11 | input1: ["feral cat", "taco cat", "potato cat"], input2: [FERAL_CAT, TACO_CAT, POTATO_CAT], input 3: T               | IllegalArgumentException | no           |
-
+|              | System under test                                                                                                                           | Expected output          | Implemented? |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|--------------|
+| Test Case 1  | input1: [], input 2: N/A, input 3: N/A, input 4: N/A                                                                                        | IllegalArgumentException | yes          |
+| Test Case 2  | input1: ["taco cat"], input2: N/A, input 3: N/A, input 4: N/A                                                                               | IllegalArgumentException | no           |
+| Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F, input 4: valid player                                       | IllegalArgumentException | no           |
+| Test Case 4  | input1: ["rainbow cat", "rainbow cat", "rainbow cat"], input2: [RAINBOW_CAT, RAINBOW_CAT, RAINBOW_CAT], input 3: T, input 4: valid player   | input 2                  | no           |
+| Test Case 5  | input1: ["shuffle", "shuffle"], input2: [SHUFFLE, SHUFFLE], input 3: T, input 4: valid player                                               | input 2                  | no           |
+| Test Case 6  | input1: ["see the future", "see the future", "see the future"], input2: [SEE_THE_FUTURE, SEE_THE_FUTURE], input 3: T, input 4: valid player | input 2                  | no           |
+| Test Case 7  | input1: ["feral cat", "hairy beard cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT], input 3: T, , input 4: valid player                         | input 2                  | no           |
+| Test Case 8  | input1: ["feral cat", "hairy beard cat", "feral cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT, FERAL_CAT], input 3: T, input 4: valid player   | input 2                  | no           |
+| Test Case 9  | input1: ["shuffle", "attack"], input2: [SHUFFLE, ATTACK], input 3: T, input 4: valid player                                                 | IllegalArgumentException | no           |
+| Test Case 10 | input1: ["shuffle", "feral cat"], input2: [SHUFFLE, FERAL_CAT], input 3: T, input 4: valid player                                           | IllegalArgumentException | no           |
+| Test Case 11 | input1: ["feral cat", "taco cat", "potato cat"], input2: [FERAL_CAT, TACO_CAT, POTATO_CAT], input 3: T, input 4: valid player               | IllegalArgumentException | no           |
+| Test Case 12 | input1: ["feral cat", "taco cat", "potato cat", "shuffle"], input2: N/A, input 3: N/A, input 4: valid player                                | IllegalArgumentException | no           |
+| Test Case 13 | input1: ["feral cat", "taco cat"], input2: N/A, input 3: N/A, input 4: invalid player                                                       | Exception from input 4   | no           |
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
