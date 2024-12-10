@@ -509,6 +509,15 @@ public class TurnManager {
    * @param playerIndex the index of the player
    */
   public void printPlayerHand(int playerIndex) {
+    Player player = gameEngine.getPlayerByIndex(playerIndex);
+    Card[] hand = player.getHand();
 
+    // Convert the hand to a string array.
+    String[] handString = new String[hand.length];
+    for (int i = 0; i < hand.length; i++) {
+      handString[i] = hand[i].toString();
+    }
+
+    ui.printPlayerHand(handString);
   }
 }

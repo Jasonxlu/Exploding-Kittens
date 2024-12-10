@@ -1225,6 +1225,7 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1254,6 +1255,7 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doAttack")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1293,6 +1295,7 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doSeeTheFuture")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1339,6 +1342,7 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1380,6 +1384,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("promptAndPlayCombo")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1418,6 +1423,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1457,6 +1463,7 @@ public class TurnManagerTests {
             .addMockedMethod("doAlterTheFuture")
             .addMockedMethod("doSkip")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1512,6 +1519,7 @@ public class TurnManagerTests {
             .addMockedMethod("doShuffle")
             .addMockedMethod("doTargetedAttack")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1566,6 +1574,7 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doReverse")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1604,6 +1613,7 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doDrawFromBottom")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1647,6 +1657,7 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("promptAndPlayCombo")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
@@ -1682,6 +1693,7 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("promptAndPlayCombo")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
