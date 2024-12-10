@@ -283,11 +283,11 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 16: ```public void getPlayableCard()```
 ### Step 1-3 Results
-|        | Input                                                                                                                                  | Output                                                                                                                  |
-|--------|----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | String representation of card                                                                                                          | The Card object, or exception if it is not a playable card.                                                             |
-| Step 2 | String                                                                                                                                 | Cases (or exception)                                                                                                    |
-| Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope" | Card.ATTACK, SKIP, TARGETED_ATTACK, SHUFFLE, SEE_THE_FUTURE, REVERSE, DRAW_FROM_BOTTOM, ALTER_THE_FUTURE, or exception. |
+|        | Input                                                                                                                                                                                                           | Output                                                                                                                  |
+|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | String representation of card                                                                                                                                                                                   | The Card object, or exception if it is not a playable card.                                                             |
+| Step 2 | String                                                                                                                                                                                                          | Cases (or exception)                                                                                                    |
+| Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope", "rainbow cat", "taco cat", "beard cat", "feral cat", "hairy potato cat" | Card.ATTACK, SKIP, TARGETED_ATTACK, SHUFFLE, SEE_THE_FUTURE, REVERSE, DRAW_FROM_BOTTOM, ALTER_THE_FUTURE, or exception. |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
@@ -303,3 +303,8 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | yes          |
 | Test Case 9  | "invalid"          | IllegalArgumentException | yes          |
 | Test Case 10 | "nope"             | IllegalArgumentException | yes          |
+| Test Case 11 | "taco cat"         | IllegalArgumentException | no           |
+| Test Case 12 | "beard cat"        | IllegalArgumentException | no           |
+| Test Case 13 | "rainbow cat"      | IllegalArgumentException | no           |
+| Test Case 14 | "feral cat"        | IllegalArgumentException | no           |
+| Test Case 15 | "hairy potato cat" | IllegalArgumentException | no           |
