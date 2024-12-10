@@ -164,7 +164,13 @@ public class TurnManager {
    */
   boolean promptAndPlayCombo(int numCards) {
     String[] stringCards = ui.promptPlayComboCards(numCards);
-    Card[] cards = validateComboCards(stringCards);
+    Card[] cards;
+    try {
+      cards = validateComboCards(stringCards);
+    } catch (Exception validateCardException) {
+      ui.println(validateCardException.getMessage());
+      return true;
+    }
     if (numCards == 2) {
       do2CardCombo();
     } else if (numCards == 3) {
