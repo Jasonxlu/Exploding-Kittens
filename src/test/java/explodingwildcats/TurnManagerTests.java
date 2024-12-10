@@ -1063,6 +1063,160 @@ public class TurnManagerTests {
     EasyMock.verify(turnManager);
   }
 
+  public void getPlayableCard_attack() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "attack";
+    Card expectedCard = Card.ATTACK;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_skip() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "skip";
+    Card expectedCard = Card.SKIP;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_targetedAttack() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "targeted attack";
+    Card expectedCard = Card.TARGETED_ATTACK;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_shuffle() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "shuffle";
+    Card expectedCard = Card.SHUFFLE;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_seeTheFuture() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "see the future";
+    Card expectedCard = Card.SEE_THE_FUTURE;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_reverse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "reverse";
+    Card expectedCard = Card.REVERSE;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_drawFromBottom() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "draw from bottom";
+    Card expectedCard = Card.DRAW_FROM_BOTTOM;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_alterTheFuture() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "alter the future";
+    Card expectedCard = Card.ALTER_THE_FUTURE;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
+  @Test
+  public void getPlayableCard_invalidInput() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "invalid";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "Could not parse input.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void getPlayableCard_playedNopeCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "nope";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "You cannot play a nope right now.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+    "taco cat", "beard cat", "rainbow cat", "feral cat", "hairy potato cat"
+  })
+  public void getPlayableCard_playedCatCards(String cardName) {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "You must play a cat card as a combo.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+
   @Test
   public void playCardLoop_UserInputEmpty_callsEndTurn_endsTurn() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
