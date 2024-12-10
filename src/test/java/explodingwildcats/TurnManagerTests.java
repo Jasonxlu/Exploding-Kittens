@@ -1230,17 +1230,19 @@ public class TurnManagerTests {
     gameEngine.printCurrentPlayerHand();
 
     String userInput = "invalid";
+    String exceptionMessage = "Could not parse input";
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andThrow(
-            new IllegalArgumentException("Could not parse input")
+            new IllegalArgumentException(exceptionMessage)
     );
 
-    boolean successfulPlayComboCatCards = false;
-    EasyMock.expect(turnManager.promptAndPlayComboCatCards(userInput)).andReturn(successfulPlayComboCatCards);
+    ui.println(exceptionMessage);
+
+    boolean isRePrompting = true;
 
     gameEngine.printCurrentPlayerHand();
     String newUserInput = "";
-    EasyMock.expect(ui.promptPlayCard(!successfulPlayComboCatCards)).andReturn(newUserInput);
+    EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn(newUserInput);
     turnManager.endTurn();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
@@ -1262,7 +1264,6 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
-            .addMockedMethod("promptAndPlayComboCatCards")
             .addMockedMethod("promptPlayNope")
             .createMock();
 
@@ -1475,6 +1476,76 @@ public class TurnManagerTests {
     turnManager.doDrawFromBottom();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInput2CatCards_returnsTrue_continueLoop() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("promptAndPlayComboCatCards")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    boolean isRePrompting = true;
+    String userInput = "2 cat cards";
+    int numCatCards = 2;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.promptAndPlayComboCatCards(numCatCards)).andReturn(isRePrompting);
+
+    gameEngine.printCurrentPlayerHand();
+
+    EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
+
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInput3CatCards_returnsFalse_continueLoop() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("promptAndPlayComboCatCards")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    boolean isRePrompting = false;
+    String userInput = "3 cat cards";
+    int numCatCards = 3;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.promptAndPlayComboCatCards(numCatCards)).andReturn(isRePrompting);
+
+    gameEngine.printCurrentPlayerHand();
+
+    EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
+
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
     });
 

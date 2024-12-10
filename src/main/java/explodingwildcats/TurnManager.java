@@ -169,12 +169,12 @@ public class TurnManager {
 
   /**
    * TODO: Prompts the user for which cat cards to play as a combo.
-   * Returns true if the user input is malformed.
+   * Returns true if the turnManager should reprompt.
    * Made package private to support unit testing.
    *
-   * @param userInputCard the string representation of the combo to play.
+   * @param numCards the number of cards to play.
    */
-  boolean promptAndPlayComboCatCards(String userInputCard) {
+  boolean promptAndPlayComboCatCards(int numCards) {
     return true;
   }
 
@@ -186,6 +186,7 @@ public class TurnManager {
   public void playCardLoop() {
     playerTurnHasEnded = false;
     boolean shouldReprompt = false;
+    // advanceTurn will set playerTurnHasEnded to false.
     while (!playerTurnHasEnded) {
       gameEngine.printCurrentPlayerHand();
       String userInputCard = ui.promptPlayCard(shouldReprompt);
@@ -194,11 +195,20 @@ public class TurnManager {
         shouldReprompt = false;
         continue;
       }
+      if (userInputCard.equals("2 cat cards")) {
+        shouldReprompt = promptAndPlayComboCatCards(2);
+        continue;
+      } else if (userInputCard.equals("3 cat cards")) {
+        shouldReprompt = promptAndPlayComboCatCards(3);
+        continue;
+      }
       Card cardToPlay;
       try {
         cardToPlay = getPlayableCard(userInputCard);
       } catch (Exception originalCardChosenException) {
-        shouldReprompt = !promptAndPlayComboCatCards(userInputCard);
+        // this means the player had an invalid input.
+        ui.println(originalCardChosenException.getMessage());
+        shouldReprompt = true;
         continue;
       }
       boolean canPlayCard = gameEngine.playerHasCard(cardToPlay, currPlayerIndex);
