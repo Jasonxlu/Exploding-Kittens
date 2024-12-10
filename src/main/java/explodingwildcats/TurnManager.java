@@ -222,6 +222,38 @@ public class TurnManager {
     }
   }
 
+  Card getPlayableCard(String cardName) {
+    switch (cardName) {
+      case "attack":
+        return Card.ATTACK;
+      case "skip":
+        return Card.SKIP;
+      case "targeted attack":
+        return Card.TARGETED_ATTACK;
+      case "shuffle":
+        return Card.SHUFFLE;
+      case "see the future":
+        return Card.SEE_THE_FUTURE;
+      case "reverse":
+        return Card.REVERSE;
+      case "draw from bottom":
+        return Card.DRAW_FROM_BOTTOM;
+      case "alter the future":
+        return Card.ALTER_THE_FUTURE;
+      case "nope":
+        throw new IllegalArgumentException("You cannot play a nope right now.");
+      case "taco cat":
+      case "beard cat":
+      case "rainbow cat":
+      case "feral cat":
+      case "hairy potato cat":
+        throw new IllegalArgumentException("You must play a cat card as a combo.");
+      default:
+        break;
+    }
+    throw new IllegalArgumentException("Could not parse input.");
+  }
+
   /**
    * Decides whether to nope the previously played card.
    *

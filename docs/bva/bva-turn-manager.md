@@ -279,3 +279,32 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented | yes          |
 | Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented | yes          |
 | Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | endTurn() is called             | yes          |
+
+
+## Method 16: ```public void getPlayableCard()```
+### Step 1-3 Results
+|        | Input                                                                                                                                                                                                           | Output                                                                                                                  |
+|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | String representation of card                                                                                                                                                                                   | The Card object, or exception if it is not a playable card.                                                             |
+| Step 2 | String                                                                                                                                                                                                          | Cases (or exception)                                                                                                    |
+| Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope", "rainbow cat", "taco cat", "beard cat", "feral cat", "hairy potato cat" | Card.ATTACK, SKIP, TARGETED_ATTACK, SHUFFLE, SEE_THE_FUTURE, REVERSE, DRAW_FROM_BOTTOM, ALTER_THE_FUTURE, or exception. |
+### Step 4:
+##### All-combination or each-choice: all-combination
+
+|              | System under test  | Expected output          | Implemented? |
+|--------------|--------------------|--------------------------|--------------|
+| Test Case 1  | "attack"           | Card.ATTACK              | yes          |
+| Test Case 2  | "skip"             | Card.ATTACK              | yes          |
+| Test Case 3  | "targeted attack"  | Card.TARGETED_ATTACK     | yes          |
+| Test Case 4  | "shuffle"          | Card.SHUFFLE             | yes          |
+| Test Case 5  | "see the future"   | Card.SEE_THE_FUTURE      | yes          |
+| Test Case 6  | "reverse"          | Card.REVERSE             | yes          |
+| Test Case 7  | "draw from bottom" | Card.DRAW_FROM_BOTTOM    | yes          |
+| Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | yes          |
+| Test Case 9  | "invalid"          | IllegalArgumentException | yes          |
+| Test Case 10 | "nope"             | IllegalArgumentException | yes          |
+| Test Case 11 | "taco cat"         | IllegalArgumentException | yes          |
+| Test Case 12 | "beard cat"        | IllegalArgumentException | yes          |
+| Test Case 13 | "rainbow cat"      | IllegalArgumentException | yes          |
+| Test Case 14 | "feral cat"        | IllegalArgumentException | yes          |
+| Test Case 15 | "hairy potato cat" | IllegalArgumentException | yes          |
