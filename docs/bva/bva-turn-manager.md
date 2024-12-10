@@ -302,4 +302,4 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 7  | "draw from bottom" | Card.DRAW_FROM_BOTTOM    | yes          |
 | Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | yes          |
 | Test Case 9  | "invalid"          | IllegalArgumentException | yes          |
-| Test Case 10 | "nope"             | IllegalArgumentException | no           |
+| Test Case 10 | "nope"             | IllegalArgumentException | yes          |

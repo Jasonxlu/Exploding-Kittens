@@ -1178,7 +1178,23 @@ public class TurnManagerTests {
       turnManager.getPlayableCard(cardName);
     });
 
-    String expectedMessage = "Could not parse input";
+    String expectedMessage = "Could not parse input.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void getPlayableCard_playedNopeCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "nope";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "You cannot play a nope right now.";
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
   }

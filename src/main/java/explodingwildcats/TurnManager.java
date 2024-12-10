@@ -240,8 +240,10 @@ public class TurnManager {
         return Card.DRAW_FROM_BOTTOM;
       case "alter the future":
         return Card.ALTER_THE_FUTURE;
+      case "nope":
+        throw new IllegalArgumentException("You cannot play a nope right now.");
     }
-    throw new IllegalArgumentException("Could not parse input");
+    throw new IllegalArgumentException("Could not parse input.");
   }
 
   /**
