@@ -1227,7 +1227,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     EasyMock.expect(ui.promptPlayCard(false)).andReturn("");
 
@@ -1256,7 +1256,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptPlayNope")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1295,7 +1295,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptPlayNope")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1315,7 +1315,7 @@ public class TurnManagerTests {
       return null;
     });
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1341,7 +1341,7 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1355,7 +1355,7 @@ public class TurnManagerTests {
 
     boolean rePrompting = true;
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(rePrompting)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1382,7 +1382,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptAndPlayCombo")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     String userInput = "invalid";
     String exceptionMessage = "Could not parse input";
@@ -1393,7 +1393,7 @@ public class TurnManagerTests {
 
     boolean isRePrompting = true;
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1420,7 +1420,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptPlayNope")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1459,7 +1459,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptPlayNope")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1479,7 +1479,7 @@ public class TurnManagerTests {
       return null;
     });
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "skip";
     Card newUserInputCard = Card.SKIP;
     boolean newPlayerHasCard = true;
@@ -1514,7 +1514,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptPlayNope")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1534,7 +1534,7 @@ public class TurnManagerTests {
       return null;
     });
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "targeted attack";
     Card newUserInputCard = Card.TARGETED_ATTACK;
     boolean newPlayerHasCard = true;
@@ -1568,7 +1568,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptPlayNope")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1606,7 +1606,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptPlayNope")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1619,7 +1619,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = true;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
@@ -1649,7 +1649,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptAndPlayCombo")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     boolean isRePrompting = true;
     String userInput = "2 cat cards";
@@ -1657,7 +1657,7 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
@@ -1684,7 +1684,7 @@ public class TurnManagerTests {
             .addMockedMethod("promptAndPlayCombo")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     boolean isRePrompting = false;
     String userInput = "3 cat cards";
@@ -1692,7 +1692,7 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
@@ -2255,6 +2255,34 @@ public class TurnManagerTests {
     turnManager.do2CardCombo();
 
     EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
+  }
+
+  @Test
+  public void printPlayerHand_minIndex_multiplePlayers_printsPlayerHand() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int playerIndex = 0;
+
+    Player player = EasyMock.createMock(Player.class);
+    Card[] hand = {Card.ATTACK, Card.SKIP, Card.SHUFFLE};
+    EasyMock.expect(gameEngine.getPlayerByIndex(playerIndex)).andReturn(player);
+    EasyMock.expect(player.getHand()).andReturn(hand);
+
+    // Turn hand from Card[] to String[]
+    String[] handString = new String[hand.length];
+    for (int i = 0; i < hand.length; i++) {
+      handString[i] = hand[i].toString();
+    }
+
+    ui.printPlayerHand(handString);
+
+    EasyMock.replay(gameEngine, ui, player);
+
+    turnManager.printPlayerHand(playerIndex);
+
+    EasyMock.verify(gameEngine, ui, player);
   }
 }
 

@@ -227,7 +227,7 @@ public class TurnManager {
     boolean shouldReprompt = false;
     // advanceTurn will set playerTurnHasEnded to false.
     while (!playerTurnHasEnded) {
-      gameEngine.printCurrentPlayerHand();
+      printPlayerHand(currPlayerIndex);
       String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
         endTurn();
@@ -501,5 +501,14 @@ public class TurnManager {
 
     // Add the card to the current player's hand.
     gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
+  }
+
+  /**
+   * Print the player's hand given the player index.
+   *
+   * @param playerIndex the index of the player
+   */
+  public void printPlayerHand(int playerIndex) {
+
   }
 }

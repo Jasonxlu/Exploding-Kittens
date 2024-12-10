@@ -319,4 +319,15 @@ public class UserInterface {
   public void printDo2CardComboErrorTargetPlayerHasNoCards() {
     System.out.println("The target player has no cards to steal.");
   }
+
+  /**
+   * Prints out the players hand given the hand.
+   *
+   * @param hand
+   */
+  public void printPlayerHand(String[] hand) {
+    for (int i = 0; i < hand.length; i++) {
+      System.out.printf("Card #%d: %s%n", i + 1, hand[i]);
+    }
+  }
 }
