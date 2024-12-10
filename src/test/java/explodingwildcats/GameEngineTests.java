@@ -1806,4 +1806,35 @@ public class GameEngineTests {
 
     EasyMock.verify(game);
   }
+
+  @Test
+  public void validateComboCards_4x_validCardList_validPlayer_throwException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("getCardByName")
+            .addMockedMethod("playerHasCards")
+            .createMock();
+
+    int playerIndex = 0;
+
+    String c1String = "feral cat";
+    String c2String = "taco cat";
+    String c3String = "hairy potato cat";
+    String c4String = "shuffle";
+    String[] cardStrings = new String[] { c1String, c2String, c3String, c4String };
+
+    EasyMock.replay(game);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.validateComboCards(cardStrings, playerIndex);
+    });
+    String expectedMessage = "Not a valid combo size.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
 }
