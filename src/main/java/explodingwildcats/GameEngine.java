@@ -351,6 +351,11 @@ public class GameEngine {
    * @return the index of the player in the list.
    */
   public int getPlayerIndexByName(String name) {
-    return 0;
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).getName().equals(name)) {
+        return i;
+      }
+    }
+    throw new NoSuchElementException("No player with that name could be found.");
   }
 }
