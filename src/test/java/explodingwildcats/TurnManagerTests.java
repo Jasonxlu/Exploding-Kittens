@@ -2439,6 +2439,44 @@ public class TurnManagerTests {
     EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
   }
 
+  @Test
+  public void do3CardCombo_validTargetName_targetHandMissingCardName_targetHandSingleCard_noModificationAndReturn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String missingCardName = "exploding kitten";
+    String targetName = "Smith";
+    int targetIndex = 1;
+    Card missingCard = Card.EXPLODE;
+
+    Player targetPlayer = EasyMock.createMock(Player.class);
+    Player currPlayer = EasyMock.createMock(Player.class);
+
+    // Target name selection invalid on first attempt
+    EasyMock.expect(ui.prompt3CardComboTargetName(false)).andReturn(targetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+
+    // Set expectations for the target's hand check
+    Card[] targetHand = {Card.DEFUSE};
+    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
+    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+
+    // Target card selection invalid on first attempt
+    EasyMock.expect(ui.prompt3CardComboTargetCard(false)).andReturn(missingCardName);
+    EasyMock.expect(gameEngine.getCardByName(missingCardName)).andReturn(missingCard);
+
+    // Check that the target player doesn't have the card and return
+    EasyMock.expect(gameEngine.playerHasCard(missingCard, targetIndex)).andReturn(false);
+
+    // REPLAY
+    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer);
+
+    turnManager.do3CardCombo();
+
+    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
+  }
+
 }
 
 

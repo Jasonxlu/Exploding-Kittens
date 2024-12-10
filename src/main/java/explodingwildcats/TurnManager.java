@@ -529,6 +529,8 @@ public class TurnManager {
         cardToGive = gameEngine.getCardByName(card);
         if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
           validCardFound = true;
+        } else {
+          return;
         }
       } catch (IllegalArgumentException e) {
         card = ui.prompt3CardComboTargetCard(true);
