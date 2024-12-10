@@ -264,11 +264,6 @@ public class GameEngine {
   public void eliminatePlayer(int playerIndex) {}
 
   /**
-   * TODO: Prints the current player's hand to the user.
-   */
-  public void printCurrentPlayerHand() {}
-
-  /**
    * Removes specified card from the player at that index.
    *
    * @param card card to remove from player.

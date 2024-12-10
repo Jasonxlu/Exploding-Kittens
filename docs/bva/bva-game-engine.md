@@ -294,7 +294,6 @@
 | Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F                                       | IllegalArgumentException | yes          |
 
 
-
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.

@@ -501,7 +501,5 @@ public class TurnManager {
 
     // Add the card to the current player's hand.
     gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
-
-
   }
 }
