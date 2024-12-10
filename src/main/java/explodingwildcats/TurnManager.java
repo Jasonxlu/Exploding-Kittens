@@ -422,7 +422,7 @@ public class TurnManager {
     }
 
     if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
-      ui.println("The target player has no cards to give.");
+      ui.printDo2CardComboErrorTargetPlayerHasNoCards();
       return;
     }
 

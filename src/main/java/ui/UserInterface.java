@@ -262,4 +262,11 @@ public class UserInterface {
     }
     return scanner.nextLine().trim();
   }
+
+  /**
+   * Prints the error message for when the target player has no cards to steal.
+   */
+  public void printDo2CardComboErrorTargetPlayerHasNoCards() {
+    System.out.println("The target player has no cards to steal.");
+  }
 }
