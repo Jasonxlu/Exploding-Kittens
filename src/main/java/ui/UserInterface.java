@@ -299,7 +299,6 @@ public class UserInterface {
   /**
    * Prompts the target user to enter a card name to give up for the 2 card combo.
    *
-   * @param playerIndex the index of the player in the game being targeted.
    * @param isRetry whether this is a retry prompt.
    * @return the user's input.
    */
@@ -322,7 +321,7 @@ public class UserInterface {
   /**
    * Prints out the players hand given the hand.
    *
-   * @param hand
+   * @param hand the hand to print.
    */
   public void printPlayerHand(String[] hand) {
     for (int i = 0; i < hand.length; i++) {
