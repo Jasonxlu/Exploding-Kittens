@@ -2038,7 +2038,10 @@ public class TurnManagerTests {
   public void do2CardCombo_emptyTargetName_invalidCardName_targetHandSingleCard_repromptForInputAndModifyBothHands() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
 
     String invalidTargetName = "";
     String invalidCardName = "explode";
@@ -2063,9 +2066,11 @@ public class TurnManagerTests {
     EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
 
     // Target card selection invalid on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(invalidCardName);
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(invalidCardName);
     EasyMock.expect(gameEngine.getCardByName(invalidCardName)).andThrow(new IllegalArgumentException("Could not parse input."));
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, true)).andReturn(cardName);
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expect(ui.prompt2CardComboTarget(true)).andReturn(cardName);
     EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
 
     EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
@@ -2088,7 +2093,10 @@ public class TurnManagerTests {
   public void do2CardCombo_invalidTargetName_validCardName_targetHandMultipleCards_repromptForInputAndModifyBothHands() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
 
     String invalidTargetName = "invalid";
     String targetName = "Jane";
@@ -2112,7 +2120,8 @@ public class TurnManagerTests {
     EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
 
     // Target card selection good on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(cardName);
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(cardName);
     EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
 
     EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
@@ -2165,7 +2174,10 @@ public class TurnManagerTests {
   public void do2CardCombo_validTargetName_validCardName_targetHandMaxCards_modifyBothPlayerHands() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
 
     String targetName = "Jane";
     String cardName = "shuffle";
@@ -2197,7 +2209,8 @@ public class TurnManagerTests {
     EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
 
     // Target card selection is valid on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(cardName);
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(cardName);
     EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
 
     EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
@@ -2220,7 +2233,10 @@ public class TurnManagerTests {
   public void do2CardCombo_validTargetName_targetHandMissingCardName_targetHandSingleCard_repromptForInputAndModifyBothHands() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
 
     String missingCardName = "exploding kitten";
     String targetName = "Smith";
@@ -2243,12 +2259,14 @@ public class TurnManagerTests {
     EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
 
     // Target card selection invalid on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(missingCardName);
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(missingCardName);
     EasyMock.expect(gameEngine.getCardByName(missingCardName)).andReturn(missingCard);
 
     // Check that the target player doesn't have the card and re-prompt
     EasyMock.expect(gameEngine.playerHasCard(missingCard, targetIndex)).andReturn(false);
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, true)).andReturn(cardName);
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expect(ui.prompt2CardComboTarget(true)).andReturn(cardName);
     EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
 
     // Now check that the target player has the target card

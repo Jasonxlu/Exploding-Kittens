@@ -480,7 +480,7 @@ public class TurnManager {
       return;
     }
 
-    String card = ui.prompt2CardComboTarget(targetIndex, false);
+    String card = ui.prompt2CardComboTarget(false);
     Card cardToGive = null;
 
     while (!validCardFound) {
@@ -489,10 +489,12 @@ public class TurnManager {
         if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
           validCardFound = true;
         } else {
-          card = ui.prompt2CardComboTarget(targetIndex, true);
+          printPlayerHand(targetIndex);
+          card = ui.prompt2CardComboTarget(true);
         }
       } catch (IllegalArgumentException e) {
-        card = ui.prompt2CardComboTarget(targetIndex, true);
+        printPlayerHand(targetIndex);
+        card = ui.prompt2CardComboTarget(true);
       }
     }
 

@@ -298,13 +298,12 @@ public class UserInterface {
 
   /**
    * Prompts the target user to enter a card name to give up for the 2 card combo.
-   * // TODO: Print out the player's hand to help them choose a card.
    *
    * @param playerIndex the index of the player in the game being targeted.
    * @param isRetry whether this is a retry prompt.
    * @return the user's input.
    */
-  public String prompt2CardComboTarget(int playerIndex, boolean isRetry) {
+  public String prompt2CardComboTarget(boolean isRetry) {
     if (isRetry) {
       System.out.println("Invalid card. Please type in a valid card name.");
     } else {
