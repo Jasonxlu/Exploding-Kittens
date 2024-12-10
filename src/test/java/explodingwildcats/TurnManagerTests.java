@@ -1199,6 +1199,24 @@ public class TurnManagerTests {
     assertEquals(expectedMessage, actualMessage);
   }
 
+  @ParameterizedTest
+  @CsvSource({
+    "taco cat", "beard cat", "rainbow cat", "feral cat", "hairy potato cat"
+  })
+  public void getPlayableCard_playedCatCards(String cardName) {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "You must play a cat card as a combo.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
 }
 
 

@@ -303,8 +303,8 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | yes          |
 | Test Case 9  | "invalid"          | IllegalArgumentException | yes          |
 | Test Case 10 | "nope"             | IllegalArgumentException | yes          |
-| Test Case 11 | "taco cat"         | IllegalArgumentException | no           |
-| Test Case 12 | "beard cat"        | IllegalArgumentException | no           |
-| Test Case 13 | "rainbow cat"      | IllegalArgumentException | no           |
-| Test Case 14 | "feral cat"        | IllegalArgumentException | no           |
-| Test Case 15 | "hairy potato cat" | IllegalArgumentException | no           |
+| Test Case 11 | "taco cat"         | IllegalArgumentException | yes          |
+| Test Case 12 | "beard cat"        | IllegalArgumentException | yes          |
+| Test Case 13 | "rainbow cat"      | IllegalArgumentException | yes          |
+| Test Case 14 | "feral cat"        | IllegalArgumentException | yes          |
+| Test Case 15 | "hairy potato cat" | IllegalArgumentException | yes          |

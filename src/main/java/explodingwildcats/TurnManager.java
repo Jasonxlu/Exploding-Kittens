@@ -242,6 +242,12 @@ public class TurnManager {
         return Card.ALTER_THE_FUTURE;
       case "nope":
         throw new IllegalArgumentException("You cannot play a nope right now.");
+      case "taco cat":
+      case "beard cat":
+      case "rainbow cat":
+      case "feral cat":
+      case "hairy potato cat":
+        throw new IllegalArgumentException("You must play a cat card as a combo.");
     }
     throw new IllegalArgumentException("Could not parse input.");
   }
