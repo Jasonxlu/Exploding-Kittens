@@ -335,7 +335,27 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 12 | input1 = valid play combo input ("3 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(3), which returns true. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                 | Calls `promptAndPlayComboCatCards(3)` and continues loop.                        | yes          |
 
 
-## Method 18: ```public void doTargetedAttack()```
+## Method 18: ```public void promptAndPlayCombo(int numCards)```
+### Step 1-3 Results
+|        | Input 1  | Input 2                                                           | Input 3                                                             | Output                                                                   |
+|--------|----------|-------------------------------------------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
+| Step 1 | numCards | String representation of the cards from ui.promptPlayComboCards() | Card representation of the cards (from validateCards), or exception | Whether the turnManager should reprompt the user for input, or exception |
+| Step 2 | Interval | Collection                                                        | Collection (of cases, but we do the same thing for each case).      | Boolean or exception                                                     |
+| Step 3 | [2,3]    | [2 elements], [3 elements], [] (impossible)                       | [2 elements], [3 elements], [] (impossible)                         | T/F, exception                                                           |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                                                                                         | Expected output  | Implemented? |
+|-------------|-----------------------------------------------------------------------------------------------------------|------------------|--------------|
+| Test Case 1 | input 1 = 2. Input 2 = ["feral cat", "taco cat"]. Input 3 = [Card.FERAL_CAT, Card.TACO_CAT].              | false            | yes          |
+| Test Case 2 | input 1 = 2. Input 2 = ["shuffle", "taco cat"]. Input 3 = exception.                                      | true             | yes          |
+| Test Case 3 | input 1 = 3. Input 2 = ["attack", "attack", "attack"]. Input 3 = [Card.ATTACK, Card.ATTACK, Card.ATTACK]. | false            | yes          |
+| Test Case 4 | input 1 = 3. Input 2 = [] (impossible). Input 3 = N/A.                                                    | Exception thrown | yes          |
+| Test Case 5 | input 1 = 2. Input 2 = ["beard cat", "beard cat"]. Input 3 = [].                                          | Exception thrown | yes          |
+| Test Case 5 | input 1 = 1 (impossible). Input 2 = N/A. Input 3 = N/A.                                                   | Exception thrown | yes          |
+
+
+## Method 19: ```public void doTargetedAttack()```
 ### Step 1-3 Results
 |        | Input                                                | Input 2                                                     | Output                                                                                                                             |
 |--------|------------------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -352,7 +372,42 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7      | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw is incremented by 2                                   | yes          |
 
 
-## Method 20: ```public void setupGameEngine()```
+## Method 20: ```public void do2CardCombo()```
+### Step 1-3 Results
+|        | Input                                                | Input 2                                             | Input 3                                                    | Output                                                                                                                                                                                                                                                                                                             |
+|--------|------------------------------------------------------|-----------------------------------------------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Name of the player targeted from UI prompting        | String of the card the Targeted player is giving up | Cardpile/hand of the player being targeted                 | Prompt current player for name of target player, No additional effect if targeted player's hand is empty, otherwise -> Targeted player is prompted to give up a card and the card is removed from their hand, the current player adds the card to their hand, any invalid inputs results in re-prompting for input |
+| Step 2 | Cases                                                | Cases                                               | Collection                                                 | Current player is re-prompted for input/Targeted player is re-prompted for input or targeted player cardpile is updated and current player cardpile is updated or No effect to the cardpiles                                                                                                                       |
+| Step 3 | Empty string, Valid Player name, Invalid Player name | Invalid card string, valid card string              | [], [one element], [multiple elements], [max elements: 51] | Current player is re-prompted for input/Targeted player is re-prompted for input or targeted player cardpile is updated and current player cardpile is updated or No effect to the cardpiles                                                                                                                       |
+    - Note: Input 2's max elements is 51 because the player playing the combo must have 2 cards in their hand.
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                                                             | Expected output                                                                                                                                       | Implemented? |
+|-------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | Target name: ""; "John", Card name: "explode"; "attack", Target Hand: [ATTACK]                | CurrPlayer is re-prompted for input, Target is re-prompted for input, Card is removed from target player's hand, Card is added to CurrPlayer's hand   | yes          |
+| Test Case 2 | Target name: "Invalid"; "Jane", Card name: "skip", Target Hand: [SKIP, SEE_THE_FUTURE]        | CurrPlayer is re-prompted for input, Card is removed from target's hand, Card is added to CurrPlayer's hand                                           | yes          |
+| Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                        | yes          |
+| Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                                | yes          |
+| Test Case 5 | Target name: "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]          | Target is re-prompted for input, Card is removed from target player's hand and added to CurrPlayer's hand                                             | yes          |
+
+
+## Method 21: ```public void doGameLoop()```
+### Step 1-3 Results
+|        | Input                                      | Output                                           |
+|--------|--------------------------------------------|--------------------------------------------------|
+| Step 1 | Is the game over (gameEngine.isGameOver()) | None, call playCardLoop() while game is not over |
+| Step 2 | Boolean                                    | None, method calls                               |
+| Step 3 | T/F                                        | None, call playCardLoop() while game is not over |
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test       | Expected output           | Implemented? |
+|-------------|-------------------------|---------------------------|--------------|
+| Test Case 1 | input 1: true           | returns                   | yes          |
+| Test Case 2 | input 1: false --> true | calls playCardLoop() once | yes          |
+
+
+## Method 22: ```public void setupGameEngine()```
 ### Step 1-3 Results
 |        | Input                                          | Input 2             | Output                                                              |
 |--------|------------------------------------------------|---------------------|---------------------------------------------------------------------|
@@ -361,7 +416,6 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Step 3 | [2,6]                                          | [number of players] | None, TurnManager is set up by calling the right functions in order |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-
 |             | System under test                                                   | Expected output                                                | Implemented? |
 |-------------|---------------------------------------------------------------------|----------------------------------------------------------------|--------------|
 | Test Case 1 | input 1: 2, input 2: ["Jane", "John"]                               | TurnManager is set up by calling the setup functions in order. | yes          |
@@ -369,3 +423,4 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 3 | input 1: 1, input 2: N/A                                            | Throw exception                                                | yes          |
 | Test Case 4 | input 1: 3, input 2: ["Bob", "Jeff"]                                | Throw exception                                                | yes          |
 | Test Case 5 | input 1: 7, input 2: N/A                                            | Throw exception                                                | no           |
+

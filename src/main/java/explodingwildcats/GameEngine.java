@@ -111,6 +111,15 @@ public class GameEngine {
   }
 
   /**
+   * Returns whether the game is over
+   *
+   * @return whether the game is over
+   */
+  public boolean isGameOver() {
+    return true;
+  }
+
+  /**
    * Add defuse cards to both player hands and the draw pile.
    */
   public void dealDefuses() {
@@ -345,12 +354,17 @@ public class GameEngine {
 
 
   /**
-   * TODO: Gets the index of the player in the GameEngine's Player List by their name.
+   * Gets the index of the player in the GameEngine's Player List by their name.
    *
    * @param name the player name to look for.
    * @return the index of the player in the list.
    */
   public int getPlayerIndexByName(String name) {
-    return 0;
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).getName().equals(name)) {
+        return i;
+      }
+    }
+    throw new NoSuchElementException("No player with that name could be found.");
   }
 }
