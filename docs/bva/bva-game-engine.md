@@ -213,8 +213,87 @@
 | Test Case 3 | index: 5, num of players: 6  | Returns the player at 5 in the list      | yes          |
 | Test Case 4 | index: 6, num of players: 6  | IndexOutOfBoundsException                | yes          |
 
+## Method 13: ```public void getCardByName(String cardName)```
+### Step 1-3 Results
+|        | Input                                                                                                                                                                                                                                                             | Output                                                      |
+|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| Step 1 | String representation of card                                                                                                                                                                                                                                     | The Card object, or exception if it is not a playable card. |
+| Step 2 | String                                                                                                                                                                                                                                                            | Cases (or exception)                                        |
+| Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope", "rainbow cat", "taco cat", "beard cat", "feral cat", "hairy potato cat", "exploding kitten", "imploding kitten", "defuse" | Each of the Cards in the enum or exception.                 |
+### Step 4:
+##### All-combination or each-choice: all-combination
 
-## Method 13: ```public void discardCard(Card card)```
+|              | System under test  | Expected output          | Implemented? |
+|--------------|--------------------|--------------------------|--------------|
+| Test Case 1  | "attack"           | Card.ATTACK              | no           |
+| Test Case 2  | "skip"             | Card.ATTACK              | no           |
+| Test Case 3  | "targeted attack"  | Card.TARGETED_ATTACK     | no           |
+| Test Case 4  | "shuffle"          | Card.SHUFFLE             | no           |
+| Test Case 5  | "see the future"   | Card.SEE_THE_FUTURE      | no           |
+| Test Case 6  | "reverse"          | Card.REVERSE             | no           |
+| Test Case 7  | "draw from bottom" | Card.DRAW_FROM_BOTTOM    | no           |
+| Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | no           |
+| Test Case 9  | "invalid"          | IllegalArgumentException | no           |
+| Test Case 10 | "nope"             | Card.NOPE                | no           |
+| Test Case 11 | "taco cat"         | Card.TACO_CAT            | no           |
+| Test Case 12 | "beard cat"        | Card.BEARD_CAT           | no           |
+| Test Case 13 | "rainbow cat"      | Card.RAINBOW_CAT         | no           |
+| Test Case 14 | "feral cat"        | Card.FERAL_CAT           | no           |
+| Test Case 15 | "hairy potato cat" | Card.HAIRY_POTATO_CAT    | no           |
+| Test Case 16 | "exploding kitten" | Card.EXPLODE             | no           |
+| Test Case 17 | "imploding kitten" | Card.IMPLODE             | no           |
+| Test Case 18 | "defuse"           | Card.DEFUSE              | no           |
+
+
+## Method 14: ```public int getPlayerIndexByName(String name)```
+### Step 1-3 Results
+|        | Input                                                   | Input 2                                    | Output                                                                   |
+|--------|---------------------------------------------------------|--------------------------------------------|--------------------------------------------------------------------------|
+| Step 1 | Player name string                                      | Players array list in gameEngine           | Index of the player in the gameEngine array list of players or exception |
+| Step 2 | Cases                                                   | Collection                                 | Interval or exception                                                    |
+| Step 3 | Existing player name, invalid player name, empty string | [multiple elements], [max size: 6 players] | [0, 6) or NoSuchElementException                                         |
+    - Note: Input 2 can't be [], or [one element] since there will always be at least two players in the gameEngine, otherwise the game will end.
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                                                                 | Expected output        | Implemented? |
+|--------------|-----------------------------------------------------------------------------------|------------------------|--------------|
+| Test Case 1  | Player name: "John"  Players array: ["John", "Jane"]                              | Index 0                |              |
+| Test Case 2  | Player name: "Brennan"  Players array: ["John", "Jane", "Smith"]                  | NoSuchElementException |              |
+| Test Case 3  | Player name: ""  Players array: ["John", "Jane", "Smith", "Foo", "Bar", "Baz"]    | NoSuchElementException |              |
+| Test Case 4  | Player name: "Baz"  Players array: ["John", "Jane", "Smith", "Foo", "Bar", "Baz"] | Index 5                |              |
+
+
+## Method 15: ```public Card[] validateComboCards(String[] cards)```
+### Step 1-3 Results
+|        | Input 1                                     | Input 2                                                                                                                                           | Input 3              | Output                                            |
+|--------|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|---------------------------------------------------|
+| Step 1 | string array of cards                       | array of Card objects                                                                                                                             | Player has each card | The validated array of Card objects, or exception |
+| Step 2 | Collection                                  | Collection of Cases                                                                                                                               | Cases                | Collection of Cases or exception                  |
+| Step 3 | [], [one element], [more than one element]  | [], [one element], [2x cat card], [3x cat card], [2x non-cat-card], [3x non-cat-card], [cat card combo with one feral cat], [invalid pair/triple] | T/F/exception        | input2 or IllegalArgumentException                |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|              | System under test                                                                                                    | Expected output          | Implemented? |
+|--------------|----------------------------------------------------------------------------------------------------------------------|--------------------------|--------------|
+| Test Case 1  | input1: [], input 2: N/A, input 3: N/A,                                                                              | IllegalArgumentException | yes          |
+| Test Case 2  | input1: ["taco cat"], input2: N/A, input 3: N/A,                                                                     | IllegalArgumentException | yes          |
+| Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: T                                       | input 2                  | yes          |
+| Test Case 4  | input1: ["rainbow cat", "rainbow cat", "rainbow cat"], input2: [RAINBOW_CAT, RAINBOW_CAT, RAINBOW_CAT], input 3: T   | input 2                  | yes          |
+| Test Case 5  | input1: ["shuffle", "shuffle"], input2: [SHUFFLE, SHUFFLE], input 3: T                                               | input 2                  | yes          |
+| Test Case 6  | input1: ["see the future", "see the future", "see the future"], input2: [SEE_THE_FUTURE, SEE_THE_FUTURE], input 3: T | input 2                  | yes          |
+| Test Case 7  | input1: ["feral cat", "beard cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT], input 3: T                                 | input 2                  | yes          |
+| Test Case 8  | input1: ["feral cat", "beard cat", "feral cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT, FERAL_CAT], input 3: T         | input 2                  | yes          |
+| Test Case 9  | input1: ["shuffle", "attack"], input2: [SHUFFLE, ATTACK], input 3: T                                                 | IllegalArgumentException | yes          |
+| Test Case 10 | input1: ["shuffle", "feral cat"], input2: [SHUFFLE, FERAL_CAT], input 3: T                                           | IllegalArgumentException | yes          |
+| Test Case 11 | input1: ["feral cat", "taco cat", "hairy potato cat"], input2: [FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT], input 3: T   | IllegalArgumentException | yes          |
+| Test Case 12 | input1: ["feral cat", "taco cat", "hairy potato cat", "shuffle"], input2: N/A, input 3: N/A                          | IllegalArgumentException | yes          |
+| Test Case 13 | input1: ["feral cat", "taco cat"], input2: [FERAL_CAT, TACO_CAT], input 3: Exception                                 | Exception from input 3   | yes          |
+| Test Case 14 | input1: ["feral cat", "feral cat", "feral cat"], input2: [FERAL_CAT, FERAL_CAT, FERAL_CAT], input 3: T               | input 2                  | yes          |
+| Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F                                       | IllegalArgumentException | yes          |
+
+
+## Method 16: ```public void discardCard(Card card)```
 ### Step 1-3 Results
 |        | Input 1                                    | Input 2             | Output                                  |
 |--------|--------------------------------------------|---------------------|-----------------------------------------|

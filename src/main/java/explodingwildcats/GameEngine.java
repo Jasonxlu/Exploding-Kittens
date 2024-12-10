@@ -1,6 +1,8 @@
 package explodingwildcats;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -113,6 +115,15 @@ public class GameEngine {
 
   public List<Player> getPlayers() {
     return new ArrayList<>(players);
+  }
+
+  /**
+   * Returns whether the game is over
+   *
+   * @return whether the game is over
+   */
+  public boolean isGameOver() {
+    return true;
   }
 
   /**
@@ -242,9 +253,25 @@ public class GameEngine {
   }
 
   /**
+   * TODO: Checks if a player a number of the specified card.
+   *
+   * @param card card to check if a player has.
+   * @param playerIndex index of the player in the players list.
+   * @param numCards the number of cards to check for.
+   */
+  public boolean playerHasCards(Card card, int playerIndex, int numCards) {
+    return true;
+  }
+
+  /**
    * TODO: eliminates the player at that index.
    */
   public void eliminatePlayer(int playerIndex) {}
+
+  /**
+   * TODO: Prints the current player's hand to the user.
+   */
+  public void printCurrentPlayerHand() {}
 
   /**
    * Removes specified card from the player at that index.
@@ -298,5 +325,122 @@ public class GameEngine {
    */
   public Player getPlayerByName(String name) {
     return new Player("");
+  }
+
+  /**
+   * Returns the correct card based on the String name.
+   *
+   * @param cardName the String version of the card.
+   * @return the Card.
+   */
+  public Card getCardByName(String cardName) {
+    switch (cardName) {
+      case "attack":
+        return Card.ATTACK;
+      case "skip":
+        return Card.SKIP;
+      case "targeted attack":
+        return Card.TARGETED_ATTACK;
+      case "shuffle":
+        return Card.SHUFFLE;
+      case "see the future":
+        return Card.SEE_THE_FUTURE;
+      case "reverse":
+        return Card.REVERSE;
+      case "draw from bottom":
+        return Card.DRAW_FROM_BOTTOM;
+      case "alter the future":
+        return Card.ALTER_THE_FUTURE;
+      case "nope":
+        return Card.NOPE;
+      case "taco cat":
+        return Card.TACO_CAT;
+      case "beard cat":
+        return Card.BEARD_CAT;
+      case "rainbow cat":
+        return Card.RAINBOW_CAT;
+      case "feral cat":
+        return Card.FERAL_CAT;
+      case "hairy potato cat":
+        return Card.HAIRY_POTATO_CAT;
+      case "exploding kitten":
+        return Card.EXPLODE;
+      case "imploding kitten":
+        return Card.IMPLODE;
+      case "defuse":
+        return Card.DEFUSE;
+      default:
+        throw new IllegalArgumentException("Could not parse input.");
+    }
+  }
+
+
+  /**
+   * Gets the index of the player in the GameEngine's Player List by their name.
+   *
+   * @param name the player name to look for.
+   * @return the index of the player in the list.
+   */
+  public int getPlayerIndexByName(String name) {
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).getName().equals(name)) {
+        return i;
+      }
+    }
+    throw new NoSuchElementException("No player with that name could be found.");
+  }
+
+
+  /**
+   * Validates that the player has the given cards and that they can be played as a combo.
+   *
+   * @param cards the string representation of the cards.
+   * @param currPlayerIndex the player name to look for.
+   * @return a Card array or throws exception if the player cannot play the cards.
+   */
+  public Card[] validateComboCards(String[] cards, int currPlayerIndex) {
+    if (cards.length != 2 && cards.length != 3) {
+      throw new IllegalArgumentException("Not a valid combo size.");
+    }
+    Card[] returnCards = Arrays.stream(cards)
+            .map(this::getCardByName)
+            .toArray(Card[]::new);
+
+    HashMap<Card, Integer> cardsPlayedHashMap = new HashMap<>();
+
+    for (Card c : returnCards) {
+      cardsPlayedHashMap.merge(c, 1, Integer::sum);
+    }
+
+    cardsPlayedHashMap.forEach((key, value) -> {
+      if (!playerHasCards(key, currPlayerIndex, value)) {
+        throw new IllegalArgumentException("Player does not have the input cards.");
+      }
+    });
+
+    boolean isAllCats = Arrays.stream(returnCards).allMatch(card ->
+            card == Card.FERAL_CAT
+                    || card == Card.TACO_CAT
+                    || card == Card.BEARD_CAT
+                    || card == Card.RAINBOW_CAT
+                    || card == Card.HAIRY_POTATO_CAT
+    );
+    if (isAllCats) {
+      int numFeralCats = cardsPlayedHashMap.getOrDefault(Card.FERAL_CAT, 0);
+      boolean hasSomeFeralCats = numFeralCats != 0;
+      int feralCatSetSizeDifference = (hasSomeFeralCats ? 1 : 0);
+      boolean isAllFeralCats = (returnCards.length - numFeralCats) == 0;
+      if (!isAllFeralCats) {
+        if (cardsPlayedHashMap.keySet().size() - feralCatSetSizeDifference != 1) {
+          throw new IllegalArgumentException("Cat cards must be matching or feral.");
+        }
+      }
+    } else {
+      if (cardsPlayedHashMap.keySet().size() != 1) {
+        throw new IllegalArgumentException("Cards must be matching.");
+      }
+    }
+
+    return returnCards;
   }
 }

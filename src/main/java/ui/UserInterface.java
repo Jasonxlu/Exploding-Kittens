@@ -193,4 +193,130 @@ public class UserInterface {
             + "Please type in a different player.%n", playerName);
     return scanner.nextLine().trim();
   }
+
+  /**
+   * Prompts the player to play a card.
+   *
+   * @param rePrompting whether the user is reprompting.
+   * @return the trimmed, lowercase input
+   */
+  public String promptPlayCard(boolean rePrompting) {
+    if (rePrompting) {
+      System.out.print("Unable to parse input. "
+              + "Hit enter to end your turn and draw a card, "
+              + "or type the name of the card you want to play "
+              + "(or type '2/3 cat cards'): ");
+    } else {
+      System.out.print("Do you want to play a card, or end your turn? "
+              + "Hit enter to end your turn and draw a card, "
+              + "or type the name of the card you want to play "
+              + "(or type '2/3 cat cards'): ");
+    }
+    return scanner.nextLine().trim().toLowerCase();
+  }
+
+  /**
+   * Prompts the user for which cards to play.
+   *
+   * @param numToPlay the number of cat cards to prompt the user for
+   * @return the trimmed, lowercase input
+   */
+  public String[] promptPlayComboCards(int numToPlay) {
+    String[] cards = new String[numToPlay];
+    System.out.println("Which cat cards do you want to play?");
+    for (int i = 0; i < numToPlay; i++) {
+      System.out.printf("Card #%d: ", i + 1);
+      cards[i] = scanner.nextLine().trim().toLowerCase();
+    }
+    return cards;
+  }
+
+  /**
+   * Prompts the user to for a target player to attack.
+   *
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String promptTargetedAttack(boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Unable to find that player. Please type in a valid player name.");
+    } else {
+      System.out.println("Who would you like to attack? Please type in the player's name.");
+    }
+    return scanner.nextLine().trim();
+  }
+
+  /**
+<<<<<<< HEAD
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMustPlay2Or3CardsAsComboError() {
+    final String message = "You must play 2 or 3 cards as a combo.";
+    System.out.println(message);
+    return message;
+  }
+
+  /**
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMismatchUserCardsAndComboCount() {
+    final String message = "Number of cards returned by user does not match combo count.";
+    System.out.println(message);
+    return message;
+  }
+
+  /**
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMismatchCardValidationCardsAndComboCount() {
+    final String message = "Number of cards returned by card validation does not match combo count.";
+    System.out.println(message);
+    return message;
+  }
+
+  /**
+   * Prompts the user to enter a player name for the 2 card combo.
+   *
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String prompt2CardCombo(boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Unable to find that player. Please type in a valid player name.");
+    } else {
+      System.out.println("Who would you like to target with your 2 card combo? "
+              + "Please type in the player's name.");
+    }
+    return scanner.nextLine().trim();
+  }
+
+  /**
+   * Prompts the target user to enter a card name to give up for the 2 card combo.
+   * // TODO: Print out the player's hand to help them choose a card.
+   *
+   * @param playerIndex the index of the player in the game being targeted.
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String prompt2CardComboTarget(int playerIndex, boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Invalid card. Please type in a valid card name.");
+    } else {
+      System.out.println("Please type in the name of the card you are giving up.");
+    }
+    return scanner.nextLine().trim();
+  }
+
+  /**
+   * Prints the error message for when the target player has no cards to steal.
+   */
+  public void printDo2CardComboErrorTargetPlayerHasNoCards() {
+    System.out.println("The target player has no cards to steal.");
+  }
 }
