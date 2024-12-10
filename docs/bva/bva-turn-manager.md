@@ -72,11 +72,11 @@
 
 ## Method 5: ```public void doAttack()```
 ### Step 1-3 Results
-|        | Input 1                                                     | Output                                                                           |
-|--------|-------------------------------------------------------------|----------------------------------------------------------------------------------|
-| Step 1 | Current number of extra cards to draw (numExtraCardsToDraw) | Adds 1 to numExtraCardsToDraw if it is 0, and 2 otherwise, then calls endTurn(). |
-| Step 2 | Interval                                                    | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls endTurn()). |
-| Step 3 | [0,7]                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls endTurn()). |
+|        | Input 1                                                     | Output                                                                               |
+|--------|-------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Step 1 | Current number of extra cards to draw (numExtraCardsToDraw) | Adds 1 to numExtraCardsToDraw if it is 0, and 2 otherwise, then calls advanceTurn(). |
+| Step 2 | Interval                                                    | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
+| Step 3 | [0,7]                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
 ## Note: max number of extra cards to draw is 7. There is 1 other attack + 3 targeted attacks. 
 ## First attack type card play = +1 extra card to draw, all next = +2. 1 + 2 * 3 = 7.
 

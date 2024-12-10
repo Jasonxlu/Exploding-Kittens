@@ -290,7 +290,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
-    endTurn();
+    advanceTurn();
   }
 
   /**

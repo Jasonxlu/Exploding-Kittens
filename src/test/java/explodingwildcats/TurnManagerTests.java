@@ -226,10 +226,10 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("endTurn")
+            .addMockedMethod("advanceTurn")
             .createMock();
 
-    turnManager.endTurn();
+    turnManager.advanceTurn();
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
@@ -248,12 +248,12 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("endTurn")
+            .addMockedMethod("advanceTurn")
             .createMock();
 
     turnManager.numExtraCardsToDraw = 7;
 
-    turnManager.endTurn();
+    turnManager.advanceTurn();
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
