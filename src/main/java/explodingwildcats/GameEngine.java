@@ -375,9 +375,42 @@ public class GameEngine {
     if (cards.length != 2 && cards.length != 3) {
       throw new IllegalArgumentException("Not a valid combo size.");
     }
+    Player player = getPlayerByIndex(currPlayerIndex);
     Card[] returnCards = Arrays.stream(cards)
             .map(this::getCardByName)
             .toArray(Card[]::new);
+
+    HashMap<Card, Integer> cardsPlayedHashMap = new HashMap<>();
+
+    for (Card c : returnCards) {
+      cardsPlayedHashMap.merge(c, 1, Integer::sum);
+    }
+
+    for (Card c : cardsPlayedHashMap.keySet()) {
+      if (!playerHasCards(c, currPlayerIndex, cardsPlayedHashMap.get(c))) {
+        throw new IllegalArgumentException("Player does not have the input cards.");
+      }
+    }
+
+    boolean isAllCats = Arrays.stream(returnCards).allMatch(card ->
+            card == Card.FERAL_CAT ||
+                    card == Card.TACO_CAT ||
+                    card == Card.BEARD_CAT ||
+                    card == Card.RAINBOW_CAT ||
+                    card == Card.HAIRY_POTATO_CAT
+    );
+    if (isAllCats) {
+      int numFeralCats = cardsPlayedHashMap.getOrDefault(Card.FERAL_CAT, 0);
+      if (cardsPlayedHashMap.keySet().size() - numFeralCats != 1) {
+        // The size of the keySet is the number of distinct cats.
+        // There can only be at most one other type of cat.
+        throw new IllegalArgumentException("Cat cards must be matching or feral.");
+      }
+    } else {
+      return returnCards;
+    }
+
+
     return returnCards;
   }
 }
