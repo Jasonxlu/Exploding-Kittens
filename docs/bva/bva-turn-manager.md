@@ -289,7 +289,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Step 2 | String                                                                                                                                                                                                          | Cases (or exception)                                                                                                    |
 | Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope", "rainbow cat", "taco cat", "beard cat", "feral cat", "hairy potato cat" | Card.ATTACK, SKIP, TARGETED_ATTACK, SHUFFLE, SEE_THE_FUTURE, REVERSE, DRAW_FROM_BOTTOM, ALTER_THE_FUTURE, or exception. |
 ### Step 4:
-##### All-combination or each-choice: each-choice
+##### All-combination or each-choice: all-combination
 
 |              | System under test  | Expected output          | Implemented? |
 |--------------|--------------------|--------------------------|--------------|
