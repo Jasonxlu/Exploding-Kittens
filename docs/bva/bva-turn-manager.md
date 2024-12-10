@@ -75,11 +75,8 @@
 |        | Input 1                                                     | Output                                                                               |
 |--------|-------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | Step 1 | Current number of extra cards to draw (numExtraCardsToDraw) | Adds 1 to numExtraCardsToDraw if it is 0, and 2 otherwise, then calls advanceTurn(). |
-| Step 2 | Interval                                                    | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
-| Step 3 | [0,7]                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
-## Note: max number of extra cards to draw is 7. There is 1 other attack + 3 targeted attacks. 
-## First attack type card play = +1 extra card to draw, all next = +2. 1 + 2 * 3 = 7.
-
+| Step 2 | Cases                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
+| Step 3 | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0            | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
@@ -310,7 +307,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 15 | "hairy potato cat" | IllegalArgumentException | yes          |
 
 
-## Method 16: ```public void playTurnLoop()```
+## Method 17: ```public void playTurnLoop()```
 ### Step 1-3 Results
 |        | Input 1                                                   | Input 2                                                                                                           | Input 3                                                                                            | Input 4                                                                                                                 | Input 5                               | Input 6                        | Output                                                                 |
 |--------|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|---------------------------------------|--------------------------------|------------------------------------------------------------------------|
@@ -336,3 +333,20 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 10 | input1 = valid card ("draw from bottom"), input2 = DRAW_FROM_BOTTOM, input3 = true (can play). Input 4 = N/A. Input 6 = true. Should reprompt. Use the same inputs, and make input 5 true so it doesn't prompt again.                                                                                                           | Continue loop, then calls `doDrawFromBottom()` and ends loop                     | yes          |
 | Test Case 11 | input1 = valid play combo input ("2 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(2), which returns false. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                | Calls `promptAndPlayComboCatCards(2)` and continues loop.                        | yes          |
 | Test Case 12 | input1 = valid play combo input ("3 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(3), which returns true. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                 | Calls `promptAndPlayComboCatCards(3)` and continues loop.                        | yes          |
+
+
+## Method 18: ```public void doTargetedAttack()```
+### Step 1-3 Results
+|        | Input                                                | Input 2                                                     | Output                                                                                                                             |
+|--------|------------------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Name of the player from UI prompting                 | Current number of extra cards to draw (numExtraCardsToDraw) | Turn is advanced to targeted player or user is re-prompted for input, number of extra cards to draw is incremented by 1 or 2 cards |
+| Step 2 | Cases                                                | Cases                                                       | User is re-prompted for input or currPlayerIndex is updated, number of extra cards to draw is modified                             |
+| Step 3 | Empty string, Valid Player name, Invalid Player name | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0            | User is re-prompted for input or currPlayerIndex is updated, number of extra cards to draw is modified                             |
+### Step 4:
+##### All-combination or each-choice: each-choice
+ 
+|             | System under test                               | Expected output                                                                                                       | Implemented? |
+|-------------|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | Player name: ""; "John", numExtraCardsToDraw: 0 | User is re-prompted for input and currPlayerIndex is updated to John's Index, numExtraCardsToDraw is incremented by 1 | yes          |
+| Test Case 2 | Player name: "John", numExtraCardsToDraw: 0     | currPlayerIndex is updated to John's index, numExtraCardsToDraw is incremented by 1                                   | yes          |
+| Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7      | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw is incremented by 2                                   | yes          |
