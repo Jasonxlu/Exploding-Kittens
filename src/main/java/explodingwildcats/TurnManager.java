@@ -222,6 +222,14 @@ public class TurnManager {
     }
   }
 
+  Card getPlayableCard(String cardName) {
+    switch (cardName) {
+      case "attack":
+        return Card.ATTACK;
+    }
+    throw new IllegalArgumentException("Could not parse input");
+  }
+
   /**
    * Decides whether to nope the previously played card.
    *
