@@ -1435,4 +1435,31 @@ public class GameEngineTests {
       assertEquals(expectedCard, actualCard);
     }
   }
+
+  @Test
+  public void getPlayerIndexByName_validName_mulitplePlayers_ReturnsPlayerIndex() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    int numPlayers = 2;
+    String[] names = {"John", "Jane"};
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(null).times(numPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", null)).andReturn(null);
+    EasyMock.expect(playerFactory.createPlayer("Jane", null)).andReturn(null);
+
+    EasyMock.replay(playerFactory, cardPileFactory, drawPile);
+
+    // Set up players
+    game.setUpPlayers(numPlayers, names);
+
+    int expectedIndex = 0;
+    int actualIndex = game.getPlayerIndexByName("John");
+
+    assertEquals(expectedIndex, actualIndex);
+
+    EasyMock.verify(playerFactory, cardPileFactory, drawPile);
+  }
 }
