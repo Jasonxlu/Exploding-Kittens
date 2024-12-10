@@ -31,6 +31,9 @@ public class TurnManager {
       throw new IllegalArgumentException("Invalid number of players.");
     }
     String[] playerNames = ui.getPlayerNames(numberOfPlayers);
+    if (numberOfPlayers != playerNames.length) {
+      throw new IllegalArgumentException("Invalid number of player names.");
+    }
 
     gameEngine.setUpPlayers(numberOfPlayers, playerNames);
     gameEngine.createDrawPile();
