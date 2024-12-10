@@ -8,24 +8,39 @@ import ui.UserInterface;
  */
 public class TurnManager {
 
-  private UserInterface ui;
-  private GameEngine gameEngine;
+  private final UserInterface ui;
+  private final GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
   boolean playerTurnHasEnded = false;
 
   /**
-   * Constructor for TurnManager.
+   * Public constructor for TurnManager.
+   *
+   */
+  public TurnManager() {
+    this.ui = new UserInterface();
+    PlayerFactory playerFactory = new PlayerFactory();
+    CardPileFactory cardPileFactory = new CardPileFactory();
+
+    this.gameEngine = new GameEngine(playerFactory, cardPileFactory);
+
+    this.numExtraCardsToDraw = 0;
+  }
+
+  /**
+   * Package private constructor for TurnManager.
+   * Having a different package private one avoids spotbugs storing mutable object error.
    *
    * @param ui user interface for printing.
    * @param gameEngine game engine for running the game.
    */
-  public TurnManager(UserInterface ui, GameEngine gameEngine) {
+  TurnManager(UserInterface ui, GameEngine gameEngine) {
     this.ui = ui;
+    this.gameEngine = gameEngine;
 
     this.numExtraCardsToDraw = 0;
-    this.gameEngine = gameEngine;
   }
 
   /**

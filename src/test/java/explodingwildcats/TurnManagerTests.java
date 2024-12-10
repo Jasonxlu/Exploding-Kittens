@@ -1890,6 +1890,26 @@ public class TurnManagerTests {
 
     EasyMock.verify(ui, gameEngine);
   }
+
+  @Test
+  public void setupGameEngine_7Player_throwsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int numPlayers = 7;
+    EasyMock.expect(ui.getNumberOfPlayers()).andReturn(numPlayers);
+
+    EasyMock.replay(ui, gameEngine);
+
+    String expectedMessage = "Invalid number of players.";
+    Exception exception = assertThrows(IllegalArgumentException.class, turnManager::setupGameEngine);
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(ui, gameEngine);
+  }
 }
 
 
