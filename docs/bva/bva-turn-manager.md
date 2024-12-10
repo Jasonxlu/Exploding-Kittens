@@ -336,35 +336,3 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 10 | input1 = valid card ("draw from bottom"), input2 = DRAW_FROM_BOTTOM, input3 = true (can play). Input 4 = N/A. Input 6 = true. Should reprompt. Use the same inputs, and make input 5 true so it doesn't prompt again.                                                                                                           | Continue loop, then calls `doDrawFromBottom()` and ends loop                     | yes          |
 | Test Case 11 | input1 = valid play combo input ("2 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(2), which returns false. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                | Calls `promptAndPlayComboCatCards(2)` and continues loop.                        | yes          |
 | Test Case 12 | input1 = valid play combo input ("3 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(3), which returns true. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                 | Calls `promptAndPlayComboCatCards(3)` and continues loop.                        | yes          |
-
-
-## Method 17: ```public void getCardByName(String cardName)```
-### Step 1-3 Results
-|        | Input                                                                                                                                                                                                                                                             | Output                                                      |
-|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| Step 1 | String representation of card                                                                                                                                                                                                                                     | The Card object, or exception if it is not a playable card. |
-| Step 2 | String                                                                                                                                                                                                                                                            | Cases (or exception)                                        |
-| Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope", "rainbow cat", "taco cat", "beard cat", "feral cat", "hairy potato cat", "exploding kitten", "imploding kitten", "defuse" | Each of the Cards in the enum or exception.                 |
-### Step 4:
-##### All-combination or each-choice: all-combination
-
-|              | System under test  | Expected output          | Implemented? |
-|--------------|--------------------|--------------------------|--------------|
-| Test Case 1  | "attack"           | Card.ATTACK              | no           |
-| Test Case 2  | "skip"             | Card.ATTACK              | no           |
-| Test Case 3  | "targeted attack"  | Card.TARGETED_ATTACK     | no           |
-| Test Case 4  | "shuffle"          | Card.SHUFFLE             | no           |
-| Test Case 5  | "see the future"   | Card.SEE_THE_FUTURE      | no           |
-| Test Case 6  | "reverse"          | Card.REVERSE             | no           |
-| Test Case 7  | "draw from bottom" | Card.DRAW_FROM_BOTTOM    | no           |
-| Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | no           |
-| Test Case 9  | "invalid"          | IllegalArgumentException | no           |
-| Test Case 10 | "nope"             | Card.NOPE                | no           |
-| Test Case 11 | "taco cat"         | Card.TACO_CAT            | no           |
-| Test Case 12 | "beard cat"        | Card.BEARD_CAT           | no           |
-| Test Case 13 | "rainbow cat"      | Card.RAINBOW_CAT         | no           |
-| Test Case 14 | "feral cat"        | Card.FERAL_CAT           | no           |
-| Test Case 15 | "hairy potato cat" | Card.HAIRY_POTATO_CAT    | no           |
-| Test Case 16 | "exploding kitten" | Card.EXPLODE             | no           |
-| Test Case 17 | "imploding kitten" | Card.IMPLODE             | no           |
-| Test Case 18 | "defuse"           | Card.DEFUSE              | no           |
