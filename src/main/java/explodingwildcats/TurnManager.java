@@ -232,6 +232,8 @@ public class TurnManager {
         return Card.TARGETED_ATTACK;
       case "shuffle":
         return Card.SHUFFLE;
+      case "see the future":
+        return Card.SEE_THE_FUTURE;
     }
     throw new IllegalArgumentException("Could not parse input");
   }
