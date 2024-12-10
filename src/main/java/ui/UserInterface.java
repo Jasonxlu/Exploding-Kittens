@@ -320,4 +320,36 @@ public class UserInterface {
   public void printCardComboErrorTargetPlayerHasNoCards() {
     System.out.println("The target player has no cards to steal.");
   }
+
+  /**
+   * Prompts the user to enter a player name for the 3 card combo.
+   * TODO: Print out the players in the game
+   *
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String prompt3CardComboTargetName(boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Unable to find that player. Please type in a valid player name.");
+    } else {
+      System.out.println("Who would you like to target with your 3 card combo? "
+              + "Please type in the player's name.");
+    }
+    return scanner.nextLine().trim();
+  }
+
+  /**
+   * Prompts the current player to enter a card name to steal for the 3 card combo.
+   *
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String prompt3CardComboTargetCard(boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Invalid card. Please type in a valid card name.");
+    } else {
+      System.out.println("Please type in the name of the card you are asking to steal.");
+    }
+    return scanner.nextLine().trim();
+  }
 }

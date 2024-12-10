@@ -498,5 +498,47 @@ public class TurnManager {
     gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
   }
 
-  public void do3CardCombo() {}
+  /**
+   * Does the effect of a 3 card combo.
+   */
+  public void do3CardCombo() {
+    boolean validPlayerFound = false;
+    boolean validCardFound = false;
+    int targetIndex = -1;
+    String name = ui.prompt3CardComboTargetName(false);
+
+    while (!validPlayerFound) {
+      try {
+        targetIndex = gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.prompt3CardComboTargetName(true);
+      }
+    }
+
+    if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
+      ui.printCardComboErrorTargetPlayerHasNoCards();
+      return;
+    }
+
+    String card = ui.prompt3CardComboTargetCard(false);
+    Card cardToGive = null;
+
+    while (!validCardFound) {
+      try {
+        cardToGive = gameEngine.getCardByName(card);
+        if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
+          validCardFound = true;
+        }
+      } catch (IllegalArgumentException e) {
+        card = ui.prompt3CardComboTargetCard(true);
+      }
+    }
+
+    // Remove the card from the target player's hand.
+    gameEngine.removeCardFromPlayer(cardToGive, targetIndex);
+
+    // Add the card to the current player's hand.
+    gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
+  }
  }
