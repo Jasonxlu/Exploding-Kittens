@@ -214,4 +214,19 @@ public class UserInterface {
     }
     return scanner.nextLine().trim().toLowerCase();
   }
+
+  /**
+   * Prompts the user to for a target player to attack.
+   *
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String promptTargetedAttack(boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Unable to find that player. Please type in a valid player name.");
+    } else {
+      System.out.println("Who would you like to attack? Please type in the player's name.");
+    }
+    return scanner.nextLine().trim();
+  }
 }

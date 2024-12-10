@@ -226,10 +226,10 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("endTurn")
+            .addMockedMethod("advanceTurn")
             .createMock();
 
-    turnManager.endTurn();
+    turnManager.advanceTurn();
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
@@ -248,12 +248,12 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("endTurn")
+            .addMockedMethod("advanceTurn")
             .createMock();
 
     turnManager.numExtraCardsToDraw = 7;
 
-    turnManager.endTurn();
+    turnManager.advanceTurn();
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
@@ -1063,6 +1063,7 @@ public class TurnManagerTests {
     EasyMock.verify(turnManager);
   }
 
+  @Test
   public void getPlayableCard_attack() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
@@ -1708,6 +1709,96 @@ public class TurnManagerTests {
     turnManager.playCardLoop();
 
     EasyMock.verify(turnManager, gameEngine, ui);
+  }
+  @Test
+  public void doTargetedAttack_invalidPlayerName_noExtraCardsToDraw_promptAgainForInput() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String invalidPlayerName = "";
+    int currPlayerIndex = 3;
+    int expectedPlayerIndex = 0;
+    int extraCards = 0;
+
+    EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(invalidPlayerName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(invalidPlayerName)).andThrow(new NoSuchElementException("No player with that name could be found."));
+    EasyMock.expect(ui.promptTargetedAttack(true)).andReturn("John");
+    EasyMock.expect(gameEngine.getPlayerIndexByName("John")).andReturn(expectedPlayerIndex);
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.doTargetedAttack();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int actualPlayerIndex = turnManager.currPlayerIndex;
+    int expectedNumExtraCardsToDraw = extraCards + 1;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+    assertEquals(expectedPlayerIndex, actualPlayerIndex);
+
+    EasyMock.verify(ui, gameEngine);
+  }
+
+  @Test
+  public void doTargetedAttack_validPlayerName_noExtraCardsToDraw_extraCardsToDrawIncrementedByOneAndPlayerIndexUpdated() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName = "John";
+    int extraCards = 0;
+    int currPlayerIndex = 0;
+    int expectedPlayerIndex = 2;
+
+    EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(validPlayerName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(expectedPlayerIndex);
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.currPlayerIndex = currPlayerIndex;
+    turnManager.doTargetedAttack();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int actualPlayerIndex = turnManager.currPlayerIndex;
+    int expectedNumExtraCardsToDraw = extraCards + 1;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+    assertEquals(expectedPlayerIndex, actualPlayerIndex);
+
+    EasyMock.verify(ui, gameEngine);
+  }
+
+  @Test
+  public void doTargetedAttack_validPlayerName_sevenExtraCardsToDraw_extraCardsToDrawIncrementedByTwoAndPlayerIndexUpdated() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName = "Jane";
+    int extraCards = 7;
+    int currPlayerIndex = 2;
+    int expectedPlayerIndex = 4;
+
+    EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(validPlayerName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(expectedPlayerIndex);
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.currPlayerIndex = currPlayerIndex;
+    turnManager.doTargetedAttack();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int actualPlayerIndex = turnManager.currPlayerIndex;
+    int expectedNumExtraCardsToDraw = extraCards + 2;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+    assertEquals(expectedPlayerIndex, actualPlayerIndex);
+
+    EasyMock.verify(ui, gameEngine);
   }
 }
 

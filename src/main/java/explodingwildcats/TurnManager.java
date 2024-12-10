@@ -1,5 +1,6 @@
 package explodingwildcats;
 
+import java.util.NoSuchElementException;
 import ui.UserInterface;
 
 /**
@@ -244,18 +245,6 @@ public class TurnManager {
     }
   }
 
-
-  /**
-   * TODO: Does the effect of a targeted attack card.
-   * Should:
-   * 1. play an attack card.
-   * 2. change the current player index to the targetPlayerIndex.
-   */
-  public void doTargetedAttack() {
-
-  }
-
-
   /**
    * Does the effect of a see the future card.
    */
@@ -290,7 +279,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
-    endTurn();
+    advanceTurn();
   }
 
   /**
@@ -388,5 +377,30 @@ public class TurnManager {
     } else {
       endTurn();
     }
+  }
+
+  /**
+   * Does the effect of a targeted attack card.
+   */
+  public void doTargetedAttack() {
+    boolean validPlayerFound = false;
+    String name = ui.promptTargetedAttack(false);
+
+    while (!validPlayerFound) {
+      try {
+        currPlayerIndex = gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.promptTargetedAttack(true);
+      }
+    }
+
+    // Update the number of extra cards to draw.
+    if (numExtraCardsToDraw == 0) {
+      numExtraCardsToDraw += 1;
+    } else {
+      numExtraCardsToDraw += 2;
+    }
+
   }
 }
