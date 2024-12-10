@@ -1,6 +1,10 @@
 package explodingwildcats;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Class responsible for setting up the game logic.
@@ -385,29 +389,25 @@ public class GameEngine {
       cardsPlayedHashMap.merge(c, 1, Integer::sum);
     }
 
-    for (Card c : cardsPlayedHashMap.keySet()) {
-      if (!playerHasCards(c, currPlayerIndex, cardsPlayedHashMap.get(c))) {
+    cardsPlayedHashMap.forEach((key, value) -> {
+      if (!playerHasCards(key, currPlayerIndex, value)) {
         throw new IllegalArgumentException("Player does not have the input cards.");
       }
-    }
+    });
 
     boolean isAllCats = Arrays.stream(returnCards).allMatch(card ->
-            card == Card.FERAL_CAT ||
-                    card == Card.TACO_CAT ||
-                    card == Card.BEARD_CAT ||
-                    card == Card.RAINBOW_CAT ||
-                    card == Card.HAIRY_POTATO_CAT
+            card == Card.FERAL_CAT
+                    || card == Card.TACO_CAT
+                    || card == Card.BEARD_CAT
+                    || card == Card.RAINBOW_CAT
+                    || card == Card.HAIRY_POTATO_CAT
     );
     if (isAllCats) {
       int numFeralCats = cardsPlayedHashMap.getOrDefault(Card.FERAL_CAT, 0);
       boolean hasSomeFeralCats = numFeralCats != 0;
       int feralCatSetSizeDifference = (hasSomeFeralCats ? 1 : 0);
       boolean isAllFeralCats = (returnCards.length - numFeralCats) == 0;
-      if (isAllFeralCats) {
-        if (cardsPlayedHashMap.keySet().size() != 1) {
-          throw new IllegalArgumentException("Cat cards must be matching or feral.");
-        }
-      } else {
+      if (!isAllFeralCats) {
         if (cardsPlayedHashMap.keySet().size() - feralCatSetSizeDifference != 1) {
           throw new IllegalArgumentException("Cat cards must be matching or feral.");
         }

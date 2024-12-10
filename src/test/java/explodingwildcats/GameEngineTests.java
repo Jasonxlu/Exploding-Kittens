@@ -1910,4 +1910,40 @@ public class GameEngineTests {
 
     EasyMock.verify(game);
   }
+
+  @Test
+  public void validateComboCards_validCardStrings_validCardList_playerDoesNotHaveCards_throwException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("getCardByName")
+            .addMockedMethod("playerHasCards")
+            .createMock();
+
+    int playerIndex = 0;
+
+    String c1String = "beard cat";
+    Card c1 = Card.BEARD_CAT;
+    String[] cardStrings = new String[] { c1String, c1String };
+
+    EasyMock.expect(game.getCardByName(c1String)).andReturn(c1).times(2);
+
+    boolean playerHasCards = false;
+    // Allow any of the cards to trigger the exception
+    EasyMock.expect(game.playerHasCards(c1, playerIndex, 2)).andReturn(playerHasCards);
+
+    EasyMock.replay(game);
+
+
+    String expectedExceptionMessage = "Player does not have the input cards.";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.validateComboCards(cardStrings, playerIndex);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedExceptionMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
 }
