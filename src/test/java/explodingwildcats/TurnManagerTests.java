@@ -1864,6 +1864,27 @@ public class TurnManagerTests {
 
     EasyMock.verify(turnManager, gameEngine, ui);
   }
+
+  @Test
+  public void promptAndPlayCombo_1Card_throwException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int numCards = 1;
+
+    EasyMock.replay(gameEngine, ui);
+
+    String expectedMessage = "You must play 2 or 3 cards as a combo.";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.promptAndPlayCombo(numCards);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine, ui);
+  }
 }
 
 

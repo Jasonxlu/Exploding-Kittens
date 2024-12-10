@@ -163,6 +163,9 @@ public class TurnManager {
    * @param numCards the number of cards to play.
    */
   boolean promptAndPlayCombo(int numCards) {
+    if (numCards != 2 && numCards != 3) {
+      throw new IllegalArgumentException("You must play 2 or 3 cards as a combo.");
+    }
     String[] stringCards = ui.promptPlayComboCards(numCards);
     if (stringCards.length != numCards) {
       throw new IllegalStateException(
