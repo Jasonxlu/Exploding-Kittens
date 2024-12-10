@@ -236,6 +236,8 @@ public class TurnManager {
         return Card.SEE_THE_FUTURE;
       case "reverse":
         return Card.REVERSE;
+      case "draw from bottom":
+        return Card.DRAW_FROM_BOTTOM;
     }
     throw new IllegalArgumentException("Could not parse input");
   }

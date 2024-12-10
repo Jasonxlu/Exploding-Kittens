@@ -1141,6 +1141,19 @@ public class TurnManagerTests {
     assertEquals(expectedCard, actualCard);
   }
 
+  @Test
+  public void getPlayableCard_drawFromBottom() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "draw from bottom";
+    Card expectedCard = Card.DRAW_FROM_BOTTOM;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
 }
 
 
