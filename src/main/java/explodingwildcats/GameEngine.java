@@ -1,6 +1,8 @@
 package explodingwildcats;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -246,6 +248,17 @@ public class GameEngine {
   }
 
   /**
+   * TODO: Checks if a player a number of the specified card.
+   *
+   * @param card card to check if a player has.
+   * @param playerIndex index of the player in the players list.
+   * @param numCards the number of cards to check for.
+   */
+  public boolean playerHasCards(Card card, int playerIndex, int numCards) {
+    return true;
+  }
+
+  /**
    * TODO: eliminates the player at that index.
    */
   public void eliminatePlayer(int playerIndex) {}
@@ -366,5 +379,59 @@ public class GameEngine {
       }
     }
     throw new NoSuchElementException("No player with that name could be found.");
+  }
+
+
+  /**
+   * Validates that the player has the given cards and that they can be played as a combo.
+   *
+   * @param cards the string representation of the cards.
+   * @param currPlayerIndex the player name to look for.
+   * @return a Card array or throws exception if the player cannot play the cards.
+   */
+  public Card[] validateComboCards(String[] cards, int currPlayerIndex) {
+    if (cards.length != 2 && cards.length != 3) {
+      throw new IllegalArgumentException("Not a valid combo size.");
+    }
+    Card[] returnCards = Arrays.stream(cards)
+            .map(this::getCardByName)
+            .toArray(Card[]::new);
+
+    HashMap<Card, Integer> cardsPlayedHashMap = new HashMap<>();
+
+    for (Card c : returnCards) {
+      cardsPlayedHashMap.merge(c, 1, Integer::sum);
+    }
+
+    cardsPlayedHashMap.forEach((key, value) -> {
+      if (!playerHasCards(key, currPlayerIndex, value)) {
+        throw new IllegalArgumentException("Player does not have the input cards.");
+      }
+    });
+
+    boolean isAllCats = Arrays.stream(returnCards).allMatch(card ->
+            card == Card.FERAL_CAT
+                    || card == Card.TACO_CAT
+                    || card == Card.BEARD_CAT
+                    || card == Card.RAINBOW_CAT
+                    || card == Card.HAIRY_POTATO_CAT
+    );
+    if (isAllCats) {
+      int numFeralCats = cardsPlayedHashMap.getOrDefault(Card.FERAL_CAT, 0);
+      boolean hasSomeFeralCats = numFeralCats != 0;
+      int feralCatSetSizeDifference = (hasSomeFeralCats ? 1 : 0);
+      boolean isAllFeralCats = (returnCards.length - numFeralCats) == 0;
+      if (!isAllFeralCats) {
+        if (cardsPlayedHashMap.keySet().size() - feralCatSetSizeDifference != 1) {
+          throw new IllegalArgumentException("Cat cards must be matching or feral.");
+        }
+      }
+    } else {
+      if (cardsPlayedHashMap.keySet().size() != 1) {
+        throw new IllegalArgumentException("Cards must be matching.");
+      }
+    }
+
+    return returnCards;
   }
 }
