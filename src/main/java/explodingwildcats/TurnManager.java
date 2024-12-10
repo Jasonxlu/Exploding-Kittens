@@ -169,11 +169,10 @@ public class TurnManager {
 
   /**
    * TODO: Prompts the user for which cat cards to play as a combo.
-   * Throws an exception if the input is not "2 cat cards" or "3 cat cards"
+   * Returns true if the user input is malformed.
    * Made package private to support unit testing.
    *
    * @param userInputCard the string representation of the combo to play.
-   * @return true if a combo was successfully played, false otherwise.
    */
   boolean promptAndPlayComboCatCards(String userInputCard) {
     return true;
