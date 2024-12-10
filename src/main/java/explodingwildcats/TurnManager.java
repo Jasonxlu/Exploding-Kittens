@@ -161,15 +161,70 @@ public class TurnManager {
   }
 
   /**
+   * TODO: Gets the card that the player can play when it's their turn.
+   * Throws an exception if the cardName string does not match a playable card.
+   * Made package private to support unit testing.
+   * @param cardName the string representation of the playable card.
+   * @return the Card.
+   */
+  Card getPlayableCard(String cardName) {
+    return Card.ATTACK;
+  }
+
+  /**
    * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
    *
    */
   public void playCardLoop() {
     playerTurnHasEnded = false;
+    boolean shouldReprompt = false;
     while (!playerTurnHasEnded) {
-      String userInputCard = ui.promptPlayCard(false);
+      String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
         endTurn();
+        shouldReprompt = false;
+        continue;
+      }
+      Card cardToPlay;
+      try {
+        cardToPlay = getPlayableCard(userInputCard);
+      } catch (Exception originalCardChosenException) {
+        shouldReprompt = true;
+        continue;
+      }
+      boolean canPlayCard = gameEngine.playerHasCard(cardToPlay, currPlayerIndex);
+      if (!canPlayCard) {
+        shouldReprompt = true;
+      } else {
+        switch (cardToPlay) {
+          case ATTACK:
+            doAttack();
+            break;
+          case SKIP:
+            doSkip();
+            break;
+          case TARGETED_ATTACK:
+            doTargetedAttack();
+            break;
+          case SHUFFLE:
+            doShuffle();
+            break;
+          case SEE_THE_FUTURE:
+            doSeeTheFuture();
+            break;
+          case REVERSE:
+            doReverse();
+            break;
+          case DRAW_FROM_BOTTOM:
+            doDrawFromBottom();
+            break;
+          case ALTER_THE_FUTURE:
+            doAlterTheFuture();
+            break;
+          default:
+            throw new IllegalArgumentException("A card was played that should not have been played.");
+        }
+        shouldReprompt = false;
       }
     }
   }
