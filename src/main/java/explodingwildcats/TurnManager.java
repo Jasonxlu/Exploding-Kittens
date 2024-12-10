@@ -1,8 +1,7 @@
 package explodingwildcats;
 
-import ui.UserInterface;
-
 import java.util.NoSuchElementException;
+import ui.UserInterface;
 
 /**
  * Class responsible for doing turns.
@@ -256,6 +255,9 @@ public class TurnManager {
     }
   }
 
+  /**
+   * Does the effect of a targeted attack card.
+   */
   public void doTargetedAttack() {
     boolean validPlayerFound = false;
     String name = ui.promptTargetedAttack(false);
