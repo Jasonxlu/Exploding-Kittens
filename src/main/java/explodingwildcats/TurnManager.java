@@ -175,6 +175,10 @@ public class TurnManager {
       ui.println(validateCardException.getMessage());
       return true;
     }
+    if (cards.length != numCards) {
+      throw new IllegalStateException(
+              "Number of cards returned by card validation does not match combo count.");
+    }
     if (numCards == 2) {
       do2CardCombo();
     } else if (numCards == 3) {
