@@ -352,7 +352,7 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7      | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw is incremented by 2                                   | yes          |
 
 
-## Method 20: ```public void TurnManager()```
+## Method 20: ```public void setupGameEngine()```
 ### Step 1-3 Results
 |        | Input                                          | Input 2             | Output                                                              |
 |--------|------------------------------------------------|---------------------|---------------------------------------------------------------------|
@@ -362,9 +362,9 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test        | Expected output                                                | Implemented? |
-|-------------|--------------------------|----------------------------------------------------------------|--------------|
-| Test Case 1 | input 1: 2, input 2: 2   | TurnManager is set up by calling the setup functions in order. | no           |
-| Test Case 2 | input 1: 6, input 2: 6   | TurnManager is set up by calling the setup functions in order. | no           |
-| Test Case 3 | input 1: 1, input 2: N/A | Throw exception                                                | no           |
-| Test Case 3 | input 1: 3, input 2: 2   | Throw exception                                                | no           |
+|             | System under test                                                   | Expected output                                                | Implemented? |
+|-------------|---------------------------------------------------------------------|----------------------------------------------------------------|--------------|
+| Test Case 1 | input 1: 2, input 2: ["Jane", "John"]                               | TurnManager is set up by calling the setup functions in order. | yes          |
+| Test Case 2 | input 1: 6, input 2: ["Jane", "John", "Foo", "Bar", "Alice", "Joe"] | TurnManager is set up by calling the setup functions in order. | no           |
+| Test Case 3 | input 1: 1, input 2: N/A                                            | Throw exception                                                | no           |
+| Test Case 3 | input 1: 3, input 2: ["Bob", "Jeff"]                                | Throw exception                                                | no           |

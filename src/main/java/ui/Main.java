@@ -3,6 +3,7 @@ package ui;
 import explodingwildcats.CardPileFactory;
 import explodingwildcats.GameEngine;
 import explodingwildcats.PlayerFactory;
+import explodingwildcats.TurnManager;
 
 /**
  * Entry point for the Exploding Wildcats game, responsible for initializing the user interface.
@@ -17,24 +18,11 @@ public class Main {
    */
   public static void main(String[] args) {
     UserInterface ui = new UserInterface();
-
-    System.out.println("Welcome to Exploding Wildcats!");
-
-    int numberOfPlayers = ui.getNumberOfPlayers();
-    String[] playerNames = ui.getPlayerNames(numberOfPlayers);
-
     PlayerFactory playerFactory = new PlayerFactory();
     CardPileFactory cardPileFactory = new CardPileFactory();
     GameEngine gameEngine = new GameEngine(playerFactory, cardPileFactory);
 
-    // Setting up game engine
-    gameEngine.setUpPlayers(numberOfPlayers, playerNames);
-    gameEngine.createDrawPile();
-    gameEngine.dealDefuses();
-    gameEngine.dealCards();
-    gameEngine.insertExplodingAndImplodingCards();
-
-    System.out.println("Let's get started!");
-
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    turnManager.setupGameEngine();
   }
 }

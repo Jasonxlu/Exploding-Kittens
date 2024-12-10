@@ -15,11 +15,25 @@ public class TurnManager {
   boolean isImplodingCatFaceUp = false;
   boolean playerTurnHasEnded = false;
 
-  TurnManager(UserInterface ui,
-              GameEngine gameEngine) {
+  public TurnManager(UserInterface ui, GameEngine gameEngine) {
     this.ui = ui;
-    this.gameEngine = gameEngine;
+
     this.numExtraCardsToDraw = 0;
+    this.gameEngine = gameEngine;
+  }
+
+  /**
+   * Sets up the game engine.
+   */
+  public void setupGameEngine() {
+    int numberOfPlayers = ui.getNumberOfPlayers();
+    String[] playerNames = ui.getPlayerNames(numberOfPlayers);
+
+    gameEngine.setUpPlayers(numberOfPlayers, playerNames);
+    gameEngine.createDrawPile();
+    gameEngine.dealDefuses();
+    gameEngine.dealCards();
+    gameEngine.insertExplodingAndImplodingCards();
   }
 
   /**
