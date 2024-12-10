@@ -2353,6 +2353,37 @@ public class TurnManagerTests {
 
     EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
   }
+
+  @Test
+  public void do3CardCombo_validTargetName_emptyTargetHand_noEffectOnPlayerHands() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String targetName = "John";
+
+    int targetIndex = 3;
+
+    Player targetPlayer = EasyMock.createMock(Player.class);
+
+    // Target name selection valid on first attempt
+    EasyMock.expect(ui.prompt3CardComboTargetName(false)).andReturn(targetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+
+    // Set expectations for the target's hand check
+    Card[] targetHand = {};
+    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
+    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+    ui.printCardComboErrorTargetPlayerHasNoCards();
+
+    // REPLAY
+    EasyMock.replay(ui, gameEngine, targetPlayer);
+
+    turnManager.do3CardCombo();
+
+    EasyMock.verify(ui, gameEngine, targetPlayer);
+  }
+
 }
 
 
