@@ -270,7 +270,7 @@
 | Test Case 10 | input1: ["shuffle", "feral cat"], input2: [SHUFFLE, FERAL_CAT], input 3: T                                           | IllegalArgumentException | yes          |
 | Test Case 11 | input1: ["feral cat", "taco cat", "hairy potato cat"], input2: [FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT], input 3: T   | IllegalArgumentException | yes          |
 | Test Case 12 | input1: ["feral cat", "taco cat", "hairy potato cat", "shuffle"], input2: N/A, input 3: N/A                          | IllegalArgumentException | yes          |
-| Test Case 13 | input1: ["feral cat", "taco cat"], input2: [FERAL_CAT, TACO_CAT], input 3: Exception                                 | Exception from input 3   | no           |
+| Test Case 13 | input1: ["feral cat", "taco cat"], input2: [FERAL_CAT, TACO_CAT], input 3: Exception                                 | Exception from input 3   | yes          |
 | Test Case 14 | input1: ["feral cat", "feral cat", "feral cat"], input2: [FERAL_CAT, FERAL_CAT, FERAL_CAT], input 3: T               | input 2                  | no           |
 
 ## Recall the 4 steps of BVA

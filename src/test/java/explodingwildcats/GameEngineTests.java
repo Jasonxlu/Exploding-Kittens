@@ -1837,4 +1837,46 @@ public class GameEngineTests {
 
     EasyMock.verify(game);
   }
+
+  @Test
+  public void validateComboCards_validCardStrings_validCardList_invalidPlayer_throwException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("getCardByName")
+            .addMockedMethod("playerHasCards")
+            .createMock();
+
+    int playerIndex = 0;
+
+    String c1String = "feral cat";
+    Card c1 = Card.FERAL_CAT;
+    String c2String = "taco cat";
+    Card c2 = Card.TACO_CAT;
+    String c3String = "hairy potato cat";
+    Card c3 = Card.HAIRY_POTATO_CAT;
+    String[] cardStrings = new String[] { c1String, c2String, c3String };
+
+    EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
+    EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
+    EasyMock.expect(game.getCardByName(c3String)).andReturn(c3);
+
+    String exceptionMessage = "Player does not exist at this index";
+
+    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andThrow(
+            new IndexOutOfBoundsException(exceptionMessage)
+    );
+
+    EasyMock.replay(game);
+
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.validateComboCards(cardStrings, playerIndex);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(exceptionMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
 }
