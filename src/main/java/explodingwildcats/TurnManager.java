@@ -226,6 +226,8 @@ public class TurnManager {
     switch (cardName) {
       case "attack":
         return Card.ATTACK;
+      case "skip":
+        return Card.SKIP;
     }
     throw new IllegalArgumentException("Could not parse input");
   }

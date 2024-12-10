@@ -1076,6 +1076,19 @@ public class TurnManagerTests {
     assertEquals(expectedCard, actualCard);
   }
 
+  @Test
+  public void getPlayableCard_skip() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "skip";
+    Card expectedCard = Card.SKIP;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
 }
 
 
