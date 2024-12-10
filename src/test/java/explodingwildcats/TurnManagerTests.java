@@ -1098,6 +1098,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doAttack")
+            .addMockedMethod("promptPlayNope")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1111,6 +1112,8 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     turnManager.doAttack();
     EasyMock.expectLastCall().andAnswer(() -> {
@@ -1134,6 +1137,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doSeeTheFuture")
+            .addMockedMethod("promptPlayNope")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1147,6 +1151,8 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     turnManager.doSeeTheFuture();
     EasyMock.expectLastCall().andAnswer(() -> {
@@ -1257,6 +1263,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("promptAndPlayComboCatCards")
+            .addMockedMethod("promptPlayNope")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1270,6 +1277,8 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(impossibleCardReturn);
     EasyMock.expect(gameEngine.playerHasCard(impossibleCardReturn, currPlayerIndex)).andReturn(impossiblePlayerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     EasyMock.replay(turnManager, gameEngine, ui);
 
@@ -1293,6 +1302,7 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doAlterTheFuture")
             .addMockedMethod("doSkip")
+            .addMockedMethod("promptPlayNope")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1306,6 +1316,8 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     turnManager.doAlterTheFuture();
     EasyMock.expectLastCall().andAnswer(() -> {
@@ -1320,6 +1332,7 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
     EasyMock.expect(turnManager.getPlayableCard(newUserInput)).andReturn(newUserInputCard);
     EasyMock.expect(gameEngine.playerHasCard(newUserInputCard, currPlayerIndex)).andReturn(newPlayerHasCard);
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     turnManager.doSkip();
     EasyMock.expectLastCall().andAnswer(() -> {
@@ -1344,6 +1357,7 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doShuffle")
             .addMockedMethod("doTargetedAttack")
+            .addMockedMethod("promptPlayNope")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1357,6 +1371,8 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     turnManager.doShuffle();
     EasyMock.expectLastCall().andAnswer(() -> {
@@ -1371,6 +1387,7 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
     EasyMock.expect(turnManager.getPlayableCard(newUserInput)).andReturn(newUserInputCard);
     EasyMock.expect(gameEngine.playerHasCard(newUserInputCard, currPlayerIndex)).andReturn(newPlayerHasCard);
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     turnManager.doTargetedAttack();
     EasyMock.expectLastCall().andAnswer(() -> {
@@ -1394,6 +1411,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doReverse")
+            .addMockedMethod("promptPlayNope")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1406,6 +1424,8 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
     turnManager.doReverse();
     EasyMock.expectLastCall().andAnswer(() -> {
@@ -1429,6 +1449,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doDrawFromBottom")
+            .addMockedMethod("promptPlayNope")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1441,6 +1462,15 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = true;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    gameEngine.printCurrentPlayerHand();
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope2ndTime = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope2ndTime);
 
     turnManager.doDrawFromBottom();
     EasyMock.expectLastCall().andAnswer(() -> {

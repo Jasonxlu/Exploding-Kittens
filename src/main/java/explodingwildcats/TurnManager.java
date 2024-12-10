@@ -205,6 +205,10 @@ public class TurnManager {
       if (!canPlayCard) {
         shouldReprompt = true;
       } else {
+        if (promptPlayNope()) {
+          shouldReprompt = false;
+          continue;
+        }
         switch (cardToPlay) {
           case ATTACK:
             doAttack();
