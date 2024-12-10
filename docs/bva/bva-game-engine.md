@@ -246,7 +246,26 @@
 | Test Case 18 | "defuse"           | Card.DEFUSE              | no           |
 
 
-## Method 14: ```public Card[] validateComboCards(String[] cards)```
+## Method 14: ```public int getPlayerIndexByName(String name)```
+### Step 1-3 Results
+|        | Input                                                   | Input 2                                    | Output                                                                   |
+|--------|---------------------------------------------------------|--------------------------------------------|--------------------------------------------------------------------------|
+| Step 1 | Player name string                                      | Players array list in gameEngine           | Index of the player in the gameEngine array list of players or exception |
+| Step 2 | Cases                                                   | Collection                                 | Interval or exception                                                    |
+| Step 3 | Existing player name, invalid player name, empty string | [multiple elements], [max size: 6 players] | [0, 6) or NoSuchElementException                                         |
+    - Note: Input 2 can't be [], or [one element] since there will always be at least two players in the gameEngine, otherwise the game will end.
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                                                                 | Expected output        | Implemented? |
+|--------------|-----------------------------------------------------------------------------------|------------------------|--------------|
+| Test Case 1  | Player name: "John"  Players array: ["John", "Jane"]                              | Index 0                |              |
+| Test Case 2  | Player name: "Brennan"  Players array: ["John", "Jane", "Smith"]                  | NoSuchElementException |              |
+| Test Case 3  | Player name: ""  Players array: ["John", "Jane", "Smith", "Foo", "Bar", "Baz"]    | NoSuchElementException |              |
+| Test Case 4  | Player name: "Baz"  Players array: ["John", "Jane", "Smith", "Foo", "Bar", "Baz"] | Index 5                |              |
+
+
+## Method 15: ```public Card[] validateComboCards(String[] cards)```
 ### Step 1-3 Results
 |        | Input 1                                     | Input 2                                                                                                                                           | Input 3              | Output                                            |
 |--------|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|---------------------------------------------------|
@@ -273,6 +292,8 @@
 | Test Case 13 | input1: ["feral cat", "taco cat"], input2: [FERAL_CAT, TACO_CAT], input 3: Exception                                 | Exception from input 3   | yes          |
 | Test Case 14 | input1: ["feral cat", "feral cat", "feral cat"], input2: [FERAL_CAT, FERAL_CAT, FERAL_CAT], input 3: T               | input 2                  | yes          |
 | Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F                                       | IllegalArgumentException | yes          |
+
+
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
