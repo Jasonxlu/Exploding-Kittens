@@ -1154,6 +1154,19 @@ public class TurnManagerTests {
     assertEquals(expectedCard, actualCard);
   }
 
+  @Test
+  public void getPlayableCard_alterTheFuture() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "alter the future";
+    Card expectedCard = Card.ALTER_THE_FUTURE;
+    Card actualCard = turnManager.getPlayableCard(cardName);
+
+    assertEquals(expectedCard, actualCard);
+  }
+
 }
 
 
