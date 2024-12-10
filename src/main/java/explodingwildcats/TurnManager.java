@@ -183,6 +183,7 @@ public class TurnManager {
         shouldReprompt = false;
         continue;
       }
+
       if (userInputCard.equals("2 cat cards")) {
         shouldReprompt = promptAndPlayComboCatCards(2);
         continue;
@@ -190,6 +191,7 @@ public class TurnManager {
         shouldReprompt = promptAndPlayComboCatCards(3);
         continue;
       }
+
       Card cardToPlay;
       try {
         cardToPlay = getPlayableCard(userInputCard);
@@ -203,6 +205,7 @@ public class TurnManager {
       if (!canPlayCard) {
         shouldReprompt = true;
       } else {
+        // check if anyone wants to play a nope before doing the card's effect.
         if (promptPlayNope()) {
           shouldReprompt = false;
           continue;
