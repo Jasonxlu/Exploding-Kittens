@@ -27,6 +27,9 @@ public class TurnManager {
    */
   public void setupGameEngine() {
     int numberOfPlayers = ui.getNumberOfPlayers();
+    if (numberOfPlayers < 2 || numberOfPlayers > 6) {
+      throw new IllegalArgumentException("Invalid number of players.");
+    }
     String[] playerNames = ui.getPlayerNames(numberOfPlayers);
 
     gameEngine.setUpPlayers(numberOfPlayers, playerNames);
