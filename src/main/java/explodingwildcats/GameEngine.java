@@ -15,6 +15,7 @@ public class GameEngine {
   private List<Player> players = new ArrayList<>();
 
   private CardPile drawPile;
+  private CardPile discardPile;
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
 
@@ -23,16 +24,19 @@ public class GameEngine {
   /**
    * Unit testing constructor for GameEngine.
    *
-   * @param playerFactory PlayerFactory object responsible for creating player instances
+   * @param playerFactory   PlayerFactory object responsible for creating player instances
    * @param cardPileFactory CardPileFactory object responsible for creating CardPile instances
-   * @param drawPile CardPile that players draw from
+   * @param drawPile        CardPile that players draw from
+   * @param discardPile     CardPile that players discard to
    */
   GameEngine(PlayerFactory playerFactory,
-                    CardPileFactory cardPileFactory,
-                    CardPile drawPile) {
+             CardPileFactory cardPileFactory,
+             CardPile drawPile,
+             CardPile discardPile) {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = drawPile;
+    this.discardPile = discardPile;
     isTurnOrderReversed = false;
   }
 
@@ -47,6 +51,7 @@ public class GameEngine {
     this.playerFactory = playerFactory;
     this.cardPileFactory = cardPileFactory;
     this.drawPile = new CardPile();
+    this.discardPile = new CardPile();
     isTurnOrderReversed = false;
   }
 
@@ -297,9 +302,13 @@ public class GameEngine {
   }
 
   /**
-   * TODO: add a card to the discard pile.
+   * Add the card to the discard pile.
+   *
+   * @param card card to discard
    */
-  public void discardCard(Card card) {}
+  public void discardCard(Card card) {
+    discardPile.addCard(card);
+  }
 
   /**
    * TODO: add the specified card to a specified location in the card pile.
