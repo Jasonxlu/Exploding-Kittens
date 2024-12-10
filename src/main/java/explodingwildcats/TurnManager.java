@@ -209,6 +209,16 @@ public class TurnManager {
 
 
   /**
+   * Does the main game loop.
+   */
+  public void doGameLoop() {
+    while(!gameEngine.isGameOver()) {
+      playCardLoop();
+    }
+  }
+
+
+  /**
    * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
    *
    */
@@ -419,11 +429,6 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Does the effect of a 2 card combo.
-   */
-  public void do2CardCombo() {}
-
-  /**
    * TODO: Does the effect of a 3 card combo.
    */
   public void do3CardCombo() {}
@@ -450,6 +455,53 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
+  }
+
+  /**
+   * Does the effect of a 2 card combo.
+   */
+  public void do2CardCombo() {
+    boolean validPlayerFound = false;
+    boolean validCardFound = false;
+    int targetIndex = -1;
+    String name = ui.prompt2CardCombo(false);
+
+    while (!validPlayerFound) {
+      try {
+        targetIndex = gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.prompt2CardCombo(true);
+      }
+    }
+
+    if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
+      ui.printDo2CardComboErrorTargetPlayerHasNoCards();
+      return;
+    }
+
+    String card = ui.prompt2CardComboTarget(targetIndex, false);
+    Card cardToGive = null;
+
+    while (!validCardFound) {
+      try {
+        cardToGive = gameEngine.getCardByName(card);
+        if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
+          validCardFound = true;
+        } else {
+          card = ui.prompt2CardComboTarget(targetIndex, true);
+        }
+      } catch (IllegalArgumentException e) {
+        card = ui.prompt2CardComboTarget(targetIndex, true);
+      }
+    }
+
+    // Remove the card from the target player's hand.
+    gameEngine.removeCardFromPlayer(cardToGive, targetIndex);
+
+    // Add the card to the current player's hand.
+    gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
+
 
   }
 }
