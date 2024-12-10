@@ -1807,6 +1807,33 @@ public class TurnManagerTests {
 
     EasyMock.verify(turnManager, gameEngine, ui);
   }
+
+  @Test
+  public void promptAndPlayCombo_3Cards_inputIsEmpty_throwException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("validateComboCards")
+            .addMockedMethod("do3CardCombo")
+            .createMock();
+
+    int numCards = 3;
+    String[] stringCards = new String[0];
+    EasyMock.expect(ui.promptPlayComboCards(numCards)).andReturn(stringCards);
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    String expectedMessage = "Number of cards returned by user does not match combo count.";
+    Exception exception = assertThrows(IllegalStateException.class, () -> {
+      turnManager.promptAndPlayCombo(numCards);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
 }
 
 

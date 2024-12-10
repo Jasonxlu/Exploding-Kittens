@@ -164,6 +164,10 @@ public class TurnManager {
    */
   boolean promptAndPlayCombo(int numCards) {
     String[] stringCards = ui.promptPlayComboCards(numCards);
+    if (stringCards.length != numCards) {
+      throw new IllegalStateException(
+              "Number of cards returned by user does not match combo count.");
+    }
     Card[] cards;
     try {
       cards = validateComboCards(stringCards);
