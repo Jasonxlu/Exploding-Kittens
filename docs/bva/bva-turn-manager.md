@@ -72,14 +72,11 @@
 
 ## Method 5: ```public void doAttack()```
 ### Step 1-3 Results
-|        | Input 1                                                     | Output                                                                           |
-|--------|-------------------------------------------------------------|----------------------------------------------------------------------------------|
-| Step 1 | Current number of extra cards to draw (numExtraCardsToDraw) | Adds 1 to numExtraCardsToDraw if it is 0, and 2 otherwise, then calls endTurn(). |
-| Step 2 | Interval                                                    | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls endTurn()). |
-| Step 3 | [0,7]                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls endTurn()). |
-## Note: max number of extra cards to draw is 7. There is 1 other attack + 3 targeted attacks. 
-## First attack type card play = +1 extra card to draw, all next = +2. 1 + 2 * 3 = 7.
-
+|        | Input 1                                                     | Output                                                                               |
+|--------|-------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Step 1 | Current number of extra cards to draw (numExtraCardsToDraw) | Adds 1 to numExtraCardsToDraw if it is 0, and 2 otherwise, then calls advanceTurn(). |
+| Step 2 | Cases                                                       | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
+| Step 3 | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0            | None (if numExtraCardsToDraw=0, adds 1, otherwise adds 2, then calls advanceTurn()). |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
@@ -310,7 +307,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 15 | "hairy potato cat" | IllegalArgumentException | yes          |
 
 
-## Method 16: ```public void playTurnLoop()```
+## Method 17: ```public void playTurnLoop()```
 ### Step 1-3 Results
 |        | Input 1                                                   | Input 2                                                                                                           | Input 3                                                                                            | Input 4                                                                                                                 | Input 5                               | Input 6                        | Output                                                                 |
 |--------|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|---------------------------------------|--------------------------------|------------------------------------------------------------------------|
@@ -338,13 +335,13 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 12 | input1 = valid play combo input ("3 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(3), which returns true. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                 | Calls `promptAndPlayComboCatCards(3)` and continues loop.                        | yes          |
 
 
-## Method 17: ```public void promptAndPlayCombo(int numCards)```
+## Method 18: ```public void promptAndPlayCombo(int numCards)```
 ### Step 1-3 Results
-|        | Input 1  | Input 2                                                      | Input 3                                                             | Output                                                                   |
-|--------|----------|--------------------------------------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
-| Step 1 | numCards | String representation of the cards from ui.promptPlayCombo() | Card representation of the cards (from validateCards), or exception | Whether the turnManager should reprompt the user for input, or exception |
-| Step 2 | Interval | Collection                                                   | Collection (of cases, but we do the same thing for each case).      | Boolean or exception                                                     |
-| Step 3 | [2,3]    | [2 elements], [3 elements], [] (impossible)                  | [2 elements], [3 elements], [] (impossible)                         | T/F, exception                                                           |
+|        | Input 1  | Input 2                                                           | Input 3                                                             | Output                                                                   |
+|--------|----------|-------------------------------------------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
+| Step 1 | numCards | String representation of the cards from ui.promptPlayComboCards() | Card representation of the cards (from validateCards), or exception | Whether the turnManager should reprompt the user for input, or exception |
+| Step 2 | Interval | Collection                                                        | Collection (of cases, but we do the same thing for each case).      | Boolean or exception                                                     |
+| Step 3 | [2,3]    | [2 elements], [3 elements], [] (impossible)                       | [2 elements], [3 elements], [] (impossible)                         | T/F, exception                                                           |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
@@ -357,3 +354,20 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 4 | input 1 = 3. Input 2 = [] (impossible). Input 3 = N/A.                                                    | Exception thrown | yes          |
 | Test Case 5 | input 1 = 2. Input 2 = ["beard cat", "beard cat"]. Input 3 = [].                                          | Exception thrown | yes          |
 | Test Case 5 | input 1 = 1 (impossible). Input 2 = N/A. Input 3 = N/A.                                                   | Exception thrown | yes          |
+
+
+## Method 19: ```public void doTargetedAttack()```
+### Step 1-3 Results
+|        | Input                                                | Input 2                                                     | Output                                                                                                                             |
+|--------|------------------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Name of the player from UI prompting                 | Current number of extra cards to draw (numExtraCardsToDraw) | Turn is advanced to targeted player or user is re-prompted for input, number of extra cards to draw is incremented by 1 or 2 cards |
+| Step 2 | Cases                                                | Cases                                                       | User is re-prompted for input or currPlayerIndex is updated, number of extra cards to draw is modified                             |
+| Step 3 | Empty string, Valid Player name, Invalid Player name | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0            | User is re-prompted for input or currPlayerIndex is updated, number of extra cards to draw is modified                             |
+### Step 4:
+##### All-combination or each-choice: each-choice
+ 
+|             | System under test                               | Expected output                                                                                                       | Implemented? |
+|-------------|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | Player name: ""; "John", numExtraCardsToDraw: 0 | User is re-prompted for input and currPlayerIndex is updated to John's Index, numExtraCardsToDraw is incremented by 1 | yes          |
+| Test Case 2 | Player name: "John", numExtraCardsToDraw: 0     | currPlayerIndex is updated to John's index, numExtraCardsToDraw is incremented by 1                                   | yes          |
+| Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7      | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw is incremented by 2                                   | yes          |

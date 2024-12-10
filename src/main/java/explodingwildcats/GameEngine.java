@@ -295,4 +295,62 @@ public class GameEngine {
   public Player getPlayerByName(String name) {
     return new Player("");
   }
+
+  /**
+   * Returns the correct card based on the String name.
+   *
+   * @param cardName the String version of the card.
+   * @return the Card.
+   */
+  public Card getCardByName(String cardName) {
+    switch (cardName) {
+      case "attack":
+        return Card.ATTACK;
+      case "skip":
+        return Card.SKIP;
+      case "targeted attack":
+        return Card.TARGETED_ATTACK;
+      case "shuffle":
+        return Card.SHUFFLE;
+      case "see the future":
+        return Card.SEE_THE_FUTURE;
+      case "reverse":
+        return Card.REVERSE;
+      case "draw from bottom":
+        return Card.DRAW_FROM_BOTTOM;
+      case "alter the future":
+        return Card.ALTER_THE_FUTURE;
+      case "nope":
+        return Card.NOPE;
+      case "taco cat":
+        return Card.TACO_CAT;
+      case "beard cat":
+        return Card.BEARD_CAT;
+      case "rainbow cat":
+        return Card.RAINBOW_CAT;
+      case "feral cat":
+        return Card.FERAL_CAT;
+      case "hairy potato cat":
+        return Card.HAIRY_POTATO_CAT;
+      case "exploding kitten":
+        return Card.EXPLODE;
+      case "imploding kitten":
+        return Card.IMPLODE;
+      case "defuse":
+        return Card.DEFUSE;
+      default:
+        throw new IllegalArgumentException("Could not parse input.");
+    }
+  }
+
+
+  /**
+   * TODO: Gets the index of the player in the GameEngine's Player List by their name.
+   *
+   * @param name the player name to look for.
+   * @return the index of the player in the list.
+   */
+  public int getPlayerIndexByName(String name) {
+    return 0;
+  }
 }
