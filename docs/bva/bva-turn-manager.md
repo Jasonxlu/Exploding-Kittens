@@ -279,3 +279,21 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented | yes          |
 | Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented | yes          |
 | Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | endTurn() is called             | yes          |
+
+
+## Method 16: ```public void doTargetedAttack()```
+### Step 1-3 Results
+|        | Input                                                | Input 2                                                     | Output                                                                                                                               |
+|--------|------------------------------------------------------|-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Name of the player from UI prompting                 | Current number of extra cards to draw (numExtraCardsToDraw) | Turn is advanced to targeted player or user is re-prompted for input, number of extra cards to draw is incremented if not at maximum |
+| Step 2 | Cases                                                | Interval                                                    | User is re-prompted for input or currPlayerIndex is updated, number of extra cards to draw is modified or stays constant             |
+| Step 3 | Empty string, Valid Player name, Invalid Player name | [0, 7] (7 is max number of extra cards to draw)             | User is re-prompted for input or currPlayerIndex is updated, number of extra cards to draw is modified or stays constant             |
+### Step 4:
+##### All-combination or each-choice: each-choice
+ 
+|             | System under test                              | Expected output                                                                     | Implemented? |
+|-------------|------------------------------------------------|-------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | Player name: "", numExtraCardsToDraw: 0        | User is re-prompted for input                                                       |              |
+| Test Case 2 | Player name: "John", numExtraCardsToDraw: 0    | currPlayerIndex is updated to John's index, numExtraCardsToDraw is incremented by 1 |              |
+| Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7     | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw remains constant    |              |
+| Test Case 4 | Player name: "Brennan", numExtraCardsToDraw: 2 | currPlayerIndex is updated to Brennan's index, numExtraCardsToDraw increments by 2  |              |

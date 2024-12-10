@@ -1063,6 +1063,32 @@ public class TurnManagerTests {
     EasyMock.verify(turnManager);
   }
 
+  @Test
+  public void doTargetedAttack_invalidPlayerName_noExtraCardsToDraw_promptAgainForInput() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String invalidPlayerName = "";
+    int extraCards = 0;
+
+    EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(invalidPlayerName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(invalidPlayerName)).andThrow(new NoSuchElementException("No player with that name could be found."));
+    EasyMock.expect(ui.promptTargetedAttack(true)).andReturn("John");
+    EasyMock.expect(gameEngine.getPlayerIndexByName("John")).andReturn(0);
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.doTargetedAttack();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+
+    assertEquals(extraCards, actualNumExtraCardsToDraw);
+
+    EasyMock.verify(ui, gameEngine);
+  }
+
 }
 
 

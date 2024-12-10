@@ -2,6 +2,8 @@ package explodingwildcats;
 
 import ui.UserInterface;
 
+import java.util.NoSuchElementException;
+
 /**
  * Class responsible for doing turns.
  */
@@ -252,5 +254,20 @@ public class TurnManager {
     } else {
       endTurn();
     }
+  }
+
+  public void doTargetedAttack() {
+    boolean validPlayerFound = false;
+    String name = ui.promptTargetedAttack(false);
+
+    while (!validPlayerFound) {
+      try {
+        gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.promptTargetedAttack(true);
+      }
+    }
+
   }
 }

@@ -290,4 +290,14 @@ public class GameEngine {
   public Player getPlayerByName(String name) {
     return new Player("");
   }
+
+  /**
+   * TODO: Gets the index of the player in the GameEngine's Player List by their name.
+   *
+   * @param name the player name to look for.
+   * @return the index of the player in the list.
+   */
+  public int getPlayerIndexByName(String name) {
+    return 0;
+  }
 }
