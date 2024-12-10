@@ -1167,6 +1167,22 @@ public class TurnManagerTests {
     assertEquals(expectedCard, actualCard);
   }
 
+  @Test
+  public void getPlayableCard_invalidInput() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "invalid";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "Could not parse input";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
 }
 
 
