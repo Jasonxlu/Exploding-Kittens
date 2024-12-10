@@ -350,3 +350,19 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 1 | Player name: ""; "John", numExtraCardsToDraw: 0 | User is re-prompted for input and currPlayerIndex is updated to John's Index, numExtraCardsToDraw is incremented by 1 | yes          |
 | Test Case 2 | Player name: "John", numExtraCardsToDraw: 0     | currPlayerIndex is updated to John's index, numExtraCardsToDraw is incremented by 1                                   | yes          |
 | Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7      | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw is incremented by 2                                   | yes          |
+
+
+## Method 19: ```public void doTurnLoop()```
+### Step 1-3 Results
+|        | Input                                      | Output                                           |
+|--------|--------------------------------------------|--------------------------------------------------|
+| Step 1 | Is the game over (gameEngine.isGameOver()) | None, call playTurnLoop() while game is not over |
+| Step 2 | Boolean                                    | None, method calls                               |
+| Step 3 | T/F                                        | None, call playTurnLoop() while game is not over |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test       | Expected output           | Implemented? |
+|-------------|-------------------------|---------------------------|--------------|
+| Test Case 1 | input 1: true           | returns                   | no           |
+| Test Case 2 | input 1: false --> true | calls playTurnLoop() once | no           |
