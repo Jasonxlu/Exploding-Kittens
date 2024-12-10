@@ -262,7 +262,7 @@
 | Test Case 2  | input1: ["taco cat"], input2: N/A, input 3: N/A,                                                                     | IllegalArgumentException | yes          |
 | Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F                                       | input 2                  | yes          |
 | Test Case 4  | input1: ["rainbow cat", "rainbow cat", "rainbow cat"], input2: [RAINBOW_CAT, RAINBOW_CAT, RAINBOW_CAT], input 3: T   | input 2                  | yes          |
-| Test Case 5  | input1: ["shuffle", "shuffle"], input2: [SHUFFLE, SHUFFLE], input 3: T                                               | input 2                  | no           |
+| Test Case 5  | input1: ["shuffle", "shuffle"], input2: [SHUFFLE, SHUFFLE], input 3: T                                               | input 2                  | yes          |
 | Test Case 6  | input1: ["see the future", "see the future", "see the future"], input2: [SEE_THE_FUTURE, SEE_THE_FUTURE], input 3: T | input 2                  | no           |
 | Test Case 7  | input1: ["feral cat", "hairy beard cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT], input 3: T, , input 4: valid player  | input 2                  | no           |
 | Test Case 8  | input1: ["feral cat", "hairy beard cat", "feral cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT, FERAL_CAT], input 3: T   | input 2                  | no           |
