@@ -1623,4 +1623,43 @@ public class GameEngineTests {
 
     EasyMock.verify(game);
   }
+
+  @Test
+  public void validateComboCards_catCard2xWithFeral_validCardList_validPlayer_returnCardList() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("getCardByName")
+            .addMockedMethod("getPlayerByIndex")
+            .addMockedMethod("playerHasCards")
+            .createMock();
+
+    Player player = EasyMock.createMock(Player.class);
+    int playerIndex = 0;
+
+    String c1String = "feral cat";
+    Card c1 = Card.FERAL_CAT;
+    String c2String = "beard cat";
+    Card c2 = Card.BEARD_CAT;
+    String[] cardStrings = new String[] { c1String, c2String };
+    Card[] cards = new Card[] { c1, c2 };
+
+    boolean playerHasC1 = true;
+    boolean playerHasC2 = true;
+
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+    EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
+    EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
+    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasCards(c2, playerIndex, 1)).andReturn(playerHasC2);
+
+    EasyMock.replay(game);
+
+    Card[] actualCards = game.validateComboCards(cardStrings, playerIndex);
+    assertArrayEquals(cards, actualCards);
+
+    EasyMock.verify(game);
+  }
 }

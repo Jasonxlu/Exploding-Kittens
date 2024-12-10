@@ -264,12 +264,12 @@
 | Test Case 4  | input1: ["rainbow cat", "rainbow cat", "rainbow cat"], input2: [RAINBOW_CAT, RAINBOW_CAT, RAINBOW_CAT], input 3: T   | input 2                  | yes          |
 | Test Case 5  | input1: ["shuffle", "shuffle"], input2: [SHUFFLE, SHUFFLE], input 3: T                                               | input 2                  | yes          |
 | Test Case 6  | input1: ["see the future", "see the future", "see the future"], input2: [SEE_THE_FUTURE, SEE_THE_FUTURE], input 3: T | input 2                  | yes          |
-| Test Case 7  | input1: ["feral cat", "hairy beard cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT], input 3: T, , input 4: valid player  | input 2                  | no           |
-| Test Case 8  | input1: ["feral cat", "hairy beard cat", "feral cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT, FERAL_CAT], input 3: T   | input 2                  | no           |
+| Test Case 7  | input1: ["feral cat", "beard cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT], input 3: T                                 | input 2                  | yes          |
+| Test Case 8  | input1: ["feral cat", "beard cat", "feral cat"], input2: [FERAL_CAT, HAIRY_BEARD_CAT, FERAL_CAT], input 3: T         | input 2                  | no           |
 | Test Case 9  | input1: ["shuffle", "attack"], input2: [SHUFFLE, ATTACK], input 3: T                                                 | IllegalArgumentException | no           |
 | Test Case 10 | input1: ["shuffle", "feral cat"], input2: [SHUFFLE, FERAL_CAT], input 3: T                                           | IllegalArgumentException | no           |
-| Test Case 11 | input1: ["feral cat", "taco cat", "potato cat"], input2: [FERAL_CAT, TACO_CAT, POTATO_CAT], input 3: T               | IllegalArgumentException | no           |
-| Test Case 12 | input1: ["feral cat", "taco cat", "potato cat", "shuffle"], input2: N/A, input 3: N/A                                | IllegalArgumentException | no           |
+| Test Case 11 | input1: ["feral cat", "taco cat", "hairy potato cat"], input2: [FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT], input 3: T   | IllegalArgumentException | no           |
+| Test Case 12 | input1: ["feral cat", "taco cat", "hairy potato cat", "shuffle"], input2: N/A, input 3: N/A                          | IllegalArgumentException | no           |
 | Test Case 13 | input1: ["feral cat", "taco cat"], input2: [FERAL_CAT, TACO_CAT], input 3: Exception                                 | Exception from input 3   | no           |
 
 ## Recall the 4 steps of BVA
