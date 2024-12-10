@@ -1435,4 +1435,25 @@ public class GameEngineTests {
       assertEquals(expectedCard, actualCard);
     }
   }
+
+  @Test
+  public void validateComboCards_emptyInput_emptyCardList_returnEmpty() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile)
+            .addMockedMethod("getCardByName")
+            .createMock();
+
+    String[] cardStrings = new String[0];
+    Card[] expectedCards = new Card[0];
+
+    EasyMock.replay(game);
+
+    Card[] actualCards = game.validateComboCards(cardStrings);
+    assertArrayEquals(expectedCards, actualCards);
+
+    EasyMock.verify(game);
+  }
 }

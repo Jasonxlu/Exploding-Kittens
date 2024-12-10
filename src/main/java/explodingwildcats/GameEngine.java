@@ -1,8 +1,6 @@
 package explodingwildcats;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Class responsible for setting up the game logic.
@@ -352,5 +350,14 @@ public class GameEngine {
    */
   public int getPlayerIndexByName(String name) {
     return 0;
+  }
+
+  public Card[] validateComboCards(String[] cards) {
+    HashMap<Card, Integer> cardsPlayedHashMap = new HashMap<>();
+    Card[] returnCards = Arrays.stream(cards)
+            .map(this::getCardByName)
+            .toArray(Card[]::new);
+
+    return returnCards;
   }
 }
