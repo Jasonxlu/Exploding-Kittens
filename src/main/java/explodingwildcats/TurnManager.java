@@ -248,6 +248,8 @@ public class TurnManager {
       case "feral cat":
       case "hairy potato cat":
         throw new IllegalArgumentException("You must play a cat card as a combo.");
+      default:
+        break;
     }
     throw new IllegalArgumentException("Could not parse input.");
   }
