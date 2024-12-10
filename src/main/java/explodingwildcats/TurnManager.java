@@ -12,6 +12,7 @@ public class TurnManager {
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
+  boolean playerTurnHasEnded = false;
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
@@ -153,6 +154,107 @@ public class TurnManager {
       currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
     }
   }
+
+  /**
+   * TODO: Prompts the user for which cat cards to play as a combo.
+   * Returns true if the turnManager should reprompt.
+   * Made package private to support unit testing.
+   *
+   * @param numCards the number of cards to play.
+   */
+  boolean promptAndPlayComboCatCards(int numCards) {
+    return true;
+  }
+
+
+  /**
+   * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
+   *
+   */
+  public void playCardLoop() {
+    playerTurnHasEnded = false;
+    boolean shouldReprompt = false;
+    // advanceTurn will set playerTurnHasEnded to false.
+    while (!playerTurnHasEnded) {
+      gameEngine.printCurrentPlayerHand();
+      String userInputCard = ui.promptPlayCard(shouldReprompt);
+      if (userInputCard.isEmpty()) {
+        endTurn();
+        shouldReprompt = false;
+        continue;
+      }
+
+      if (userInputCard.equals("2 cat cards")) {
+        shouldReprompt = promptAndPlayComboCatCards(2);
+        continue;
+      } else if (userInputCard.equals("3 cat cards")) {
+        shouldReprompt = promptAndPlayComboCatCards(3);
+        continue;
+      }
+
+      Card cardToPlay;
+      try {
+        cardToPlay = getPlayableCard(userInputCard);
+      } catch (Exception originalCardChosenException) {
+        // this means the player had an invalid input.
+        ui.println(originalCardChosenException.getMessage());
+        shouldReprompt = true;
+        continue;
+      }
+      boolean canPlayCard = gameEngine.playerHasCard(cardToPlay, currPlayerIndex);
+      if (!canPlayCard) {
+        shouldReprompt = true;
+      } else {
+        // check if anyone wants to play a nope before doing the card's effect.
+        if (promptPlayNope()) {
+          shouldReprompt = false;
+          continue;
+        }
+        switch (cardToPlay) {
+          case ATTACK:
+            doAttack();
+            break;
+          case SKIP:
+            doSkip();
+            break;
+          case TARGETED_ATTACK:
+            doTargetedAttack();
+            break;
+          case SHUFFLE:
+            doShuffle();
+            break;
+          case SEE_THE_FUTURE:
+            doSeeTheFuture();
+            break;
+          case REVERSE:
+            doReverse();
+            break;
+          case DRAW_FROM_BOTTOM:
+            doDrawFromBottom();
+            break;
+          case ALTER_THE_FUTURE:
+            doAlterTheFuture();
+            break;
+          default:
+            throw new IllegalArgumentException(
+                    "A card was played that should not have been played.");
+        }
+        shouldReprompt = false;
+      }
+    }
+  }
+
+
+  /**
+   * TODO: Does the effect of a targeted attack card.
+   * Should:
+   * 1. play an attack card.
+   * 2. change the current player index to the targetPlayerIndex.
+   */
+  public void doTargetedAttack() {
+
+  }
+
 
   /**
    * Does the effect of a see the future card.

@@ -1063,7 +1063,6 @@ public class TurnManagerTests {
     EasyMock.verify(turnManager);
   }
 
-  @Test
   public void getPlayableCard_attack() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
@@ -1217,6 +1216,499 @@ public class TurnManagerTests {
     assertEquals(expectedMessage, actualMessage);
   }
 
+
+  @Test
+  public void playCardLoop_UserInputEmpty_callsEndTurn_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn("");
+
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInputAttack_callsDoAttack_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("doAttack")
+            .addMockedMethod("promptPlayNope")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "attack";
+    Card userInputCard = Card.ATTACK;
+    boolean playerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    turnManager.doAttack();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInputSeeTheFuture_callsDoSeeTheFuture_doesNotEndTurn_secondUserInputIsEmpty_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("doSeeTheFuture")
+            .addMockedMethod("promptPlayNope")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "see the future";
+    Card userInputCard = Card.SEE_THE_FUTURE;
+    boolean playerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    turnManager.doSeeTheFuture();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = false; // do not terminate loop
+      return null;
+    });
+
+    gameEngine.printCurrentPlayerHand();
+    String newUserInput = "";
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInputAlterTheFuture_playerDoesNotHaveCard_secondUserInputIsEmpty_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "alter the future";
+    Card userInputCard = Card.ALTER_THE_FUTURE;
+    boolean playerHasCard = false;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+
+    boolean rePrompting = true;
+
+    gameEngine.printCurrentPlayerHand();
+    String newUserInput = "";
+    EasyMock.expect(ui.promptPlayCard(rePrompting)).andReturn(newUserInput);
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_InvalidUserInput_promptAndPlayComboCatCardsReturnsFalse_secondUserInputIsEmpty_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("promptAndPlayComboCatCards")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    String userInput = "invalid";
+    String exceptionMessage = "Could not parse input";
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andThrow(
+            new IllegalArgumentException(exceptionMessage)
+    );
+
+    ui.println(exceptionMessage);
+
+    boolean isRePrompting = true;
+
+    gameEngine.printCurrentPlayerHand();
+    String newUserInput = "";
+    EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn(newUserInput);
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoopImpossibleCase_UserInputSkip_getPlayableCardReturnsExplode_PlayerHasCardReturnsTrue_throwsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("promptPlayNope")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "skip";
+    Card impossibleCardReturn = Card.EXPLODE;
+    boolean impossiblePlayerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(impossibleCardReturn);
+    EasyMock.expect(gameEngine.playerHasCard(impossibleCardReturn, currPlayerIndex)).andReturn(impossiblePlayerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    String expectedMessage = "A card was played that should not have been played.";
+
+    Exception exception = assertThrows(IllegalArgumentException.class, turnManager::playCardLoop);
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInputAlterTheFuture_callsAlterTheFuture_doesNotEndTurn_secondUserInputSkip_callsDoSkip_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("doAlterTheFuture")
+            .addMockedMethod("doSkip")
+            .addMockedMethod("promptPlayNope")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "alter the future";
+    Card userInputCard = Card.ALTER_THE_FUTURE;
+    boolean playerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    turnManager.doAlterTheFuture();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = false; // do not terminate loop
+      return null;
+    });
+
+    gameEngine.printCurrentPlayerHand();
+    String newUserInput = "skip";
+    Card newUserInputCard = Card.SKIP;
+    boolean newPlayerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
+    EasyMock.expect(turnManager.getPlayableCard(newUserInput)).andReturn(newUserInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(newUserInputCard, currPlayerIndex)).andReturn(newPlayerHasCard);
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    turnManager.doSkip();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInputShuffle_callsShuffle_doesNotEndTurn_secondUserInputTargetedAttack_callsDoTargetedAttack_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("doShuffle")
+            .addMockedMethod("doTargetedAttack")
+            .addMockedMethod("promptPlayNope")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "shuffle";
+    Card userInputCard = Card.SHUFFLE;
+    boolean playerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    turnManager.doShuffle();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = false; // do not terminate loop
+      return null;
+    });
+
+    gameEngine.printCurrentPlayerHand();
+    String newUserInput = "targeted attack";
+    Card newUserInputCard = Card.TARGETED_ATTACK;
+    boolean newPlayerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
+    EasyMock.expect(turnManager.getPlayableCard(newUserInput)).andReturn(newUserInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(newUserInputCard, currPlayerIndex)).andReturn(newPlayerHasCard);
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    turnManager.doTargetedAttack();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInputReverse_callsDoReverse_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("doReverse")
+            .addMockedMethod("promptPlayNope")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "reverse";
+    Card userInputCard = Card.REVERSE;
+    boolean playerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    turnManager.doReverse();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInputDrawFromBottom_callsDoDrawFromBottom_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("doDrawFromBottom")
+            .addMockedMethod("promptPlayNope")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "draw from bottom";
+    Card userInputCard = Card.DRAW_FROM_BOTTOM;
+    boolean playerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope = true;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
+
+    gameEngine.printCurrentPlayerHand();
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+    boolean somebodyPlayedNope2ndTime = false;
+    EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope2ndTime);
+
+    turnManager.doDrawFromBottom();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInput2CatCards_returnsTrue_continueLoop() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("promptAndPlayComboCatCards")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    boolean isRePrompting = true;
+    String userInput = "2 cat cards";
+    int numCatCards = 2;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.promptAndPlayComboCatCards(numCatCards)).andReturn(isRePrompting);
+
+    gameEngine.printCurrentPlayerHand();
+
+    EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
+
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void playCardLoop_UserInput3CatCards_returnsFalse_continueLoop() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("promptAndPlayComboCatCards")
+            .createMock();
+
+    gameEngine.printCurrentPlayerHand();
+
+    boolean isRePrompting = false;
+    String userInput = "3 cat cards";
+    int numCatCards = 3;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.promptAndPlayComboCatCards(numCatCards)).andReturn(isRePrompting);
+
+    gameEngine.printCurrentPlayerHand();
+
+    EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
+
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
 }
 
 
