@@ -370,3 +370,19 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                        | yes          |
 | Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                                | yes          |
 | Test Case 5 | Target name: "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]          | Target is re-prompted for input, Card is removed from target player's hand and added to CurrPlayer's hand                                             | yes          |
+
+
+## Method 20: ```public void doGameLoop()```
+### Step 1-3 Results
+|        | Input                                      | Output                                           |
+|--------|--------------------------------------------|--------------------------------------------------|
+| Step 1 | Is the game over (gameEngine.isGameOver()) | None, call playCardLoop() while game is not over |
+| Step 2 | Boolean                                    | None, method calls                               |
+| Step 3 | T/F                                        | None, call playCardLoop() while game is not over |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test       | Expected output           | Implemented? |
+|-------------|-------------------------|---------------------------|--------------|
+| Test Case 1 | input 1: true           | returns                   | yes          |
+| Test Case 2 | input 1: false --> true | calls playCardLoop() once | yes          |

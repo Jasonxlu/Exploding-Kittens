@@ -169,6 +169,16 @@ public class TurnManager {
 
 
   /**
+   * Does the main game loop.
+   */
+  public void doGameLoop() {
+    while(!gameEngine.isGameOver()) {
+      playCardLoop();
+    }
+  }
+
+
+  /**
    * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
    *
    */

@@ -111,6 +111,15 @@ public class GameEngine {
   }
 
   /**
+   * Returns whether the game is over
+   *
+   * @return whether the game is over
+   */
+  public boolean isGameOver() {
+    return true;
+  }
+
+  /**
    * Add defuse cards to both player hands and the draw pile.
    */
   public void dealDefuses() {
