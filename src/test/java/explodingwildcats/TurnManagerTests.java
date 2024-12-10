@@ -1072,6 +1072,8 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
+
     EasyMock.expect(ui.promptPlayCard(false)).andReturn("");
 
     turnManager.endTurn();
@@ -1080,11 +1082,11 @@ public class TurnManagerTests {
       return null;
     });
 
-    EasyMock.replay(turnManager, ui);
+    EasyMock.replay(turnManager, gameEngine, ui);
 
     turnManager.playCardLoop();
 
-    EasyMock.verify(turnManager, ui);
+    EasyMock.verify(turnManager, gameEngine, ui);
   }
 
   @Test
@@ -1097,6 +1099,8 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doAttack")
             .createMock();
+
+    gameEngine.printCurrentPlayerHand();
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1132,6 +1136,8 @@ public class TurnManagerTests {
             .addMockedMethod("doSeeTheFuture")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
+
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1148,6 +1154,7 @@ public class TurnManagerTests {
       return null;
     });
 
+    gameEngine.printCurrentPlayerHand();
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1173,6 +1180,8 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
+
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1185,6 +1194,7 @@ public class TurnManagerTests {
 
     boolean rePrompting = true;
 
+    gameEngine.printCurrentPlayerHand();
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(rePrompting)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1211,6 +1221,8 @@ public class TurnManagerTests {
             .addMockedMethod("promptAndPlayComboCatCards")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
+
     String userInput = "invalid";
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andThrow(
@@ -1220,6 +1232,7 @@ public class TurnManagerTests {
     boolean successfulPlayComboCatCards = false;
     EasyMock.expect(turnManager.promptAndPlayComboCatCards(userInput)).andReturn(successfulPlayComboCatCards);
 
+    gameEngine.printCurrentPlayerHand();
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(!successfulPlayComboCatCards)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1245,6 +1258,8 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("promptAndPlayComboCatCards")
             .createMock();
+
+    gameEngine.printCurrentPlayerHand();
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1280,6 +1295,8 @@ public class TurnManagerTests {
             .addMockedMethod("doSkip")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
+
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1296,6 +1313,7 @@ public class TurnManagerTests {
       return null;
     });
 
+    gameEngine.printCurrentPlayerHand();
     String newUserInput = "skip";
     Card newUserInputCard = Card.SKIP;
     boolean newPlayerHasCard = true;
@@ -1328,6 +1346,8 @@ public class TurnManagerTests {
             .addMockedMethod("doTargetedAttack")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
+
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1344,6 +1364,7 @@ public class TurnManagerTests {
       return null;
     });
 
+    gameEngine.printCurrentPlayerHand();
     String newUserInput = "targeted attack";
     Card newUserInputCard = Card.TARGETED_ATTACK;
     boolean newPlayerHasCard = true;
@@ -1375,6 +1396,7 @@ public class TurnManagerTests {
             .addMockedMethod("doReverse")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1409,6 +1431,7 @@ public class TurnManagerTests {
             .addMockedMethod("doDrawFromBottom")
             .createMock();
 
+    gameEngine.printCurrentPlayerHand();
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 

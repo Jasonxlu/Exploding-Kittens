@@ -188,6 +188,7 @@ public class TurnManager {
     playerTurnHasEnded = false;
     boolean shouldReprompt = false;
     while (!playerTurnHasEnded) {
+      gameEngine.printCurrentPlayerHand();
       String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
         endTurn();
