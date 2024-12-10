@@ -1378,7 +1378,7 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
-            .addMockedMethod("promptAndPlayComboCatCards")
+            .addMockedMethod("promptAndPlayCombo")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1647,7 +1647,7 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
-            .addMockedMethod("promptAndPlayComboCatCards")
+            .addMockedMethod("promptAndPlayCombo")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1656,7 +1656,7 @@ public class TurnManagerTests {
     String userInput = "2 cat cards";
     int numCatCards = 2;
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
-    EasyMock.expect(turnManager.promptAndPlayComboCatCards(numCatCards)).andReturn(isRePrompting);
+    EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
 
     gameEngine.printCurrentPlayerHand();
 
@@ -1682,7 +1682,7 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
-            .addMockedMethod("promptAndPlayComboCatCards")
+            .addMockedMethod("promptAndPlayCombo")
             .createMock();
 
     gameEngine.printCurrentPlayerHand();
@@ -1691,7 +1691,7 @@ public class TurnManagerTests {
     String userInput = "3 cat cards";
     int numCatCards = 3;
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
-    EasyMock.expect(turnManager.promptAndPlayComboCatCards(numCatCards)).andReturn(isRePrompting);
+    EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
 
     gameEngine.printCurrentPlayerHand();
 
@@ -1706,6 +1706,41 @@ public class TurnManagerTests {
     EasyMock.replay(turnManager, gameEngine, ui);
 
     turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
+
+  @Test
+  public void promptAndPlayCombo_2Cards_inputFeralCatAndTacoCat_cardsAreAsExpected_returnsFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("validateComboCards")
+            .addMockedMethod("do2CardCombo")
+            .createMock();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = 0;
+
+    int numCards = 2;
+    String[] stringCards = new String[] { "feral cat", "taco cat" };
+    EasyMock.expect(ui.promptPlayComboCards(numCards)).andReturn(stringCards);
+
+    Card c1 = Card.FERAL_CAT;
+    Card c2 = Card.TACO_CAT;
+    Card[] cards = new Card[] { c1, c2 };
+    EasyMock.expect(turnManager.validateComboCards(stringCards)).andReturn(cards);
+
+    turnManager.do2CardCombo();
+    gameEngine.removeCardFromPlayer(c1, currPlayerIndex);
+    gameEngine.removeCardFromPlayer(c2, currPlayerIndex);
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    boolean expectedReturn = false;
+    boolean actualReturn = turnManager.promptAndPlayCombo(numCards);
+    assertEquals(expectedReturn, actualReturn);
 
     EasyMock.verify(turnManager, gameEngine, ui);
   }

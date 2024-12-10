@@ -214,4 +214,21 @@ public class UserInterface {
     }
     return scanner.nextLine().trim().toLowerCase();
   }
+
+  /**
+   * Prompts the user for which cards to play.
+   *
+   * @param numToPlay the number of cat cards to prompt the user for
+   * @return the trimmed, lowercase input
+   */
+  public String[] promptPlayComboCards(int numToPlay) {
+    String[] cards = new String[numToPlay];
+    System.out.println("Which cat cards do you want to play?");
+    for (int i = 0; i < numToPlay; i++) {
+      System.out.printf("Card #%d: ", i + 1);
+      cards[i] = scanner.nextLine().trim().toLowerCase();
+    }
+    return cards;
+  }
+
 }

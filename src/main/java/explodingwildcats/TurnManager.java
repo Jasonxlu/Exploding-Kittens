@@ -156,14 +156,37 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Prompts the user for which cat cards to play as a combo.
+   * Prompts the user for which cat cards to play as a combo.
    * Returns true if the turnManager should reprompt.
    * Made package private to support unit testing.
    *
    * @param numCards the number of cards to play.
    */
-  boolean promptAndPlayComboCatCards(int numCards) {
-    return true;
+  boolean promptAndPlayCombo(int numCards) {
+    String[] stringCards = ui.promptPlayComboCards(numCards);
+    Card[] cards = validateComboCards(stringCards);
+    if (numCards == 2) {
+      do2CardCombo();
+    } else if (numCards == 3) {
+      do3CardCombo();
+    }
+
+    for (Card card: cards) {
+      gameEngine.removeCardFromPlayer(card, currPlayerIndex);
+    }
+    return false;
+  }
+
+
+  /**
+   * TODO: Validates whether the current user has the input cards.
+   * Returns the Card[] if so, and throws an exception if it is invalid.
+   * Made package private to support unit testing.
+   *
+   * @param stringCards the string representation of the cards.
+   */
+  Card[] validateComboCards(String[] stringCards) {
+    return new Card[0];
   }
 
 
@@ -185,10 +208,10 @@ public class TurnManager {
       }
 
       if (userInputCard.equals("2 cat cards")) {
-        shouldReprompt = promptAndPlayComboCatCards(2);
+        shouldReprompt = promptAndPlayCombo(2);
         continue;
       } else if (userInputCard.equals("3 cat cards")) {
-        shouldReprompt = promptAndPlayComboCatCards(3);
+        shouldReprompt = promptAndPlayCombo(3);
         continue;
       }
 
@@ -387,4 +410,14 @@ public class TurnManager {
       endTurn();
     }
   }
+
+  /**
+   * TODO: Does the effect of a 2 card combo.
+   */
+  public void do2CardCombo() { }
+
+  /**
+   * TODO: Does the effect of a 3 card combo.
+   */
+  public void do3CardCombo() { }
 }
