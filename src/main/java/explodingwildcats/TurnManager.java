@@ -230,6 +230,8 @@ public class TurnManager {
         return Card.SKIP;
       case "targeted attack":
         return Card.TARGETED_ATTACK;
+      case "shuffle":
+        return Card.SHUFFLE;
     }
     throw new IllegalArgumentException("Could not parse input");
   }
