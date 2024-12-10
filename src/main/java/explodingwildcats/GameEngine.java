@@ -113,7 +113,7 @@ public class GameEngine {
   }
 
   /**
-   * Returns whether the game is over
+   * Returns whether the game is over.
    *
    * @return whether the game is over
    */

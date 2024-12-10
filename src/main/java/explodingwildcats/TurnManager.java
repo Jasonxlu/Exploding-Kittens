@@ -212,7 +212,7 @@ public class TurnManager {
    * Does the main game loop.
    */
   public void doGameLoop() {
-    while(!gameEngine.isGameOver()) {
+    while (!gameEngine.isGameOver()) {
       playCardLoop();
     }
   }
@@ -543,4 +543,4 @@ public class TurnManager {
     // Add the card to the current player's hand.
     gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
   }
- }
+}
