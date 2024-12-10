@@ -196,43 +196,22 @@ public class UserInterface {
 
   /**
    * Prompts the player to play a card.
+   *
+   * @param rePrompting whether the user is reprompting.
    * @return the trimmed, lowercase input
    */
-  public String promptPlayCard(boolean reprompting) {
-    if (reprompting) {
-      System.out.print("Unable to parse input. " +
-              "Hit enter to end your turn and draw a card, " +
-              "or type the name of the card you want to play " +
-              "(or type '2/3 cat cards'): ");
+  public String promptPlayCard(boolean rePrompting) {
+    if (rePrompting) {
+      System.out.print("Unable to parse input. "
+              + "Hit enter to end your turn and draw a card, "
+              + "or type the name of the card you want to play "
+              + "(or type '2/3 cat cards'): ");
     } else {
-      System.out.print("Do you want to play a card, or end your turn? " +
-              "Hit enter to end your turn and draw a card, " +
-              "or type the name of the card you want to play " +
-              "(or type '2/3 cat cards'): ");
+      System.out.print("Do you want to play a card, or end your turn? "
+              + "Hit enter to end your turn and draw a card, "
+              + "or type the name of the card you want to play "
+              + "(or type '2/3 cat cards'): ");
     }
     return scanner.nextLine().trim().toLowerCase();
-  }
-
-  /**
-   * Prints that the last user did not have the input card and prompts for a new card.
-   */
-  public void printPlayCardDoesNotHaveCardError(String cardName) {
-    System.out.printf("You do not have a %s card. " +
-            "Please choose a different card to play.%n", cardName);
-  }
-
-  /**
-   * Prompts the user for which cat cards to play.
-   * @param numToPlay the number of cat cards to prompt the user for
-   * @return the trimmed, lowercase input
-   */
-  public String[] promptPlayCatCards(int numToPlay) {
-    String[] cards = new String[numToPlay];
-    System.out.println("Which cat cards do you want to play?");
-    for (int i = 0; i < numToPlay; i++) {
-      System.out.printf("Card #%d: ", i);
-      cards[i] = scanner.nextLine().trim().toLowerCase();
-    }
-    return cards;
   }
 }

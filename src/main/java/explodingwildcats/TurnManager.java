@@ -2,11 +2,6 @@ package explodingwildcats;
 
 import ui.UserInterface;
 
-import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Class responsible for doing turns.
  */
@@ -164,6 +159,7 @@ public class TurnManager {
    * TODO: Gets the card that the player can play when it's their turn.
    * Throws an exception if the cardName string does not match a playable card.
    * Made package private to support unit testing.
+   *
    * @param cardName the string representation of the playable card.
    * @return the Card.
    */
@@ -175,6 +171,7 @@ public class TurnManager {
    * TODO: Prompts the user for which cat cards to play as a combo.
    * Throws an exception if the input is not "2 cat cards" or "3 cat cards"
    * Made package private to support unit testing.
+   *
    * @param userInputCard the string representation of the combo to play.
    * @return true if a combo was successfully played, false otherwise.
    */
@@ -183,10 +180,10 @@ public class TurnManager {
   }
 
 
-    /**
-     * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
-     *
-     */
+  /**
+   * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
+   *
+   */
   public void playCardLoop() {
     playerTurnHasEnded = false;
     boolean shouldReprompt = false;
@@ -234,7 +231,8 @@ public class TurnManager {
             doAlterTheFuture();
             break;
           default:
-            throw new IllegalArgumentException("A card was played that should not have been played.");
+            throw new IllegalArgumentException(
+                    "A card was played that should not have been played.");
         }
         shouldReprompt = false;
       }
@@ -249,20 +247,6 @@ public class TurnManager {
    * 2. change the current player index to the targetPlayerIndex.
    */
   public void doTargetedAttack() {
-
-  }
-
-  /**
-   * TODO: Does the effect of playing 2 of a kind of cat card.
-   */
-  public void do2OfAKind() {
-
-  }
-
-  /**
-   * TODO: Does the effect of playing 3 of a kind of cat card.
-   */
-  public void do3OfAKind() {
 
   }
 
