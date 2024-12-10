@@ -259,7 +259,7 @@
 |              | System under test                                                                                                                           | Expected output          | Implemented? |
 |--------------|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|--------------|
 | Test Case 1  | input1: [], input 2: N/A, input 3: N/A, input 4: N/A                                                                                        | IllegalArgumentException | yes          |
-| Test Case 2  | input1: ["taco cat"], input2: N/A, input 3: N/A, input 4: N/A                                                                               | IllegalArgumentException | no           |
+| Test Case 2  | input1: ["taco cat"], input2: N/A, input 3: N/A, input 4: N/A                                                                               | IllegalArgumentException | yes          |
 | Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F, input 4: valid player                                       | IllegalArgumentException | no           |
 | Test Case 4  | input1: ["rainbow cat", "rainbow cat", "rainbow cat"], input2: [RAINBOW_CAT, RAINBOW_CAT, RAINBOW_CAT], input 3: T, input 4: valid player   | input 2                  | no           |
 | Test Case 5  | input1: ["shuffle", "shuffle"], input2: [SHUFFLE, SHUFFLE], input 3: T, input 4: valid player                                               | input 2                  | no           |
