@@ -421,9 +421,9 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 
 |              | System under test                                                    | Expected output                            | Implemented? |
 |--------------|----------------------------------------------------------------------|--------------------------------------------|--------------|
-| Test Case 1  | Index: 0, Players: ["John", "Jane"]                                  | ui.printPlayerHand called with John's hand |              |
-| Test Case 2  | Index: 5, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]  | ui.printPlayerHand called with Baz's hand  |              |
-| Test Case 3  | Index: 6, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]  | IndexOutOfBounds Exception                 |              |
+| Test Case 1  | Index: 0, Players: ["John", "Jane"]                                  | ui.printPlayerHand called with John's hand | yes          |
+| Test Case 2  | Index: 5, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]  | ui.printPlayerHand called with Baz's hand  | yes          |
+| Test Case 3  | Index: 6, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]  | IndexOutOfBounds Exception                 | yes          |
 
 
 
