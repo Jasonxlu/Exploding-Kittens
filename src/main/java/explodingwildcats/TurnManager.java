@@ -2,6 +2,11 @@ package explodingwildcats;
 
 import ui.UserInterface;
 
+import java.util.Arrays;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Class responsible for doing turns.
  */
@@ -152,6 +157,37 @@ public class TurnManager {
     } else {
       currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
     }
+  }
+
+  /**
+   * TODO: Does the effect of a targeted attack card.
+   * Should:
+   * 1. play an attack card.
+   * 2. change the current player index to the targetPlayerIndex.
+   */
+  public void doTargetedAttack() {
+
+  }
+
+  /**
+   * TODO: Does the effect of playing 2 of a kind of cat card.
+   */
+  public void do2OfAKind() {
+
+  }
+
+  /**
+   * TODO: Does the effect of playing 3 of a kind of cat card.
+   */
+  public void do3OfAKind() {
+
+  }
+
+  /**
+   * TODO: Does the effect of playing 3 of a kind of cat card.
+   */
+  public void doSkip() {
+
   }
 
   /**
