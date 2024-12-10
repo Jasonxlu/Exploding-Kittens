@@ -1773,6 +1773,40 @@ public class TurnManagerTests {
 
     EasyMock.verify(turnManager, gameEngine, ui);
   }
+
+  @Test
+  public void promptAndPlayCombo_3Cards_input3Attack_cardsAreAsExpected_returnsFalse() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("validateComboCards")
+            .addMockedMethod("do3CardCombo")
+            .createMock();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = 0;
+
+    int numCards = 3;
+    String[] stringCards = new String[] { "attack", "attack", "attack" };
+    EasyMock.expect(ui.promptPlayComboCards(numCards)).andReturn(stringCards);
+
+    Card card = Card.ATTACK;
+    Card[] cards = new Card[] { card, card, card };
+    EasyMock.expect(turnManager.validateComboCards(stringCards)).andReturn(cards);
+
+    turnManager.do3CardCombo();
+    gameEngine.removeCardFromPlayer(card, currPlayerIndex);
+    EasyMock.expectLastCall().times(3);
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    boolean expectedReturn = false;
+    boolean actualReturn = turnManager.promptAndPlayCombo(numCards);
+    assertEquals(expectedReturn, actualReturn);
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
 }
 
 
