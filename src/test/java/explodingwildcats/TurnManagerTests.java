@@ -1824,6 +1824,30 @@ public class TurnManagerTests {
 
     EasyMock.verify(ui, gameEngine);
   }
+
+  @Test
+  public void setupGameEngine_6Players_validNames_setsUp() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int numPlayers = 6;
+    EasyMock.expect(ui.getNumberOfPlayers()).andReturn(numPlayers);
+    String[] playerNames = { "Jane", "John", "Foo", "Bar", "Alice", "Joe" };
+    EasyMock.expect(ui.getPlayerNames(numPlayers)).andReturn(playerNames);
+
+    gameEngine.setUpPlayers(numPlayers, playerNames);
+    gameEngine.createDrawPile();
+    gameEngine.dealDefuses();
+    gameEngine.dealCards();
+    gameEngine.insertExplodingAndImplodingCards();
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.setupGameEngine();
+
+    EasyMock.verify(ui, gameEngine);
+  }
 }
 
 
