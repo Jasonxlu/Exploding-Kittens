@@ -245,4 +245,37 @@ public class UserInterface {
     }
     return scanner.nextLine().trim();
   }
+
+  /**
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMustPlay2Or3CardsAsComboError() {
+    final String message = "You must play 2 or 3 cards as a combo.";
+    System.out.println(message);
+    return message;
+  }
+
+  /**
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMismatchUserCardsAndComboCount() {
+    final String message = "Number of cards returned by user does not match combo count.";
+    System.out.println(message);
+    return message;
+  }
+
+  /**
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMismatchCardValidationCardsAndComboCount() {
+    final String message = "Number of cards returned by card validation does not match combo count.";
+    System.out.println(message);
+    return message;
+  }
 }

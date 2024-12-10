@@ -1391,8 +1391,6 @@ public class TurnManagerTests {
             new IllegalArgumentException(exceptionMessage)
     );
 
-    ui.println(exceptionMessage);
-
     boolean isRePrompting = true;
 
     gameEngine.printCurrentPlayerHand();
@@ -1764,7 +1762,6 @@ public class TurnManagerTests {
     EasyMock.expect(turnManager.validateComboCards(stringCards)).andThrow(
             new IllegalArgumentException(exceptionMessage)
     );
-    ui.println(exceptionMessage);
 
     EasyMock.replay(turnManager, gameEngine, ui);
 
@@ -1823,9 +1820,11 @@ public class TurnManagerTests {
     String[] stringCards = new String[0];
     EasyMock.expect(ui.promptPlayComboCards(numCards)).andReturn(stringCards);
 
+    String expectedMessage = "Number of cards returned by user does not match combo count.";
+    EasyMock.expect(ui.printMismatchUserCardsAndComboCount()).andReturn(expectedMessage);
+
     EasyMock.replay(turnManager, gameEngine, ui);
 
-    String expectedMessage = "Number of cards returned by user does not match combo count.";
     Exception exception = assertThrows(IllegalStateException.class, () -> {
       turnManager.promptAndPlayCombo(numCards);
     });
@@ -1853,9 +1852,11 @@ public class TurnManagerTests {
     Card[] validateCardsReturn = new Card[0];
     EasyMock.expect(turnManager.validateComboCards(stringCards)).andReturn(validateCardsReturn);
 
+    String expectedMessage = "Number of cards returned by card validation does not match combo count.";
+    EasyMock.expect(ui.printMismatchCardValidationCardsAndComboCount()).andReturn(expectedMessage);
+
     EasyMock.replay(turnManager, gameEngine, ui);
 
-    String expectedMessage = "Number of cards returned by card validation does not match combo count.";
     Exception exception = assertThrows(IllegalStateException.class, () -> {
       turnManager.promptAndPlayCombo(numCards);
     });
@@ -1872,11 +1873,12 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
+    String expectedMessage = "You must play 2 or 3 cards as a combo.";
     int numCards = 1;
+    EasyMock.expect(ui.printMustPlay2Or3CardsAsComboError()).andReturn(expectedMessage);
 
     EasyMock.replay(gameEngine, ui);
 
-    String expectedMessage = "You must play 2 or 3 cards as a combo.";
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       turnManager.promptAndPlayCombo(numCards);
     });

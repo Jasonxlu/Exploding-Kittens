@@ -165,23 +165,23 @@ public class TurnManager {
    */
   boolean promptAndPlayCombo(int numCards) {
     if (numCards != 2 && numCards != 3) {
-      throw new IllegalArgumentException("You must play 2 or 3 cards as a combo.");
+      String errorMessage = ui.printMustPlay2Or3CardsAsComboError();
+      throw new IllegalArgumentException(errorMessage);
     }
     String[] stringCards = ui.promptPlayComboCards(numCards);
     if (stringCards.length != numCards) {
-      throw new IllegalStateException(
-              "Number of cards returned by user does not match combo count.");
+      String errorMessage = ui.printMismatchUserCardsAndComboCount();
+      throw new IllegalStateException(errorMessage);
     }
     Card[] cards;
     try {
       cards = validateComboCards(stringCards);
     } catch (Exception validateCardException) {
-      ui.println(validateCardException.getMessage());
       return true;
     }
     if (cards.length != numCards) {
-      throw new IllegalStateException(
-              "Number of cards returned by card validation does not match combo count.");
+      String message = ui.printMismatchCardValidationCardsAndComboCount();
+      throw new IllegalStateException(message);
     }
     if (numCards == 2) {
       do2CardCombo();
@@ -238,7 +238,6 @@ public class TurnManager {
         cardToPlay = getPlayableCard(userInputCard);
       } catch (Exception originalCardChosenException) {
         // this means the player had an invalid input.
-        ui.println(originalCardChosenException.getMessage());
         shouldReprompt = true;
         continue;
       }
