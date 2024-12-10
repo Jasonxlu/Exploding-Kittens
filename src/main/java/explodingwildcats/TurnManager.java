@@ -168,6 +168,11 @@ public class TurnManager {
   }
 
 
+  public void doGameLoop() {
+    gameEngine.isGameOver();
+  }
+
+
   /**
    * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
    *

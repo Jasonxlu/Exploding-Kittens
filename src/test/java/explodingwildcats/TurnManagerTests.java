@@ -1800,6 +1800,25 @@ public class TurnManagerTests {
 
     EasyMock.verify(ui, gameEngine);
   }
+
+  @Test
+  public void doGameLoop_gameIsOver() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("playCardLoop")
+            .createMock();
+
+    boolean isGameOver = true;
+    EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.doGameLoop();
+
+    EasyMock.verify(ui, gameEngine);
+  }
 }
 
 
