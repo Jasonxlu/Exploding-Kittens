@@ -2303,6 +2303,50 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, ui, john);
   }
+
+  @Test
+  public void printPlayerHand_maxIndex_maxPlayers_printsPlayerHand() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int playerIndex = 5;
+
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
+    Player brennan = EasyMock.createMock(Player.class);
+    Player foo = EasyMock.createMock(Player.class);
+    Player bar = EasyMock.createMock(Player.class);
+    Player baz = EasyMock.createMock(Player.class);
+    Card[] hand = {Card.ATTACK, Card.SKIP, Card.SHUFFLE};
+
+    // Get all players in GameEngine, if players are less than index then expect exception
+    List<Player> players = new ArrayList<>();
+    players.add(john);
+    players.add(jane);
+    players.add(brennan);
+    players.add(foo);
+    players.add(bar);
+    players.add(baz);
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    EasyMock.expect(gameEngine.getPlayerByIndex(playerIndex)).andReturn(baz);
+    EasyMock.expect(baz.getHand()).andReturn(hand);
+
+    // Turn hand from Card[] to String[]
+    String[] handString = new String[hand.length];
+    for (int i = 0; i < hand.length; i++) {
+      handString[i] = hand[i].toString();
+    }
+
+    ui.printPlayerHand(handString);
+
+    EasyMock.replay(gameEngine, ui, baz);
+
+    turnManager.printPlayerHand(playerIndex);
+
+    EasyMock.verify(gameEngine, ui, baz);
+  }
 }
 
 

@@ -510,7 +510,7 @@ public class TurnManager {
    */
   public void printPlayerHand(int playerIndex) {
     // Check that the player index is valid.
-    if (playerIndex < 0 || playerIndex >= gameEngine.getPlayers().size() - 1) {
+    if (playerIndex < 0 || playerIndex > gameEngine.getPlayers().size() - 1) {
       throw new IndexOutOfBoundsException("Player index is out of bounds.");
     }
 
