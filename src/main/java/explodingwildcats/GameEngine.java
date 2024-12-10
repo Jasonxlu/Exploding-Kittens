@@ -413,7 +413,9 @@ public class GameEngine {
         }
       }
     } else {
-      return returnCards;
+      if (cardsPlayedHashMap.keySet().size() != 1) {
+        throw new IllegalArgumentException("Cards must be matching.");
+      }
     }
 
 
