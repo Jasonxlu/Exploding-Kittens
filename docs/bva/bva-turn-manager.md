@@ -279,3 +279,27 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented | yes          |
 | Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented | yes          |
 | Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | endTurn() is called             | yes          |
+
+
+## Method 16: ```public void getPlayableCard()```
+### Step 1-3 Results
+|        | Input                                                                                                                                  | Output                                                                                                                  |
+|--------|----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | String representation of card                                                                                                          | The Card object, or exception if it is not a playable card.                                                             |
+| Step 2 | String                                                                                                                                 | Cases (or exception)                                                                                                    |
+| Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope" | Card.ATTACK, SKIP, TARGETED_ATTACK, SHUFFLE, SEE_THE_FUTURE, REVERSE, DRAW_FROM_BOTTOM, ALTER_THE_FUTURE, or exception. |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test  | Expected output          | Implemented? |
+|--------------|--------------------|--------------------------|--------------|
+| Test Case 1  | "attack"           | Card.ATTACK              | no           |
+| Test Case 2  | "skip"             | Card.ATTACK              | no           |
+| Test Case 3  | "targeted attack"  | Card.TARGETED_ATTACK     | no           |
+| Test Case 4  | "shuffle"          | Card.SHUFFLE             | no           |
+| Test Case 5  | "see the future"   | Card.SEE_THE_FUTURE      | no           |
+| Test Case 6  | "reverse"          | Card.REVERSE             | no           |
+| Test Case 7  | "draw from bottom" | Card.DRAW_FROM_BOTTOM    | no           |
+| Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | no           |
+| Test Case 9  | "invalid"          | IllegalArgumentException | no           |
+| Test Case 10 | "nope"             | IllegalArgumentException | no           |
