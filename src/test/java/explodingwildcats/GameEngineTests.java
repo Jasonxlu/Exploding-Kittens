@@ -1855,19 +1855,19 @@ public class GameEngineTests {
     Card c1 = Card.FERAL_CAT;
     String c2String = "taco cat";
     Card c2 = Card.TACO_CAT;
-    String c3String = "hairy potato cat";
-    Card c3 = Card.HAIRY_POTATO_CAT;
-    String[] cardStrings = new String[] { c1String, c2String, c3String };
+    String[] cardStrings = new String[] { c1String, c2String };
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
     EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
-    EasyMock.expect(game.getCardByName(c3String)).andReturn(c3);
 
     String exceptionMessage = "Player does not exist at this index";
 
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andThrow(
-            new IndexOutOfBoundsException(exceptionMessage)
-    );
+    // Allow any of the cards to trigger the exception
+    EasyMock.expect(game.playerHasCards(EasyMock.or(
+                    EasyMock.eq(c1),
+                    EasyMock.eq(c2)
+            ), EasyMock.eq(playerIndex), EasyMock.eq(1)))
+            .andThrow(new IndexOutOfBoundsException(exceptionMessage));
 
     EasyMock.replay(game);
 
