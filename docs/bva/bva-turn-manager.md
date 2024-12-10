@@ -291,9 +291,9 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ### Step 4:
 ##### All-combination or each-choice: each-choice
  
-|             | System under test                              | Expected output                                                                     | Implemented? |
-|-------------|------------------------------------------------|-------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | Player name: "", numExtraCardsToDraw: 0        | User is re-prompted for input                                                       |              |
-| Test Case 2 | Player name: "John", numExtraCardsToDraw: 0    | currPlayerIndex is updated to John's index, numExtraCardsToDraw is incremented by 1 |              |
-| Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7     | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw remains constant    |              |
-| Test Case 4 | Player name: "Brennan", numExtraCardsToDraw: 2 | currPlayerIndex is updated to Brennan's index, numExtraCardsToDraw increments by 2  |              |
+|             | System under test                               | Expected output                                                                                                       | Implemented? |
+|-------------|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | Player name: ""; "John", numExtraCardsToDraw: 0 | User is re-prompted for input and currPlayerIndex is updated to John's Index, numExtraCardsToDraw is incremented by 1 | yes          |
+| Test Case 2 | Player name: "John", numExtraCardsToDraw: 0     | currPlayerIndex is updated to John's index, numExtraCardsToDraw is incremented by 1                                   |              |
+| Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7      | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw remains constant                                      |              |
+| Test Case 4 | Player name: "Brennan", numExtraCardsToDraw: 2  | currPlayerIndex is updated to Brennan's index, numExtraCardsToDraw increments by 2                                    |              |

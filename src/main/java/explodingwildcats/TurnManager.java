@@ -259,14 +259,22 @@ public class TurnManager {
   public void doTargetedAttack() {
     boolean validPlayerFound = false;
     String name = ui.promptTargetedAttack(false);
+    ;
 
     while (!validPlayerFound) {
       try {
-        gameEngine.getPlayerIndexByName(name);
+        currPlayerIndex = gameEngine.getPlayerIndexByName(name);
         validPlayerFound = true;
       } catch (NoSuchElementException e) {
         name = ui.promptTargetedAttack(true);
       }
+    }
+
+    // Update the number of extra cards to draw.
+    if (numExtraCardsToDraw == 0) {
+      numExtraCardsToDraw += 1;
+    } else {
+      numExtraCardsToDraw += 2;
     }
 
   }

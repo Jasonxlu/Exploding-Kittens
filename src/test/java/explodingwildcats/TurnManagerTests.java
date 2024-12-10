@@ -1070,12 +1070,14 @@ public class TurnManagerTests {
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
     String invalidPlayerName = "";
+    int currPlayerIndex = 3;
+    int expectedPlayerIndex = 0;
     int extraCards = 0;
 
     EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(invalidPlayerName);
     EasyMock.expect(gameEngine.getPlayerIndexByName(invalidPlayerName)).andThrow(new NoSuchElementException("No player with that name could be found."));
     EasyMock.expect(ui.promptTargetedAttack(true)).andReturn("John");
-    EasyMock.expect(gameEngine.getPlayerIndexByName("John")).andReturn(0);
+    EasyMock.expect(gameEngine.getPlayerIndexByName("John")).andReturn(expectedPlayerIndex);
 
     EasyMock.replay(ui, gameEngine);
 
@@ -1083,8 +1085,41 @@ public class TurnManagerTests {
     turnManager.doTargetedAttack();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int actualPlayerIndex = turnManager.currPlayerIndex;
+    int expectedNumExtraCardsToDraw = extraCards + 1;
 
-    assertEquals(extraCards, actualNumExtraCardsToDraw);
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+    assertEquals(expectedPlayerIndex, actualPlayerIndex);
+
+    EasyMock.verify(ui, gameEngine);
+  }
+
+  @Test
+  public void doTargetedAttack_validPlayerName_noExtraCardsToDraw_extraCardsToDrawIncrementedByOneAndPlayerIndexUpdated() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String validPlayerName = "John";
+    int extraCards = 0;
+    int currPlayerIndex = 0;
+    int expectedPlayerIndex = 2;
+
+    EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(validPlayerName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(expectedPlayerIndex);
+
+    EasyMock.replay(ui, gameEngine);
+
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.currPlayerIndex = currPlayerIndex;
+    turnManager.doTargetedAttack();
+
+    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
+    int actualPlayerIndex = turnManager.currPlayerIndex;
+    int expectedNumExtraCardsToDraw = extraCards + 1;
+
+    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+    assertEquals(expectedPlayerIndex, actualPlayerIndex);
 
     EasyMock.verify(ui, gameEngine);
   }
