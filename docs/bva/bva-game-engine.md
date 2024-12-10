@@ -214,6 +214,38 @@
 | Test Case 4 | index: 6, num of players: 6  | IndexOutOfBoundsException                | yes          |
 
 
+## Method 13: ```public void getCardByName(String cardName)```
+### Step 1-3 Results
+|        | Input                                                                                                                                                                                                                                                             | Output                                                      |
+|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| Step 1 | String representation of card                                                                                                                                                                                                                                     | The Card object, or exception if it is not a playable card. |
+| Step 2 | String                                                                                                                                                                                                                                                            | Cases (or exception)                                        |
+| Step 3 | "attack", "skip", "targeted attack", "shuffle", "see the future", "reverse", "draw from bottom", "alter the future", "invalid", "nope", "rainbow cat", "taco cat", "beard cat", "feral cat", "hairy potato cat", "exploding kitten", "imploding kitten", "defuse" | Each of the Cards in the enum or exception.                 |
+### Step 4:
+##### All-combination or each-choice: all-combination
+
+|              | System under test  | Expected output          | Implemented? |
+|--------------|--------------------|--------------------------|--------------|
+| Test Case 1  | "attack"           | Card.ATTACK              | no           |
+| Test Case 2  | "skip"             | Card.ATTACK              | no           |
+| Test Case 3  | "targeted attack"  | Card.TARGETED_ATTACK     | no           |
+| Test Case 4  | "shuffle"          | Card.SHUFFLE             | no           |
+| Test Case 5  | "see the future"   | Card.SEE_THE_FUTURE      | no           |
+| Test Case 6  | "reverse"          | Card.REVERSE             | no           |
+| Test Case 7  | "draw from bottom" | Card.DRAW_FROM_BOTTOM    | no           |
+| Test Case 8  | "alter the future" | Card.ALTER_THE_FUTURE    | no           |
+| Test Case 9  | "invalid"          | IllegalArgumentException | no           |
+| Test Case 10 | "nope"             | Card.NOPE                | no           |
+| Test Case 11 | "taco cat"         | Card.TACO_CAT            | no           |
+| Test Case 12 | "beard cat"        | Card.BEARD_CAT           | no           |
+| Test Case 13 | "rainbow cat"      | Card.RAINBOW_CAT         | no           |
+| Test Case 14 | "feral cat"        | Card.FERAL_CAT           | no           |
+| Test Case 15 | "hairy potato cat" | Card.HAIRY_POTATO_CAT    | no           |
+| Test Case 16 | "exploding kitten" | Card.EXPLODE             | no           |
+| Test Case 17 | "imploding kitten" | Card.IMPLODE             | no           |
+| Test Case 18 | "defuse"           | Card.DEFUSE              | no           |
+
+
 ## Method 14: ```public Card[] validateComboCards(String[] cards)```
 ### Step 1-3 Results
 |        | Input 1                                     | Input 2                                                                                                                                           | Input 3              | Output                                            |
@@ -237,6 +269,7 @@
 | Test Case 9  | input1: ["shuffle", "attack"], input2: [SHUFFLE, ATTACK], input 3: T                                                 | IllegalArgumentException | no           |
 | Test Case 10 | input1: ["shuffle", "feral cat"], input2: [SHUFFLE, FERAL_CAT], input 3: T                                           | IllegalArgumentException | no           |
 | Test Case 11 | input1: ["feral cat", "taco cat", "potato cat"], input2: [FERAL_CAT, TACO_CAT, POTATO_CAT], input 3: T               | IllegalArgumentException | no           |
+
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.

@@ -2,6 +2,8 @@ package explodingwildcats;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -1349,5 +1351,88 @@ public class GameEngineTests {
     assertEquals(expectedMessage, actualMessage);
 
     EasyMock.verify(playerFactory, cardPileFactory);
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+          "attack", "skip", "targeted attack", "shuffle",
+          "see the future", "reverse", "draw from bottom",
+          "alter the future", "invalid", "nope", "rainbow cat",
+          "taco cat", "beard cat", "feral cat", "hairy potato cat",
+          "exploding kitten", "imploding kitten", "defuse"
+  })
+  public void getCardByName_allCards(String cardName) {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile);
+
+    Card expectedCard = null;
+    switch (cardName) {
+      case "attack":
+        expectedCard = Card.ATTACK;
+        break;
+      case "skip":
+        expectedCard = Card.SKIP;
+        break;
+      case "targeted attack":
+        expectedCard = Card.TARGETED_ATTACK;
+        break;
+      case "shuffle":
+        expectedCard = Card.SHUFFLE;
+        break;
+      case "see the future":
+        expectedCard = Card.SEE_THE_FUTURE;
+        break;
+      case "reverse":
+        expectedCard = Card.REVERSE;
+        break;
+      case "draw from bottom":
+        expectedCard = Card.DRAW_FROM_BOTTOM;
+        break;
+      case "alter the future":
+        expectedCard = Card.ALTER_THE_FUTURE;
+        break;
+      case "nope":
+        expectedCard = Card.NOPE;
+        break;
+      case "taco cat":
+        expectedCard = Card.TACO_CAT;
+        break;
+      case "beard cat":
+        expectedCard = Card.BEARD_CAT;
+        break;
+      case "rainbow cat":
+        expectedCard = Card.RAINBOW_CAT;
+        break;
+      case "feral cat":
+        expectedCard = Card.FERAL_CAT;
+        break;
+      case "hairy potato cat":
+        expectedCard = Card.HAIRY_POTATO_CAT;
+        break;
+      case "exploding kitten":
+        expectedCard = Card.EXPLODE;
+        break;
+      case "imploding kitten":
+        expectedCard = Card.IMPLODE;
+        break;
+      case "defuse":
+        expectedCard = Card.DEFUSE;
+        break;
+      default:
+        break;
+    }
+    if (expectedCard == null) {
+      Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        game.getCardByName(cardName);
+      });
+      String expectedMessage = "Could not parse input.";
+      String actualMessage = exception.getMessage();
+      assertEquals(expectedMessage, actualMessage);
+    } else {
+      Card actualCard = game.getCardByName(cardName);
+      assertEquals(expectedCard, actualCard);
+    }
   }
 }
