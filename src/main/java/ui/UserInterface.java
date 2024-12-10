@@ -216,6 +216,22 @@ public class UserInterface {
   }
 
   /**
+   * Prompts the user for which cards to play.
+   *
+   * @param numToPlay the number of cat cards to prompt the user for
+   * @return the trimmed, lowercase input
+   */
+  public String[] promptPlayComboCards(int numToPlay) {
+    String[] cards = new String[numToPlay];
+    System.out.println("Which cat cards do you want to play?");
+    for (int i = 0; i < numToPlay; i++) {
+      System.out.printf("Card #%d: ", i + 1);
+      cards[i] = scanner.nextLine().trim().toLowerCase();
+    }
+    return cards;
+  }
+
+  /**
    * Prompts the user to for a target player to attack.
    *
    * @param isRetry whether this is a retry prompt.
@@ -228,6 +244,40 @@ public class UserInterface {
       System.out.println("Who would you like to attack? Please type in the player's name.");
     }
     return scanner.nextLine().trim();
+  }
+
+  /**
+<<<<<<< HEAD
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMustPlay2Or3CardsAsComboError() {
+    final String message = "You must play 2 or 3 cards as a combo.";
+    System.out.println(message);
+    return message;
+  }
+
+  /**
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMismatchUserCardsAndComboCount() {
+    final String message = "Number of cards returned by user does not match combo count.";
+    System.out.println(message);
+    return message;
+  }
+
+  /**
+   * Print and return the error message.
+   *
+   * @return the error message
+   */
+  public String printMismatchCardValidationCardsAndComboCount() {
+    final String message = "Number of cards returned by card validation does not match combo count.";
+    System.out.println(message);
+    return message;
   }
 
   /**

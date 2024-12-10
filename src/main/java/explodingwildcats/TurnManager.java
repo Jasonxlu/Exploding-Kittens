@@ -157,14 +157,54 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Prompts the user for which cat cards to play as a combo.
+   * Prompts the user for which cat cards to play as a combo.
    * Returns true if the turnManager should reprompt.
    * Made package private to support unit testing.
    *
    * @param numCards the number of cards to play.
    */
-  boolean promptAndPlayComboCatCards(int numCards) {
-    return true;
+  boolean promptAndPlayCombo(int numCards) {
+    if (numCards != 2 && numCards != 3) {
+      String errorMessage = ui.printMustPlay2Or3CardsAsComboError();
+      throw new IllegalArgumentException(errorMessage);
+    }
+    String[] stringCards = ui.promptPlayComboCards(numCards);
+    if (stringCards.length != numCards) {
+      String errorMessage = ui.printMismatchUserCardsAndComboCount();
+      throw new IllegalStateException(errorMessage);
+    }
+    Card[] cards;
+    try {
+      cards = validateComboCards(stringCards);
+    } catch (Exception validateCardException) {
+      return true;
+    }
+    if (cards.length != numCards) {
+      String message = ui.printMismatchCardValidationCardsAndComboCount();
+      throw new IllegalStateException(message);
+    }
+    if (numCards == 2) {
+      do2CardCombo();
+    } else {
+      do3CardCombo();
+    }
+
+    for (Card card : cards) {
+      gameEngine.removeCardFromPlayer(card, currPlayerIndex);
+    }
+    return false;
+  }
+
+
+  /**
+   * TODO: Validates whether the current user has the input cards.
+   * Returns the Card[] if so, and throws an exception if it is invalid.
+   * Made package private to support unit testing.
+   *
+   * @param stringCards the string representation of the cards.
+   */
+  Card[] validateComboCards(String[] stringCards) {
+    return new Card[0];
   }
 
 
@@ -196,10 +236,10 @@ public class TurnManager {
       }
 
       if (userInputCard.equals("2 cat cards")) {
-        shouldReprompt = promptAndPlayComboCatCards(2);
+        shouldReprompt = promptAndPlayCombo(2);
         continue;
       } else if (userInputCard.equals("3 cat cards")) {
-        shouldReprompt = promptAndPlayComboCatCards(3);
+        shouldReprompt = promptAndPlayCombo(3);
         continue;
       }
 
@@ -208,7 +248,6 @@ public class TurnManager {
         cardToPlay = getPlayableCard(userInputCard);
       } catch (Exception originalCardChosenException) {
         // this means the player had an invalid input.
-        ui.println(originalCardChosenException.getMessage());
         shouldReprompt = true;
         continue;
       }
@@ -388,6 +427,11 @@ public class TurnManager {
       endTurn();
     }
   }
+
+  /**
+   * TODO: Does the effect of a 3 card combo.
+   */
+  public void do3CardCombo() {}
 
   /**
    * Does the effect of a targeted attack card.
