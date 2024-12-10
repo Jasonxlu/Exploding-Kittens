@@ -6,12 +6,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ui.UserInterface;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import java.util.Collections;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -2277,10 +2276,18 @@ public class TurnManagerTests {
 
     int playerIndex = 0;
 
-    Player player = EasyMock.createMock(Player.class);
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
     Card[] hand = {Card.ATTACK, Card.SKIP, Card.SHUFFLE};
-    EasyMock.expect(gameEngine.getPlayerByIndex(playerIndex)).andReturn(player);
-    EasyMock.expect(player.getHand()).andReturn(hand);
+
+    // Get all players in GameEngine, if players are less than index then expect exception
+    List<Player> players = new ArrayList<>();
+    players.add(john);
+    players.add(jane);
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    EasyMock.expect(gameEngine.getPlayerByIndex(playerIndex)).andReturn(john);
+    EasyMock.expect(john.getHand()).andReturn(hand);
 
     // Turn hand from Card[] to String[]
     String[] handString = new String[hand.length];
@@ -2290,11 +2297,11 @@ public class TurnManagerTests {
 
     ui.printPlayerHand(handString);
 
-    EasyMock.replay(gameEngine, ui, player);
+    EasyMock.replay(gameEngine, ui, john);
 
     turnManager.printPlayerHand(playerIndex);
 
-    EasyMock.verify(gameEngine, ui, player);
+    EasyMock.verify(gameEngine, ui, john);
   }
 }
 

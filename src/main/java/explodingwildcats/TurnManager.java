@@ -509,6 +509,11 @@ public class TurnManager {
    * @param playerIndex the index of the player
    */
   public void printPlayerHand(int playerIndex) {
+    // Check that the player index is valid.
+    if (playerIndex < 0 || playerIndex >= gameEngine.getPlayers().size() - 1) {
+      throw new IndexOutOfBoundsException("Player index is out of bounds.");
+    }
+
     Player player = gameEngine.getPlayerByIndex(playerIndex);
     Card[] hand = player.getHand();
 
