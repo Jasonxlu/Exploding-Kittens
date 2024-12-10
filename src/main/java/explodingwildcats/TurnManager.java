@@ -168,8 +168,13 @@ public class TurnManager {
   }
 
 
+  /**
+   * Does the main game loop.
+   */
   public void doGameLoop() {
-    gameEngine.isGameOver();
+    while(!gameEngine.isGameOver()) {
+      playCardLoop();
+    }
   }
 
 
