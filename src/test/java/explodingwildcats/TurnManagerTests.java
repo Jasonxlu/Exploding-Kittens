@@ -1234,6 +1234,39 @@ public class TurnManagerTests {
 
     EasyMock.verify(turnManager, gameEngine, ui);
   }
+
+  @Test
+  public void playCardLoopImpossibleCase_UserInputSkip_getPlayableCardReturnsExplode_PlayerHasCardReturnsTrue_throwsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("promptAndPlayComboCatCards")
+            .createMock();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "skip";
+    Card impossibleCardReturn = Card.EXPLODE;
+    boolean impossiblePlayerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(impossibleCardReturn);
+    EasyMock.expect(gameEngine.playerHasCard(impossibleCardReturn, currPlayerIndex)).andReturn(impossiblePlayerHasCard);
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    String expectedMessage = "A card was played that should not have been played.";
+
+    Exception exception = assertThrows(IllegalArgumentException.class, turnManager::playCardLoop);
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
 }
 
 
