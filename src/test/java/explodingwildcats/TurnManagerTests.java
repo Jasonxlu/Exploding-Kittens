@@ -1199,6 +1199,41 @@ public class TurnManagerTests {
 
     EasyMock.verify(turnManager, gameEngine, ui);
   }
+
+  @Test
+  public void playCardLoop_InvalidUserInput_promptAndPlayComboCatCardsReturnsFalse_secondUserInputIsEmpty_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("promptAndPlayComboCatCards")
+            .createMock();
+
+    String userInput = "invalid";
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andThrow(
+            new IllegalArgumentException("Could not parse input")
+    );
+
+    boolean successfulPlayComboCatCards = false;
+    EasyMock.expect(turnManager.promptAndPlayComboCatCards(userInput)).andReturn(successfulPlayComboCatCards);
+
+    String newUserInput = "";
+    EasyMock.expect(ui.promptPlayCard(!successfulPlayComboCatCards)).andReturn(newUserInput);
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
 }
 
 

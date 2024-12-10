@@ -172,9 +172,21 @@ public class TurnManager {
   }
 
   /**
-   * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
-   *
+   * TODO: Prompts the user for which cat cards to play as a combo.
+   * Throws an exception if the input is not "2 cat cards" or "3 cat cards"
+   * Made package private to support unit testing.
+   * @param userInputCard the string representation of the combo to play.
+   * @return true if a combo was successfully played, false otherwise.
    */
+  boolean promptAndPlayComboCatCards(String userInputCard) {
+    return true;
+  }
+
+
+    /**
+     * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
+     *
+     */
   public void playCardLoop() {
     playerTurnHasEnded = false;
     boolean shouldReprompt = false;
@@ -189,7 +201,7 @@ public class TurnManager {
       try {
         cardToPlay = getPlayableCard(userInputCard);
       } catch (Exception originalCardChosenException) {
-        shouldReprompt = true;
+        shouldReprompt = !promptAndPlayComboCatCards(userInputCard);
         continue;
       }
       boolean canPlayCard = gameEngine.playerHasCard(cardToPlay, currPlayerIndex);
