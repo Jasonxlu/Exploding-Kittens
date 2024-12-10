@@ -17,6 +17,7 @@ public class TurnManager {
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
+  boolean playerTurnHasEnded = false;
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
@@ -158,6 +159,21 @@ public class TurnManager {
       currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
     }
   }
+
+  /**
+   * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
+   *
+   */
+  public void playCardLoop() {
+    playerTurnHasEnded = false;
+    while (!playerTurnHasEnded) {
+      String userInputCard = ui.promptPlayCard(false);
+      if (userInputCard.isEmpty()) {
+        endTurn();
+      }
+    }
+  }
+
 
   /**
    * TODO: Does the effect of a targeted attack card.

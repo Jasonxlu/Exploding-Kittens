@@ -1063,6 +1063,30 @@ public class TurnManagerTests {
     EasyMock.verify(turnManager);
   }
 
+  @Test
+  public void playCardLoop_UserInputEmpty_callsEndTurn_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .createMock();
+
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn("");
+
+    turnManager.endTurn();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // Manually terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, ui);
+  }
+
 }
 
 
