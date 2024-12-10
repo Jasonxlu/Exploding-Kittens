@@ -336,3 +336,23 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 10 | input1 = valid card ("draw from bottom"), input2 = DRAW_FROM_BOTTOM, input3 = true (can play). Input 4 = N/A. Input 6 = true. Should reprompt. Use the same inputs, and make input 5 true so it doesn't prompt again.                                                                                                           | Continue loop, then calls `doDrawFromBottom()` and ends loop                     | yes          |
 | Test Case 11 | input1 = valid play combo input ("2 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(2), which returns false. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                | Calls `promptAndPlayComboCatCards(2)` and continues loop.                        | yes          |
 | Test Case 12 | input1 = valid play combo input ("3 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(3), which returns true. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                 | Calls `promptAndPlayComboCatCards(3)` and continues loop.                        | yes          |
+
+
+## Method 17: ```public void promptAndPlayCombo(int numCards)```
+### Step 1-3 Results
+|        | Input 1  | Input 2                                                      | Input 3                                                             | Output                                                                   |
+|--------|----------|--------------------------------------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
+| Step 1 | numCards | String representation of the cards from ui.promptPlayCombo() | Card representation of the cards (from validateCards), or exception | Whether the turnManager should reprompt the user for input, or exception |
+| Step 2 | Interval | Collection                                                   | Collection (of cases, but we do the same thing for each case).      | Boolean or exception                                                     |
+| Step 3 | [2,3]    | [2 elements], [3 elements], [] (impossible)                  | [2 elements], [3 elements], [] (impossible)                         | T/F, exception                                                           |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                                                                         | Expected output  | Implemented? |
+|-------------|-----------------------------------------------------------------------------------------------------------|------------------|--------------|
+| Test Case 1 | input 1 = 2. Input 2 = ["feral cat", "taco cat"]. Input 3 = [Card.FERAL_CAT, Card.TACO_CAT].              | false            | no           |
+| Test Case 2 | input 1 = 2. Input 2 = ["shuffle", "taco cat"]. Input 3 = exception.                                      | true             | no           |
+| Test Case 3 | input 1 = 3. Input 2 = ["attack", "attack", "attack"]. Input 3 = [Card.ATTACK, Card.ATTACK, Card.ATTACK]. | true             | no           |
+| Test Case 4 | input 1 = 3. Input 2 = [] (impossible). Input 3 = N/A.                                                    | Exception thrown | no           |
+| Test Case 5 | input 1 = 2. Input 2 = ["beard cat", "beard cat cat"]. Input 3 = [].                                      | Exception thrown | no           |
