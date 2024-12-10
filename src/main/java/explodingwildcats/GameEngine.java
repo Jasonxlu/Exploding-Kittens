@@ -345,7 +345,7 @@ public class GameEngine {
 
 
   /**
-   * TODO: Gets the index of the player in the GameEngine's Player List by their name.
+   * Gets the index of the player in the GameEngine's Player List by their name.
    *
    * @param name the player name to look for.
    * @return the index of the player in the list.
