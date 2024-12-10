@@ -365,4 +365,4 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 |             | System under test       | Expected output           | Implemented? |
 |-------------|-------------------------|---------------------------|--------------|
 | Test Case 1 | input 1: true           | returns                   | yes          |
-| Test Case 2 | input 1: false --> true | calls playCardLoop() once | no           |
+| Test Case 2 | input 1: false --> true | calls playCardLoop() once | yes          |
