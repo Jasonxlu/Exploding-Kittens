@@ -401,6 +401,51 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
+  }
+
+  /**
+   * Does the effect of a 2 card combo.
+   */
+  public void do2CardCombo() {
+    boolean validPlayerFound = false;
+    boolean validCardFound = false;
+    int targetIndex = -1;
+    String name = ui.prompt2CardCombo(false);
+
+    while (!validPlayerFound) {
+      try {
+        targetIndex = gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.prompt2CardCombo(true);
+      }
+    }
+
+    if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
+      ui.println("The target player has no cards to give.");
+      return;
+    }
+
+    String card = ui.prompt2CardComboTarget(targetIndex,false);
+    Card cardToGive = null;
+
+    while (!validCardFound) {
+      try {
+        cardToGive = gameEngine.getCardByName(card);
+        if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
+          validCardFound = true;
+        }
+      } catch (IllegalArgumentException e) {
+        card = ui.prompt2CardComboTarget(targetIndex, true);
+      }
+    }
+
+    // Remove the card from the target player's hand.
+    gameEngine.removeCardFromPlayer(cardToGive, targetIndex);
+
+    // Add the card to the current player's hand.
+    gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
+
 
   }
 }

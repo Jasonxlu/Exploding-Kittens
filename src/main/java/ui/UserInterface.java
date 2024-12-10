@@ -229,4 +229,36 @@ public class UserInterface {
     }
     return scanner.nextLine().trim();
   }
+
+  /**
+   * Prompts the user to enter a player name for the 2 card combo.
+   *
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String prompt2CardCombo(boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Unable to find that player. Please type in a valid player name.");
+    } else {
+      System.out.println("Who would you like to target with your 2 card combo? Please type in the player's name.");
+    }
+    return scanner.nextLine().trim();
+  }
+
+  /**
+   * Prompts the target user to enter a card name to give up for the 2 card combo.
+   * // TODO: Print out the player's hand to help them choose a card.
+   *
+   * @param playerIndex the index of the player in the game being targeted.
+   * @param isRetry whether this is a retry prompt.
+   * @return the user's input.
+   */
+  public String prompt2CardComboTarget(int playerIndex, boolean isRetry) {
+    if (isRetry) {
+      System.out.println("Invalid card. Please type in a valid card name.");
+    } else {
+      System.out.println("Please type in the name of the card you are giving up.");
+    }
+    return scanner.nextLine().trim();
+  }
 }
