@@ -282,6 +282,7 @@ public class UserInterface {
 
   /**
    * Prompts the user to enter a player name for the 2 card combo.
+   * TODO: Print out the players in the game
    *
    * @param isRetry whether this is a retry prompt.
    * @return the user's input.
@@ -316,7 +317,7 @@ public class UserInterface {
   /**
    * Prints the error message for when the target player has no cards to steal.
    */
-  public void printDo2CardComboErrorTargetPlayerHasNoCards() {
+  public void printCardComboErrorTargetPlayerHasNoCards() {
     System.out.println("The target player has no cards to steal.");
   }
 }

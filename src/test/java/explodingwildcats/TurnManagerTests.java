@@ -2140,7 +2140,7 @@ public class TurnManagerTests {
     Card[] targetHand = {};
     EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
     EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
-    ui.printDo2CardComboErrorTargetPlayerHasNoCards();
+    ui.printCardComboErrorTargetPlayerHasNoCards();
 
     // REPLAY
     EasyMock.replay(ui, gameEngine, targetPlayer);

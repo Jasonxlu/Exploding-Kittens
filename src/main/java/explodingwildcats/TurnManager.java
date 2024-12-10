@@ -429,11 +429,6 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Does the effect of a 3 card combo.
-   */
-  public void do3CardCombo() {}
-
-  /**
    * Does the effect of a targeted attack card.
    */
   public void doTargetedAttack() {
@@ -476,7 +471,7 @@ public class TurnManager {
     }
 
     if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
-      ui.printDo2CardComboErrorTargetPlayerHasNoCards();
+      ui.printCardComboErrorTargetPlayerHasNoCards();
       return;
     }
 
@@ -501,7 +496,7 @@ public class TurnManager {
 
     // Add the card to the current player's hand.
     gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
-
-
   }
-}
+
+  public void do3CardCombo() {}
+ }
