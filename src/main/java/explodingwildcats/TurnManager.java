@@ -183,12 +183,6 @@ public class TurnManager {
 
   }
 
-  /**
-   * TODO: Does the effect of playing 3 of a kind of cat card.
-   */
-  public void doSkip() {
-
-  }
 
   /**
    * Does the effect of a see the future card.
@@ -277,5 +271,16 @@ public class TurnManager {
   public void doShuffle() {
     gameEngine.shuffleDrawPile();
     endTurn();
+  }
+
+  /**
+   * Does the effect of a skip card.
+   */
+  public void doSkip() {
+    if (numExtraCardsToDraw > 0) {
+      numExtraCardsToDraw--;
+    } else {
+      endTurn();
+    }
   }
 }
