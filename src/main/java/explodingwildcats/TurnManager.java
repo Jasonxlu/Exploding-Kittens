@@ -184,11 +184,11 @@ public class TurnManager {
     }
     if (numCards == 2) {
       do2CardCombo();
-    } else if (numCards == 3) {
+    } else {
       do3CardCombo();
     }
 
-    for (Card card: cards) {
+    for (Card card : cards) {
       gameEngine.removeCardFromPlayer(card, currPlayerIndex);
     }
     return false;
@@ -431,10 +431,10 @@ public class TurnManager {
   /**
    * TODO: Does the effect of a 2 card combo.
    */
-  public void do2CardCombo() { }
+  public void do2CardCombo() {}
 
   /**
    * TODO: Does the effect of a 3 card combo.
    */
-  public void do3CardCombo() { }
+  public void do3CardCombo() {}
 }
