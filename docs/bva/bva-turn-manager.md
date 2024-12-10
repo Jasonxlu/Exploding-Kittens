@@ -350,3 +350,21 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 1 | Player name: ""; "John", numExtraCardsToDraw: 0 | User is re-prompted for input and currPlayerIndex is updated to John's Index, numExtraCardsToDraw is incremented by 1 | yes          |
 | Test Case 2 | Player name: "John", numExtraCardsToDraw: 0     | currPlayerIndex is updated to John's index, numExtraCardsToDraw is incremented by 1                                   | yes          |
 | Test Case 3 | Player name: "Jane, numExtraCardsToDraw: 7      | currPlayerIndex is updated to Jane's index, numExtraCardsToDraw is incremented by 2                                   | yes          |
+
+
+## Method 20: ```public void TurnManager()```
+### Step 1-3 Results
+|        | Input                                          | Input 2             | Output                                                              |
+|--------|------------------------------------------------|---------------------|---------------------------------------------------------------------|
+| Step 1 | Number of players (from ui.getNumberOfPlayers) | Player names        | None, TurnManager is set up by calling the right functions in order |
+| Step 2 | Interval                                       | Collection          | None, TurnManager is set up by calling the right functions in order |
+| Step 3 | [2,6]                                          | [number of players] | None, TurnManager is set up by calling the right functions in order |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test        | Expected output                                                | Implemented? |
+|-------------|--------------------------|----------------------------------------------------------------|--------------|
+| Test Case 1 | input 1: 2, input 2: 2   | TurnManager is set up by calling the setup functions in order. | no           |
+| Test Case 2 | input 1: 6, input 2: 6   | TurnManager is set up by calling the setup functions in order. | no           |
+| Test Case 3 | input 1: 1, input 2: N/A | Throw exception                                                | no           |
+| Test Case 3 | input 1: 3, input 2: 2   | Throw exception                                                | no           |
