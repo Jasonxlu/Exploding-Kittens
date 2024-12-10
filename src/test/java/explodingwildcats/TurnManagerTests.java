@@ -1397,6 +1397,40 @@ public class TurnManagerTests {
 
     EasyMock.verify(turnManager, gameEngine, ui);
   }
+
+  @Test
+  public void playCardLoop_UserInputDrawFromBottom_callsDoDrawFromBottom_endsTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("endTurn")
+            .addMockedMethod("getPlayableCard")
+            .addMockedMethod("doDrawFromBottom")
+            .createMock();
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    String userInput = "draw from bottom";
+    Card userInputCard = Card.DRAW_FROM_BOTTOM;
+    boolean playerHasCard = true;
+    EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
+    EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
+    EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
+
+    turnManager.doDrawFromBottom();
+    EasyMock.expectLastCall().andAnswer(() -> {
+      turnManager.playerTurnHasEnded = true; // terminate loop
+      return null;
+    });
+
+    EasyMock.replay(turnManager, gameEngine, ui);
+
+    turnManager.playCardLoop();
+
+    EasyMock.verify(turnManager, gameEngine, ui);
+  }
 }
 
 
