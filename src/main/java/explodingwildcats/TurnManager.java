@@ -383,7 +383,6 @@ public class TurnManager {
   public void doTargetedAttack() {
     boolean validPlayerFound = false;
     String name = ui.promptTargetedAttack(false);
-    ;
 
     while (!validPlayerFound) {
       try {
