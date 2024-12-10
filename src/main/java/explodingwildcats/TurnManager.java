@@ -426,7 +426,7 @@ public class TurnManager {
       return;
     }
 
-    String card = ui.prompt2CardComboTarget(targetIndex,false);
+    String card = ui.prompt2CardComboTarget(targetIndex, false);
     Card cardToGive = null;
 
     while (!validCardFound) {
