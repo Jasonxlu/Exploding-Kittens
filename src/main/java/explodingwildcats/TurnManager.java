@@ -234,6 +234,8 @@ public class TurnManager {
         return Card.SHUFFLE;
       case "see the future":
         return Card.SEE_THE_FUTURE;
+      case "reverse":
+        return Card.REVERSE;
     }
     throw new IllegalArgumentException("Could not parse input");
   }
