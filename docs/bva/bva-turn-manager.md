@@ -409,11 +409,11 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 
 ## Method 22: ```public void setupGameEngine()```
 ### Step 1-3 Results
-|        | Input                                          | Input 2             | Output                                                              |
-|--------|------------------------------------------------|---------------------|---------------------------------------------------------------------|
-| Step 1 | Number of players (from ui.getNumberOfPlayers) | Player names        | None, TurnManager is set up by calling the right functions in order |
-| Step 2 | Interval                                       | Collection          | None, TurnManager is set up by calling the right functions in order |
-| Step 3 | [2,6]                                          | [number of players] | None, TurnManager is set up by calling the right functions in order |
+|        | Input                                          | Input 2                                                              | Output                                                              |
+|--------|------------------------------------------------|----------------------------------------------------------------------|---------------------------------------------------------------------|
+| Step 1 | Number of players (from ui.getNumberOfPlayers) | Player names                                                         | None, TurnManager is set up by calling the right functions in order |
+| Step 2 | Interval                                       | Collection                                                           | None, TurnManager is set up by calling the right functions in order |
+| Step 3 | [2,6] - test 1, 2, 6, 7.                       | [number of players] - test equal to number of players and not equal. | None, TurnManager is set up by calling the right functions in order |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 |             | System under test                                                   | Expected output                                                | Implemented? |
