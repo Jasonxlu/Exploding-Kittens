@@ -141,4 +141,21 @@ public class PlayerTests {
 
     EasyMock.verify(hand);
   }
+
+  @Test
+  public void removeCardFromHand_emptyHand_attackCard_returnFalse() {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
+
+    Card card = Card.ATTACK;
+
+    EasyMock.expect(hand.removeCardFromPile(card)).andReturn(false);
+
+    EasyMock.replay(hand);
+
+    boolean result = player.removeCardFromHand(card);
+    assertFalse(result);
+
+    EasyMock.verify(hand);
+  }
 }

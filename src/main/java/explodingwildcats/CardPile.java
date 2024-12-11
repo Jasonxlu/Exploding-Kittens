@@ -109,4 +109,14 @@ public class CardPile {
     Collections.shuffle(list);
   }
 
+  /**
+   * Removes a card from the pile.
+   *
+   * @param card the card to remove
+   * @return true if the card was removed, false otherwise
+   */
+  public boolean removeCardFromPile(Card card) {
+    return false;
+  };
+
 }

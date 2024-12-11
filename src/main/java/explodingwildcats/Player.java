@@ -73,6 +73,6 @@ public class Player {
    * @return true if successful and false otherwise.
    */
   public boolean removeCardFromHand(Card card) {
-    return true;
+    return hand.removeCardFromPile(card);
   }
 }
