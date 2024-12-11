@@ -2444,6 +2444,38 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, ui, john, jane, brennan, foo, bar, baz);
   }
 
+  @Test
+  public void printPlayers_multiplePlayers_printSuccessful() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    // Mock players
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
+
+    // Add players to the GameEngine mock
+    List<Player> players = new ArrayList<>(Arrays.asList(john, jane));
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    // Mock player names
+    EasyMock.expect(john.getName()).andReturn("John");
+    EasyMock.expect(jane.getName()).andReturn("Jane");
+
+
+    // Define expected behavior for UserInterface
+    ui.printPlayers(new String[] {"John", "Jane"});
+    EasyMock.expectLastCall(); // This ensures the method gets called with the expected array
+
+    // Replay mocks
+    EasyMock.replay(gameEngine, ui, john, jane);
+
+    // Execute the method under test
+    turnManager.printPlayers();
+
+    // Verify that expectations were met
+    EasyMock.verify(gameEngine, ui, john, jane);
+  }
 
 }
 
