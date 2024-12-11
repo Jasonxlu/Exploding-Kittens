@@ -156,9 +156,28 @@ public class PlayerTests {
     Player player = new Player("Bob", hand);
 
     // Mock the behavior of removeCardFromPile to always return false
-    EasyMock.expect(hand.removeCardFromPile(card)).andReturn(false);
+    EasyMock.expect(hand.removeCardFromPile(card)).andReturn(true);
 
     EasyMock.replay(hand);
+
+    // Test the removeCardFromHand method
+    boolean result = player.removeCardFromHand(card);
+
+    // Assert that the method returns true
+    assertTrue(result);
+
+    EasyMock.verify(hand);
+  }
+
+  @ParameterizedTest
+  @EnumSource(
+          value = Card.class,
+          names = {"IMPLODE", "EXPLODE"},
+          mode = EnumSource.Mode.INCLUDE
+  ) // Exclude specific cards from the test
+  public void removeCardFromHand_returnFalse(Card card) {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
 
     // Test the removeCardFromHand method
     boolean result = player.removeCardFromHand(card);
@@ -166,7 +185,6 @@ public class PlayerTests {
     // Assert that the method returns false
     assertFalse(result);
 
-    EasyMock.verify(hand);
   }
 
 
