@@ -212,7 +212,7 @@ public class TurnManager {
     }
     Card[] cards;
     try {
-      cards = validateComboCards(stringCards);
+      cards = gameEngine.validateComboCards(stringCards, currPlayerIndex);
     } catch (Exception validateCardException) {
       return true;
     }
@@ -230,18 +230,6 @@ public class TurnManager {
       gameEngine.removeCardFromPlayer(card, currPlayerIndex);
     }
     return false;
-  }
-
-
-  /**
-   * TODO: Validates whether the current user has the input cards.
-   * Returns the Card[] if so, and throws an exception if it is invalid.
-   * Made package private to support unit testing.
-   *
-   * @param stringCards the string representation of the cards.
-   */
-  Card[] validateComboCards(String[] stringCards) {
-    return new Card[0];
   }
 
 
