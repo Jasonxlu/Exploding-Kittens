@@ -110,7 +110,7 @@ public class CardPile {
   }
 
   /**
-   * Removes a card from the pile.
+   * TODO: Removes a card from the pile.
    *
    * @param card the card to remove
    * @return true if the card was removed, false otherwise
