@@ -480,6 +480,7 @@ public class TurnManager {
       return;
     }
 
+    printPlayerHand(targetIndex);
     String card = ui.prompt2CardComboTarget(false);
     Card cardToGive = null;
 
@@ -532,7 +533,6 @@ public class TurnManager {
    * Print the players in the game.
    */
   public void printPlayers() {
-    // Get all players
     ArrayList<Player> players = (ArrayList<Player>) gameEngine.getPlayers();
     String[] playerNames = new String[players.size()];
     for (int i = 0; i < players.size(); i++) {

@@ -427,7 +427,7 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 3  | Index: 6, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]  | IndexOutOfBounds Exception                 | yes          |
 
 
-## Method 22: ```public void printPlayers()```
+## Method 23: ```public void printPlayers()```
 ### Step 1-3 Results
 |        | Input                                  | Output                                             |
 |--------|----------------------------------------|----------------------------------------------------|
@@ -440,8 +440,8 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 
 |              | System under test                                           | Expected output                            | Implemented? |
 |--------------|-------------------------------------------------------------|--------------------------------------------|--------------|
-| Test Case 1  | Players: ["John", "Jane"]                                   | ui.printPlayerHand called with John's hand |              |
-| Test Case 2  | Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]   | ui.printPlayerHand called with Baz's hand  |              |
+| Test Case 1  | Players: ["John", "Jane"]                                   | ui.printPlayerHand called with John's hand | yes          |
+| Test Case 2  | Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]   | ui.printPlayerHand called with Baz's hand  | yes          |
 
 
 
