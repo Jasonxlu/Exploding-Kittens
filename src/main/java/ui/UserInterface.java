@@ -332,7 +332,7 @@ public class UserInterface {
   /**
    * Prints the players in the game.
    *
-   * @param players
+   * @param players the players to print.
    */
   public void printPlayers(String[] players) {
     for (int i = 0; i < players.length; i++) {
