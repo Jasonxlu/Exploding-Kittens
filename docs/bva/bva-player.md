@@ -40,21 +40,33 @@
 
 ## Method 3: ```public boolean removeCardFromHand(Card card)```
 ### Step 1-3 Results
-|        | Input                                   | Input 2                                                                                                                                                                                            | Output             |
-|--------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| Step 1 | The player's hand (a cardpile object)   | The card being removed                                                                                                                                                                             | Boolean True/False |
-| Step 2 | Collection                              | Cases                                                                                                                                                                                              | Boolean            |
-| Step 3 | [], [one element], [multiple elements]  | ATTACK, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, IMPLODE, REVERSE, TARGETED_ATTACK, FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT, BEARD_CAT, RAINBOW_CAT | True/False         |
+|        | Input 2                                                                                                                                                                                            | Output             |
+|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| Step 1 | The card being removed                                                                                                                                                                             | Boolean True/False |
+| Step 2 | Cases                                                                                                                                                                                              | Boolean            |
+| Step 3 | ATTACK, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, IMPLODE, REVERSE, TARGETED_ATTACK, FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT, BEARD_CAT, RAINBOW_CAT | True/False         |
 ### Step 4:
-##### All-combination or each-choice: each-choice
+##### All-combination or each-choice: all-combination
 
-|              | System under test                                           | Expected output | Implemented? |
-|--------------|-------------------------------------------------------------|-----------------|--------------|
-| Test Case 1  | Player Hand: [], Card: ATTACK                               | FALSE           |              |
-| Test Case 2  | Player Hand: [ATTACK], Card: SKIP                           | FALSE           |              |
-| Test Case 3  | Player Hand: [SEE_THE_FUTURE, SHUFFLE, NOPE], Card: EXPLODE | FALSE           |              |
-| Test Case 4  | Player Hand: [DEFUSE], Card: DEFUSE                         | TRUE            |              |
-| Test Case 5  | Player Hand: [SEE_THE_FUTURE, SHUFFLE, NOPE], Card: NOPE    | TRUE            |              |
+|              | System under test      | Expected output | Implemented? |
+|--------------|------------------------|-----------------|--------------|
+| Test Case 1  | Card: ATTACK           | TRUE            |              |
+| Test Case 2  | Card: DEFUSE           | TRUE            |              |
+| Test Case 3  | Card: NOPE             | TRUE            |              |
+| Test Case 4  | Card: SEE_THE_FUTURE   | TRUE            |              |
+| Test Case 5  | Card: SHUFFLE          | TRUE            |              |
+| Test Case 6  | Card: SKIP             | TRUE            |              |
+| Test Case 7  | Card: EXPLODE          | FALSE           |              |
+| Test Case 8  | Card: ALTER_THE_FUTURE | TRUE            |              |
+| Test Case 9  | Card: DRAW_FROM_BOTTOM | TRUE            |              |
+| Test Case 10 | Card: IMPLODE          | FALSE           |              |
+| Test Case 11 | Card: REVERSE          | TRUE            |              |
+| Test Case 12 | Card: TARGETED_ATTACK  | TRUE            |              |
+| Test Case 13 | Card: FERAL_CAT        | TRUE            |              |
+| Test Case 14 | Card: TACO_CAT         | TRUE            |              |
+| Test Case 15 | Card: HAIRY_POTATO_CAT | TRUE            |              |
+| Test Case 16 | Card: BEARD_CAT        | TRUE            |              |
+| Test Case 17 | Card: RAINBOW_CAT      | TRUE            |              |
 
 
 ## Recall the 4 steps of BVA
