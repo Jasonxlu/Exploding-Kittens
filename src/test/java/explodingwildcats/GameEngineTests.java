@@ -2386,4 +2386,64 @@ public class GameEngineTests {
     // Verification
     EasyMock.verify(playerFactory, cardPileFactory, playerHand, p1, p2, p3, p4, p5, p6);
   }
+
+  @Test
+  public void eliminatePlayer_Six_ThrowsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    CardPile playerHand = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    // Class state set up
+    int numOfPlayers = 6;
+    String[] names = {"John", "Jane", "Alice", "Bob", "Charlie", "David"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+    Player p3 = EasyMock.createMock(Player.class);
+    Player p4 = EasyMock.createMock(Player.class);
+    Player p5 = EasyMock.createMock(Player.class);
+    Player p6 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numOfPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
+    EasyMock.expect(playerFactory.createPlayer("Alice", playerHand)).andReturn(p3);
+    EasyMock.expect(playerFactory.createPlayer("Bob", playerHand)).andReturn(p4);
+    EasyMock.expect(playerFactory.createPlayer("Charlie", playerHand)).andReturn(p5);
+    EasyMock.expect(playerFactory.createPlayer("David", playerHand)).andReturn(p6);
+
+    EasyMock.replay(playerFactory, cardPileFactory, playerHand, p1, p2, p3, p4, p5, p6);
+
+    game.setUpPlayers(numOfPlayers, names);
+
+    // Test Input
+    int playerIndex = 6;
+
+    // Expected values
+    String expectedMessage = "Player does not exist at this index";
+
+    // Function call
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+        game.eliminatePlayer(playerIndex);
+    });
+
+    // Actual values
+    List<Player> players = game.getPlayers();
+    String actualMessage = exception.getMessage();
+
+    // Assertions
+    assertEquals(expectedMessage, actualMessage);
+    assertTrue(players.contains(p1));
+    assertTrue(players.contains(p2));
+    assertTrue(players.contains(p3));
+    assertTrue(players.contains(p4));
+    assertTrue(players.contains(p5));
+    assertTrue(players.contains(p6));
+
+    // Verification
+    EasyMock.verify(playerFactory, cardPileFactory, playerHand, p1, p2, p3, p4, p5, p6);
+  }
 }

@@ -267,7 +267,7 @@ public class GameEngine {
    * TODO: eliminates the player at that index.
    */
   public void eliminatePlayer(int playerIndex) {
-    if (playerIndex < 0) {
+    if (playerIndex < 0 || playerIndex >= numOfPlayers) {
       throw new IndexOutOfBoundsException("Player does not exist at this index");
     }
 

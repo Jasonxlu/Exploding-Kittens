@@ -326,7 +326,7 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 1 | index: -1         | Throws IndexOutOfBoundsException                             | yes          |
 | Test Case 2 | index: 0          | Removes the player at that index and decrements numOfPlayers | yes          |
 | Test Case 3 | index: 5          | Removes the player at that index and decrements numOfPlayers | yes          |
-| Test Case 4 | index: 6          | Throws IndexOutOfBoundsException                             | no           |
+| Test Case 4 | index: 6          | Throws IndexOutOfBoundsException                             | yes          |
 
 
 ## Recall the 4 steps of BVA
