@@ -330,7 +330,7 @@ public class UserInterface {
   }
 
   /**
-   * Prints the players in the game
+   * Prints the players in the game.
    *
    * @param players
    */
