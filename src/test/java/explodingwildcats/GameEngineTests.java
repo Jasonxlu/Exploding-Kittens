@@ -2455,7 +2455,7 @@ public class GameEngineTests {
 
     Card cardToGet = Card.SHUFFLE;
     int numCards = 2;
-    int playerIndex = 5;
+    int playerIndex = 2;
     Player player = EasyMock.createMock(Player.class);
     EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
 
@@ -2465,6 +2465,36 @@ public class GameEngineTests {
     EasyMock.replay(game, player);
 
     boolean expectedResult = false;
+    boolean actualResult = game.playerHasCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void playerHasCards_2Cards_hasBoth_returnTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.SEE_THE_FUTURE;
+    int numCards = 2;
+    int playerIndex = 2;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card[] playerHand = { cardToGet, cardToGet };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = true;
     boolean actualResult = game.playerHasCards(cardToGet, playerIndex, numCards);
 
     assertEquals(expectedResult, actualResult);
