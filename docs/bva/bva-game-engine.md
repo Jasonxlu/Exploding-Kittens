@@ -312,7 +312,7 @@ Note: I do not believe there is a max size for the discard pile.
 
 
 
-## Method 10: ```public boolean playerHasCards(Card card, int playerIndex, int numCards)```
+## Method 10: ```public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards)```
 ### Step 1-3 Results
 |        | Input 1             | Input 2                                                  | Input 3                     | Input 4                                                                                                                                           | Output                                                                                          |
 |--------|---------------------|----------------------------------------------------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
@@ -335,6 +335,7 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 9  | card: ATTACK, index: 2, numCards: 1, hand: [ATTACK, ATTACK]                                                      | true                                                 | yes          |
 | Test Case 10 | card: RAINBOW_CAT, index: 2, numCards: 3, hand: [ATTACK, RAINBOW_CAT, SHUFFLE, RAINBOW_CAT, RAINBOW_CAT, ATTACK] | true                                                 | yes          |
 | Test Case 11 | card: DEFUSE, index: 2, numCards: 1, hand: []                                                                    | false                                                | yes          |
+| Test Case 12 | card: DEFUSE, index: 2, numCards: 1, hand: [BEARD_CAT]                                                           | false                                                | yes          |
 
 
 ## Recall the 4 steps of BVA

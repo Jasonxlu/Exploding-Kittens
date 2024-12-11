@@ -259,7 +259,7 @@ public class GameEngine {
    * @param playerIndex index of the player in the players list.
    * @param numCards the number of cards to check for.
    */
-  public boolean playerHasCards(Card card, int playerIndex, int numCards) {
+  public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards) {
     Player player = getPlayerByIndex(playerIndex);
     if (numCards <= 0) {
       throw new IllegalArgumentException("Number of cards must be greater than 0.");
@@ -418,7 +418,7 @@ public class GameEngine {
     }
 
     cardsPlayedHashMap.forEach((key, value) -> {
-      if (!playerHasCards(key, currPlayerIndex, value)) {
+      if (!playerHasAtLeastCards(key, currPlayerIndex, value)) {
         throw new IllegalArgumentException("Player does not have the input cards.");
       }
     });
