@@ -1,5 +1,6 @@
 package explodingwildcats;
 
+import java.util.NoSuchElementException;
 import ui.UserInterface;
 
 /**
@@ -12,6 +13,7 @@ public class TurnManager {
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
+  boolean playerTurnHasEnded = false;
 
   TurnManager(UserInterface ui,
               GameEngine gameEngine) {
@@ -71,7 +73,7 @@ public class TurnManager {
         try {
           handleRegularCard(drawnCard);
         } catch (Exception e) {
-          System.out.println(e.getMessage());
+          ui.println(e.getMessage());
         }
         break;
     }
@@ -90,7 +92,6 @@ public class TurnManager {
       default:
         Player currPlayer = gameEngine.getPlayers().get(currPlayerIndex);
         currPlayer.addCardToHand(card);
-        endTurn();
     }
   }
 
@@ -110,8 +111,6 @@ public class TurnManager {
     } else {
       eliminateCurrentPlayer();
     }
-
-    endTurn();
   }
 
   /**
@@ -125,7 +124,6 @@ public class TurnManager {
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
       gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
     }
-    endTurn();
   }
 
   /**
@@ -151,6 +149,144 @@ public class TurnManager {
       currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     } else {
       currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
+    }
+  }
+
+  /**
+   * Prompts the user for which cat cards to play as a combo.
+   * Returns true if the turnManager should reprompt.
+   * Made package private to support unit testing.
+   *
+   * @param numCards the number of cards to play.
+   */
+  boolean promptAndPlayCombo(int numCards) {
+    if (numCards != 2 && numCards != 3) {
+      String errorMessage = ui.printMustPlay2Or3CardsAsComboError();
+      throw new IllegalArgumentException(errorMessage);
+    }
+    String[] stringCards = ui.promptPlayComboCards(numCards);
+    if (stringCards.length != numCards) {
+      String errorMessage = ui.printMismatchUserCardsAndComboCount();
+      throw new IllegalStateException(errorMessage);
+    }
+    Card[] cards;
+    try {
+      cards = validateComboCards(stringCards);
+    } catch (Exception validateCardException) {
+      return true;
+    }
+    if (cards.length != numCards) {
+      String message = ui.printMismatchCardValidationCardsAndComboCount();
+      throw new IllegalStateException(message);
+    }
+    if (numCards == 2) {
+      do2CardCombo();
+    } else {
+      do3CardCombo();
+    }
+
+    for (Card card : cards) {
+      gameEngine.removeCardFromPlayer(card, currPlayerIndex);
+    }
+    return false;
+  }
+
+
+  /**
+   * TODO: Validates whether the current user has the input cards.
+   * Returns the Card[] if so, and throws an exception if it is invalid.
+   * Made package private to support unit testing.
+   *
+   * @param stringCards the string representation of the cards.
+   */
+  Card[] validateComboCards(String[] stringCards) {
+    return new Card[0];
+  }
+
+
+  /**
+   * Does the main game loop.
+   */
+  public void doGameLoop() {
+    while(!gameEngine.isGameOver()) {
+      playCardLoop();
+    }
+  }
+
+
+  /**
+   * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
+   *
+   */
+  public void playCardLoop() {
+    playerTurnHasEnded = false;
+    boolean shouldReprompt = false;
+    // advanceTurn will set playerTurnHasEnded to false.
+    while (!playerTurnHasEnded) {
+      gameEngine.printCurrentPlayerHand();
+      String userInputCard = ui.promptPlayCard(shouldReprompt);
+      if (userInputCard.isEmpty()) {
+        endTurn();
+        shouldReprompt = false;
+        continue;
+      }
+
+      if (userInputCard.equals("2 cat cards")) {
+        shouldReprompt = promptAndPlayCombo(2);
+        continue;
+      } else if (userInputCard.equals("3 cat cards")) {
+        shouldReprompt = promptAndPlayCombo(3);
+        continue;
+      }
+
+      Card cardToPlay;
+      try {
+        cardToPlay = getPlayableCard(userInputCard);
+      } catch (Exception originalCardChosenException) {
+        // this means the player had an invalid input.
+        shouldReprompt = true;
+        continue;
+      }
+      boolean canPlayCard = gameEngine.playerHasCard(cardToPlay, currPlayerIndex);
+      if (!canPlayCard) {
+        shouldReprompt = true;
+      } else {
+        // check if anyone wants to play a nope before doing the card's effect.
+        if (promptPlayNope()) {
+          shouldReprompt = false;
+          continue;
+        }
+        switch (cardToPlay) {
+          case ATTACK:
+            doAttack();
+            break;
+          case SKIP:
+            doSkip();
+            break;
+          case TARGETED_ATTACK:
+            doTargetedAttack();
+            break;
+          case SHUFFLE:
+            doShuffle();
+            break;
+          case SEE_THE_FUTURE:
+            doSeeTheFuture();
+            break;
+          case REVERSE:
+            doReverse();
+            break;
+          case DRAW_FROM_BOTTOM:
+            doDrawFromBottom();
+            break;
+          case ALTER_THE_FUTURE:
+            doAlterTheFuture();
+            break;
+          default:
+            throw new IllegalArgumentException(
+                    "A card was played that should not have been played.");
+        }
+        shouldReprompt = false;
+      }
     }
   }
 
@@ -188,7 +324,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
-    endTurn();
+    advanceTurn();
   }
 
   /**
@@ -220,6 +356,39 @@ public class TurnManager {
       }
       name = ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(p.getName());
     }
+  }
+
+
+  Card getPlayableCard(String cardName) {
+    switch (cardName) {
+      case "attack":
+        return Card.ATTACK;
+      case "skip":
+        return Card.SKIP;
+      case "targeted attack":
+        return Card.TARGETED_ATTACK;
+      case "shuffle":
+        return Card.SHUFFLE;
+      case "see the future":
+        return Card.SEE_THE_FUTURE;
+      case "reverse":
+        return Card.REVERSE;
+      case "draw from bottom":
+        return Card.DRAW_FROM_BOTTOM;
+      case "alter the future":
+        return Card.ALTER_THE_FUTURE;
+      case "nope":
+        throw new IllegalArgumentException("You cannot play a nope right now.");
+      case "taco cat":
+      case "beard cat":
+      case "rainbow cat":
+      case "feral cat":
+      case "hairy potato cat":
+        throw new IllegalArgumentException("You must play a cat card as a combo.");
+      default:
+        break;
+    }
+    throw new IllegalArgumentException("Could not parse input.");
   }
 
   /**
@@ -258,4 +427,80 @@ public class TurnManager {
    * TODO: Eliminates the current player.
    */
   public void eliminateCurrentPlayer() {}
+  /**
+   * TODO: Does the effect of a 3 card combo.
+   */
+  public void do3CardCombo() {}
+
+  /**
+   * Does the effect of a targeted attack card.
+   */
+  public void doTargetedAttack() {
+    boolean validPlayerFound = false;
+    String name = ui.promptTargetedAttack(false);
+
+    while (!validPlayerFound) {
+      try {
+        currPlayerIndex = gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.promptTargetedAttack(true);
+      }
+    }
+
+    // Update the number of extra cards to draw.
+    if (numExtraCardsToDraw == 0) {
+      numExtraCardsToDraw += 1;
+    } else {
+      numExtraCardsToDraw += 2;
+    }
+  }
+
+  /**
+   * Does the effect of a 2 card combo.
+   */
+  public void do2CardCombo() {
+    boolean validPlayerFound = false;
+    boolean validCardFound = false;
+    int targetIndex = -1;
+    String name = ui.prompt2CardCombo(false);
+
+    while (!validPlayerFound) {
+      try {
+        targetIndex = gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.prompt2CardCombo(true);
+      }
+    }
+
+    if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
+      ui.printDo2CardComboErrorTargetPlayerHasNoCards();
+      return;
+    }
+
+    String card = ui.prompt2CardComboTarget(targetIndex, false);
+    Card cardToGive = null;
+
+    while (!validCardFound) {
+      try {
+        cardToGive = gameEngine.getCardByName(card);
+        if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
+          validCardFound = true;
+        } else {
+          card = ui.prompt2CardComboTarget(targetIndex, true);
+        }
+      } catch (IllegalArgumentException e) {
+        card = ui.prompt2CardComboTarget(targetIndex, true);
+      }
+    }
+
+    // Remove the card from the target player's hand.
+    gameEngine.removeCardFromPlayer(cardToGive, targetIndex);
+
+    // Add the card to the current player's hand.
+    gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
+
+
+  }
 }
