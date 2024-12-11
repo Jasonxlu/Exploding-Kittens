@@ -2426,6 +2426,27 @@ public class TurnManagerTests {
   }
 
   @Test
+  public void printPlayerHand_invalidIndexNegativeOne_maxPlayers_throwsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int playerIndex = -1;
+
+    EasyMock.replay(gameEngine);
+
+    String expectedMessage = "Player index is out of bounds.";
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      turnManager.printPlayerHand(playerIndex);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine);
+  }
+
+  @Test
   public void printPlayers_maxPlayers_printSuccessful() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
