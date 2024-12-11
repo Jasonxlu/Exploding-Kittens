@@ -483,4 +483,22 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 2  | Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]   | ui.printPlayerHand called with Baz's hand  | yes          |
 
 
+## Method 26: ```public void eliminateCurrentPlayer()```
+### Step 1-3 Results
+|        | Input 1         | Output                                                                                        |
+|--------|-----------------|-----------------------------------------------------------------------------------------------|
+| Step 1 | player index    | Calls gameEngine.eliminatePlayer and advances turn appropriately or Exception                 |
+| Step 2 | Interval: [0,5] | Calls gameEngine.eliminatePlayer and advances turn appropriately or IndexOutOfBoundsException |
+| Step 3 | -1, 0, 5, 6     | Eliminates player and advances turn or IndexOutOfBoundsException                              |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test | Expected output                                  | Implemented? |
+|-------------|-------------------|--------------------------------------------------|--------------|
+| Test Case 1 | index: -1         | IndexOutOfBoundsException                        | no           |
+| Test Case 2 | index: 0          | Calls gameEngine.eliminatePlayer and advanceTurn | no           |
+| Test Case 3 | index: 5          | Calls gameEngine.eliminatePlayer and advanceTurn | no           |
+| Test Case 4 | index: 6          | IndexOutOfBoundsException                        | no           |
+
 
