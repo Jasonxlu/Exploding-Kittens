@@ -402,8 +402,26 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Step 3 | T/F                                        | None, call playCardLoop() while game is not over |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-
 |             | System under test       | Expected output           | Implemented? |
 |-------------|-------------------------|---------------------------|--------------|
 | Test Case 1 | input 1: true           | returns                   | yes          |
 | Test Case 2 | input 1: false --> true | calls playCardLoop() once | yes          |
+
+
+## Method 22: ```public void setupGameEngine()```
+### Step 1-3 Results
+|        | Input                                          | Input 2                                                              | Output                                                              |
+|--------|------------------------------------------------|----------------------------------------------------------------------|---------------------------------------------------------------------|
+| Step 1 | Number of players (from ui.getNumberOfPlayers) | Player names                                                         | None, TurnManager is set up by calling the right functions in order |
+| Step 2 | Interval                                       | Collection                                                           | None, TurnManager is set up by calling the right functions in order |
+| Step 3 | [2,6] - test 1, 2, 6, 7.                       | [number of players] - test equal to number of players and not equal. | None, TurnManager is set up by calling the right functions in order |
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                                                   | Expected output                                                | Implemented? |
+|-------------|---------------------------------------------------------------------|----------------------------------------------------------------|--------------|
+| Test Case 1 | input 1: 2, input 2: ["Jane", "John"]                               | TurnManager is set up by calling the setup functions in order. | yes          |
+| Test Case 2 | input 1: 6, input 2: ["Jane", "John", "Foo", "Bar", "Alice", "Joe"] | TurnManager is set up by calling the setup functions in order. | yes          |
+| Test Case 3 | input 1: 1, input 2: N/A                                            | Throw exception                                                | yes          |
+| Test Case 4 | input 1: 3, input 2: ["Bob", "Jeff"]                                | Throw exception                                                | yes          |
+| Test Case 5 | input 1: 7, input 2: N/A                                            | Throw exception                                                | no           |
+

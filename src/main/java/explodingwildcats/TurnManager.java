@@ -8,18 +8,59 @@ import ui.UserInterface;
  */
 public class TurnManager {
 
-  private UserInterface ui;
-  private GameEngine gameEngine;
+  private final UserInterface ui;
+  private final GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
   boolean playerTurnHasEnded = false;
 
-  TurnManager(UserInterface ui,
-              GameEngine gameEngine) {
+  /**
+   * Public constructor for TurnManager.
+   *
+   */
+  public TurnManager() {
+    this.ui = new UserInterface();
+    PlayerFactory playerFactory = new PlayerFactory();
+    CardPileFactory cardPileFactory = new CardPileFactory();
+
+    this.gameEngine = new GameEngine(playerFactory, cardPileFactory);
+
+    this.numExtraCardsToDraw = 0;
+  }
+
+  /**
+   * Package private constructor for TurnManager.
+   * Having a different package private one avoids spotbugs storing mutable object error.
+   *
+   * @param ui user interface for printing.
+   * @param gameEngine game engine for running the game.
+   */
+  TurnManager(UserInterface ui, GameEngine gameEngine) {
     this.ui = ui;
     this.gameEngine = gameEngine;
+
     this.numExtraCardsToDraw = 0;
+  }
+
+  /**
+   * Sets up the game engine.
+   */
+  public void setupGameEngine() {
+    int numberOfPlayers = ui.getNumberOfPlayers();
+    if (numberOfPlayers < 2 || numberOfPlayers > 6) {
+      throw new IllegalArgumentException("Invalid number of players.");
+    }
+    String[] playerNames = ui.getPlayerNames(numberOfPlayers);
+    if (numberOfPlayers != playerNames.length) {
+      throw new IllegalArgumentException("Invalid number of player names.");
+    }
+
+    gameEngine.setUpPlayers(numberOfPlayers, playerNames);
+    gameEngine.createDrawPile();
+    gameEngine.dealDefuses();
+    gameEngine.dealCards();
+    gameEngine.insertExplodingAndImplodingCards();
   }
 
   /**
