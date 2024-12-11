@@ -2280,4 +2280,51 @@ public class GameEngineTests {
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
   }
+
+  @Test
+  public void eliminatePlayer_Zero_RemovesPlayer() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    CardPile playerHand = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    // Class state set up
+    int numOfPlayers = 2;
+    String[] names = {"John", "Jane"};
+
+    Player p1 = EasyMock.createMock(Player.class);
+    Player p2 = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(cardPileFactory.createCardPile()).andReturn(playerHand).times(numOfPlayers);
+    EasyMock.expect(playerFactory.createPlayer("John", playerHand)).andReturn(p1);
+    EasyMock.expect(playerFactory.createPlayer("Jane", playerHand)).andReturn(p2);
+
+    EasyMock.replay(playerFactory, cardPileFactory, playerHand, p1, p2);
+
+    game.setUpPlayers(numOfPlayers, names);
+
+    // Test Input
+    int playerIndex = 0;
+
+    // Expected values
+    int expectedNumOfPlayers = 1;
+
+    // Function call
+    game.eliminatePlayer(playerIndex);
+
+    // Actual values
+    int actualNumOfPlayers = game.numOfPlayers;
+    List<Player> players = game.getPlayers();
+
+    // Assertions
+    assertEquals(expectedNumOfPlayers, actualNumOfPlayers);
+    assertEquals(expectedNumOfPlayers, players.size());
+    assertFalse(players.contains(p1));
+    assertTrue(players.contains(p2));
+
+    // Verification
+    EasyMock.verify(playerFactory, cardPileFactory, playerHand, p1, p2);
+  }
 }

@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * Class responsible for setting up the game logic.
  */
 public class GameEngine {
-  private int numOfPlayers = 2;
+  int numOfPlayers = 2;
 
   private List<Player> players = new ArrayList<>();
 
@@ -267,7 +267,12 @@ public class GameEngine {
    * TODO: eliminates the player at that index.
    */
   public void eliminatePlayer(int playerIndex) {
-    throw new IndexOutOfBoundsException("Player does not exist at this index");
+    if (playerIndex < 0) {
+      throw new IndexOutOfBoundsException("Player does not exist at this index");
+    }
+
+    players.remove(playerIndex);
+    numOfPlayers--;
   }
 
   /**
