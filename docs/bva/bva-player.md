@@ -38,6 +38,25 @@
 | Test Case 2 | TACO_CAT, contains card: false | Calls CardPile.contains and returns false | yes          |
 
 
+## Method 3: ```public boolean removeCardFromHand(Card card)```
+### Step 1-3 Results
+|        | Input                                   | Input 2                                                                                                                                                                                            | Output             |
+|--------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| Step 1 | The player's hand (a cardpile object)   | The card being removed                                                                                                                                                                             | Boolean True/False |
+| Step 2 | Collection                              | Cases                                                                                                                                                                                              | Boolean            |
+| Step 3 | [], [one element], [multiple elements]  | ATTACK, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, IMPLODE, REVERSE, TARGETED_ATTACK, FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT, BEARD_CAT, RAINBOW_CAT | True/False         |
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                                           | Expected output | Implemented? |
+|--------------|-------------------------------------------------------------|-----------------|--------------|
+| Test Case 1  | Player Hand: [], Card: ATTACK                               | FALSE           |              |
+| Test Case 2  | Player Hand: [ATTACK], Card: SKIP                           | FALSE           |              |
+| Test Case 3  | Player Hand: [SEE_THE_FUTURE, SHUFFLE, NOPE], Card: EXPLODE | FALSE           |              |
+| Test Case 4  | Player Hand: [DEFUSE], Card: DEFUSE                         | TRUE            |              |
+| Test Case 5  | Player Hand: [SEE_THE_FUTURE, SHUFFLE, NOPE], Card: NOPE    | TRUE            |              |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
