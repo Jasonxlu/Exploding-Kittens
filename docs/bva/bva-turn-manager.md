@@ -496,8 +496,8 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 
 |             | System under test | Expected output                                  | Implemented? |
 |-------------|-------------------|--------------------------------------------------|--------------|
-| Test Case 1 | index: -1         | IndexOutOfBoundsException                        | yes            |
-| Test Case 2 | index: 0          | Calls gameEngine.eliminatePlayer and advanceTurn | no           |
+| Test Case 1 | index: -1         | IndexOutOfBoundsException                        | yes          |
+| Test Case 2 | index: 0          | Calls gameEngine.eliminatePlayer and advanceTurn | yes          |
 | Test Case 3 | index: 5          | Calls gameEngine.eliminatePlayer and advanceTurn | no           |
 | Test Case 4 | index: 6          | IndexOutOfBoundsException                        | no           |
 
