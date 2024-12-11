@@ -109,7 +109,7 @@ public class TurnManager {
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, true);
       gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
     } else {
-      gameEngine.eliminatePlayer(currPlayerIndex);
+      eliminateCurrentPlayer();
     }
   }
 
@@ -118,7 +118,7 @@ public class TurnManager {
    */
   public void handleImplodingCat() {
     if (isImplodingCatFaceUp) {
-      gameEngine.eliminatePlayer(currPlayerIndex);
+      eliminateCurrentPlayer();
     } else {
       int drawPileSize = gameEngine.getDrawPile().length;
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
@@ -359,7 +359,6 @@ public class TurnManager {
   }
 
 
-
   Card getPlayableCard(String cardName) {
     switch (cardName) {
       case "attack":
@@ -424,6 +423,10 @@ public class TurnManager {
     }
   }
 
+  /**
+   * TODO: Eliminates the current player.
+   */
+  public void eliminateCurrentPlayer() {}
   /**
    * TODO: Does the effect of a 3 card combo.
    */

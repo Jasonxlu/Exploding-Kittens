@@ -1402,7 +1402,7 @@ public class GameEngineTests {
 
     Card cardToDiscard = Card.DEFUSE;
 
-    // Except the CardPile's addCard function to be called with the card to discard
+    // Expect the CardPile's addCard function to be called with the card to discard
     discardPile.addCard(cardToDiscard);
 
     EasyMock.replay(discardPile);
@@ -1425,7 +1425,7 @@ public class GameEngineTests {
     // Expectations for class state
     discardPile.addCard(Card.ATTACK); // setup
 
-    // Except the CardPile's addCard function to be called with the card to discard
+    // Expect the CardPile's addCard function to be called with the card to discard
     discardPile.addCard(cardToDiscard);
 
     EasyMock.replay(discardPile);
@@ -1461,7 +1461,7 @@ public class GameEngineTests {
       discardPile.addCard(c);
     }
 
-    // Except the CardPile's addCard function to be called with the card to discard
+    // Expect the CardPile's addCard function to be called with the card to discard
     discardPile.addCard(cardToDiscard);
 
     EasyMock.replay(discardPile);

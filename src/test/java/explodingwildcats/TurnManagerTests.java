@@ -740,19 +740,22 @@ public class TurnManagerTests {
   public void handleExplodingKitten_hasDefuseFalse_EliminatesPlayer() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("eliminateCurrentPlayer")
+            .createMock();
 
     turnManager.currPlayerIndex = 0;
     boolean hasDefuse = false;
 
     EasyMock.expect(gameEngine.playerHasCard(Card.DEFUSE, turnManager.currPlayerIndex)).andReturn(hasDefuse);
-    gameEngine.eliminatePlayer(turnManager.currPlayerIndex);
+    turnManager.eliminateCurrentPlayer();
 
-    EasyMock.replay(gameEngine);
+    EasyMock.replay(gameEngine, turnManager);
 
     turnManager.handleExplodingKitten();
 
-    EasyMock.verify(gameEngine);
+    EasyMock.verify(gameEngine, turnManager);
   }
 
   @Test
@@ -859,17 +862,22 @@ public class TurnManagerTests {
   public void handleImplodingCat_faceUp_EliminatesPlayer() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("eliminateCurrentPlayer")
+            .createMock();
+
     turnManager.currPlayerIndex = 0;
     turnManager.isImplodingCatFaceUp = true;
 
-    gameEngine.eliminatePlayer(turnManager.currPlayerIndex);
+    // Expectations
+    turnManager.eliminateCurrentPlayer();
 
-    EasyMock.replay(gameEngine);
+    EasyMock.replay(gameEngine, turnManager);
 
     turnManager.handleImplodingCat();
 
-    EasyMock.verify(gameEngine);
+    EasyMock.verify(gameEngine, turnManager);
   }
 
   @Test
