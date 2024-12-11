@@ -266,7 +266,9 @@ public class GameEngine {
   /**
    * TODO: eliminates the player at that index.
    */
-  public void eliminatePlayer(int playerIndex) {}
+  public void eliminatePlayer(int playerIndex) {
+    throw new IndexOutOfBoundsException("Player does not exist at this index");
+  }
 
   /**
    * Removes specified card from the player at that index.

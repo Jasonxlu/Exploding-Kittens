@@ -323,7 +323,7 @@ Note: I do not believe there is a max size for the discard pile.
 ##### All-combination or each-choice: each-choice
 |             | System under test | Expected output                                              | Implemented? |
 |-------------|-------------------|--------------------------------------------------------------|--------------|
-| Test Case 1 | index: -1         | Throws IndexOutOfBoundsException                             | no           |
+| Test Case 1 | index: -1         | Throws IndexOutOfBoundsException                             | yes          |
 | Test Case 2 | index: 0          | Removes the player at that index and decrements numOfPlayers | no           |
 | Test Case 3 | index: 5          | Removes the player at that index and decrements numOfPlayers | no           |
 | Test Case 4 | index: 6          | Throws IndexOutOfBoundsException                             | no           |
