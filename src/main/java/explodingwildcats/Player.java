@@ -49,12 +49,12 @@ public class Player {
   }
 
   /**
-   * TODO: Returns the entirety of player's hand.
+   * Returns the entirety of player's hand.
    *
    * @return card array of the players hand
    */
   public Card[] getHand() {
-    return new Card[0];
+    return hand.getCards();
   }
 
   /**
@@ -67,12 +67,12 @@ public class Player {
   }
 
   /**
-   * TODO: Removes one instance of the specified card from the player's hand.
+   * Removes one instance of the specified card from the player's hand.
    *
    * @param card the card to remove.
    * @return true if successful and false otherwise.
    */
   public boolean removeCardFromHand(Card card) {
-    return true;
+    return hand.removeCardFromPile(card, true);
   }
 }
