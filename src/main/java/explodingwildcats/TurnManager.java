@@ -490,7 +490,6 @@ public class TurnManager {
    */
   public void do2CardCombo() {
     boolean validPlayerFound = false;
-    boolean validCardFound = false;
     int targetIndex = -1;
 
     printPlayers();
@@ -514,6 +513,7 @@ public class TurnManager {
     printPlayerHand(targetIndex);
     String card = ui.prompt2CardComboTarget(false);
     Card cardToGive = null;
+    boolean validCardFound = false;
 
     while (!validCardFound) {
       try {
@@ -542,7 +542,6 @@ public class TurnManager {
    */
   public void do3CardCombo() {
     boolean validPlayerFound = false;
-    boolean validCardFound = false;
     int targetIndex = -1;
 
     printPlayers();
@@ -565,6 +564,7 @@ public class TurnManager {
 
     String card = ui.prompt3CardComboTargetCard(false);
     Card cardToGive = null;
+    boolean validCardFound = false;
 
     while (!validCardFound) {
       try {
