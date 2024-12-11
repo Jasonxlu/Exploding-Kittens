@@ -300,13 +300,11 @@ public class UserInterface {
 
   /**
    * Prompts the target user to enter a card name to give up for the 2 card combo.
-   * // TODO: Print out the player's hand to help them choose a card.
    *
-   * @param playerIndex the index of the player in the game being targeted.
    * @param isRetry whether this is a retry prompt.
    * @return the user's input.
    */
-  public String prompt2CardComboTarget(int playerIndex, boolean isRetry) {
+  public String prompt2CardComboTarget(boolean isRetry) {
     if (isRetry) {
       System.out.println("Invalid card. Please type in a valid card name.");
     } else {
@@ -352,5 +350,27 @@ public class UserInterface {
       System.out.println("Please type in the name of the card you are asking to steal.");
     }
     return scanner.nextLine().trim();
+  }
+
+  /**
+   * Prints out the players hand given the hand.
+   *
+   * @param hand the hand to print.
+   */
+  public void printPlayerHand(String[] hand) {
+    for (int i = 0; i < hand.length; i++) {
+      System.out.printf("Card #%d: %s%n", i + 1, hand[i]);
+    }
+  }
+
+  /**
+   * Prints the players in the game.
+   *
+   * @param players the players to print.
+   */
+  public void printPlayers(String[] players) {
+    for (int i = 0; i < players.length; i++) {
+      System.out.printf("Player #%d: %s%n", i + 1, players[i]);
+    }
   }
 }

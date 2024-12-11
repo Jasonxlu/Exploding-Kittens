@@ -6,12 +6,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ui.UserInterface;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import java.util.Collections;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -1239,9 +1238,10 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     EasyMock.expect(ui.promptPlayCard(false)).andReturn("");
 
@@ -1268,9 +1268,10 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doAttack")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1307,9 +1308,10 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doSeeTheFuture")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1329,7 +1331,7 @@ public class TurnManagerTests {
       return null;
     });
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1353,9 +1355,10 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1369,7 +1372,7 @@ public class TurnManagerTests {
 
     boolean rePrompting = true;
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(rePrompting)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1394,9 +1397,10 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("promptAndPlayCombo")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     String userInput = "invalid";
     String exceptionMessage = "Could not parse input";
@@ -1407,7 +1411,7 @@ public class TurnManagerTests {
 
     boolean isRePrompting = true;
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn(newUserInput);
     turnManager.endTurn();
@@ -1432,9 +1436,10 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1471,9 +1476,10 @@ public class TurnManagerTests {
             .addMockedMethod("doAlterTheFuture")
             .addMockedMethod("doSkip")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1493,7 +1499,7 @@ public class TurnManagerTests {
       return null;
     });
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "skip";
     Card newUserInputCard = Card.SKIP;
     boolean newPlayerHasCard = true;
@@ -1526,9 +1532,10 @@ public class TurnManagerTests {
             .addMockedMethod("doShuffle")
             .addMockedMethod("doTargetedAttack")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
@@ -1548,7 +1555,7 @@ public class TurnManagerTests {
       return null;
     });
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "targeted attack";
     Card newUserInputCard = Card.TARGETED_ATTACK;
     boolean newPlayerHasCard = true;
@@ -1580,9 +1587,10 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doReverse")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1618,9 +1626,10 @@ public class TurnManagerTests {
             .addMockedMethod("getPlayableCard")
             .addMockedMethod("doDrawFromBottom")
             .addMockedMethod("promptPlayNope")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     int currPlayerIndex = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
@@ -1633,7 +1642,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = true;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.getPlayableCard(userInput)).andReturn(userInputCard);
     EasyMock.expect(gameEngine.playerHasCard(userInputCard, currPlayerIndex)).andReturn(playerHasCard);
@@ -1661,9 +1670,10 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("promptAndPlayCombo")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     boolean isRePrompting = true;
     String userInput = "2 cat cards";
@@ -1671,7 +1681,7 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
@@ -1696,9 +1706,10 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
             .addMockedMethod("promptAndPlayCombo")
+            .addMockedMethod("printPlayerHand")
             .createMock();
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     boolean isRePrompting = false;
     String userInput = "3 cat cards";
@@ -1706,7 +1717,7 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
 
-    gameEngine.printCurrentPlayerHand();
+    turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
@@ -1994,241 +2005,26 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void do2CardCombo_invalidTargetName_validCardName_targetHandMultipleCards_repromptForInputAndModifyBothHands() {
+  public void doGameLoop_gameIsOver() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("playCardLoop")
+            .createMock();
 
-    String invalidTargetName = "invalid";
-    String targetName = "Jane";
-    String cardName = "skip";
-    int targetIndex = 2;
-    int currPlayerIndex = 0;
-    Card targetCard = Card.SKIP;
+    boolean isGameOver = true;
+    EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
 
-    Player targetPlayer = EasyMock.createMock(Player.class);
-    Player currPlayer = EasyMock.createMock(Player.class);
+    EasyMock.replay(ui, gameEngine, turnManager);
 
-    // Target name selection requires re-prompting
-    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(invalidTargetName);
-    EasyMock.expect(gameEngine.getPlayerIndexByName(invalidTargetName)).andThrow(new NoSuchElementException("No player with that name could be found."));
-    EasyMock.expect(ui.prompt2CardCombo(true)).andReturn(targetName);
-    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+    turnManager.doGameLoop();
 
-    // Set expectations for the target's hand check
-    Card[] targetHand = {Card.SKIP, Card.SEE_THE_FUTURE};
-    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
-    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
-
-    // Target card selection good on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(cardName);
-    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
-
-    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
-
-    // Modify both hands
-    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
-    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
-    currPlayer.addCardToHand(targetCard);
-
-    // REPLAY
-    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer);
-
-    turnManager.currPlayerIndex = currPlayerIndex;
-    turnManager.do2CardCombo();
-
-    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
+    EasyMock.verify(ui, gameEngine, turnManager);
   }
 
   @Test
-  public void do2CardCombo_validTargetName_emptyTargetHand_noEffectOnPlayerHands () {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
-    String targetName = "John";
-
-    int targetIndex = 3;
-
-    Player targetPlayer = EasyMock.createMock(Player.class);
-
-    // Target name selection valid on first attempt
-    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(targetName);
-    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
-
-    // Set expectations for the target's hand check
-    Card[] targetHand = {};
-    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
-    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
-    ui.printCardComboErrorTargetPlayerHasNoCards();
-
-    // REPLAY
-    EasyMock.replay(ui, gameEngine, targetPlayer);
-
-    turnManager.do2CardCombo();
-
-    EasyMock.verify(ui, gameEngine, targetPlayer);
-  }
-
-  @Test
-  public void do2CardCombo_validTargetName_validCardName_targetHandMaxCards_modifyBothPlayerHands () {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
-
-    String targetName = "Jane";
-    String cardName = "shuffle";
-    int targetIndex = 5;
-    int currPlayerIndex = 4;
-    Card targetCard = Card.SHUFFLE;
-
-    Player targetPlayer = EasyMock.createMock(Player.class);
-    Player currPlayer = EasyMock.createMock(Player.class);
-
-    // Target name selection is valid on first attempt
-    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(targetName);
-    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
-
-    // Set expectations for the target's hand check
-    Card[] targetHand = {Card.SKIP, Card.ATTACK, Card.ATTACK, Card.ATTACK, Card.TARGETED_ATTACK, Card.TARGETED_ATTACK, Card.TARGETED_ATTACK,
-            Card.SHUFFLE, Card.SHUFFLE, Card.SHUFFLE, Card.SHUFFLE,
-            Card.REVERSE, Card.REVERSE, Card.REVERSE, Card.REVERSE,
-            Card.DRAW_FROM_BOTTOM, Card.DRAW_FROM_BOTTOM, Card.DRAW_FROM_BOTTOM, Card.DRAW_FROM_BOTTOM,
-            Card.ALTER_THE_FUTURE, Card.ALTER_THE_FUTURE, Card.ALTER_THE_FUTURE, Card.ALTER_THE_FUTURE,
-            Card.SEE_THE_FUTURE, Card.SEE_THE_FUTURE, Card.SEE_THE_FUTURE, Card.SEE_THE_FUTURE,
-            Card.NOPE, Card.NOPE, Card.NOPE, Card.NOPE,
-            Card.TACO_CAT, Card.TACO_CAT, Card.TACO_CAT, Card.TACO_CAT,
-            Card.BEARD_CAT, Card.BEARD_CAT, Card.BEARD_CAT, Card.BEARD_CAT,
-            Card.RAINBOW_CAT, Card.RAINBOW_CAT, Card.RAINBOW_CAT, Card.RAINBOW_CAT,
-            Card.FERAL_CAT, Card.FERAL_CAT, Card.FERAL_CAT, Card.FERAL_CAT,
-            Card.HAIRY_POTATO_CAT, Card.HAIRY_POTATO_CAT, Card.HAIRY_POTATO_CAT, Card.HAIRY_POTATO_CAT};
-    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
-    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
-
-    // Target card selection is valid on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(cardName);
-    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
-
-    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
-
-    // Modify both hands
-    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
-    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
-    currPlayer.addCardToHand(targetCard);
-
-    // REPLAY
-    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer);
-
-    turnManager.currPlayerIndex = currPlayerIndex;
-    turnManager.do2CardCombo();
-
-    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
-  }
-
-  @Test
-  public void do2CardCombo_validTargetName_targetHandMissingCardName_targetHandSingleCard_repromptForInputAndModifyBothHands() {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
-
-    String missingCardName = "exploding kitten";
-    String targetName = "Smith";
-    String cardName = "defuse";
-    int targetIndex = 1;
-    int currPlayerIndex = 0;
-    Card missingCard = Card.EXPLODE;
-    Card targetCard = Card.DEFUSE;
-
-    Player targetPlayer = EasyMock.createMock(Player.class);
-    Player currPlayer = EasyMock.createMock(Player.class);
-
-    // Target name selection invalid on first attempt
-    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(targetName);
-    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
-
-    // Set expectations for the target's hand check
-    Card[] targetHand = {Card.DEFUSE};
-    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
-    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
-
-    // Target card selection invalid on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(missingCardName);
-    EasyMock.expect(gameEngine.getCardByName(missingCardName)).andReturn(missingCard);
-
-    // Check that the target player doesn't have the card and re-prompt
-    EasyMock.expect(gameEngine.playerHasCard(missingCard, targetIndex)).andReturn(false);
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, true)).andReturn(cardName);
-    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
-
-    // Now check that the target player has the target card
-    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
-
-    // Modify both hands
-    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
-    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
-    currPlayer.addCardToHand(targetCard);
-
-    // REPLAY
-    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer);
-
-    turnManager.currPlayerIndex = currPlayerIndex;
-    turnManager.do2CardCombo();
-
-    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
-  }
-
-  @Test
-  public void do2CardCombo_emptyTargetName_invalidCardName_targetHandSingleCard_repromptForInputAndModifyBothHands () {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
-
-    String invalidTargetName = "";
-    String invalidCardName = "explode";
-    String targetName = "John";
-    String cardName = "attack";
-    int targetIndex = 0;
-    int currPlayerIndex = 1;
-    Card targetCard = Card.ATTACK;
-
-    Player targetPlayer = EasyMock.createMock(Player.class);
-    Player currPlayer = EasyMock.createMock(Player.class);
-
-    // Target name selection invalid on first attempt
-    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(invalidTargetName);
-    EasyMock.expect(gameEngine.getPlayerIndexByName(invalidTargetName)).andThrow(new NoSuchElementException("No player with that name could be found."));
-    EasyMock.expect(ui.prompt2CardCombo(true)).andReturn(targetName);
-    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
-
-    // Set expectations for the target's hand check
-    Card[] targetHand = {Card.ATTACK};
-    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
-    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
-
-    // Target card selection invalid on first attempt
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, false)).andReturn(invalidCardName);
-    EasyMock.expect(gameEngine.getCardByName(invalidCardName)).andThrow(new IllegalArgumentException("Could not parse input."));
-    EasyMock.expect(ui.prompt2CardComboTarget(targetIndex, true)).andReturn(cardName);
-    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
-
-    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
-
-    // Modify both hands
-    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
-    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
-    currPlayer.addCardToHand(targetCard);
-
-    // REPLAY
-    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer);
-
-    turnManager.currPlayerIndex = currPlayerIndex;
-    turnManager.do2CardCombo();
-
-    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
-  }
-
-
-  @Test
-  public void doGameLoop_gameIsNotOverThenIsOver () {
+  public void doGameLoop_gameIsNotOverThenIsOver() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
@@ -2242,25 +2038,6 @@ public class TurnManagerTests {
     turnManager.playCardLoop();
 
     isGameOver = true;
-    EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
-
-    EasyMock.replay(ui, gameEngine, turnManager);
-
-    turnManager.doGameLoop();
-
-    EasyMock.verify(ui, gameEngine, turnManager);
-  }
-
-  @Test
-  public void doGameLoop_gameIsOver () {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
-            .withConstructor(ui, gameEngine)
-            .addMockedMethod("playCardLoop")
-            .createMock();
-
-    boolean isGameOver = true;
     EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
 
     EasyMock.replay(ui, gameEngine, turnManager);
@@ -2378,6 +2155,265 @@ public class TurnManagerTests {
     turnManager.setupGameEngine();
 
     EasyMock.verify(ui, gameEngine);
+  }
+
+  @Test
+  public void do2CardCombo_emptyTargetName_invalidCardName_targetHandSingleCard_repromptForInputAndModifyBothHands() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
+
+    String invalidTargetName = "";
+    String invalidCardName = "explode";
+    String targetName = "John";
+    String cardName = "attack";
+    int targetIndex = 0;
+    int currPlayerIndex = 1;
+    Card targetCard = Card.ATTACK;
+
+    Player targetPlayer = EasyMock.createMock(Player.class);
+    Player currPlayer = EasyMock.createMock(Player.class);
+
+    // Target name selection invalid on first attempt
+    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(invalidTargetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(invalidTargetName)).andThrow(new NoSuchElementException("No player with that name could be found."));
+    EasyMock.expect(ui.prompt2CardCombo(true)).andReturn(targetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+
+    // Set expectations for the target's hand check
+    Card[] targetHand = {Card.ATTACK};
+    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
+    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+
+    // Target card selection invalid on first attempt
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expectLastCall();
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(invalidCardName);
+    EasyMock.expect(gameEngine.getCardByName(invalidCardName)).andThrow(new IllegalArgumentException("Could not parse input."));
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expectLastCall();
+    EasyMock.expect(ui.prompt2CardComboTarget(true)).andReturn(cardName);
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
+
+    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
+
+    // Modify both hands
+    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
+    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
+    currPlayer.addCardToHand(targetCard);
+
+    // REPLAY
+    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer, turnManager);
+
+    turnManager.currPlayerIndex = currPlayerIndex;
+    turnManager.do2CardCombo();
+
+    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer, turnManager);
+  }
+
+  @Test
+  public void do2CardCombo_invalidTargetName_validCardName_targetHandMultipleCards_repromptForInputAndModifyBothHands() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
+
+    String invalidTargetName = "invalid";
+    String targetName = "Jane";
+    String cardName = "skip";
+    int targetIndex = 2;
+    int currPlayerIndex = 0;
+    Card targetCard = Card.SKIP;
+
+    Player targetPlayer = EasyMock.createMock(Player.class);
+    Player currPlayer = EasyMock.createMock(Player.class);
+
+    // Target name selection requires re-prompting
+    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(invalidTargetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(invalidTargetName)).andThrow(new NoSuchElementException("No player with that name could be found."));
+    EasyMock.expect(ui.prompt2CardCombo(true)).andReturn(targetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+
+    // Set expectations for the target's hand check
+    Card[] targetHand = {Card.SKIP, Card.SEE_THE_FUTURE};
+    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
+    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expectLastCall();
+
+    // Target card selection good on first attempt
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(cardName);
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
+
+    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
+
+    // Modify both hands
+    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
+    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
+    currPlayer.addCardToHand(targetCard);
+
+    // REPLAY
+    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer, turnManager);
+
+    turnManager.currPlayerIndex = currPlayerIndex;
+    turnManager.do2CardCombo();
+
+    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer, turnManager);
+  }
+
+  @Test
+  public void do2CardCombo_validTargetName_emptyTargetHand_noEffectOnPlayerHands() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String targetName = "John";
+
+    int targetIndex = 3;
+
+    Player targetPlayer = EasyMock.createMock(Player.class);
+
+    // Target name selection valid on first attempt
+    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(targetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+
+    // Set expectations for the target's hand check
+    Card[] targetHand = {};
+    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
+    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+    ui.printCardComboErrorTargetPlayerHasNoCards();
+
+    // REPLAY
+    EasyMock.replay(ui, gameEngine, targetPlayer);
+
+    turnManager.do2CardCombo();
+
+    EasyMock.verify(ui, gameEngine, targetPlayer);
+  }
+
+  @Test
+  public void do2CardCombo_validTargetName_validCardName_targetHandMaxCards_modifyBothPlayerHands() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
+
+    String targetName = "Jane";
+    String cardName = "shuffle";
+    int targetIndex = 5;
+    int currPlayerIndex = 4;
+    Card targetCard = Card.SHUFFLE;
+
+    Player targetPlayer = EasyMock.createMock(Player.class);
+    Player currPlayer = EasyMock.createMock(Player.class);
+
+    // Target name selection is valid on first attempt
+    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(targetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+
+    // Set expectations for the target's hand check
+    Card[] targetHand = {Card.SKIP, Card.ATTACK, Card.ATTACK, Card.ATTACK, Card.TARGETED_ATTACK, Card.TARGETED_ATTACK, Card.TARGETED_ATTACK,
+                        Card.SHUFFLE, Card.SHUFFLE, Card.SHUFFLE, Card.SHUFFLE,
+                        Card.REVERSE, Card.REVERSE, Card.REVERSE, Card.REVERSE,
+                        Card.DRAW_FROM_BOTTOM, Card.DRAW_FROM_BOTTOM, Card.DRAW_FROM_BOTTOM, Card.DRAW_FROM_BOTTOM,
+                        Card.ALTER_THE_FUTURE, Card.ALTER_THE_FUTURE, Card.ALTER_THE_FUTURE, Card.ALTER_THE_FUTURE,
+                        Card.SEE_THE_FUTURE, Card.SEE_THE_FUTURE, Card.SEE_THE_FUTURE, Card.SEE_THE_FUTURE,
+                        Card.NOPE, Card.NOPE, Card.NOPE, Card.NOPE,
+                        Card.TACO_CAT, Card.TACO_CAT, Card.TACO_CAT, Card.TACO_CAT,
+                        Card.BEARD_CAT, Card.BEARD_CAT, Card.BEARD_CAT, Card.BEARD_CAT,
+                        Card.RAINBOW_CAT, Card.RAINBOW_CAT, Card.RAINBOW_CAT, Card.RAINBOW_CAT,
+                        Card.FERAL_CAT, Card.FERAL_CAT, Card.FERAL_CAT, Card.FERAL_CAT,
+                        Card.HAIRY_POTATO_CAT, Card.HAIRY_POTATO_CAT, Card.HAIRY_POTATO_CAT, Card.HAIRY_POTATO_CAT};
+    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
+    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+
+    // Target card selection is valid on first attempt
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expectLastCall();
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(cardName);
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
+
+    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
+
+    // Modify both hands
+    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
+    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
+    currPlayer.addCardToHand(targetCard);
+
+    // REPLAY
+    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer, turnManager);
+
+    turnManager.currPlayerIndex = currPlayerIndex;
+    turnManager.do2CardCombo();
+
+    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer, turnManager);
+  }
+
+  @Test
+  public void do2CardCombo_validTargetName_targetHandMissingCardName_targetHandSingleCard_repromptForInputAndModifyBothHands() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("printPlayerHand")
+            .createMock();
+
+    String missingCardName = "exploding kitten";
+    String targetName = "Smith";
+    String cardName = "defuse";
+    int targetIndex = 1;
+    int currPlayerIndex = 0;
+    Card missingCard = Card.EXPLODE;
+    Card targetCard = Card.DEFUSE;
+
+    Player targetPlayer = EasyMock.createMock(Player.class);
+    Player currPlayer = EasyMock.createMock(Player.class);
+
+    // Target name selection invalid on first attempt
+    EasyMock.expect(ui.prompt2CardCombo(false)).andReturn(targetName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
+
+    // Set expectations for the target's hand check
+    Card[] targetHand = {Card.DEFUSE};
+    EasyMock.expect(gameEngine.getPlayerByIndex(targetIndex)).andReturn(targetPlayer);
+    EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+
+    // Target card selection invalid on first attempt
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expectLastCall();
+    EasyMock.expect(ui.prompt2CardComboTarget(false)).andReturn(missingCardName);
+    EasyMock.expect(gameEngine.getCardByName(missingCardName)).andReturn(missingCard);
+
+    // Check that the target player doesn't have the card and re-prompt
+    EasyMock.expect(gameEngine.playerHasCard(missingCard, targetIndex)).andReturn(false);
+    turnManager.printPlayerHand(targetIndex);
+    EasyMock.expectLastCall();
+    EasyMock.expect(ui.prompt2CardComboTarget(true)).andReturn(cardName);
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(targetCard);
+
+    // Now check that the target player has the target card
+    EasyMock.expect(gameEngine.playerHasCard(targetCard, targetIndex)).andReturn(true);
+
+    // Modify both hands
+    gameEngine.removeCardFromPlayer(targetCard, targetIndex);
+    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(currPlayer);
+    currPlayer.addCardToHand(targetCard);
+
+    // REPLAY
+    EasyMock.replay(ui, gameEngine, targetPlayer, currPlayer, turnManager);
+
+    turnManager.currPlayerIndex = currPlayerIndex;
+    turnManager.do2CardCombo();
+
+    EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer, turnManager);
   }
 
   @Test
@@ -2598,6 +2634,218 @@ public class TurnManagerTests {
     turnManager.do3CardCombo();
 
     EasyMock.verify(ui, gameEngine, targetPlayer, currPlayer);
+  }
+
+  @Test
+  public void printPlayerHand_minIndex_multiplePlayers_printsPlayerHand() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int playerIndex = 0;
+
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
+    Card[] hand = {Card.ATTACK, Card.SKIP, Card.SHUFFLE};
+
+    // Get all players in GameEngine, if players are less than index then expect exception
+    List<Player> players = new ArrayList<>();
+    players.add(john);
+    players.add(jane);
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    EasyMock.expect(gameEngine.getPlayerByIndex(playerIndex)).andReturn(john);
+    EasyMock.expect(john.getHand()).andReturn(hand);
+
+    // Turn hand from Card[] to String[]
+    String[] handString = new String[hand.length];
+    for (int i = 0; i < hand.length; i++) {
+      handString[i] = hand[i].toString();
+    }
+
+    ui.printPlayerHand(handString);
+
+    EasyMock.replay(gameEngine, ui, john);
+
+    turnManager.printPlayerHand(playerIndex);
+
+    EasyMock.verify(gameEngine, ui, john);
+  }
+
+  @Test
+  public void printPlayerHand_maxIndex_maxPlayers_printsPlayerHand() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int playerIndex = 5;
+
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
+    Player brennan = EasyMock.createMock(Player.class);
+    Player foo = EasyMock.createMock(Player.class);
+    Player bar = EasyMock.createMock(Player.class);
+    Player baz = EasyMock.createMock(Player.class);
+    Card[] hand = {Card.ATTACK, Card.SKIP, Card.SHUFFLE};
+
+    // Get all players in GameEngine, if players are less than index then expect exception
+    List<Player> players = new ArrayList<>();
+    players.add(john);
+    players.add(jane);
+    players.add(brennan);
+    players.add(foo);
+    players.add(bar);
+    players.add(baz);
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    EasyMock.expect(gameEngine.getPlayerByIndex(playerIndex)).andReturn(baz);
+    EasyMock.expect(baz.getHand()).andReturn(hand);
+
+    // Turn hand from Card[] to String[]
+    String[] handString = new String[hand.length];
+    for (int i = 0; i < hand.length; i++) {
+      handString[i] = hand[i].toString();
+    }
+
+    ui.printPlayerHand(handString);
+
+    EasyMock.replay(gameEngine, ui, baz);
+
+    turnManager.printPlayerHand(playerIndex);
+
+    EasyMock.verify(gameEngine, ui, baz);
+  }
+
+  @Test
+  public void printPlayerHand_invalidIndex_maxPlayers_throwsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int playerIndex = 6;
+
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
+    Player brennan = EasyMock.createMock(Player.class);
+    Player foo = EasyMock.createMock(Player.class);
+    Player bar = EasyMock.createMock(Player.class);
+    Player baz = EasyMock.createMock(Player.class);
+
+    // Get all players in GameEngine, if players are less than index then expect exception
+    List<Player> players = new ArrayList<>();
+    players.add(john);
+    players.add(jane);
+    players.add(brennan);
+    players.add(foo);
+    players.add(bar);
+    players.add(baz);
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    EasyMock.replay(gameEngine);
+
+    String expectedMessage = "Player index is out of bounds.";
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      turnManager.printPlayerHand(playerIndex);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine);
+  }
+
+  @Test
+  public void printPlayerHand_invalidIndexNegativeOne_maxPlayers_throwsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int playerIndex = -1;
+
+    EasyMock.replay(gameEngine);
+
+    String expectedMessage = "Player index is out of bounds.";
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      turnManager.printPlayerHand(playerIndex);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine);
+  }
+
+  @Test
+  public void printPlayers_maxPlayers_printSuccessful() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    // Mock players
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
+    Player brennan = EasyMock.createMock(Player.class);
+    Player foo = EasyMock.createMock(Player.class);
+    Player bar = EasyMock.createMock(Player.class);
+    Player baz = EasyMock.createMock(Player.class);
+
+    // Add players to the GameEngine mock
+    List<Player> players = new ArrayList<>(Arrays.asList(john, jane, brennan, foo, bar, baz));
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    // Mock player names
+    EasyMock.expect(john.getName()).andReturn("John");
+    EasyMock.expect(jane.getName()).andReturn("Jane");
+    EasyMock.expect(brennan.getName()).andReturn("Brennan");
+    EasyMock.expect(foo.getName()).andReturn("Foo");
+    EasyMock.expect(bar.getName()).andReturn("Bar");
+    EasyMock.expect(baz.getName()).andReturn("Baz");
+
+    // Define expected behavior for UserInterface
+    ui.printPlayers(new String[] {"John", "Jane", "Brennan", "Foo", "Bar", "Baz"});
+    EasyMock.expectLastCall(); // This ensures the method gets called with the expected array
+
+    // Replay mocks
+    EasyMock.replay(gameEngine, ui, john, jane, brennan, foo, bar, baz);
+
+    // Execute the method under test
+    turnManager.printPlayers();
+
+    // Verify that expectations were met
+    EasyMock.verify(gameEngine, ui, john, jane, brennan, foo, bar, baz);
+  }
+
+  @Test
+  public void printPlayers_multiplePlayers_printSuccessful() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    // Mock players
+    Player john = EasyMock.createMock(Player.class);
+    Player jane = EasyMock.createMock(Player.class);
+
+    // Add players to the GameEngine mock
+    List<Player> players = new ArrayList<>(Arrays.asList(john, jane));
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
+
+    // Mock player names
+    EasyMock.expect(john.getName()).andReturn("John");
+    EasyMock.expect(jane.getName()).andReturn("Jane");
+
+
+    // Define expected behavior for UserInterface
+    ui.printPlayers(new String[] {"John", "Jane"});
+    EasyMock.expectLastCall(); // This ensures the method gets called with the expected array
+
+    // Replay mocks
+    EasyMock.replay(gameEngine, ui, john, jane);
+
+    // Execute the method under test
+    turnManager.printPlayers();
+
+    // Verify that expectations were met
+    EasyMock.verify(gameEngine, ui, john, jane);
   }
 
 }

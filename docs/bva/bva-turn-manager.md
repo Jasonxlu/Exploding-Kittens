@@ -447,3 +447,40 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 5 | Target name: "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]          | CurrPlayer is not re-prompted, no change to either hand/cardpile                                                                                                  |              |
 
 
+## Method 24: ```public void printPlayerHand(int playerIndex)```
+### Step 1-3 Results
+|        | Input                                      | Input 2                                 | Output                                                                  |
+|--------|--------------------------------------------|-----------------------------------------|-------------------------------------------------------------------------|
+| Step 1 | The player index in the players array list | The players array list                  | None, ui.printPlayerHand(String[] cards) called or exception            |
+| Step 2 | Interval                                   | Collection                              | Function called or exception                                            |
+| Step 3 | -1, [0,5], 6                               | [multiple elements], [max elements: 6]  | ui.printPlayerHand(String[] cards) called or IndexOutOfBounds Exception |
+    - Note: Input 2 cant be [] or [one element] because there needs to be at least two players in the gameEngine, otherwise the game will end.
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                                    | Expected output                            | Implemented? |
+|-------------|----------------------------------------------------------------------|--------------------------------------------|--------------|
+| Test Case 1 | Index: 0, Players: ["John", "Jane"]                                  | ui.printPlayerHand called with John's hand | yes          |
+| Test Case 2 | Index: 5, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]  | ui.printPlayerHand called with Baz's hand  | yes          |
+| Test Case 3 | Index: 6, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]  | IndexOutOfBounds Exception                 | yes          |
+| Test Case 4 | Index: -1, Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"] | IndexOutOfBounds Exception                 | yes          |
+
+
+## Method 25: ```public void printPlayers()```
+### Step 1-3 Results
+|        | Input                                  | Output                                             |
+|--------|----------------------------------------|----------------------------------------------------|
+| Step 1 | The players array list                 | None, ui.printPlayers(String[] playerNames) called |
+| Step 2 | Collection                             | Function called                                    |
+| Step 3 | [multiple elements], [max elements: 6] | ui.printPlayers(String[] playerNames) called       |
+    - Note: Input 2 cant be [] or [one element] because there needs to be at least two players in the gameEngine, otherwise the game will end.
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|              | System under test                                           | Expected output                            | Implemented? |
+|--------------|-------------------------------------------------------------|--------------------------------------------|--------------|
+| Test Case 1  | Players: ["John", "Jane"]                                   | ui.printPlayerHand called with John's hand | yes          |
+| Test Case 2  | Players: ["John", "Jane", "Brennan", "Foo", "Bar", "Baz"]   | ui.printPlayerHand called with Baz's hand  | yes          |
+
+
+

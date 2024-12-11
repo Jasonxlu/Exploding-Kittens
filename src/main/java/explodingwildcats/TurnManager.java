@@ -1,5 +1,6 @@
 package explodingwildcats;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import ui.UserInterface;
 
@@ -252,7 +253,7 @@ public class TurnManager {
     boolean shouldReprompt = false;
     // advanceTurn will set playerTurnHasEnded to false.
     while (!playerTurnHasEnded) {
-      gameEngine.printCurrentPlayerHand();
+      printPlayerHand(currPlayerIndex);
       String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
         endTurn();
@@ -504,7 +505,8 @@ public class TurnManager {
       return;
     }
 
-    String card = ui.prompt2CardComboTarget(targetIndex, false);
+    printPlayerHand(targetIndex);
+    String card = ui.prompt2CardComboTarget(false);
     Card cardToGive = null;
 
     while (!validCardFound) {
@@ -513,10 +515,12 @@ public class TurnManager {
         if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
           validCardFound = true;
         } else {
-          card = ui.prompt2CardComboTarget(targetIndex, true);
+          printPlayerHand(targetIndex);
+          card = ui.prompt2CardComboTarget(true);
         }
       } catch (IllegalArgumentException e) {
-        card = ui.prompt2CardComboTarget(targetIndex, true);
+        printPlayerHand(targetIndex);
+        card = ui.prompt2CardComboTarget(true);
       }
     }
 
@@ -571,5 +575,42 @@ public class TurnManager {
 
     // Add the card to the current player's hand.
     gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
+  }
+
+  /**
+   * Print the player's hand given the player index.
+   *
+   * @param playerIndex the index of the player
+   */
+  public void printPlayerHand(int playerIndex) {
+    // Check that the player index is valid.
+    if (playerIndex < 0 || playerIndex > gameEngine.getPlayers().size() - 1) {
+      throw new IndexOutOfBoundsException("Player index is out of bounds.");
+    }
+
+    Player player = gameEngine.getPlayerByIndex(playerIndex);
+    Card[] hand = player.getHand();
+
+    // Convert the hand to a string array.
+    String[] handString = new String[hand.length];
+    for (int i = 0; i < hand.length; i++) {
+      handString[i] = hand[i].toString();
+    }
+
+    ui.printPlayerHand(handString);
+  }
+
+  /**
+   * Print the players in the game.
+   */
+  public void printPlayers() {
+    ArrayList<Player> players = (ArrayList<Player>) gameEngine.getPlayers();
+    String[] playerNames = new String[players.size()];
+    for (int i = 0; i < players.size(); i++) {
+      playerNames[i] = players.get(i).getName();
+    }
+
+    ui.printPlayers(playerNames);
+
   }
 }
