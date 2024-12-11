@@ -311,6 +311,27 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | yes          |
 
 
+
+## Method 10: ```public boolean playerHasCards(Card card, int playerIndex, int numCards)```
+### Step 1-3 Results
+|        | Input 1             | Input 2                                                  | Input 3                     | Output                                                                                          |
+|--------|---------------------|----------------------------------------------------------|-----------------------------|-------------------------------------------------------------------------------------------------|
+| Step 1 | card                | player index in array (calls getPlayerByIndex with this) | number of cards to look for | checks whether the player has at least n copies of a card or errors if the player doesn't exist |
+| Step 2 | cases               | interval [0, 5]                                          | interval [1, MAX_INT]       | Boolean or exception                                                                            |
+| Step 3 | All Card enum cases | -1, 0, 5, 6                                              | 0, 1, MAX_INT               | True, False or IndexOutOfBoundsException                                                        |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                             | Expected output                                      | Implemented? |
+|-------------|-----------------------------------------------|------------------------------------------------------|--------------|
+| Test Case 1 | card: DEFUSE, index: -1, numCards: 1          | IndexOutOfBoundsException                            | no           |
+| Test Case 2 | card: SHUFFLE, index: 0, numCards: 0          | IllegalArgumentException                             | no           |
+| Test Case 3 | card: ATTACK, index: 5, numCards: 3           | Calls Player.hasCard() with the card, returns true   | no           |
+| Test Case 4 | card: BEARD_CAT, index: 5, numCards: MAX_INT  | Calls Player.hasCard() with the card, returns false  | no           |
+| Test Case 5 | card: BEARD_CAT, index: 4, numCards: MAX_INT  | IndexOutOfBoundsException (when there are 4 players) | no           |
+| Test Case 6 | card: DRAW_FROM_BOTTOM, index: 6, numCards: 1 | IndexOutOfBoundsException                            | no           |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
