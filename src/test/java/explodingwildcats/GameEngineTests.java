@@ -2382,4 +2382,33 @@ public class GameEngineTests {
     EasyMock.verify(game, player);
   }
 
+  @Test
+  public void playerHasCards_playerDoesNotExistAtIndex_throwsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.DEFUSE;
+    int numCards = 1;
+    int outOfRangePlayerIndex = 4;
+    String exceptionMessage = "Player does not exist at this index";
+    EasyMock.expect(game.getPlayerByIndex(outOfRangePlayerIndex)).andThrow(
+            new IndexOutOfBoundsException(exceptionMessage)
+    );
+
+    EasyMock.replay(game);
+
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.playerHasCards(cardToGet, outOfRangePlayerIndex, numCards);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(exceptionMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
 }
