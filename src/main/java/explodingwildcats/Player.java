@@ -73,9 +73,6 @@ public class Player {
    * @return true if successful and false otherwise.
    */
   public boolean removeCardFromHand(Card card) {
-    if (card == Card.EXPLODE || card == Card.IMPLODE) {
-      return false;
-    }
-    return hand.removeCardFromPile(card);
+    return hand.removeCardFromPile(card, true);
   }
 }
