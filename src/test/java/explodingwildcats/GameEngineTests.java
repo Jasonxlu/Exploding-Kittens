@@ -2473,7 +2473,7 @@ public class GameEngineTests {
   }
 
   @Test
-  public void playerHasCards_2Cards_hasBoth_returnTrue() {
+  public void playerHasCards_1Cards_has2_returnTrue() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
     CardPile drawPile = EasyMock.createMock(CardPile.class);
@@ -2483,8 +2483,8 @@ public class GameEngineTests {
             .addMockedMethod("getPlayerByIndex")
             .createMock();
 
-    Card cardToGet = Card.SEE_THE_FUTURE;
-    int numCards = 2;
+    Card cardToGet = Card.ATTACK;
+    int numCards = 1;
     int playerIndex = 2;
     Player player = EasyMock.createMock(Player.class);
     EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);

@@ -332,7 +332,7 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 6  | card: DRAW_FROM_BOTTOM, index: 6, numCards: 1, hand: N/A                                                         | IndexOutOfBoundsException                            | yes          |
 | Test Case 7  | card: SHUFFLE, index: 2, numCards: 2, hand: [SHUFFLE]                                                            | false                                                | yes          |
 | Test Case 8  | card: SEE_THE_FUTURE, index: 2, numCards: 2, hand: [SEE_THE_FUTURE, SEE_THE_FUTURE]                              | true                                                 | yes          |
-| Test Case 9  | card: ATTACK, index: 2, numCards: 1, hand: [ATTACK, ATTACK]                                                      | true                                                 | no           |
+| Test Case 9  | card: ATTACK, index: 2, numCards: 1, hand: [ATTACK, ATTACK]                                                      | true                                                 | yes          |
 | Test Case 10 | card: RAINBOW_CAT, index: 2, numCards: 3, hand: [ATTACK, RAINBOW_CAT, SHUFFLE, RAINBOW_CAT, RAINBOW_CAT, ATTACK] | true                                                 | no           |
 
 
