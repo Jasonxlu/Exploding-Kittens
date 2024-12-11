@@ -2291,4 +2291,33 @@ public class GameEngineTests {
 
     EasyMock.verify(game);
   }
+
+  @Test
+  public void playerHasCards_numCardsIs0_throwsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.SHUFFLE;
+    int numCards = 0;
+    int playerIndex = 0;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    EasyMock.replay(game);
+
+    String expectedMessage = "Number of cards must be greater than 0.";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.playerHasCards(cardToGet, playerIndex, numCards);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
 }

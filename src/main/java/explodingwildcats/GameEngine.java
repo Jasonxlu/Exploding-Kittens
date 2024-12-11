@@ -261,6 +261,9 @@ public class GameEngine {
    */
   public boolean playerHasCards(Card card, int playerIndex, int numCards) {
     getPlayerByIndex(playerIndex);
+    if (numCards <= 0) {
+      throw new IllegalArgumentException("Number of cards must be greater than 0.");
+    }
     return true;
   }
 
