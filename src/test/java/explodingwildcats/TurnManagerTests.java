@@ -1729,7 +1729,6 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("validateComboCards")
             .addMockedMethod("do2CardCombo")
             .createMock();
 
@@ -1743,7 +1742,7 @@ public class TurnManagerTests {
     Card c1 = Card.FERAL_CAT;
     Card c2 = Card.TACO_CAT;
     Card[] cards = new Card[] { c1, c2 };
-    EasyMock.expect(turnManager.validateComboCards(stringCards)).andReturn(cards);
+    EasyMock.expect(gameEngine.validateComboCards(stringCards, currPlayerIndex)).andReturn(cards);
 
     turnManager.do2CardCombo();
     gameEngine.removeCardFromPlayer(c1, currPlayerIndex);
@@ -1764,7 +1763,6 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("validateComboCards")
             .addMockedMethod("do2CardCombo")
             .createMock();
 
@@ -1773,7 +1771,9 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayComboCards(numCards)).andReturn(stringCards);
 
     String exceptionMessage = "Cards do not match.";
-    EasyMock.expect(turnManager.validateComboCards(stringCards)).andThrow(
+    EasyMock.expect(
+            gameEngine.validateComboCards(stringCards, turnManager.currPlayerIndex)
+    ).andThrow(
             new IllegalArgumentException(exceptionMessage)
     );
 
@@ -1792,7 +1792,6 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("validateComboCards")
             .addMockedMethod("do3CardCombo")
             .createMock();
 
@@ -1805,7 +1804,7 @@ public class TurnManagerTests {
 
     Card card = Card.ATTACK;
     Card[] cards = new Card[] { card, card, card };
-    EasyMock.expect(turnManager.validateComboCards(stringCards)).andReturn(cards);
+    EasyMock.expect(gameEngine.validateComboCards(stringCards, currPlayerIndex)).andReturn(cards);
 
     turnManager.do3CardCombo();
     gameEngine.removeCardFromPlayer(card, currPlayerIndex);
@@ -1826,7 +1825,6 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("validateComboCards")
             .addMockedMethod("do3CardCombo")
             .createMock();
 
@@ -1855,7 +1853,6 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("validateComboCards")
             .addMockedMethod("do3CardCombo")
             .createMock();
 
@@ -1864,7 +1861,9 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptPlayComboCards(numCards)).andReturn(stringCards);
     
     Card[] validateCardsReturn = new Card[0];
-    EasyMock.expect(turnManager.validateComboCards(stringCards)).andReturn(validateCardsReturn);
+    EasyMock.expect(
+            gameEngine.validateComboCards(stringCards, turnManager.currPlayerIndex)
+    ).andReturn(validateCardsReturn);
 
     String expectedMessage = "Number of cards returned by card validation does not match combo count.";
     EasyMock.expect(ui.printMismatchCardValidationCardsAndComboCount()).andReturn(expectedMessage);
