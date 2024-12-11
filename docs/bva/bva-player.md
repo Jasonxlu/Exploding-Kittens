@@ -50,23 +50,23 @@
 
 |              | System under test      | Expected output | Implemented? |
 |--------------|------------------------|-----------------|--------------|
-| Test Case 1  | Card: ATTACK           | TRUE            |              |
-| Test Case 2  | Card: DEFUSE           | TRUE            |              |
-| Test Case 3  | Card: NOPE             | TRUE            |              |
-| Test Case 4  | Card: SEE_THE_FUTURE   | TRUE            |              |
-| Test Case 5  | Card: SHUFFLE          | TRUE            |              |
-| Test Case 6  | Card: SKIP             | TRUE            |              |
-| Test Case 7  | Card: EXPLODE          | FALSE           |              |
-| Test Case 8  | Card: ALTER_THE_FUTURE | TRUE            |              |
-| Test Case 9  | Card: DRAW_FROM_BOTTOM | TRUE            |              |
-| Test Case 10 | Card: IMPLODE          | FALSE           |              |
-| Test Case 11 | Card: REVERSE          | TRUE            |              |
-| Test Case 12 | Card: TARGETED_ATTACK  | TRUE            |              |
-| Test Case 13 | Card: FERAL_CAT        | TRUE            |              |
-| Test Case 14 | Card: TACO_CAT         | TRUE            |              |
-| Test Case 15 | Card: HAIRY_POTATO_CAT | TRUE            |              |
-| Test Case 16 | Card: BEARD_CAT        | TRUE            |              |
-| Test Case 17 | Card: RAINBOW_CAT      | TRUE            |              |
+| Test Case 1  | Card: ATTACK           | TRUE            | yes          |
+| Test Case 2  | Card: DEFUSE           | TRUE            | yes          |
+| Test Case 3  | Card: NOPE             | TRUE            | yes          |
+| Test Case 4  | Card: SEE_THE_FUTURE   | TRUE            | yes          |
+| Test Case 5  | Card: SHUFFLE          | TRUE            | yes          |
+| Test Case 6  | Card: SKIP             | TRUE            | yes          |
+| Test Case 7  | Card: EXPLODE          | FALSE           | yes          |
+| Test Case 8  | Card: ALTER_THE_FUTURE | TRUE            | yes          |
+| Test Case 9  | Card: DRAW_FROM_BOTTOM | TRUE            | yes          |
+| Test Case 10 | Card: IMPLODE          | FALSE           | yes          |
+| Test Case 11 | Card: REVERSE          | TRUE            | yes          |
+| Test Case 12 | Card: TARGETED_ATTACK  | TRUE            | yes          |
+| Test Case 13 | Card: FERAL_CAT        | TRUE            | yes          |
+| Test Case 14 | Card: TACO_CAT         | TRUE            | yes          |
+| Test Case 15 | Card: HAIRY_POTATO_CAT | TRUE            | yes          |
+| Test Case 16 | Card: BEARD_CAT        | TRUE            | yes          |
+| Test Case 17 | Card: RAINBOW_CAT      | TRUE            | yes          |
 
 
 ## Recall the 4 steps of BVA
