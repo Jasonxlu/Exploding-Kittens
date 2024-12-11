@@ -49,12 +49,12 @@ public class Player {
   }
 
   /**
-   * TODO: Returns the entirety of player's hand.
+   * Returns the entirety of player's hand.
    *
    * @return card array of the players hand
    */
   public Card[] getHand() {
-    return new Card[0];
+   return hand.getCards();
   }
 
   /**
