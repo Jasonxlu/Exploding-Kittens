@@ -326,7 +326,7 @@ Note: I do not believe there is a max size for the discard pile.
 |--------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|--------------|
 | Test Case 1  | card: DEFUSE, index: -1, numCards: 1, hand: N/A                                                                  | IndexOutOfBoundsException                            | yes          |
 | Test Case 2  | card: SHUFFLE, index: 0, numCards: 0, hand: N/A                                                                  | IllegalArgumentException                             | yes          |
-| Test Case 3  | card: ATTACK, index: 5, numCards: 3, hand: [ATTACK]                                                              | true                                                 | no           |
+| Test Case 3  | card: ATTACK, index: 5, numCards: 3, hand: [ATTACK]                                                              | true                                                 | yes          |
 | Test Case 4  | card: BEARD_CAT, index: 5, numCards: MAX_INT, hand: [DEFUSE]                                                     | false                                                | no           |
 | Test Case 5  | card: BEARD_CAT, index: 4, numCards: MAX_INT, hand: N/A                                                          | IndexOutOfBoundsException (when there are 4 players) | no           |
 | Test Case 6  | card: DRAW_FROM_BOTTOM, index: 6, numCards: 1, hand: N/A                                                         | IndexOutOfBoundsException                            | no           |

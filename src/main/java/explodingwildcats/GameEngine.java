@@ -260,11 +260,12 @@ public class GameEngine {
    * @param numCards the number of cards to check for.
    */
   public boolean playerHasCards(Card card, int playerIndex, int numCards) {
-    getPlayerByIndex(playerIndex);
+    Player player = getPlayerByIndex(playerIndex);
     if (numCards <= 0) {
       throw new IllegalArgumentException("Number of cards must be greater than 0.");
     }
-    return true;
+    return Arrays.stream(player.getHand()).filter(c -> c == card)
+            .count() >= numCards;
   }
 
   /**
