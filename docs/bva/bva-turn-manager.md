@@ -129,14 +129,15 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test                                  | Expected output               | Implemented? |
-|-------------|----------------------------------------------------|-------------------------------|--------------|
-| Test Case 1 | Card drawn: all other cases, drawFromBottom: False | Calls handleRegularCard()     | yes          |
-| Test Case 2 | Card drawn: all other cases, drawFromBottom: True  | Calls handleRegularCard()     | yes          |
-| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False         | Calls handleExplodingKitten() | yes          |
-| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True          | Calls handleExplodingKitten() | yes          |
-| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False         | Calls handleImplodingCat()    | yes          |
-| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True          | Calls handleImplodingCat()    | yes          |
+|             | System under test                                     | Expected output                         | Implemented? |
+|-------------|-------------------------------------------------------|-----------------------------------------|--------------|
+| Test Case 1 | Card drawn: all other cases, drawFromBottom: False    | Calls handleRegularCard()               | yes          |
+| Test Case 2 | Card drawn: all other cases, drawFromBottom: True     | Calls handleRegularCard()               | yes          |
+| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False            | Calls handleExplodingKitten()           | yes          |
+| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True             | Calls handleExplodingKitten()           | yes          |
+| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False            | Calls handleImplodingCat()              | yes          |
+| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True             | Calls handleImplodingCat()              | yes          |
+| Test Case 7 | Card drawn: EXPLODE or IMPLODE, drawFromBottom: False | Calls handleRegularCard() and it throws | yes          |
 
 
 ## Method 8: ```public void handleRegularCard(Card drawnCard)```
@@ -186,7 +187,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test | Expected output                                                                                                                                                                | Implemented? |
 |-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | hasDefuse: False  | gameEngine.eliminatePlayer(currPlayerIndex) gets called with the current player index                                                                                          | yes          |
+| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called                                                                                                                            | yes          |
 | Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index) | yes          |
 
 
@@ -202,7 +203,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test            | Expected output                                                                           | Implemented? |
 |-------------|------------------------------|-------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | isImplodingCardFaceUp: True  | gameEngine.eliminatePlayer(currPlayerIndex) gets called with the current player index     | yes          |
+| Test Case 1 | isImplodingCardFaceUp: True  | TurnManager's eliminateCurrentPlayer() gets called                                        | yes          |
 | Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up | yes          |
 
 
