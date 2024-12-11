@@ -2362,9 +2362,9 @@ public class GameEngineTests {
             .addMockedMethod("getPlayerByIndex")
             .createMock();
 
-    Card cardToGet = Card.ATTACK;
-    int numCards = 1;
-    int playerIndex = 0;
+    Card cardToGet = Card.BEARD_CAT;
+    int numCards = Integer.MAX_VALUE;
+    int playerIndex = 5;
     Player player = EasyMock.createMock(Player.class);
     EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
 
