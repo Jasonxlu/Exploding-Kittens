@@ -213,7 +213,6 @@
 | Test Case 3 | index: 5, num of players: 6  | Returns the player at 5 in the list      | yes          |
 | Test Case 4 | index: 6, num of players: 6  | IndexOutOfBoundsException                | yes          |
 
-
 ## Method 13: ```public void getCardByName(String cardName)```
 ### Step 1-3 Results
 |        | Input                                                                                                                                                                                                                                                             | Output                                                      |
@@ -293,6 +292,23 @@
 | Test Case 14 | input1: ["feral cat", "feral cat", "feral cat"], input2: [FERAL_CAT, FERAL_CAT, FERAL_CAT], input 3: T               | input 2                  | yes          |
 | Test Case 3  | input1: ["beard cat", "beard cat"], input2: [BEARD_CAT, BEARD_CAT], input 3: F                                       | IllegalArgumentException | yes          |
 
+
+## Method 16: ```public void discardCard(Card card)```
+### Step 1-3 Results
+|        | Input 1                                    | Input 2             | Output                                  |
+|--------|--------------------------------------------|---------------------|-----------------------------------------|
+| Step 1 | discard pile                               | card to discard     | None, adds the card to the discard pile |
+| Step 2 | Collection                                 | Cases               | None, discard pile altered              |
+| Step 3 | [], [one element], [more than one element] | All card enum cases | None, discard pile altered              |
+Note: I do not believe there is a max size for the discard pile.
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                       | Expected output                      | Implemented? |
+|-------------|-----------------------------------------|--------------------------------------|--------------|
+| Test Case 1 | discard pile: [], card: DEFUSE          | calls CardPile.addCard(Card.DEFUSE)  | yes          |
+| Test Case 2 | discard pile: [ATTACK], card: SKIP      | calls CardPile.addCard(Card.SKIP)    | yes          |
+| Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | yes          |
 
 
 ## Recall the 4 steps of BVA

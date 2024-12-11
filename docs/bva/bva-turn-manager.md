@@ -129,14 +129,15 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test                                  | Expected output               | Implemented? |
-|-------------|----------------------------------------------------|-------------------------------|--------------|
-| Test Case 1 | Card drawn: all other cases, drawFromBottom: False | Calls handleRegularCard()     | yes          |
-| Test Case 2 | Card drawn: all other cases, drawFromBottom: True  | Calls handleRegularCard()     | yes          |
-| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False         | Calls handleExplodingKitten() | yes          |
-| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True          | Calls handleExplodingKitten() | yes          |
-| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False         | Calls handleImplodingCat()    | yes          |
-| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True          | Calls handleImplodingCat()    | yes          |
+|             | System under test                                     | Expected output                         | Implemented? |
+|-------------|-------------------------------------------------------|-----------------------------------------|--------------|
+| Test Case 1 | Card drawn: all other cases, drawFromBottom: False    | Calls handleRegularCard()               | yes          |
+| Test Case 2 | Card drawn: all other cases, drawFromBottom: True     | Calls handleRegularCard()               | yes          |
+| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False            | Calls handleExplodingKitten()           | yes          |
+| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True             | Calls handleExplodingKitten()           | yes          |
+| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False            | Calls handleImplodingCat()              | yes          |
+| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True             | Calls handleImplodingCat()              | yes          |
+| Test Case 7 | Card drawn: EXPLODE or IMPLODE, drawFromBottom: False | Calls handleRegularCard() and it throws | yes          |
 
 
 ## Method 8: ```public void handleRegularCard(Card drawnCard)```
@@ -186,7 +187,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test | Expected output                                                                                                                                                                | Implemented? |
 |-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | hasDefuse: False  | gameEngine.eliminatePlayer(currPlayerIndex) gets called with the current player index                                                                                          | yes          |
+| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called                                                                                                                            | yes          |
 | Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index) | yes          |
 
 
@@ -202,7 +203,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |             | System under test            | Expected output                                                                           | Implemented? |
 |-------------|------------------------------|-------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | isImplodingCardFaceUp: True  | gameEngine.eliminatePlayer(currPlayerIndex) gets called with the current player index     | yes          |
+| Test Case 1 | isImplodingCardFaceUp: True  | TurnManager's eliminateCurrentPlayer() gets called                                        | yes          |
 | Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up | yes          |
 
 
@@ -401,14 +402,32 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Step 3 | T/F                                        | None, call playCardLoop() while game is not over |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-
 |             | System under test       | Expected output           | Implemented? |
 |-------------|-------------------------|---------------------------|--------------|
 | Test Case 1 | input 1: true           | returns                   | yes          |
 | Test Case 2 | input 1: false --> true | calls playCardLoop() once | yes          |
 
 
-## Method 20: ```public void do3CardCombo()```
+## Method 22: ```public void setupGameEngine()```
+### Step 1-3 Results
+|        | Input                                          | Input 2                                                              | Output                                                              |
+|--------|------------------------------------------------|----------------------------------------------------------------------|---------------------------------------------------------------------|
+| Step 1 | Number of players (from ui.getNumberOfPlayers) | Player names                                                         | None, TurnManager is set up by calling the right functions in order |
+| Step 2 | Interval                                       | Collection                                                           | None, TurnManager is set up by calling the right functions in order |
+| Step 3 | [2,6] - test 1, 2, 6, 7.                       | [number of players] - test equal to number of players and not equal. | None, TurnManager is set up by calling the right functions in order |
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                                                   | Expected output                                                | Implemented? |
+|-------------|---------------------------------------------------------------------|----------------------------------------------------------------|--------------|
+| Test Case 1 | input 1: 2, input 2: ["Jane", "John"]                               | TurnManager is set up by calling the setup functions in order. | yes          |
+| Test Case 2 | input 1: 6, input 2: ["Jane", "John", "Foo", "Bar", "Alice", "Joe"] | TurnManager is set up by calling the setup functions in order. | yes          |
+| Test Case 3 | input 1: 1, input 2: N/A                                            | Throw exception                                                | yes          |
+| Test Case 4 | input 1: 3, input 2: ["Bob", "Jeff"]                                | Throw exception                                                | yes          |
+| Test Case 5 | input 1: 7, input 2: N/A                                            | Throw exception                                                | no           |
+
+
+
+## Method 23: ```public void do3CardCombo()```
 ### Step 1-3 Results
 |        | Input                                                | Input 2                                             | Input 3                                                    | Output                                                                                                                                                                                                                                                                                                                                          |
 |--------|------------------------------------------------------|-----------------------------------------------------|------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

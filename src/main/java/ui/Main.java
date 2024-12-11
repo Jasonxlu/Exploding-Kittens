@@ -17,25 +17,7 @@ public class Main {
    * @param args command-line arguments (not used)
    */
   public static void main(String[] args) {
-    UserInterface ui = new UserInterface();
-
-    System.out.println("Welcome to Exploding Wildcats!");
-
-    int numberOfPlayers = ui.getNumberOfPlayers();
-    String[] playerNames = ui.getPlayerNames(numberOfPlayers);
-
-    PlayerFactory playerFactory = new PlayerFactory();
-    CardPileFactory cardPileFactory = new CardPileFactory();
-    GameEngine gameEngine = new GameEngine(playerFactory, cardPileFactory);
-
-    // Setting up game engine
-    gameEngine.setUpPlayers(numberOfPlayers, playerNames);
-    gameEngine.createDrawPile();
-    gameEngine.dealDefuses();
-    gameEngine.dealCards();
-    gameEngine.insertExplodingAndImplodingCards();
-
-    System.out.println("Let's get started!");
-
+    TurnManager turnManager = new TurnManager();
+    turnManager.setupGameEngine();
   }
 }
