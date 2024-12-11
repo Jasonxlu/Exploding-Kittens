@@ -2350,4 +2350,36 @@ public class GameEngineTests {
 
     EasyMock.verify(game, player);
   }
+
+  @Test
+  public void playerHasCards_singleCard_doesNotHaveCard_returnFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.ATTACK;
+    int numCards = 1;
+    int playerIndex = 0;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card otherCard = Card.DEFUSE;
+    Card[] playerHand = { otherCard };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = false;
+    boolean actualResult = game.playerHasCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
 }
