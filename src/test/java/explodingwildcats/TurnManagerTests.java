@@ -2885,7 +2885,6 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, turnManager);
   }
 
-
   @Test
   public void eliminateCurrentPlayer_Zero_EliminatesPlayerAndAdvancesTurn() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
@@ -2900,6 +2899,34 @@ public class TurnManagerTests {
 
     // Test Input
     int playerIndex = 0;
+
+    // Expectations
+    gameEngine.eliminatePlayer(playerIndex);
+    turnManager.advanceTurn();
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    // Test
+    turnManager.eliminateCurrentPlayer();
+
+    // Verification
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void eliminateCurrentPlayer_Five_EliminatesPlayerAndAdvancesTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .createMock();
+
+    // Class state set up
+    turnManager.currPlayerIndex = 5;
+
+    // Test Input
+    int playerIndex = 5;
 
     // Expectations
     gameEngine.eliminatePlayer(playerIndex);
