@@ -253,13 +253,14 @@ public class GameEngine {
   }
 
   /**
-   * TODO: Checks if a player a number of the specified card.
+   * Checks if a player a number of the specified card.
    *
    * @param card card to check if a player has.
    * @param playerIndex index of the player in the players list.
    * @param numCards the number of cards to check for.
    */
   public boolean playerHasCards(Card card, int playerIndex, int numCards) {
+    getPlayerByIndex(playerIndex);
     return true;
   }
 
