@@ -456,7 +456,9 @@ public class TurnManager {
   /**
    * TODO: Eliminates the current player.
    */
-  public void eliminateCurrentPlayer() {}
+  public void eliminateCurrentPlayer() {
+    gameEngine.eliminatePlayer(currPlayerIndex);
+  }
 
   /**
    * Does the effect of a targeted attack card.

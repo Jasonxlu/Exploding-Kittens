@@ -2848,6 +2848,42 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, ui, john, jane);
   }
 
+  @Test
+  public void eliminateCurrentPlayer_NegOne_ThrowsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .createMock();
+
+    // Class state set up
+    turnManager.currPlayerIndex = -1;
+
+    // Test Input
+    int playerIndex = -1;
+
+    // Expected Values
+    String expectedMessage = "Player does not exist at this index";
+
+    // Expectations
+    gameEngine.eliminatePlayer(playerIndex);
+    EasyMock.expectLastCall().andThrow(new IndexOutOfBoundsException(expectedMessage));
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    // Test
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, turnManager::eliminateCurrentPlayer);
+
+    // Actual Values
+    String actualMessage = exception.getMessage();
+
+    // Assertion
+    assertEquals(expectedMessage, actualMessage);
+
+    // Verification
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 
 
