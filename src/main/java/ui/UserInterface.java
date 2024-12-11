@@ -328,4 +328,15 @@ public class UserInterface {
       System.out.printf("Card #%d: %s%n", i + 1, hand[i]);
     }
   }
+
+  /**
+   * Prints the players in the game
+   *
+   * @param players
+   */
+  public void printPlayers(String[] players) {
+    for (int i = 0; i < players.length; i++) {
+      System.out.printf("Player #%d: %s%n", i + 1, players[i]);
+    }
+  }
 }
