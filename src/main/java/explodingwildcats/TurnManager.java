@@ -463,6 +463,8 @@ public class TurnManager {
    */
   public void doTargetedAttack() {
     boolean validPlayerFound = false;
+
+    printPlayers();
     String name = ui.promptTargetedAttack(false);
 
     while (!validPlayerFound) {
@@ -470,6 +472,7 @@ public class TurnManager {
         currPlayerIndex = gameEngine.getPlayerIndexByName(name);
         validPlayerFound = true;
       } catch (NoSuchElementException e) {
+        printPlayers();
         name = ui.promptTargetedAttack(true);
       }
     }
@@ -489,6 +492,8 @@ public class TurnManager {
     boolean validPlayerFound = false;
     boolean validCardFound = false;
     int targetIndex = -1;
+
+    printPlayers();
     String name = ui.prompt2CardCombo(false);
 
     while (!validPlayerFound) {
@@ -496,6 +501,7 @@ public class TurnManager {
         targetIndex = gameEngine.getPlayerIndexByName(name);
         validPlayerFound = true;
       } catch (NoSuchElementException e) {
+        printPlayers();
         name = ui.prompt2CardCombo(true);
       }
     }
@@ -538,6 +544,8 @@ public class TurnManager {
     boolean validPlayerFound = false;
     boolean validCardFound = false;
     int targetIndex = -1;
+
+    printPlayers();
     String name = ui.prompt3CardComboTargetName(false);
 
     while (!validPlayerFound) {
@@ -545,6 +553,7 @@ public class TurnManager {
         targetIndex = gameEngine.getPlayerIndexByName(name);
         validPlayerFound = true;
       } catch (NoSuchElementException e) {
+        printPlayers();
         name = ui.prompt3CardComboTargetName(true);
       }
     }
