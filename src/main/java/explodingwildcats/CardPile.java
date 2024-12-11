@@ -115,6 +115,7 @@ public class CardPile {
    * @param card the card to remove
    * @return true if the card was removed, false otherwise
    */
-  public boolean removeCardFromPile(Card card) {return false;};
-
+  public boolean removeCardFromPile(Card card) {
+    return false;
+  }
 }

@@ -54,7 +54,7 @@ public class Player {
    * @return card array of the players hand
    */
   public Card[] getHand() {
-   return hand.getCards();
+    return hand.getCards();
   }
 
   /**
@@ -67,13 +67,13 @@ public class Player {
   }
 
   /**
-   * TODO: Removes one instance of the specified card from the player's hand.
+   * Removes one instance of the specified card from the player's hand.
    *
    * @param card the card to remove.
    * @return true if successful and false otherwise.
    */
   public boolean removeCardFromHand(Card card) {
-    if (card == Card.EXPLODE || card == Card.EXPLODE) {
+    if (card == Card.EXPLODE || card == Card.IMPLODE) {
       return false;
     }
     return hand.removeCardFromPile(card);
