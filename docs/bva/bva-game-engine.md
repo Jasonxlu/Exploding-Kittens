@@ -311,6 +311,24 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | yes          |
 
 
+## Method 17: ```public void eliminatePlayer(int playerIndex)```
+### Step 1-3 Results
+|        | Input 1          | Output                                                                                               |
+|--------|------------------|------------------------------------------------------------------------------------------------------|
+| Step 1 | playerIndex      | Exception or removes the corresponding player from the players list and decrements number of players |
+| Step 2 | Interval: [0, 5] | Exception or changes game state (players list and number of players)                                 |
+| Step 3 | -1, 0, 5, 6      | Exception or changes game state (players list and number of players)                                 |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test | Expected output                                              | Implemented? |
+|-------------|-------------------|--------------------------------------------------------------|--------------|
+| Test Case 1 | index: -1         | Throws IndexOutOfBoundsException                             | no           |
+| Test Case 2 | index: 0          | Removes the player at that index and decrements numOfPlayers | no           |
+| Test Case 3 | index: 5          | Removes the player at that index and decrements numOfPlayers | no           |
+| Test Case 4 | index: 6          | Throws IndexOutOfBoundsException                             | no           |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.
