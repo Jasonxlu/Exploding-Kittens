@@ -9,18 +9,59 @@ import ui.UserInterface;
  */
 public class TurnManager {
 
-  private UserInterface ui;
-  private GameEngine gameEngine;
+  private final UserInterface ui;
+  private final GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
   boolean playerTurnHasEnded = false;
 
-  TurnManager(UserInterface ui,
-              GameEngine gameEngine) {
+  /**
+   * Public constructor for TurnManager.
+   *
+   */
+  public TurnManager() {
+    this.ui = new UserInterface();
+    PlayerFactory playerFactory = new PlayerFactory();
+    CardPileFactory cardPileFactory = new CardPileFactory();
+
+    this.gameEngine = new GameEngine(playerFactory, cardPileFactory);
+
+    this.numExtraCardsToDraw = 0;
+  }
+
+  /**
+   * Package private constructor for TurnManager.
+   * Having a different package private one avoids spotbugs storing mutable object error.
+   *
+   * @param ui user interface for printing.
+   * @param gameEngine game engine for running the game.
+   */
+  TurnManager(UserInterface ui, GameEngine gameEngine) {
     this.ui = ui;
     this.gameEngine = gameEngine;
+
     this.numExtraCardsToDraw = 0;
+  }
+
+  /**
+   * Sets up the game engine.
+   */
+  public void setupGameEngine() {
+    int numberOfPlayers = ui.getNumberOfPlayers();
+    if (numberOfPlayers < 2 || numberOfPlayers > 6) {
+      throw new IllegalArgumentException("Invalid number of players.");
+    }
+    String[] playerNames = ui.getPlayerNames(numberOfPlayers);
+    if (numberOfPlayers != playerNames.length) {
+      throw new IllegalArgumentException("Invalid number of player names.");
+    }
+
+    gameEngine.setUpPlayers(numberOfPlayers, playerNames);
+    gameEngine.createDrawPile();
+    gameEngine.dealDefuses();
+    gameEngine.dealCards();
+    gameEngine.insertExplodingAndImplodingCards();
   }
 
   /**
@@ -172,7 +213,7 @@ public class TurnManager {
     }
     Card[] cards;
     try {
-      cards = validateComboCards(stringCards);
+      cards = gameEngine.validateComboCards(stringCards, currPlayerIndex);
     } catch (Exception validateCardException) {
       return true;
     }
@@ -194,22 +235,10 @@ public class TurnManager {
 
 
   /**
-   * TODO: Validates whether the current user has the input cards.
-   * Returns the Card[] if so, and throws an exception if it is invalid.
-   * Made package private to support unit testing.
-   *
-   * @param stringCards the string representation of the cards.
-   */
-  Card[] validateComboCards(String[] stringCards) {
-    return new Card[0];
-  }
-
-
-  /**
    * Does the main game loop.
    */
   public void doGameLoop() {
-    while(!gameEngine.isGameOver()) {
+    while (!gameEngine.isGameOver()) {
       playCardLoop();
     }
   }
@@ -428,10 +457,6 @@ public class TurnManager {
    * TODO: Eliminates the current player.
    */
   public void eliminateCurrentPlayer() {}
-  /**
-   * TODO: Does the effect of a 3 card combo.
-   */
-  public void do3CardCombo() {}
 
   /**
    * Does the effect of a targeted attack card.
@@ -476,7 +501,7 @@ public class TurnManager {
     }
 
     if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
-      ui.printDo2CardComboErrorTargetPlayerHasNoCards();
+      ui.printCardComboErrorTargetPlayerHasNoCards();
       return;
     }
 
@@ -496,6 +521,52 @@ public class TurnManager {
       } catch (IllegalArgumentException e) {
         printPlayerHand(targetIndex);
         card = ui.prompt2CardComboTarget(true);
+      }
+    }
+
+    // Remove the card from the target player's hand.
+    gameEngine.removeCardFromPlayer(cardToGive, targetIndex);
+
+    // Add the card to the current player's hand.
+    gameEngine.getPlayerByIndex(currPlayerIndex).addCardToHand(cardToGive);
+  }
+
+  /**
+   * Does the effect of a 3 card combo.
+   */
+  public void do3CardCombo() {
+    boolean validPlayerFound = false;
+    boolean validCardFound = false;
+    int targetIndex = -1;
+    String name = ui.prompt3CardComboTargetName(false);
+
+    while (!validPlayerFound) {
+      try {
+        targetIndex = gameEngine.getPlayerIndexByName(name);
+        validPlayerFound = true;
+      } catch (NoSuchElementException e) {
+        name = ui.prompt3CardComboTargetName(true);
+      }
+    }
+
+    if (gameEngine.getPlayerByIndex(targetIndex).getHand().length == 0) {
+      ui.printCardComboErrorTargetPlayerHasNoCards();
+      return;
+    }
+
+    String card = ui.prompt3CardComboTargetCard(false);
+    Card cardToGive = null;
+
+    while (!validCardFound) {
+      try {
+        cardToGive = gameEngine.getCardByName(card);
+        if (gameEngine.playerHasCard(cardToGive, targetIndex)) {
+          validCardFound = true;
+        } else {
+          return;
+        }
+      } catch (IllegalArgumentException e) {
+        card = ui.prompt3CardComboTargetCard(true);
       }
     }
 
