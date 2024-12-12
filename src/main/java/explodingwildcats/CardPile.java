@@ -34,7 +34,11 @@ public class CardPile {
    * @param index desired index to add to
    */
   public void addCardAt(Card c, int index) {
-    throw new IndexOutOfBoundsException("Index cannot be negative");
+    if (index < 0) {
+      throw new IndexOutOfBoundsException("Index cannot be negative");
+    }
+
+    cardList.add(0, Card.ATTACK);
   }
 
   /**

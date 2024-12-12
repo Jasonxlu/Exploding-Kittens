@@ -493,6 +493,7 @@ public class CardPileTests {
 
     EasyMock.verify(pile);
   }
+
   @Test
   public void addCardAt_NegOne_ThrowsException() {
     CardPile pile = new CardPile();
@@ -507,5 +508,32 @@ public class CardPileTests {
 
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void addCardAt_Zero_AddsCard() {
+    CardPile pile = new CardPile();
+
+    // Setup class state
+    Card existingCard = Card.SHUFFLE;
+    for (int i = 0; i < 3; i++) {
+      pile.addCard(existingCard);
+    }
+
+    // Test Value
+    int index = 0;
+    Card testCard = Card.ATTACK;
+    int newSize = 4;
+
+    // Call function
+    pile.addCardAt(testCard, index);
+
+    // Assertions
+    Card[] cards = pile.getCards();
+    assertEquals(newSize, cards.length);
+    assertEquals(testCard, cards[index]);
+    for (int i = 0; i < 3; i++) {
+      assertEquals(existingCard, cards[i + 1]);
+    }
   }
 }
