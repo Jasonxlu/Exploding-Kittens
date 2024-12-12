@@ -383,10 +383,10 @@ Note: I do not believe there is a max size for the discard pile.
 ##### All-combination or each-choice: each-choice
 |             | System under test | Expected output | Implemented? |
 |-------------|-------------------|-----------------|--------------|
-| Test Case 1 | numOfPlayers: 1   | True            |              |
-| Test Case 2 | numOfPlayers: 0   | True            |              |
-| Test Case 3 | numOfPlayers: 2   | False           |              |
-| Test Case 3 | numOfPlayers: 6   | False           |              |
+| Test Case 1 | numOfPlayers: 1   | True            | yes          |
+| Test Case 2 | numOfPlayers: 0   | True            | yes          |
+| Test Case 3 | numOfPlayers: 2   | False           | yes          |
+| Test Case 3 | numOfPlayers: 6   | False           | yes          |
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
