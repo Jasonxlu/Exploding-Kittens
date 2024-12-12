@@ -27,6 +27,8 @@ dependencies {
     testImplementation("io.cucumber:cucumber-java")
     testImplementation("io.cucumber:cucumber-junit-platform-engine")
     testImplementation("io.cucumber:cucumber-picocontainer:7.20.1")
+
+    implementation("com.github.spotbugs:spotbugs-annotations:4.7.3")
 }
 
 java {
@@ -125,12 +127,12 @@ tasks.jacocoTestReport {
 }
 
 tasks.build {
-    dependsOn("pitest") // TODO: Uncomment when merged with game setup branch
+    dependsOn("pitest")
 }
 
 tasks.test {
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-    finalizedBy(tasks.pitest) // TODO: Uncomment when merged with game setup branch
+    finalizedBy(tasks.pitest)
 }
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report

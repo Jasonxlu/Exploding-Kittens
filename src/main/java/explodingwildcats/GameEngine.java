@@ -15,7 +15,7 @@ public class GameEngine {
   private List<Player> players = new ArrayList<>();
 
   private CardPile drawPile;
-  private CardPile discardPile;
+  CardPile discardPile; // package private to support BDD testing.
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
 
@@ -123,6 +123,9 @@ public class GameEngine {
    * @return whether the game is over.
    */
   public boolean isGameOver() {
+    if (numOfPlayers > 1) {
+      return false;
+    }
     return true;
   }
 

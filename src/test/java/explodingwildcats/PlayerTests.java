@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
 * Test suite for the Player class.
@@ -193,6 +192,32 @@ public class PlayerTests {
 
   }
 
+  @Test
+  public void getHand_returnsHandArray() {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
 
+    Card[] cards = new Card[] {Card.ATTACK, Card.TACO_CAT, Card.DEFUSE};
+
+    EasyMock.expect(hand.getCards()).andReturn(cards);
+
+    EasyMock.replay(hand);
+
+    Card[] result = player.getHand();
+
+    EasyMock.verify(hand);
+
+    // Assert that the returned array is the same as the one we expect
+    assertArrayEquals(cards, result);
+  }
+
+  @Test
+  public void getName_returnsName() {
+    Player player = new Player("Bob");
+
+    String name = player.getName();
+
+    assertEquals("Bob", name);
+  }
 
 }

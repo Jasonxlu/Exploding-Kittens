@@ -283,7 +283,6 @@ public class UserInterface {
 
   /**
    * Prompts the user to enter a player name for the 2 card combo.
-   * TODO: Print out the players in the game
    *
    * @param isRetry whether this is a retry prompt.
    * @return the user's input.
@@ -322,7 +321,6 @@ public class UserInterface {
 
   /**
    * Prompts the user to enter a player name for the 3 card combo.
-   * TODO: Print out the players in the game
    *
    * @param isRetry whether this is a retry prompt.
    * @return the user's input.
