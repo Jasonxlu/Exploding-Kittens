@@ -10,6 +10,7 @@ public class EliminatePlayerSteps {
 
   private TurnManager turnManager;
   private UserInterface uiMock;
+  private Player playerToBeEliminated;
 
   @Given("a TurnManager with {int} players")
   public void a_turn_manager_with_players(Integer numPlayers) {
@@ -26,8 +27,8 @@ public class EliminatePlayerSteps {
 
   @Given("current player index {int}")
   public void current_player_index(Integer currPlayerIndex) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    turnManager.currPlayerIndex = currPlayerIndex;
+    playerToBeEliminated = turnManager.gameEngine.getPlayerByIndex(currPlayerIndex);
   }
 
   @Given("turn order is reversed false")
