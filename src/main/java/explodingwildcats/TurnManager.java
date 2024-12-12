@@ -1,6 +1,6 @@
 package explodingwildcats;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import ui.UserInterface;
 
@@ -176,22 +176,24 @@ public class TurnManager {
       numExtraCardsToDraw--;
       drawAndProcessCard(false);
     } else {
-      advanceTurn();
+      advanceTurn(true);
     }
   }
 
   /**
    * Updates whose turn it is.
    */
-  public void advanceTurn() {
+  public void advanceTurn(boolean playerSurvived) {
     int numOfPlayers = gameEngine.getNumberOfPlayers();
     boolean orderReversed = gameEngine.getIsTurnOrderReversed();
 
     if (orderReversed) {
       currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     } else {
-      currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
+      currPlayerIndex = playerSurvived ? (currPlayerIndex + 1) % numOfPlayers : currPlayerIndex;
     }
+
+    playerTurnHasEnded = true;
   }
 
   /**
@@ -354,7 +356,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
-    advanceTurn();
+    advanceTurn(true);
   }
 
   /**
@@ -454,9 +456,12 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Eliminates the current player.
+   * Eliminates the current player.
    */
-  public void eliminateCurrentPlayer() {}
+  public void eliminateCurrentPlayer() {
+    gameEngine.eliminatePlayer(currPlayerIndex);
+    advanceTurn(false);
+  }
 
   /**
    * Does the effect of a targeted attack card.
@@ -613,12 +618,11 @@ public class TurnManager {
    * Print the players in the game.
    */
   public void printPlayers() {
-    ArrayList<Player> players = (ArrayList<Player>) gameEngine.getPlayers();
+    List<Player> players = gameEngine.getPlayers();
     String[] playerNames = new String[players.size()];
     for (int i = 0; i < players.size(); i++) {
       playerNames[i] = players.get(i).getName();
     }
-
     ui.printPlayers(playerNames);
 
   }

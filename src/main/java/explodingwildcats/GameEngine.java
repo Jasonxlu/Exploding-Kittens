@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * Class responsible for setting up the game logic.
  */
 public class GameEngine {
-  private int numOfPlayers = 2;
+  int numOfPlayers = 2;
 
   private List<Player> players = new ArrayList<>();
 
@@ -271,7 +271,14 @@ public class GameEngine {
   /**
    * TODO: eliminates the player at that index.
    */
-  public void eliminatePlayer(int playerIndex) {}
+  public void eliminatePlayer(int playerIndex) {
+    if (playerIndex < 0 || playerIndex >= numOfPlayers) {
+      throw new IndexOutOfBoundsException("Player does not exist at this index");
+    }
+
+    players.remove(playerIndex);
+    numOfPlayers--;
+  }
 
   /**
    * Removes specified card from the player at that index.
@@ -313,7 +320,9 @@ public class GameEngine {
   /**
    * TODO: add the specified card to a specified location in the card pile.
    */
-  public void addCardToDrawPileAt(Card card, int index) {}
+  public void addCardToDrawPileAt(Card card, int index) {
+    drawPile.addCardAt(card, index);
+  }
 
   /**
    * TODO: Gets the player in the GameEngine's Player List by their name.
@@ -324,6 +333,7 @@ public class GameEngine {
    * @return the Player object that has that name.
    */
   public Player getPlayerByName(String name) {
+
     return new Player("");
   }
 

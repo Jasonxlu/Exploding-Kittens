@@ -28,6 +28,22 @@ public class CardPile {
   }
 
   /**
+   * Adds a card to the pile at the index provided or errors if not possible.
+   *
+   * @param c Card being added
+   * @param index desired index to add to
+   */
+  public void addCardAt(Card c, int index) {
+    if (index < 0) {
+      throw new IndexOutOfBoundsException("Index cannot be negative");
+    } else if (index >= cardList.size()) {
+      cardList.add(c);
+    } else {
+      cardList.add(index, c);
+    }
+  }
+
+  /**
    * Returns all the cards in the pile.
    *
    * @return Card array of all the cards

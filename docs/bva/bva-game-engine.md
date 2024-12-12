@@ -311,8 +311,25 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 3 | discard pile: [12 cards], card: SHUFFLE | calls CardPile.addCard(Card.SHUFFLE) | yes          |
 
 
+## Method 17: ```public void eliminatePlayer(int playerIndex)```
+### Step 1-3 Results
+|        | Input 1          | Output                                                                                               |
+|--------|------------------|------------------------------------------------------------------------------------------------------|
+| Step 1 | playerIndex      | Exception or removes the corresponding player from the players list and decrements number of players |
+| Step 2 | Interval: [0, 5] | Exception or changes game state (players list and number of players)                                 |
+| Step 3 | -1, 0, 5, 6      | Exception or changes game state (players list and number of players)                                 |
 
-## Method 10: ```public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards)```
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test | Expected output                                              | Implemented? |
+|-------------|-------------------|--------------------------------------------------------------|--------------|
+| Test Case 1 | index: -1         | Throws IndexOutOfBoundsException                             | yes          |
+| Test Case 2 | index: 0          | Removes the player at that index and decrements numOfPlayers | yes          |
+| Test Case 3 | index: 5          | Removes the player at that index and decrements numOfPlayers | yes          |
+| Test Case 4 | index: 6          | Throws IndexOutOfBoundsException                             | yes          |
+
+
+## Method 18: ```public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards)```
 ### Step 1-3 Results
 |        | Input 1             | Input 2                                                  | Input 3                     | Input 4                                                                                                                                           | Output                                                                                          |
 |--------|---------------------|----------------------------------------------------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
@@ -337,6 +354,21 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 11 | card: DEFUSE, index: 2, numCards: 1, hand: []                                                                    | false                                                | yes          |
 | Test Case 12 | card: DEFUSE, index: 2, numCards: 1, hand: [BEARD_CAT]                                                           | false                                                | yes          |
 
+
+## Method 19: ```public void addCardToDrawPileAt(Card card, int pileIndex)```
+### Step 1-3 Results
+|        | Input 1             | Input 2                                      | Output                                                              |
+|--------|---------------------|----------------------------------------------|---------------------------------------------------------------------|
+| Step 1 | card                | pile index                                   | calls the draw pile addCardAt method which could throw an exception |
+| Step 2 | cases               | cases                                        | call and none or call and exception                                 |
+| Step 3 | All Card enum cases | index is invalid (negative), index is valid  | call and none or call and IndexOutOfBoundsException                 |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test       | Expected output                                                  | Implemented? |
+|-------------|-------------------------|------------------------------------------------------------------|--------------|
+| Test Case 1 | card: DEFUSE, index: -1 | Calls drawPile.addCardAt and throws IndexOutOfBoundsException    | yes          |
+| Test Case 2 | card: SHUFFLE, index: 0 | Calls drawPile.addCardAt without error                           | yes          |
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
