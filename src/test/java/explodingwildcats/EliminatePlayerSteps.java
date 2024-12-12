@@ -3,13 +3,25 @@ package explodingwildcats;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.easymock.EasyMock;
+import ui.UserInterface;
 
 public class EliminatePlayerSteps {
 
+  private TurnManager turnManager;
+  private UserInterface uiMock;
+
   @Given("a TurnManager with {int} players")
   public void a_turn_manager_with_players(Integer numPlayers) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    uiMock = EasyMock.createMock(UserInterface.class);
+
+    String[] sampleNames = new String[numPlayers];
+    for (int i = 0; i < numPlayers; i++) {
+      sampleNames[i] = Integer.toString(i);
+    }
+
+    turnManager = new TurnManager(uiMock);
+    turnManager.gameEngine.setUpPlayers(numPlayers, sampleNames);
   }
 
   @Given("current player index {int}")
