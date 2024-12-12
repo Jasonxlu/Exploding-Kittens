@@ -355,6 +355,21 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 12 | card: DEFUSE, index: 2, numCards: 1, hand: [BEARD_CAT]                                                           | false                                                | yes          |
 
 
+## Method 19: ```public void addCardToDrawPileAt(Card card, int pileIndex)```
+### Step 1-3 Results
+|        | Input 1             | Input 2                                      | Output                                                              |
+|--------|---------------------|----------------------------------------------|---------------------------------------------------------------------|
+| Step 1 | card                | pile index                                   | calls the draw pile addCardAt method which could throw an exception |
+| Step 2 | cases               | cases                                        | call and none or call and exception                                 |
+| Step 3 | All Card enum cases | index is invalid (negative), index is valid  | call and none or call and IndexOutOfBoundsException                 |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test       | Expected output                                                  | Implemented? |
+|-------------|-------------------------|------------------------------------------------------------------|--------------|
+| Test Case 1 | card: DEFUSE, index: -1 | Calls drawPile.addCardAt and throws IndexOutOfBoundsException    | yes          |
+| Test Case 2 | card: SHUFFLE, index: 0 | Calls drawPile.addCardAt without error                           | yes          |
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.

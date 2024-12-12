@@ -460,7 +460,7 @@ public class TurnManager {
    */
   public void eliminateCurrentPlayer() {
     gameEngine.eliminatePlayer(currPlayerIndex);
-    advanceTurn();
+    advanceTurn(true);
   }
 
   /**
