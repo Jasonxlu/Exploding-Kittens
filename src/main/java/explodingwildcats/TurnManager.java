@@ -191,7 +191,7 @@ public class TurnManager {
   public void endTurn(boolean drawFromBottom) {
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
-      drawAndProcessCard(false);
+      drawAndProcessCard(drawFromBottom);
     } else {
       drawAndProcessCard(drawFromBottom);
       advanceTurn(true);
