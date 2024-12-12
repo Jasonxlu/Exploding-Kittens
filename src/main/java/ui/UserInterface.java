@@ -112,10 +112,7 @@ public class UserInterface {
    * @param numToReorder the string to print.
    */
   public int[] promptNewOrder(int numToReorder) {
-    System.out.println("Please enter the new order in the format: "
-            + "<# of first card>, "
-            + "<# of second card>, "
-            + "<# of third card>.");
+    System.out.println(bundle.getString("prompt.new_order_instruction"));
     int[] newOrder = new int[numToReorder];
 
     boolean orderSet = false;
@@ -124,7 +121,7 @@ public class UserInterface {
       String[] enteredOrder = scanner.nextLine().trim().split(",");
       if (enteredOrder.length != numToReorder) {
         orderSet = false;
-        System.out.println("Error: Please enter exactly " + numToReorder + " numbers.");
+        System.out.println(MessageFormat.format(bundle.getString("error.invalid_order_length"), numToReorder));
         continue;
       }
       boolean[] seenNums = new boolean[numToReorder];
@@ -133,8 +130,7 @@ public class UserInterface {
           int num = Integer.parseInt(enteredOrder[i].trim());
           if (num < 1 || num > numToReorder) {
             orderSet = false;
-            System.out.println("You entered a number outside of the range to reorder (1-"
-                    + numToReorder + ").");
+            System.out.println(MessageFormat.format(bundle.getString("error.number_out_of_range"), numToReorder));
             break;
           }
           seenNums[num - 1] = true;
@@ -142,7 +138,7 @@ public class UserInterface {
         }
       } catch (NumberFormatException e) {
         orderSet = false;
-        System.out.println("You entered an invalid number.");
+        System.out.println(bundle.getString("error.invalid_number"));
         continue;
       }
 
@@ -150,7 +146,7 @@ public class UserInterface {
       for (int i = 0; i < seenNums.length; i++) {
         if (!seenNums[i]) {
           orderSet = false;
-          System.out.println("You forgot to set " + i + " in your new order.");
+          System.out.println(MessageFormat.format(bundle.getString("error.missing_order_number"), i + 1));
           break;
         }
       }
