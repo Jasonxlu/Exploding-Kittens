@@ -28,7 +28,7 @@ public class CardPile {
   }
 
   /**
-   * TODO: Adds a card to the pile at the index provided or errors if not possible.
+   * Adds a card to the pile at the index provided or errors if not possible.
    *
    * @param c Card being added
    * @param index desired index to add to
