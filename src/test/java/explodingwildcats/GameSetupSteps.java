@@ -72,8 +72,8 @@ public class GameSetupSteps {
     assertEquals(expectedTotalNumDefuses, actualTotalNumDefuses);
   }
 
-  @Then("the game engine deals cards to each player")
-  public void the_game_engine_deals_cards_to_each_player() {
+  @Then("the game engine sets up the draw pile and deals cards to each player")
+  public void the_game_engine_sets_up_the_draw_pile_and_deals_cards_to_each_player() {
     // game engine has at least one of each card across players + draw pile
     Card[] actualDrawPile = turnManager.gameEngine.getDrawPile();
     List<Player> actualPlayers = turnManager.gameEngine.getPlayers();
@@ -199,12 +199,6 @@ public class GameSetupSteps {
 
     long expectedNumImplodingKittens = 1;
     assertEquals(expectedNumImplodingKittens, actualNumImplodingKittens);
-  }
-
-  @Then("the game engine draw pile is properly set up")
-  public void the_game_engine_draw_pile_is_properly_set_up() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
   }
 
   @Then("the game engine sets up the discard pile as empty")
