@@ -159,22 +159,26 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 3 | Card: EXPLODE     | IllegalArgumentException             | yes          |
 
 
-## Method 9: ```public void endTurn()```
+## Method 9: ```public void endTurn(boolean drawFromBottom)```
 ### Step 1-3 Results
-|        | Input 1                 | Output                                                                                  |
-|--------|-------------------------|-----------------------------------------------------------------------------------------|
-| Step 1 | numExtraCardsToDraw     | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
-| Step 2 | Counts                  | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
-| Step 3 | 0, 1, >1, max value (7) | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
+|        | Input 1                 | Input 2                            | Output                                                                                  |
+|--------|-------------------------|------------------------------------|-----------------------------------------------------------------------------------------|
+| Step 1 | numExtraCardsToDraw     | whether to draw from bottom or not | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw |
+| Step 2 | Counts                  | Boolean                            | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw |
+| Step 3 | 0, 1, >1, max value (7) | True, False                        | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output                                             | Implemented? |
-|-------------|-------------------|-------------------------------------------------------------|--------------|
-| Test Case 1 | draw counter: 0   | Calls advanceTurn and decrements numExtraCardsToDraw        | yes          |
-| Test Case 2 | draw counter: 1   | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
-| Test Case 3 | draw counter: >1  | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
-| Test Case 4 | draw counter: 7   | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
+|             | System under test                       | Expected output                                                    | Implemented? |
+|-------------|-----------------------------------------|--------------------------------------------------------------------|--------------|
+| Test Case 1 | draw counter: 0, drawFromBottom: false  | Calls drawAndProcessCard(false) and advanceTurn                    | no           |
+| Test Case 2 | draw counter: 0, drawFromBottom: true   | Calls drawAndProcessCard(true) and advanceTurn                     | no           |
+| Test Case 3 | draw counter: 1, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | no           |
+| Test Case 4 | draw counter: 1, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | no           |
+| Test Case 5 | draw counter: >1, drawFromBottom: false | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | no           |
+| Test Case 6 | draw counter: >1, drawFromBottom: true  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | no           |
+| Test Case 7 | draw counter: 7, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | no           |
+| Test Case 8 | draw counter: 7, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | no           |
 
 
 ## Method 10: ```public void handleExplodingKitten()```
