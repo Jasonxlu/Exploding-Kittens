@@ -125,12 +125,12 @@ tasks.jacocoTestReport {
 }
 
 tasks.build {
-    dependsOn("pitest") // TODO: Uncomment when merged with game setup branch
+    dependsOn("pitest")
 }
 
 tasks.test {
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-    finalizedBy(tasks.pitest) // TODO: Uncomment when merged with game setup branch
+    finalizedBy(tasks.pitest)
 }
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
