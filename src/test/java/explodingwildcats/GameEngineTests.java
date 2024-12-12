@@ -2886,4 +2886,25 @@ public class GameEngineTests {
 
     assertEquals(expectedResult, actualResult);
   }
+
+  @Test
+  public void peekDrawPile_emptyPile_returnEmptyPeek() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card[] empty = new Card[0];
+    EasyMock.expect(drawPile.peek()).andReturn(empty);
+
+    EasyMock.replay(drawPile);
+
+    Card[] expectedCards = new Card[0];
+    Card[] actualCards = game.peekDrawPile();
+
+    assertArrayEquals(expectedCards, actualCards);
+
+    EasyMock.verify(drawPile);
+  }
 }
