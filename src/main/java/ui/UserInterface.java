@@ -377,7 +377,8 @@ public class UserInterface {
    */
   public void printPlayerHand(String[] hand) {
     for (int i = 0; i < hand.length; i++) {
-      System.out.printf("Card #%d: %s%n", i + 1, hand[i]);
+      System.out.println(MessageFormat.format(
+              bundle.getString("print.player_hand"), i + 1, hand[i]));
     }
   }
 
