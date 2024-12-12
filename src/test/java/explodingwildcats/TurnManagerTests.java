@@ -969,14 +969,16 @@ public class TurnManagerTests {
     turnManager.currPlayerIndex = 0;
     turnManager.isImplodingCatFaceUp = true;
 
+    ui.printDrawImplodingKitten(turnManager.isImplodingCatFaceUp);
+
     // Expectations
     turnManager.eliminateCurrentPlayer();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     turnManager.handleImplodingCat();
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -1004,6 +1006,7 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, ui);
   }
 
+  @Test
   public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsEmptyString_returnFalse() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
@@ -3171,14 +3174,15 @@ public class TurnManagerTests {
     // Expectations
     gameEngine.eliminatePlayer(playerIndex);
     turnManager.advanceTurn(false);
+    ui.printPlayerEliminated();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     // Test
     turnManager.eliminateCurrentPlayer();
 
     // Verification
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
