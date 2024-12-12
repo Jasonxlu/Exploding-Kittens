@@ -74,8 +74,131 @@ public class GameSetupSteps {
 
   @Then("the game engine deals cards to each player")
   public void the_game_engine_deals_cards_to_each_player() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    // game engine has at least one of each card across players + draw pile
+    Card[] actualDrawPile = turnManager.gameEngine.getDrawPile();
+    List<Player> actualPlayers = turnManager.gameEngine.getPlayers();
+    List<Card[]> actualHands = actualPlayers.stream()
+            .map(Player::getHand).collect(Collectors.toList());
+    long actualNumAttacks = 0;
+    long actualNumDefuses = 0;
+    long actualNumSeeTheFutures = 0;
+    long actualNumSkips = 0;
+    long actualNumTargetedAttacks = 0;
+    long actualNumShuffles = 0;
+    long actualNumReverses = 0;
+    long actualNumDrawFromBottoms = 0;
+    long actualNumAlterTheFutures = 0;
+    long actualNumNopes = 0;
+    long actualNumTacoCats = 0;
+    long actualNumBeardCats = 0;
+    long actualNumRainbowCats = 0;
+    long actualNumFeralCats = 0;
+    long actualNumHairyPotatoCats = 0;
+    long actualNumExplodingKittens = 0;
+    long actualNumImplodingKittens = 0;
+
+    // in the players' hands
+    for (Card[] hand : actualHands) {
+      actualNumAttacks += Arrays.stream(hand).filter(c -> c == Card.ATTACK).count();
+      actualNumDefuses += Arrays.stream(hand).filter(c -> c == Card.DEFUSE).count();
+      actualNumSeeTheFutures += Arrays.stream(hand).filter(c -> c == Card.SEE_THE_FUTURE).count();
+      actualNumSkips += Arrays.stream(hand).filter(c -> c == Card.SKIP).count();
+      actualNumTargetedAttacks += Arrays.stream(hand).filter(c -> c == Card.TARGETED_ATTACK).count();
+      actualNumShuffles += Arrays.stream(hand).filter(c -> c == Card.SHUFFLE).count();
+      actualNumReverses += Arrays.stream(hand).filter(c -> c == Card.REVERSE).count();
+      actualNumDrawFromBottoms += Arrays.stream(hand).filter(c -> c == Card.DRAW_FROM_BOTTOM).count();
+      actualNumAlterTheFutures += Arrays.stream(hand).filter(c -> c == Card.ALTER_THE_FUTURE).count();
+      actualNumNopes += Arrays.stream(hand).filter(c -> c == Card.NOPE).count();
+      actualNumTacoCats += Arrays.stream(hand).filter(c -> c == Card.TACO_CAT).count();
+      actualNumBeardCats += Arrays.stream(hand).filter(c -> c == Card.BEARD_CAT).count();
+      actualNumRainbowCats += Arrays.stream(hand).filter(c -> c == Card.RAINBOW_CAT).count();
+      actualNumFeralCats += Arrays.stream(hand).filter(c -> c == Card.FERAL_CAT).count();
+      actualNumHairyPotatoCats += Arrays.stream(hand).filter(c -> c == Card.HAIRY_POTATO_CAT).count();
+      actualNumExplodingKittens += Arrays.stream(hand).filter(c -> c == Card.EXPLODE).count();
+      actualNumImplodingKittens += Arrays.stream(hand).filter(c -> c == Card.IMPLODE).count();
+    }
+
+    // players have no exploding/imploding kittens
+    long actualTotalNumExplodingAndImplodingKittensInPlayerHands =
+            actualNumExplodingKittens + actualNumImplodingKittens;
+    long expectedTotalNumExplodingAndImplodingKittensInPlayerHands = 0;
+    assertEquals(expectedTotalNumExplodingAndImplodingKittensInPlayerHands,
+            actualTotalNumExplodingAndImplodingKittensInPlayerHands);
+
+    // in the draw pile
+    actualNumAttacks += Arrays.stream(actualDrawPile).filter(c -> c == Card.ATTACK).count();
+    actualNumDefuses += Arrays.stream(actualDrawPile).filter(c -> c == Card.DEFUSE).count();
+    actualNumSeeTheFutures += Arrays.stream(actualDrawPile).filter(c -> c == Card.SEE_THE_FUTURE).count();
+    actualNumSkips += Arrays.stream(actualDrawPile).filter(c -> c == Card.SKIP).count();
+    actualNumTargetedAttacks += Arrays.stream(actualDrawPile).filter(c -> c == Card.TARGETED_ATTACK).count();
+    actualNumShuffles += Arrays.stream(actualDrawPile).filter(c -> c == Card.SHUFFLE).count();
+    actualNumReverses += Arrays.stream(actualDrawPile).filter(c -> c == Card.REVERSE).count();
+    actualNumDrawFromBottoms += Arrays.stream(actualDrawPile).filter(c -> c == Card.DRAW_FROM_BOTTOM).count();
+    actualNumAlterTheFutures += Arrays.stream(actualDrawPile).filter(c -> c == Card.ALTER_THE_FUTURE).count();
+    actualNumNopes += Arrays.stream(actualDrawPile).filter(c -> c == Card.NOPE).count();
+    actualNumTacoCats += Arrays.stream(actualDrawPile).filter(c -> c == Card.TACO_CAT).count();
+    actualNumBeardCats += Arrays.stream(actualDrawPile).filter(c -> c == Card.BEARD_CAT).count();
+    actualNumRainbowCats += Arrays.stream(actualDrawPile).filter(c -> c == Card.RAINBOW_CAT).count();
+    actualNumFeralCats += Arrays.stream(actualDrawPile).filter(c -> c == Card.FERAL_CAT).count();
+    actualNumHairyPotatoCats += Arrays.stream(actualDrawPile).filter(c -> c == Card.HAIRY_POTATO_CAT).count();
+    actualNumExplodingKittens += Arrays.stream(actualDrawPile).filter(c -> c == Card.EXPLODE).count();
+    actualNumImplodingKittens += Arrays.stream(actualDrawPile).filter(c -> c == Card.IMPLODE).count();
+
+    long expectedNumAttacks = 3;
+    assertEquals(expectedNumAttacks, actualNumAttacks);
+
+    long expectedNumDefusesInPileToBegin = (numPlayers == 2 || numPlayers == 3) ? 2 : 6 - numPlayers;
+    long expectedNumDefuses = expectedNumDefusesInPileToBegin + numPlayers;
+    assertEquals(expectedNumDefuses, actualNumDefuses);
+
+    long expectedNumSeeTheFuture = 4;
+    assertEquals(expectedNumSeeTheFuture, actualNumSeeTheFutures);
+
+    long expectedNumSkips = 3;
+    assertEquals(expectedNumSkips, actualNumSkips);
+
+    long expectedNumTargetedAttacks = 3;
+    assertEquals(expectedNumTargetedAttacks, actualNumTargetedAttacks);
+
+    long expectedNumShuffles = 4;
+    assertEquals(expectedNumShuffles, actualNumShuffles);
+
+    long expectedNumReverses = 4;
+    assertEquals(expectedNumReverses, actualNumReverses);
+
+    long expectedNumDrawFromBottom = 4;
+    assertEquals(expectedNumDrawFromBottom, actualNumDrawFromBottoms);
+
+    long expectedNumAlterTheFutures = 4;
+    assertEquals(expectedNumAlterTheFutures, actualNumAlterTheFutures);
+
+    long expectedNumNopes = 4;
+    assertEquals(expectedNumNopes, actualNumNopes);
+
+    long expectedNumTacoCats = 4;
+    assertEquals(expectedNumTacoCats, actualNumTacoCats);
+
+    long expectedNumBeardCats = 4;
+    assertEquals(expectedNumBeardCats, actualNumBeardCats);
+
+    long expectedNumRainbowCats = 4;
+    assertEquals(expectedNumRainbowCats, actualNumRainbowCats);
+
+    long expectedNumFeralCats = 4;
+    assertEquals(expectedNumFeralCats, actualNumFeralCats);
+
+    long expectedNumHairyPotatoCats = 4;
+    assertEquals(expectedNumHairyPotatoCats, actualNumHairyPotatoCats);
+
+    // according to the rules, the total number of exploding Kittens
+    // (exploding and imploding), should equal the number of players - 1.
+    // We always insert one imploding kitten,
+    // so it should equal the number of players - 2.
+    long expectedNumExplodingKittens = numPlayers == 2 ? 1 : numPlayers - 2;
+    assertEquals(expectedNumExplodingKittens, actualNumExplodingKittens);
+
+    long expectedNumImplodingKittens = 1;
+    assertEquals(expectedNumImplodingKittens, actualNumImplodingKittens);
   }
 
   @Then("the game engine draw pile is properly set up")
