@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.text.MessageFormat;
 
 /**
  * Class responsible for handling user interactions in the user interface.
@@ -79,13 +80,14 @@ public class UserInterface {
       String name;
 
       while (true) {
-        System.out.printf("Enter player %d's name: ", playerNum);
+        String prompt = MessageFormat.format(bundle.getString("prompt.enter_player_name"), playerNum);
+        System.out.print(prompt);
         name = scanner.nextLine().trim();
 
         if (!name.isEmpty()) {
           break;
         } else {
-          System.out.println("Name cannot be empty. Please enter a valid name.");
+          System.out.println(bundle.getString("error.empty_name"));
         }
       }
 
