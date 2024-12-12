@@ -23,3 +23,16 @@ Feature: Game setup
     |3         |"Jason,Isa,Brennan"          |
     |4         |"Brennan,Isa,Jason,Joe"      |
     |5         |"Brennan,Isa,Jason,Joe,Ava"  |
+
+
+  Scenario Outline: Game setup with invalid input
+    Given a newly created Turn Manager
+    When setupGameEngine is called with invalid inputs <numPlayers> and <playerNames>
+    Then Turn Manager throws IllegalArgumentException
+
+  Examples:
+    |numPlayers|playerNames                       |
+    |1         |"Jane"                            |
+    |7         |"Jane,John,Foo,Bar,Alice,Joe,Rick"|
+    |2         |"Jane"                            |
+    |3         |"Jane,John,Foo,Bar"               |
