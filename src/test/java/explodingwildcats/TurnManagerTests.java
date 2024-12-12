@@ -3267,7 +3267,7 @@ public class TurnManagerTests {
     List<Player> playerList = List.of((new Player[]{joe, bob, jeff, jane}));
     EasyMock.expect(gameEngine.getPlayers()).andReturn(playerList);
 
-    int numExtraCardsToDraw = 2;
+    int numExtraCardsToDraw = 3;
     turnManager.numExtraCardsToDraw = numExtraCardsToDraw;
 
     turnManager.isImplodingCatFaceUp = true;
@@ -3278,6 +3278,57 @@ public class TurnManagerTests {
     Card[] topCards = { Card.EXPLODE, Card.IMPLODE, Card.SKIP };
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(topCards);
     boolean printImplodingIsNext = false;
+
+    String[] playerNames = { joeName, bobName, jeffName, janeName };
+    ui.printGameState(janeName, playerNames, numExtraCardsToDraw, isTurnOrderReversed, printImplodingIsNext);
+
+    EasyMock.replay(gameEngine, ui, jane, joe, jeff, bob);
+
+    turnManager.printTurnInfo();
+
+    EasyMock.verify(gameEngine, ui, jane, joe, jeff, bob);
+  }
+
+  @Test
+  public void printTurnInfo_4Players_isNotReversed_implodingFaceUp_peekDrawPileIs2CardsTopImplode() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    Player jane = EasyMock.createMock(Player.class);
+    String janeName = "Jane";
+
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(jane);
+    EasyMock.expect(jane.getName()).andReturn(janeName).anyTimes();
+
+    String joeName = "Joe";
+    Player joe = EasyMock.createMock(Player.class);
+    EasyMock.expect(joe.getName()).andReturn(joeName).anyTimes();
+
+    String bobName = "Bob";
+    Player bob = EasyMock.createMock(Player.class);
+    EasyMock.expect(bob.getName()).andReturn(bobName).anyTimes();
+
+    String jeffName = "Jeff";
+    Player jeff = EasyMock.createMock(Player.class);
+    EasyMock.expect(jeff.getName()).andReturn(jeffName).anyTimes();
+
+    List<Player> playerList = List.of((new Player[]{joe, bob, jeff, jane}));
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(playerList);
+
+    int numExtraCardsToDraw = 0;
+    turnManager.numExtraCardsToDraw = numExtraCardsToDraw;
+
+    turnManager.isImplodingCatFaceUp = true;
+
+    boolean isTurnOrderReversed = false;
+    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(isTurnOrderReversed);
+
+    Card[] topCards = { Card.IMPLODE, Card.SKIP };
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(topCards);
+    boolean printImplodingIsNext = true;
 
     String[] playerNames = { joeName, bobName, jeffName, janeName };
     ui.printGameState(janeName, playerNames, numExtraCardsToDraw, isTurnOrderReversed, printImplodingIsNext);
