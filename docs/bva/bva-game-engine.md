@@ -348,10 +348,10 @@ Note: I do not believe there is a max size for the discard pile.
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test                                            | Expected output                                                  | Implemented? |
-|-------------|--------------------------------------------------------------|------------------------------------------------------------------|--------------|
-| Test Case 1 | card: DEFUSE, index: -1                                      | Calls drawPile.addCardAt and throws IndexOutOfBoundsException    | yes          |
-| Test Case 2 | card: SHUFFLE, index: 0, numCards: [ATTACK]                  | Calls drawPile.addCardAt without error                           | no           |
+|             | System under test       | Expected output                                                  | Implemented? |
+|-------------|-------------------------|------------------------------------------------------------------|--------------|
+| Test Case 1 | card: DEFUSE, index: -1 | Calls drawPile.addCardAt and throws IndexOutOfBoundsException    | yes          |
+| Test Case 2 | card: SHUFFLE, index: 0 | Calls drawPile.addCardAt without error                           | yes          |
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.

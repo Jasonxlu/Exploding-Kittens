@@ -314,7 +314,7 @@ public class GameEngine {
    * TODO: add the specified card to a specified location in the card pile.
    */
   public void addCardToDrawPileAt(Card card, int index) {
-    drawPile.addCardAt(Card.DEFUSE, -1);
+    drawPile.addCardAt(card, index);
   }
 
   /**
