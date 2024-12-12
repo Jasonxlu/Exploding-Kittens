@@ -18,8 +18,10 @@ public class GameSetupSteps {
   private TurnManager turnManager;
   private UserInterface uiMock;
 
-  private String[] names;
-  private int numPlayers;
+  String[] names;
+  int numPlayers;
+
+  Exception caughtSetupException;
 
   @Given("a newly created Turn Manager")
   public void a_newly_created_turn_manager() {
@@ -35,10 +37,14 @@ public class GameSetupSteps {
     this.numPlayers = numPlayers;
 
     EasyMock.expect(uiMock.getNumberOfPlayers()).andReturn(numPlayers);
-    EasyMock.expect(uiMock.getPlayerNames(numPlayers)).andReturn(names);
+    EasyMock.expect(uiMock.getPlayerNames(numPlayers)).andReturn(names).anyTimes();
     EasyMock.replay(uiMock);
 
-    turnManager.setupGameEngine();
+    try {
+      turnManager.setupGameEngine();
+    } catch (Exception e) {
+      caughtSetupException = e;
+    }
 
     EasyMock.verify(uiMock);
   }

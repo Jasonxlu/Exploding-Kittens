@@ -28,7 +28,7 @@ Feature: Game setup
 
   Scenario Outline: Game setup with invalid input
     Given a newly created Turn Manager
-    When setupGameEngine is called with invalid inputs <numPlayers> and <playerNames>
+    When setupGameEngine is called with inputs <numPlayers> and <playerNames>
     Then Turn Manager throws IllegalArgumentException
 
   Examples:
