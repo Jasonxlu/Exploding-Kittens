@@ -38,7 +38,7 @@ public class CardPile {
       throw new IndexOutOfBoundsException("Index cannot be negative");
     }
 
-    cardList.add(0, Card.ATTACK);
+    cardList.add(index, c);
   }
 
   /**

@@ -536,4 +536,35 @@ public class CardPileTests {
       assertEquals(existingCard, cards[i + 1]);
     }
   }
+
+  @Test
+  public void addCardAt_Three_AddsCard() {
+    CardPile pile = new CardPile();
+
+    // Setup class state
+    Card existingCard = Card.BEARD_CAT;
+    for (int i = 0; i < 10; i++) {
+      pile.addCard(existingCard);
+    }
+
+    // Test Value
+    int index = 3;
+    Card testCard = Card.SHUFFLE;
+    int newSize = 11;
+
+    // Call function
+    pile.addCardAt(testCard, index);
+
+    // Assertions
+    Card[] cards = pile.getCards();
+    assertEquals(newSize, cards.length);
+    assertEquals(testCard, cards[index]);
+    for (int i = 0; i < 3; i++) {
+      assertEquals(existingCard, cards[i]); // before new card
+    }
+
+    for (int i = index + 1; i < newSize; i++) {
+      assertEquals(existingCard, cards[i]); // after new card
+    }
+  }
 }
