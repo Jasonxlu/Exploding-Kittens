@@ -3199,6 +3199,44 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, ui, joe, bob, jeff);
   }
+
+  @Test
+  public void printTurnInfo_noPlayers_isReversed_implodingFaceUp_peekDrawPileNoCards() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String emptyPlayerName = "";
+    Player emptyPlayer = EasyMock.createMock(Player.class);
+    int currPlayerIndex = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+    EasyMock.expect(gameEngine.getPlayerByIndex(currPlayerIndex)).andReturn(emptyPlayer);
+    EasyMock.expect(emptyPlayer.getName()).andReturn(emptyPlayerName);
+
+    List<Player> playerList = new ArrayList<>();
+    EasyMock.expect(gameEngine.getPlayers()).andReturn(playerList);
+
+    int numExtraCardsToDraw = 1;
+    turnManager.numExtraCardsToDraw = numExtraCardsToDraw;
+
+    turnManager.isImplodingCatFaceUp = true;
+
+    boolean isTurnOrderReversed = true;
+    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(isTurnOrderReversed);
+
+    Card[] topCards = new Card[0];
+    EasyMock.expect(gameEngine.peekDrawPile()).andReturn(topCards);
+    boolean printImplodingIsNext = false;
+
+    String[] playerNames = new String[0];
+    ui.printGameState(emptyPlayerName, playerNames, numExtraCardsToDraw, isTurnOrderReversed, printImplodingIsNext);
+
+    EasyMock.replay(gameEngine, ui, emptyPlayer);
+
+    turnManager.printTurnInfo();
+
+    EasyMock.verify(gameEngine, ui, emptyPlayer);
+  }
 }
 
 
