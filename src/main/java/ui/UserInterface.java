@@ -88,7 +88,7 @@ public class UserInterface {
 
         if (!name.isEmpty()) {
           if (Arrays.asList(playerNames).contains(name)) {
-            System.out.println("There already exists a player with that name.");
+            System.out.println(bundle.getString("error.duplicate_name"));
             continue;
           }
           break;
