@@ -977,9 +977,11 @@ public class TurnManagerTests {
 
     String validPlayerName = "John";
     Player player = EasyMock.createMock(Player.class);
+    int validPlayerIndex = 0;
 
     EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName);
-    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andReturn(player);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(validPlayerIndex);
+    EasyMock.expect(gameEngine.getPlayerByIndex(validPlayerIndex)).andReturn(player);
     EasyMock.expect(player.removeCardFromHand(Card.NOPE)).andReturn(true);
 
     EasyMock.replay(gameEngine, ui, player);
@@ -1000,9 +1002,11 @@ public class TurnManagerTests {
 
     String validPlayerName = "John";
     Player player = EasyMock.createMock(Player.class);
+    int validPlayerIndex = 0;
 
     EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName);
-    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andReturn(player);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(validPlayerIndex);
+    EasyMock.expect(gameEngine.getPlayerByIndex(validPlayerIndex)).andReturn(player);
     EasyMock.expect(player.removeCardFromHand(Card.NOPE)).andReturn(false);
     EasyMock.expect(player.getName()).andReturn(validPlayerName);
     EasyMock.expect(ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(validPlayerName)).andReturn("");
@@ -1027,13 +1031,17 @@ public class TurnManagerTests {
     String validPlayerName2 = "Joe";
     Player player1 = EasyMock.createMock(Player.class);
     Player player2 = EasyMock.createMock(Player.class);
+    int validPlayerIndex1 = 0;
+    int validPlayerIndex2 = 1;
 
     EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName1);
-    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName1)).andReturn(player1);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName1)).andReturn(validPlayerIndex1);
+    EasyMock.expect(gameEngine.getPlayerByIndex(validPlayerIndex1)).andReturn(player1);
     EasyMock.expect(player1.removeCardFromHand(Card.NOPE)).andReturn(false);
     EasyMock.expect(player1.getName()).andReturn(validPlayerName1);
     EasyMock.expect(ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(validPlayerName1)).andReturn(validPlayerName2);
-    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName2)).andReturn(player2);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName2)).andReturn(validPlayerIndex2);
+    EasyMock.expect(gameEngine.getPlayerByIndex(validPlayerIndex2)).andReturn(player2);
     EasyMock.expect(player2.removeCardFromHand(Card.NOPE)).andReturn(true);
 
     EasyMock.replay(gameEngine, ui, player1, player2);
@@ -1054,9 +1062,11 @@ public class TurnManagerTests {
 
     String validPlayerName = "John";
     Player player = EasyMock.createMock(Player.class);
+    int validPlayerIndex = 0;
 
     EasyMock.expect(ui.promptNope(false)).andReturn(validPlayerName);
-    EasyMock.expect(gameEngine.getPlayerByName(validPlayerName)).andThrow(new NoSuchElementException("No player with that name could be found."));
+    EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(validPlayerIndex);
+    EasyMock.expect(gameEngine.getPlayerByIndex(validPlayerIndex)).andThrow(new IndexOutOfBoundsException("Player does not exist at this index"));
     EasyMock.expect(ui.promptNope(true)).andReturn("");
 
     EasyMock.replay(gameEngine, ui, player);

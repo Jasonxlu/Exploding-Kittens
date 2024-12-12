@@ -371,22 +371,23 @@ public class TurnManager {
    */
   public boolean promptAndValidateNopePlayerAndPlayNopeIfSo() {
     String name = ui.promptNope(false);
-    Player p;
+    Player player;
     while (true) {
       if (name.isEmpty()) {
         return false;
       }
       try {
-        p = gameEngine.getPlayerByName(name);
+        int playerIndex = gameEngine.getPlayerIndexByName(name);
+        player = gameEngine.getPlayerByIndex(playerIndex);
       } catch (Exception e) {
         name = ui.promptNope(true);
         continue;
       }
 
-      if (p.removeCardFromHand(Card.NOPE)) { // 'plays' the card.
+      if (player.removeCardFromHand(Card.NOPE)) { // 'plays' the card.
         return true;
       }
-      name = ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(p.getName());
+      name = ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(player.getName());
     }
   }
 
