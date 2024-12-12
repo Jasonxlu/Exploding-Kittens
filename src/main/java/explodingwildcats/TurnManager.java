@@ -330,11 +330,17 @@ public class TurnManager {
     String playerName = player.getName();
     String[] playerNames = gameEngine.getPlayers().stream()
             .map(Player::getName).toArray(String[]::new);
+    boolean printImplodingIsNext = false;
+    if (isImplodingCatFaceUp) {
+      // check if imploding kitten is the top card.
+      Card[] topCards = gameEngine.peekDrawPile();
+      printImplodingIsNext = topCards[0] == Card.IMPLODE;
+    }
     ui.printGameState(playerName,
             playerNames,
             numExtraCardsToDraw,
             gameEngine.getIsTurnOrderReversed(),
-            isImplodingCatFaceUp);
+            printImplodingIsNext);
   }
 
   /**
