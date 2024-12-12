@@ -111,7 +111,7 @@ public class TurnManager {
   public void doReverse() {
     gameEngine.reverseTurnOrder();
     ui.println("Turn order was reversed.");
-    endTurn();
+    endTurn(false);
   }
 
   /**
@@ -188,11 +188,12 @@ public class TurnManager {
   /**
    * Ends a player's turn.
    */
-  public void endTurn() {
+  public void endTurn(boolean drawFromBottom) {
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
       drawAndProcessCard(false);
     } else {
+      drawAndProcessCard(false);
       advanceTurn(true);
     }
   }
@@ -275,7 +276,7 @@ public class TurnManager {
       printPlayerHand(currPlayerIndex);
       String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
-        endTurn();
+        endTurn(false);
         shouldReprompt = false;
         continue;
       }
@@ -361,7 +362,7 @@ public class TurnManager {
    */
   public void doDrawFromBottom() {
     drawAndProcessCard(true);
-    endTurn();
+    endTurn(false);
   }
 
   /**
@@ -459,7 +460,7 @@ public class TurnManager {
    */
   public void doShuffle() {
     gameEngine.shuffleDrawPile();
-    endTurn();
+    endTurn(false);
   }
 
   /**
@@ -469,7 +470,7 @@ public class TurnManager {
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
     } else {
-      endTurn();
+      endTurn(false);
     }
   }
 
