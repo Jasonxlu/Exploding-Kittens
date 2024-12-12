@@ -118,6 +118,7 @@ public class CardPile {
    */
   public boolean removeCardFromPile(Card card, boolean isPlayerHand) {
     if (card == Card.DEFUSE) {
+      cardList.remove(card);
       return true;
     }
     return false;
