@@ -1,10 +1,10 @@
 package ui;
 
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.text.MessageFormat;
 
 /**
  * Class responsible for handling user interactions in the user interface.
@@ -80,7 +80,8 @@ public class UserInterface {
       String name;
 
       while (true) {
-        String prompt = MessageFormat.format(bundle.getString("prompt.enter_player_name"), playerNum);
+        String prompt = MessageFormat.format(
+                bundle.getString("prompt.enter_player_name"), playerNum);
         System.out.print(prompt);
         name = scanner.nextLine().trim();
 
@@ -121,7 +122,8 @@ public class UserInterface {
       String[] enteredOrder = scanner.nextLine().trim().split(",");
       if (enteredOrder.length != numToReorder) {
         orderSet = false;
-        System.out.println(MessageFormat.format(bundle.getString("error.invalid_order_length"), numToReorder));
+        System.out.println(MessageFormat.format(
+                bundle.getString("error.invalid_order_length"), numToReorder));
         continue;
       }
       boolean[] seenNums = new boolean[numToReorder];
@@ -130,7 +132,8 @@ public class UserInterface {
           int num = Integer.parseInt(enteredOrder[i].trim());
           if (num < 1 || num > numToReorder) {
             orderSet = false;
-            System.out.println(MessageFormat.format(bundle.getString("error.number_out_of_range"), numToReorder));
+            System.out.println(MessageFormat.format(
+                    bundle.getString("error.number_out_of_range"), numToReorder));
             break;
           }
           seenNums[num - 1] = true;
@@ -146,7 +149,8 @@ public class UserInterface {
       for (int i = 0; i < seenNums.length; i++) {
         if (!seenNums[i]) {
           orderSet = false;
-          System.out.println(MessageFormat.format(bundle.getString("error.missing_order_number"), i + 1));
+          System.out.println(MessageFormat.format(
+                  bundle.getString("error.missing_order_number"), i + 1));
           break;
         }
       }
@@ -167,21 +171,24 @@ public class UserInterface {
    */
   public int promptPlacementForExplodeOrImplode(int drawPileSize, boolean explodingKitten) {
     int placementIndex = -1;
-    String cardName = explodingKitten ? "Exploding Kitten" : "Imploding Cat";
+    String cardName = explodingKitten
+            ? bundle.getString("card.exploding_kitten")
+            : bundle.getString("card.imploding_cat");
 
     while (true) {
-      System.out.printf("Enter the position to place "
-              + "the %s (0-%d): ", cardName, drawPileSize - 1);
+      System.out.println(MessageFormat.format(
+              bundle.getString("prompt.place_card_position"), cardName, drawPileSize - 1));
+
       try {
         placementIndex = Integer.parseInt(scanner.nextLine().trim());
         if (placementIndex >= 0 && placementIndex < drawPileSize) {
           break;
         } else {
-          System.out.printf("Invalid position. "
-                  + "Please enter a number between 0 and %d.%n", drawPileSize - 1);
+          System.out.println(MessageFormat.format(
+                  bundle.getString("error.invalid_position"), drawPileSize - 1));
         }
       } catch (NumberFormatException e) {
-        System.out.println("Invalid input. Please enter a valid integer.");
+        System.out.println(bundle.getString("error.invalid_input_integer"));
       }
     }
 
