@@ -1081,7 +1081,8 @@ public class TurnManagerTests {
 
   @Test
   public void doSkip_numExtraCardsToDrawOne_numExtraCardsToDrawDecremented() {
-    TurnManager turnManager = new TurnManager();
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui);
 
     turnManager.numExtraCardsToDraw = 1;
 
