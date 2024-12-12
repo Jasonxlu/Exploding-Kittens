@@ -255,6 +255,7 @@ public class TurnManager {
     boolean shouldReprompt = false;
     // advanceTurn will set playerTurnHasEnded to false.
     while (!playerTurnHasEnded) {
+      printTurnInfo();
       printPlayerHand(currPlayerIndex);
       String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
