@@ -67,12 +67,6 @@ public class GameSetupSteps {
     }
   }
 
-  @Then("the game engine sets up the draw pile with the default cards")
-  public void the_game_engine_sets_up_the_draw_pile_with_the_default_cards() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
-
   @Then("the game engine adds defuse cards to the player hands and draw pile")
   public void the_game_engine_adds_defuse_cards_to_the_player_hands_and_draw_pile() {
     // Write code here that turns the phrase above into concrete actions
