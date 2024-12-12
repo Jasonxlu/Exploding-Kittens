@@ -291,7 +291,7 @@ public class UserInterface {
    * @return the error message
    */
   public String printMismatchUserCardsAndComboCount() {
-    final String message = "Number of cards returned by user does not match combo count.";
+    final String message = bundle.getString("error.mismatch_user_cards_combo_count");
     System.out.println(message);
     return message;
   }
