@@ -2740,7 +2740,9 @@ public class TurnManagerTests {
             .createMock();
 
     String missingCardName = "exploding kitten";
+    String currName = "John";
     String targetName = "Smith";
+    int currIndex = 0;
     int targetIndex = 1;
     Card missingCard = Card.EXPLODE;
 
@@ -2748,10 +2750,12 @@ public class TurnManagerTests {
     Player currPlayer = EasyMock.createMock(Player.class);
 
     turnManager.printPlayers();
-    EasyMock.expectLastCall();
+    EasyMock.expectLastCall().times(2);
 
     // Target name selection valid on first attempt
-    EasyMock.expect(ui.prompt3CardComboTargetName(false)).andReturn(targetName);
+    EasyMock.expect(ui.prompt3CardComboTargetName(false)).andReturn(currName);
+    EasyMock.expect(gameEngine.getPlayerIndexByName(currName)).andReturn(currIndex);
+    EasyMock.expect(ui.prompt3CardComboTargetName(true)).andReturn(targetName);
     EasyMock.expect(gameEngine.getPlayerIndexByName(targetName)).andReturn(targetIndex);
 
     // Set expectations for the target's hand check
