@@ -7,6 +7,7 @@ import org.easymock.EasyMock;
 import ui.UserInterface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,8 +46,30 @@ public class GameSetupSteps {
 
   @Then("the game engine adds defuse cards to the player hands and draw pile")
   public void the_game_engine_adds_defuse_cards_to_the_player_hands_and_draw_pile() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    List<Player> actualPlayers = turnManager.gameEngine.getPlayers();
+
+    // assert right number of defuses in player hands
+    List<Card[]> hands = actualPlayers.stream()
+            .map(Player::getHand).collect(Collectors.toList());
+
+    long actualTotalNumDefuses = 0;
+    for (Card[] hand : hands) {
+      long actualNumberOfDefuses = Arrays.stream(hand).filter(c ->
+              c == Card.DEFUSE).count();
+      actualTotalNumDefuses += actualNumberOfDefuses;
+      boolean playerHasAtLeast1Defuse = actualNumberOfDefuses >= 1;
+      assertTrue(playerHasAtLeast1Defuse);
+    }
+
+    Card[] actualDrawPile = turnManager.gameEngine.getDrawPile();
+
+    // assert right number of defuses across draw pile + player hands
+    long actualNumDefusesInPile = Arrays.stream(actualDrawPile).filter(c ->
+            c == Card.DEFUSE).count();
+    actualTotalNumDefuses += actualNumDefusesInPile;
+    long expectedNumDefusesInPileToBegin = (numPlayers == 2 || numPlayers == 3) ? 2 : 6 - numPlayers;
+    long expectedTotalNumDefuses = expectedNumDefusesInPileToBegin + numPlayers;
+    assertEquals(expectedTotalNumDefuses, actualTotalNumDefuses);
   }
 
   @Then("the game engine deals cards to each player")
