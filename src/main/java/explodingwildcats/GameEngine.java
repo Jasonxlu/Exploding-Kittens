@@ -15,7 +15,7 @@ public class GameEngine {
   private List<Player> players = new ArrayList<>();
 
   private CardPile drawPile;
-  private CardPile discardPile;
+  CardPile discardPile; // package private to support BDD testing.
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
 
@@ -101,6 +101,10 @@ public class GameEngine {
       throw new IllegalArgumentException("Too many players");
     }
 
+    if (Arrays.stream(names).distinct().count() != names.length) {
+      throw new IllegalArgumentException("Players have duplicate names");
+    }
+
     this.numOfPlayers = numberOfPlayers;
 
     for (int i = 0; i < numberOfPlayers; i++) {
@@ -123,6 +127,9 @@ public class GameEngine {
    * @return whether the game is over.
    */
   public boolean isGameOver() {
+    if (numOfPlayers > 1) {
+      return false;
+    }
     return true;
   }
 

@@ -2,6 +2,7 @@ package ui;
 
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -86,6 +87,10 @@ public class UserInterface {
         name = scanner.nextLine().trim();
 
         if (!name.isEmpty()) {
+          if (Arrays.asList(playerNames).contains(name)) {
+            System.out.println("There already exists a player with that name.");
+            continue;
+          }
           break;
         } else {
           System.out.println(bundle.getString("error.empty_name"));
@@ -275,7 +280,6 @@ public class UserInterface {
   }
 
   /**
-<<<<<<< HEAD
    * Print and return the error message.
    *
    * @return the error message

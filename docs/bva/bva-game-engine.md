@@ -2,21 +2,22 @@
 
 ## Method 1: ```public void setUpPlayers(int numberOfPlayers, String[] names)```
 ### Step 1-3 Results
-|        | Input 1           | Input 2                                                | Output                                                          |
-|--------|-------------------|--------------------------------------------------------|-----------------------------------------------------------------|
-| Step 1 | number of players | list of player names                                   | modified Player and numberOfPlayer fields of the class or error |
-| Step 2 | interval [2, 6]   | Collection                                             | None (modified fields) or Exception                             |
-| Step 3 | 1, 2, 6, 7        | [], [one element], [more than one element], [max size] | N/A (modified fields) or Exception                              |
+|        | Input 1           | Input 2                                                                       | Output                                                          |
+|--------|-------------------|-------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| Step 1 | number of players | list of player names                                                          | modified Player and numberOfPlayer fields of the class or error |
+| Step 2 | interval [2, 6]   | Collection                                                                    | None (modified fields) or Exception                             |
+| Step 3 | 1, 2, 6, 7        | [], [one element], [more than one element], [max size], [contains duplicates] | N/A (modified fields) or Exception                              |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                     | Expected output          | Implemented? |
-|--------------|---------------------------------------|--------------------------|--------------|
-| Test Case 1  | int: 1, list: [one elements]          | IllegalArgumentException | yes          |
-| Test Case 2  | int: 1, list: []                      | IllegalArgumentException | yes          |
-| Test Case 3  | int: 2, list: [two elements]          | None, modified fields    | yes          |
-| Test Case 4  | int: 6, list: [max size]              | None, modified fields    | yes          |
-| Test Case 5  | int: 7, list: [more than one element] | IllegalArgumentException | yes          |
+|             | System under test                     | Expected output          | Implemented? |
+|-------------|---------------------------------------|--------------------------|--------------|
+| Test Case 1 | int: 1, list: [one elements]          | IllegalArgumentException | yes          |
+| Test Case 2 | int: 1, list: []                      | IllegalArgumentException | yes          |
+| Test Case 3 | int: 2, list: [two elements]          | None, modified fields    | yes          |
+| Test Case 4 | int: 6, list: [max size]              | None, modified fields    | yes          |
+| Test Case 5 | int: 7, list: [more than one element] | IllegalArgumentException | yes          |
+| Test Case 6 | int: 3, list: ["Joe", "Jeff", "Joe"]  | IllegalArgumentException | yes          |
 
 
 
@@ -369,6 +370,43 @@ Note: I do not believe there is a max size for the discard pile.
 |-------------|-------------------------|------------------------------------------------------------------|--------------|
 | Test Case 1 | card: DEFUSE, index: -1 | Calls drawPile.addCardAt and throws IndexOutOfBoundsException    | yes          |
 | Test Case 2 | card: SHUFFLE, index: 0 | Calls drawPile.addCardAt without error                           | yes          |
+
+
+## Method 20: ```public boolean isGameOver()```
+### Step 1-3 Results
+|        | Input 1                             | Output             |
+|--------|-------------------------------------|--------------------|
+| Step 1 | Number of players left in the game  | Boolean true/false |
+| Step 2 | Cases                               | Boolean            |
+| Step 3 | numOfPlayers > 1, numOfPlayers <= 1 | True or False      |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test | Expected output | Implemented? |
+|-------------|-------------------|-----------------|--------------|
+| Test Case 1 | numOfPlayers: 1   | True            | yes          |
+| Test Case 2 | numOfPlayers: 0   | True            | yes          |
+| Test Case 3 | numOfPlayers: 2   | False           | yes          |
+| Test Case 4 | numOfPlayers: 6   | False           | yes          |
+
+
+## Method 21: ```public Card[] peekDrawPile()```
+### Step 1-3 Results
+|        | Input 1                                                  | Output                                                    |
+|--------|----------------------------------------------------------|-----------------------------------------------------------|
+| Step 1 | The game's draw pile peeked array                        | Array of cards from the top of the pile                   |
+| Step 2 | Collection                                               | Collection                                                |
+| Step 3 | [], [one element], [two elements], [max: three elements] | [], [one element], [multiple elements], [max elements: 3] |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                             | Expected output                  | Implemented? |
+|-------------|-----------------------------------------------|----------------------------------|--------------|
+| Test Case 1 | Peeked Drawpile: []                           | []                               | yes          |
+| Test Case 2 | Peeked Drawpile: [ATTACK]                     | [ATTACK]                         | yes          |
+| Test Case 3 | Peeked Drawpile: [SKIP, DEFUSE]               | [SKIP, DEFUSE]                   | yes          |
+| Test Case 4 | Peeked Drawpile: [EXPLODE, IMPLODE, TACO_CAT] | [EXPLODE, IMPLODE, TACO_CAT]     | yes          |
+
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.

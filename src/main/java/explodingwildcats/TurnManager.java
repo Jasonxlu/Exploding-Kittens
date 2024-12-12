@@ -10,7 +10,7 @@ import ui.UserInterface;
 public class TurnManager {
 
   private final UserInterface ui;
-  private final GameEngine gameEngine;
+  final GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
@@ -23,6 +23,21 @@ public class TurnManager {
    */
   public TurnManager(String language) {
     this.ui = new UserInterface(language);
+    PlayerFactory playerFactory = new PlayerFactory();
+    CardPileFactory cardPileFactory = new CardPileFactory();
+
+    this.gameEngine = new GameEngine(playerFactory, cardPileFactory);
+
+    this.numExtraCardsToDraw = 0;
+  }
+
+  /**
+   * Package private constructor for TurnManager, only mocking the UI.
+   * (For the purpose of BDD.)
+   *
+   */
+  TurnManager(UserInterface ui) {
+    this.ui = ui;
     PlayerFactory playerFactory = new PlayerFactory();
     CardPileFactory cardPileFactory = new CardPileFactory();
 
@@ -507,7 +522,12 @@ public class TurnManager {
     while (!validPlayerFound) {
       try {
         targetIndex = gameEngine.getPlayerIndexByName(name);
-        validPlayerFound = true;
+        if (targetIndex == currPlayerIndex) {
+          printPlayers();
+          name = ui.prompt2CardCombo(true);
+        } else {
+          validPlayerFound = true;
+        }
       } catch (NoSuchElementException e) {
         printPlayers();
         name = ui.prompt2CardCombo(true);
@@ -559,7 +579,12 @@ public class TurnManager {
     while (!validPlayerFound) {
       try {
         targetIndex = gameEngine.getPlayerIndexByName(name);
-        validPlayerFound = true;
+        if (targetIndex == currPlayerIndex) {
+          printPlayers();
+          name = ui.prompt3CardComboTargetName(true);
+        } else {
+          validPlayerFound = true;
+        }
       } catch (NoSuchElementException e) {
         printPlayers();
         name = ui.prompt3CardComboTargetName(true);
