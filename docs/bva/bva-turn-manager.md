@@ -515,12 +515,12 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                                                                                                     | Expected output                                       | Implemented? |
-|-------------|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------|
-| Test Case 1 | input1: "Joe", input2: ["Joe", "Bob"], input3: false, input4: false, input5: [] (impossible)                          | ui.printGameState called with print imploding = false | no           |
-| Test Case 2 | input1: "Joe", input2: ["Joe", "Bob", "Jeff"], input3: true, input4: false, input5: [ATTACK]                          | ui.printGameState called with print imploding = false | no           |
-| Test Case 3 | input1: "", input2: [] (impossible), input3: true, input4: true, input5: [ATTACK]                                     | ui.printGameState called with print imploding = false | no           |
-| Test Case 4 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [EXPLODE, IMPLODE, SKIP] | ui.printGameState called with print imploding = false | no           |
-| Test Case 5 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [IMPLODE, SKIP]          | ui.printGameState called with print imploding = true  | no           |
+|             | System under test                                                                                                                | Expected output                                       | Implemented? |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------|
+| Test Case 1 | input1: "Joe", input2: ["Joe", "Bob"], input3: false, input4: false, input5: [] (impossible), input6: 0                          | ui.printGameState called with print imploding = false | no           |
+| Test Case 2 | input1: "Joe", input2: ["Joe", "Bob", "Jeff"], input3: true, input4: false, input5: [ATTACK], input6: 1                          | ui.printGameState called with print imploding = false | no           |
+| Test Case 3 | input1: "", input2: [] (impossible), input3: true, input4: true, input5: [ATTACK], input6: 3                                     | ui.printGameState called with print imploding = false | no           |
+| Test Case 4 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [EXPLODE, IMPLODE, SKIP], input6: 2 | ui.printGameState called with print imploding = false | no           |
+| Test Case 5 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [IMPLODE, SKIP], input6: 0          | ui.printGameState called with print imploding = true  | no           |
 
 
