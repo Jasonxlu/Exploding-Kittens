@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -12,8 +14,8 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
-  private ResourceBundle bundle;
-
+  private final ResourceBundle bundle;
+  private Map<String, String> inputMap;
   private final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
   /**
@@ -23,6 +25,7 @@ public class UserInterface {
    */
   public UserInterface(String language) {
     this.bundle = getResourceBundle(language);
+    createInputMap();
   }
 
   /**
@@ -39,6 +42,23 @@ public class UserInterface {
     }
 
     return ResourceBundle.getBundle("ui_message", locale);
+  }
+
+  /**
+   * Input map for translating to english
+   */
+  public void createInputMap() {
+    inputMap = new HashMap<>();
+    inputMap.put(bundle.getString("input.attack"), "attack");
+    inputMap.put(bundle.getString("input.skip"), "skip");
+    inputMap.put(bundle.getString("input.targeted_attack"), "targeted attack");
+    inputMap.put(bundle.getString("input.shuffle"), "shuffle");
+    inputMap.put(bundle.getString("input.see_the_future"), "see the future");
+    inputMap.put(bundle.getString("input.reverse"), "reverse");
+    inputMap.put(bundle.getString("input.draw_from_bottom"), "draw from bottom");
+    inputMap.put(bundle.getString("input.alter_the_future"), "alter the future");
+    inputMap.put(bundle.getString("input.2_cards"), "2 cat cards");
+    inputMap.put(bundle.getString("input.3_cards"), "3 cat cards");
   }
 
   /**
@@ -239,7 +259,8 @@ public class UserInterface {
             : bundle.getString("prompt.play_card");
 
     System.out.println(printMessage);
-    return scanner.nextLine().trim().toLowerCase();
+    String card = scanner.nextLine().trim().toLowerCase();
+    return normaliseInput(card);
   }
 
   /**
@@ -254,7 +275,8 @@ public class UserInterface {
     for (int i = 0; i < numToPlay; i++) {
       System.out.printf(MessageFormat.format(
               bundle.getString("prompt.combo_card_number"), i + 1));
-      cards[i] = scanner.nextLine().trim().toLowerCase();
+      String card = scanner.nextLine().trim().toLowerCase();
+      cards[i] = normaliseInput(card);
     }
     return cards;
   }
@@ -332,7 +354,8 @@ public class UserInterface {
             ? bundle.getString("prompt.combo_retry_card_2")
             : bundle.getString("prompt.combo_target_card_2");
     System.out.println(printMessage);
-    return scanner.nextLine().trim();
+    String cardName = scanner.nextLine().toLowerCase().trim();
+    return normaliseInput(cardName);
   }
 
   /**
@@ -367,7 +390,8 @@ public class UserInterface {
             ? bundle.getString("prompt.combo_retry_card_3")
             : bundle.getString("prompt.combo_target_card_3");
     System.out.println(printMessage);
-    return scanner.nextLine().trim();
+    String cardName = scanner.nextLine().toLowerCase().trim();
+    return normaliseInput(cardName);
   }
 
   /**
@@ -392,5 +416,20 @@ public class UserInterface {
       System.out.println(MessageFormat.format(
               bundle.getString("print.players"), i + 1, players[i]));
     }
+  }
+
+  /**
+   * Normalises the user input.
+   * In other words, it takes the input in any language and turns it to english.
+   *
+   * @param userInput the string to be normalised
+   * @return the english version of the string
+   */
+  public String normaliseInput(String userInput) {
+    String normalised = inputMap.get(userInput.trim().toLowerCase());
+    if (normalised == null) {
+      throw new IllegalArgumentException(bundle.getString("error.invalid_input"));
+    }
+    return normalised;
   }
 }
