@@ -13,7 +13,7 @@ Feature: Eliminate Player
   Scenario Outline:
     Given a TurnManager with <numPlayers> players
     And current player index <currPlayerIndex>
-    And turn order is reversed <turnOrderIsReversed>
+    And turn order reversed set to <turnOrderIsReversed>
     And an exploding kitten at the top of the draw pile
     And the current player has no defuses
     When the player draws a card

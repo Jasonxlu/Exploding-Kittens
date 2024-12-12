@@ -37,8 +37,8 @@ public class EliminatePlayerSteps {
     return Boolean.valueOf(value);
   }
 
-  @Given("turn order is reversed {booleanValue}")
-  public void turn_order_is_reversed_false(Boolean isReversed) {
+  @Given("turn order reversed set to {booleanValue}")
+  public void turn_order_reversed_set_to(Boolean isReversed) {
     turnManager.gameEngine.isTurnOrderReversed = isReversed;
   }
 
