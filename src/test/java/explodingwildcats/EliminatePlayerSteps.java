@@ -44,8 +44,14 @@ public class EliminatePlayerSteps {
 
   @Given("an exploding kitten at the top of the draw pile")
   public void an_exploding_kitten_at_the_top_of_the_draw_pile() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    Card thirdCard = Card.SKIP;
+    turnManager.gameEngine.addCardToDrawPileAt(thirdCard,0);
+
+    Card secondCard = Card.ATTACK;
+    turnManager.gameEngine.addCardToDrawPileAt(secondCard,1);
+
+    Card explodingKitten = Card.EXPLODE;
+    turnManager.gameEngine.addCardToDrawPileAt(explodingKitten,2);
   }
 
   @Given("the current player has no defuses")
