@@ -203,7 +203,9 @@ public class GameSetupSteps {
 
   @Then("the game engine sets up the discard pile as empty")
   public void the_game_engine_sets_up_the_discard_pile_as_empty() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    Card[] actualDiscardPile = turnManager.gameEngine.discardPile.getCards();
+    int expectedNumberOfCardsInDiscardPile = 0;
+    int actualNumberOfCardsInDiscardPile = actualDiscardPile.length;
+    assertEquals(expectedNumberOfCardsInDiscardPile, actualNumberOfCardsInDiscardPile);
   }
 }

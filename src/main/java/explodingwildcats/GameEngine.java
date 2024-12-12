@@ -15,7 +15,7 @@ public class GameEngine {
   private List<Player> players = new ArrayList<>();
 
   private CardPile drawPile;
-  private CardPile discardPile;
+  CardPile discardPile; // package private to support BDD testing.
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
 
