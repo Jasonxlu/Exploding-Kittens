@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import org.easymock.EasyMock;
 import ui.UserInterface;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +41,12 @@ public class GameSetupSteps {
     turnManager.setupGameEngine();
 
     EasyMock.verify(uiMock);
+  }
+
+  @Then("the game engine sets up the players")
+  public void the_game_engine_sets_up_the_players() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
   }
 
   @Then("the game engine adds defuse cards to the player hands and draw pile")
