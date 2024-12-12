@@ -506,8 +506,26 @@ public class CardPileTests {
   public void removeCardFromPile_oneCardPile_notPlayerHand_skipCard_returnFalse() {
     CardPile pile = new CardPile();
     Card card = Card.SKIP;
+    Card pileCard = Card.ATTACK;
     boolean isPlayerHand = false;
-    pile.addCard(card);
+    pile.addCard(pileCard);
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+  }
+
+  @Test
+  public void removeCardFromPile_multipleCardPile_notPlayerHand_explodeCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.EXPLODE;
+
+    Card pileCard = Card.SEE_THE_FUTURE;
+    Card pileCard2 = Card.SHUFFLE;
+    Card pileCard3 = Card.NOPE;
+
+    boolean isPlayerHand = false;
+    pile.addCard(pileCard);
+    pile.addCard(pileCard2);
+    pile.addCard(pileCard3);
 
     assertFalse(pile.removeCardFromPile(card, isPlayerHand));
   }
