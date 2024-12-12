@@ -323,6 +323,21 @@ public class TurnManager {
   }
 
   /**
+   * Prints information about the current turn.
+   */
+  public void printTurnInfo() {
+    Player player = gameEngine.getPlayerByIndex(currPlayerIndex);
+    String playerName = player.getName();
+    String[] playerNames = gameEngine.getPlayers().stream()
+            .map(Player::getName).toArray(String[]::new);
+    ui.printGameState(playerName,
+            playerNames,
+            numExtraCardsToDraw,
+            gameEngine.getIsTurnOrderReversed(),
+            isImplodingCatFaceUp);
+  }
+
+  /**
    * Does the effect of a see the future card.
    */
   public void doSeeTheFuture() {
