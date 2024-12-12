@@ -67,7 +67,7 @@
 ##### All-combination or each-choice: each-choice
 |              | System under test                                       | Expected output                           | Implemented? |
 |--------------|---------------------------------------------------------|-------------------------------------------|--------------|
-| Test Case 1  | Current state of GameEngine's draw pile & player's turn | endTurn(drawFromBottom = true) is called. | no           |
+| Test Case 1  | Current state of GameEngine's draw pile & player's turn | endTurn(drawFromBottom = true) is called. | yes          |
 
 
 ## Method 5: ```public void doAttack()```

@@ -203,12 +203,10 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
-            .addMockedMethod("drawAndProcessCard")
             .createMock();
 
-    boolean drawAndProcessCardParameter = true;
-    turnManager.drawAndProcessCard(drawAndProcessCardParameter);
-    turnManager.endTurn(false);
+    boolean endTurnParameter = true;
+    turnManager.endTurn(endTurnParameter);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doDrawFromBottom();
