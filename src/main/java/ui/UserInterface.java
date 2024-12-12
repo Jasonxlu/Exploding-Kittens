@@ -250,9 +250,10 @@ public class UserInterface {
    */
   public String[] promptPlayComboCards(int numToPlay) {
     String[] cards = new String[numToPlay];
-    System.out.println("Which cat cards do you want to play?");
+    System.out.println(bundle.getString("prompt.play_combo_cards"));
     for (int i = 0; i < numToPlay; i++) {
-      System.out.printf("Card #%d: ", i + 1);
+      System.out.printf(MessageFormat.format(
+              bundle.getString("prompt.combo_card_number"), i + 1));
       cards[i] = scanner.nextLine().trim().toLowerCase();
     }
     return cards;
