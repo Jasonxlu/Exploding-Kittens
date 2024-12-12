@@ -19,7 +19,7 @@ public class GameEngine {
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
 
-  private boolean isTurnOrderReversed;
+  boolean isTurnOrderReversed; // package private to support BDD testing.
 
   /**
    * Unit testing constructor for GameEngine.

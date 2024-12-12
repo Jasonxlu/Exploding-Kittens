@@ -1,5 +1,6 @@
 package explodingwildcats;
 
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -31,8 +32,13 @@ public class EliminatePlayerSteps {
     playerToBeEliminated = turnManager.gameEngine.getPlayerByIndex(currPlayerIndex);
   }
 
-  @Given("turn order is reversed false")
-  public void turn_order_is_reversed_false() {
+  @ParameterType(value = "true|false")
+  public Boolean booleanValue(String value) {
+    return Boolean.valueOf(value);
+  }
+
+  @Given("turn order is reversed {booleanValue}")
+  public void turn_order_is_reversed_false(Boolean isReversed) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
