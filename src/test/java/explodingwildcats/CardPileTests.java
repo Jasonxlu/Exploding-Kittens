@@ -502,4 +502,15 @@ public class CardPileTests {
     assertFalse(pile.removeCardFromPile(card, isPlayerHand));
   }
 
+  @Test
+  public void removeCardFromPile_oneCardPile_notPlayerHand_skipCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.SKIP;
+    boolean isPlayerHand = false;
+    pile.addCard(card);
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+  }
+
+
 }
