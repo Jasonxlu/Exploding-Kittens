@@ -843,14 +843,16 @@ public class TurnManagerTests {
     turnManager.currPlayerIndex = 0;
     boolean hasDefuse = false;
 
+    ui.printDrawExplodingKitten(hasDefuse);
+
     EasyMock.expect(gameEngine.playerHasCard(Card.DEFUSE, turnManager.currPlayerIndex)).andReturn(hasDefuse);
     turnManager.eliminateCurrentPlayer();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     turnManager.handleExplodingKitten();
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
