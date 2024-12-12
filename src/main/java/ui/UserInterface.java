@@ -339,7 +339,7 @@ public class UserInterface {
    * Prints the error message for when the target player has no cards to steal.
    */
   public void printCardComboErrorTargetPlayerHasNoCards() {
-    System.out.println("The target player has no cards to steal.");
+    System.out.println(bundle.getString("error.target_player_no_cards"));
   }
 
   /**
