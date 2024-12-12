@@ -1081,7 +1081,7 @@ public class TurnManagerTests {
 
   @Test
   public void doSkip_numExtraCardsToDrawOne_numExtraCardsToDrawDecremented() {
-    TurnManager turnManager = new TurnManager();
+    TurnManager turnManager = new TurnManager("english");
 
     turnManager.numExtraCardsToDraw = 1;
 
@@ -1095,7 +1095,7 @@ public class TurnManagerTests {
 
   @Test
   public void doSkip_numExtraCardsToDrawTwo_numExtraCardsToDrawDecremented() {
-    TurnManager turnManager = new TurnManager();
+    TurnManager turnManager = new TurnManager("english");
 
     int extraCards = 2;
 

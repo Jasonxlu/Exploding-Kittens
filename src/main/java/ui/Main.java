@@ -1,8 +1,5 @@
 package ui;
 
-import explodingwildcats.CardPileFactory;
-import explodingwildcats.GameEngine;
-import explodingwildcats.PlayerFactory;
 import explodingwildcats.TurnManager;
 
 /**
@@ -17,7 +14,7 @@ public class Main {
    * @param args command-line arguments (not used)
    */
   public static void main(String[] args) {
-    TurnManager turnManager = new TurnManager();
+    TurnManager turnManager = new TurnManager("english");
     turnManager.setupGameEngine();
     turnManager.doGameLoop();
   }

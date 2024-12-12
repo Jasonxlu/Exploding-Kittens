@@ -19,9 +19,10 @@ public class TurnManager {
   /**
    * Public constructor for TurnManager.
    *
+   * @param language takes in the language the players chose.
    */
-  public TurnManager() {
-    this.ui = new UserInterface();
+  public TurnManager(String language) {
+    this.ui = new UserInterface(language);
     PlayerFactory playerFactory = new PlayerFactory();
     CardPileFactory cardPileFactory = new CardPileFactory();
 

@@ -1,6 +1,8 @@
 package ui;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 /**
@@ -8,7 +10,32 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
+  private ResourceBundle bundle;
+
   private final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+
+  /**
+   * Public constructor for UserInterface
+   * @param language chosen by the players at the start
+   */
+  public UserInterface(String language) {
+    this.bundle = getResourceBundle(language);
+  }
+
+  /**
+   * Sets the bundle for the specified language.
+   * @param language the players would like to play in
+   */
+  public ResourceBundle getResourceBundle(String language) {
+    Locale locale;
+    if (language.equalsIgnoreCase("spanish")) {
+      locale = new Locale("es", "VE");
+    } else {
+      locale = Locale.ENGLISH;
+    }
+
+    return ResourceBundle.getBundle("ui_messages", locale);
+  }
 
   /**
    * Prompts the user to enter the number of players for the game.
