@@ -126,13 +126,19 @@ public class CardPile {
   }
 
   /**
-   * TODO: Removes a card from the pile.
+   * Removes a card from the pile.
    *
    * @param card the card to remove
    * @param isPlayerHand whether the cardpile is a player hand.
    * @return true if the card was removed, false otherwise
    */
   public boolean removeCardFromPile(Card card, boolean isPlayerHand) {
+    if (isPlayerHand && (card == Card.EXPLODE || card == Card.IMPLODE)) {
+      return false;
+    } else if (cardList.contains(card)) {
+      cardList.remove(card);
+      return true;
+    }
     return false;
   }
 }

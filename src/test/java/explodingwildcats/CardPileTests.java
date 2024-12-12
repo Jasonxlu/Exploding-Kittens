@@ -497,6 +497,130 @@ public class CardPileTests {
   }
 
   @Test
+  public void removeCardFromPile_emptyPile_isPlayerHand_attackCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.ATTACK;
+    boolean isPlayerHand = true;
+
+    int expectedLength = 0;
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
+  @Test
+  public void removeCardFromPile_oneCardPile_notPlayerHand_skipCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.SKIP;
+    Card pileCard = Card.ATTACK;
+    boolean isPlayerHand = false;
+    pile.addCard(pileCard);
+
+    int expectedLength = 1;
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
+  @Test
+  public void removeCardFromPile_multipleCardPile_notPlayerHand_explodeCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.EXPLODE;
+
+    Card pileCard = Card.SEE_THE_FUTURE;
+    Card pileCard2 = Card.SHUFFLE;
+    Card pileCard3 = Card.NOPE;
+
+    boolean isPlayerHand = false;
+    pile.addCard(pileCard);
+    pile.addCard(pileCard2);
+    pile.addCard(pileCard3);
+
+    int expectedLength = 3;
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
+  @Test
+  public void removeCardFromPile_singleCardPile_isPlayerHand_defuseCard_returnTrue() {
+    CardPile pile = new CardPile();
+    Card card = Card.DEFUSE;
+    boolean isPlayerHand = true;
+    pile.addCard(card);
+
+    int expectedLength = pile.getCards().length - 1;
+
+    assertTrue(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
+  @Test
+  public void removeCardFromPile_multipleCardPile_notPlayerHand_implodeCard_returnTrue() {
+    CardPile pile = new CardPile();
+    Card card = Card.IMPLODE;
+
+    Card pileCard = Card.SEE_THE_FUTURE;
+    Card pileCard2 = Card.SHUFFLE;
+    Card pileCard3 = Card.IMPLODE;
+
+    boolean isPlayerHand = false;
+    pile.addCard(pileCard);
+    pile.addCard(pileCard2);
+    pile.addCard(pileCard3);
+
+    int expectedLength = pile.getCards().length - 1;
+
+    assertTrue(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
+  @Test
+  public void removeCardFromPile_multipleCardPile_isPlayerHand_implodeCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.IMPLODE;
+
+    Card pileCard = Card.SEE_THE_FUTURE;
+    Card pileCard2 = Card.SHUFFLE;
+    Card pileCard3 = Card.IMPLODE;
+
+    boolean isPlayerHand = true;
+    pile.addCard(pileCard);
+    pile.addCard(pileCard2);
+    pile.addCard(pileCard3);
+
+    int expectedLength = pile.getCards().length;
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
+  @Test
+  public void removeCardFromPile_multipleCardPile_isPlayerHand_explodeCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.EXPLODE;
+
+    Card pileCard = Card.SEE_THE_FUTURE;
+    Card pileCard2 = Card.SHUFFLE;
+
+    boolean isPlayerHand = true;
+    pile.addCard(pileCard);
+    pile.addCard(pileCard2);
+
+    int expectedLength = pile.getCards().length;
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
+  @Test
   public void addCardAt_NegOne_ThrowsException() {
     CardPile pile = new CardPile();
 
