@@ -495,4 +495,106 @@ public class CardPileTests {
 
     EasyMock.verify(pile);
   }
+
+  @Test
+  public void addCardAt_NegOne_ThrowsException() {
+    CardPile pile = new CardPile();
+
+    int index = -1;
+    Card c = Card.EXPLODE;
+
+    String expectedMessage = "Index cannot be negative";
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      pile.addCardAt(c, index);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void addCardAt_Zero_AddsCard() {
+    CardPile pile = new CardPile();
+
+    // Setup class state
+    Card existingCard = Card.SHUFFLE;
+    for (int i = 0; i < 3; i++) {
+      pile.addCard(existingCard);
+    }
+
+    // Test Value
+    int index = 0;
+    Card testCard = Card.ATTACK;
+    int newSize = 4;
+
+    // Call function
+    pile.addCardAt(testCard, index);
+
+    // Assertions
+    Card[] cards = pile.getCards();
+    assertEquals(newSize, cards.length);
+    assertEquals(testCard, cards[index]);
+    for (int i = 0; i < 3; i++) {
+      assertEquals(existingCard, cards[i + 1]);
+    }
+  }
+
+  @Test
+  public void addCardAt_Three_AddsCard() {
+    CardPile pile = new CardPile();
+
+    // Setup class state
+    Card existingCard = Card.BEARD_CAT;
+    for (int i = 0; i < 10; i++) {
+      pile.addCard(existingCard);
+    }
+
+    // Test Value
+    int index = 3;
+    Card testCard = Card.SHUFFLE;
+    int newSize = 11;
+
+    // Call function
+    pile.addCardAt(testCard, index);
+
+    // Assertions
+    Card[] cards = pile.getCards();
+    assertEquals(newSize, cards.length);
+    assertEquals(testCard, cards[index]);
+    for (int i = 0; i < 3; i++) {
+      assertEquals(existingCard, cards[i]); // before new card
+    }
+
+    for (int i = index + 1; i < newSize; i++) {
+      assertEquals(existingCard, cards[i]); // after new card
+    }
+  }
+
+  @Test
+  public void addCardAt_Twenty_AddsCard() {
+    CardPile pile = new CardPile();
+
+    // Setup class state
+    int originalSize = 10;
+    Card existingCard = Card.BEARD_CAT;
+    for (int i = 0; i < originalSize; i++) {
+      pile.addCard(existingCard);
+    }
+
+    // Test Value
+    int index = 20;
+    Card testCard = Card.DEFUSE;
+    int newSize = 11;
+
+    // Call function
+    pile.addCardAt(testCard, index);
+
+    // Assertions
+    Card[] cards = pile.getCards();
+    assertEquals(newSize, cards.length);
+    assertEquals(testCard, cards[originalSize]);
+    for (int i = 0; i < originalSize; i++) {
+      assertEquals(existingCard, cards[i]);
+    }
+  }
 }

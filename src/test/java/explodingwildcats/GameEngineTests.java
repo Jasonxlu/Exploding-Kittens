@@ -2777,4 +2777,53 @@ public class GameEngineTests {
 
     EasyMock.verify(game, player);
   }
+
+  @Test
+  public void addCardToDrawPileAt_NegOne_ThrowsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card cardToAdd = Card.DEFUSE;
+    int pileIndex = -1;
+
+    String expectedMessage = "Cannot insert a card out of bounds";
+
+    drawPile.addCardAt(cardToAdd, pileIndex);
+    EasyMock.expectLastCall().andThrow(new IndexOutOfBoundsException(expectedMessage));
+
+    EasyMock.replay(drawPile);
+
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.addCardToDrawPileAt(cardToAdd, pileIndex);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(drawPile);
+  }
+
+  @Test
+  public void addCardToDrawPileAt_Zero_AddsCard() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card cardToAdd = Card.SHUFFLE;
+    int pileIndex = 0;
+
+    drawPile.addCardAt(cardToAdd, pileIndex);
+    EasyMock.expectLastCall();
+
+    EasyMock.replay(drawPile);
+
+    game.addCardToDrawPileAt(cardToAdd, pileIndex);
+
+    EasyMock.verify(drawPile);
+  }
 }
