@@ -1,12 +1,15 @@
 package explodingwildcats;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GameSetupInvalidSteps {
 
+  // This is a test, immutability is not critical here.
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+          justification = "This is intentional for test setup in BDD.")
   GameSetupSteps gameSetupSteps;
 
   public GameSetupInvalidSteps(GameSetupSteps gameSetupSteps) {
