@@ -377,7 +377,8 @@ public class TurnManager {
         return false;
       }
       try {
-        player = gameEngine.getPlayerByIndex(gameEngine.getPlayerIndexByName(name));
+        int playerIndex = gameEngine.getPlayerIndexByName(name);
+        player = gameEngine.getPlayerByIndex(playerIndex);
       } catch (Exception e) {
         name = ui.promptNope(true);
         continue;
