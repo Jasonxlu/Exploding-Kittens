@@ -7,13 +7,13 @@ import io.cucumber.java.en.When;
 public class EliminatePlayerSteps {
 
   @Given("a TurnManager with {int} players")
-  public void a_turn_manager_with_players(Integer int1) {
+  public void a_turn_manager_with_players(Integer numPlayers) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
 
   @Given("current player index {int}")
-  public void current_player_index(Integer int1) {
+  public void current_player_index(Integer currPlayerIndex) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
