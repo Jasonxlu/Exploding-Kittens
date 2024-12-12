@@ -2130,8 +2130,10 @@ public class TurnManagerTests {
     gameEngine.setUpPlayers(numPlayers, playerNames);
     gameEngine.createDrawPile();
     gameEngine.dealDefuses();
+    gameEngine.shuffleDrawPile();
     gameEngine.dealCards();
     gameEngine.insertExplodingAndImplodingCards();
+    gameEngine.shuffleDrawPile();
 
     EasyMock.replay(ui, gameEngine);
 
@@ -2216,8 +2218,10 @@ public class TurnManagerTests {
     gameEngine.setUpPlayers(numPlayers, playerNames);
     gameEngine.createDrawPile();
     gameEngine.dealDefuses();
+    gameEngine.shuffleDrawPile();
     gameEngine.dealCards();
     gameEngine.insertExplodingAndImplodingCards();
+    gameEngine.shuffleDrawPile();
 
     EasyMock.replay(ui, gameEngine);
 
