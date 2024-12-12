@@ -175,7 +175,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 2 | draw counter: 0, drawFromBottom: true   | Calls drawAndProcessCard(true) and advanceTurn                     | yes          |
 | Test Case 3 | draw counter: 1, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | yes          |
 | Test Case 4 | draw counter: 1, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | yes          |
-| Test Case 5 | draw counter: >1, drawFromBottom: false | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | no           |
+| Test Case 5 | draw counter: >1, drawFromBottom: false | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | yes          |
 | Test Case 6 | draw counter: >1, drawFromBottom: true  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | no           |
 | Test Case 7 | draw counter: 7, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | no           |
 | Test Case 8 | draw counter: 7, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | no           |
