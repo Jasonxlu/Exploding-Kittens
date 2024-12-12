@@ -578,5 +578,26 @@ public class CardPileTests {
     assertEquals(expectedLength, pile.getCards().length);
   }
 
+  @Test
+  public void removeCardFromPile_multipleCardPile_isPlayerHand_implodeCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.IMPLODE;
+
+    Card pileCard = Card.SEE_THE_FUTURE;
+    Card pileCard2 = Card.SHUFFLE;
+    Card pileCard3 = Card.IMPLODE;
+
+    boolean isPlayerHand = true;
+    pile.addCard(pileCard);
+    pile.addCard(pileCard2);
+    pile.addCard(pileCard3);
+
+    int expectedLength = pile.getCards().length;
+
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
+  }
+
 
 }

@@ -117,7 +117,10 @@ public class CardPile {
    * @return true if the card was removed, false otherwise
    */
   public boolean removeCardFromPile(Card card, boolean isPlayerHand) {
-    if (cardList.contains(card)) {
+    if (isPlayerHand && (card == Card.EXPLODE || card == Card.IMPLODE)) {
+      return false;
+    }
+    else if (cardList.contains(card)) {
       cardList.remove(card);
       return true;
     }
