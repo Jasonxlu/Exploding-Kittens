@@ -399,13 +399,12 @@ Note: I do not believe there is a max size for the discard pile.
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test                      | Expected output                               | Implemented? |
-|-------------|----------------------------------------|-----------------------------------------------|--------------|
-| Test Case 1 | Peeked Drawpile: []                    | []                                            | yes          |
-| Test Case 2 | Peeked Drawpile: [ATTACK]                     | [ATTACK]                                      | yes          |
-| Test Case 3 | Peeked Drawpile: [SKIP, DEFUSE]               | [SKIP, DEFUSE]                                | yes          |
-| Test Case 4 | Peeked Drawpile: [EXPLODE, IMPLODE, TACO_CAT] | [EXPLODE, IMPLODE, TACO_CAT]                  | yes          |
-
+|             | System under test                             | Expected output                  | Implemented? |
+|-------------|-----------------------------------------------|----------------------------------|--------------|
+| Test Case 1 | Peeked Drawpile: []                           | []                               | yes          |
+| Test Case 2 | Peeked Drawpile: [ATTACK]                     | [ATTACK]                         | yes          |
+| Test Case 3 | Peeked Drawpile: [SKIP, DEFUSE]               | [SKIP, DEFUSE]                   | yes          |
+| Test Case 4 | Peeked Drawpile: [EXPLODE, IMPLODE, TACO_CAT] | [EXPLODE, IMPLODE, TACO_CAT]     | yes          |
 
 
 ## Recall the 4 steps of BVA
