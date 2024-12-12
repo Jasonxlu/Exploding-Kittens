@@ -349,12 +349,10 @@ public class UserInterface {
    * @return the user's input.
    */
   public String prompt3CardComboTargetName(boolean isRetry) {
-    if (isRetry) {
-      System.out.println("Unable to find that player. Please type in a valid player name.");
-    } else {
-      System.out.println("Who would you like to target with your 3 card combo? "
-              + "Please type in the player's name.");
-    }
+    String printMessage = isRetry
+            ? bundle.getString("prompt.combo_retry_name_3")
+            : bundle.getString("prompt.combo_target_name_3");
+    System.out.println(printMessage);
     return scanner.nextLine().trim();
   }
 
