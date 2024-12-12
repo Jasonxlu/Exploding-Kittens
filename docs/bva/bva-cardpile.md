@@ -122,6 +122,23 @@
 | Test Case 5  | Card Pile: [Max Cards: All 53 Cards]    | Different Ordering | yes          |
 
 
+## Method 6: ```public void addCardAt(Card c, int index)```
+### Step 1-3 Results
+|        | Input 1                     | Input 2                                                                                           | Output                                                                                                                                  |
+|--------|-----------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | the card to add to the pile | index to add the card to                                                                          | the card should be added at the specified index (if it's greater than or equal to the size, just adds it to the end) or throws an error |
+| Step 2 | case                        | cases                                                                                             | None (adds the card at the index) or Exception                                                                                          |
+| Step 3 | all card enum cases         | negative index (invalid), index within the list size (valid), index greater than the list (valid) | None (adds the card at the index) or IndexOutOfBoundsException                                                                          |
+### Step 4:
+##### All-combination or each-choice: Each-choice
+
+|             | System under test                                   | Expected output                      | Implemented? |
+|-------------|-----------------------------------------------------|--------------------------------------|--------------|
+| Test Case 1 | index: -1, card: EXPLODE                            | Throws IndexOutOfBoundsException     | no           |
+| Test Case 2 | index: 0, within the list size, card: ATTACK        | Adds attack to the front of the list | no           |
+| Test Case 3 | index: 3, within the list size, card: SHUFFLE       | Adds shuffle at index 3 (4th card)   | no           |
+| Test Case 4 | index: 20, greater than the list size, card: DEFUSE | Adds defuse at the end               | no           |
+
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.

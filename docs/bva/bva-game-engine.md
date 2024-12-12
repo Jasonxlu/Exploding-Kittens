@@ -344,7 +344,6 @@ Note: I do not believe there is a max size for the discard pile.
 | Step 1 | card                | pile index                                   | calls the draw pile addCardAt method which could throw an exception |
 | Step 2 | cases               | cases                                        | call and none or call and exception                                 |
 | Step 3 | All Card enum cases | index is invalid (negative), index is valid  | call and none or call and IndexOutOfBoundsException                 |
-    - Note: Input 3 can't be [] since the game will always end by the time the draw pile is empty.
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
