@@ -60,8 +60,10 @@ public class TurnManager {
     gameEngine.setUpPlayers(numberOfPlayers, playerNames);
     gameEngine.createDrawPile();
     gameEngine.dealDefuses();
+    gameEngine.shuffleDrawPile();
     gameEngine.dealCards();
     gameEngine.insertExplodingAndImplodingCards();
+    gameEngine.shuffleDrawPile();
   }
 
   /**

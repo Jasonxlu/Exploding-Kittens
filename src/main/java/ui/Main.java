@@ -19,5 +19,6 @@ public class Main {
   public static void main(String[] args) {
     TurnManager turnManager = new TurnManager();
     turnManager.setupGameEngine();
+    turnManager.doGameLoop();
   }
 }
