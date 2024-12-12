@@ -127,17 +127,18 @@
 |        | Input 1                     | Input 2                                                                                           | Output                                                                                                                                  |
 |--------|-----------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | Step 1 | the card to add to the pile | index to add the card to                                                                          | the card should be added at the specified index (if it's greater than or equal to the size, just adds it to the end) or throws an error |
-| Step 2 | case                        | cases                                                                                             | None (adds the card at the index) or Exception                                                                                          |
-| Step 3 | all card enum cases         | negative index (invalid), index within the list size (valid), index greater than the list (valid) | None (adds the card at the index) or IndexOutOfBoundsException                                                                          |
+| Step 2 | case                        | cases                                                                                             | None (adds the card at the semantic index) or Exception                                                                                 |
+| Step 3 | all card enum cases         | negative index (invalid), index within the list size (valid), index greater than the list (valid) | None (adds the card at the semantic index) or IndexOutOfBoundsException                                                                 |
 ### Step 4:
 ##### All-combination or each-choice: Each-choice
 
-|             | System under test                                   | Expected output                      | Implemented? |
-|-------------|-----------------------------------------------------|--------------------------------------|--------------|
-| Test Case 1 | index: -1, card: EXPLODE                            | Throws IndexOutOfBoundsException     | yes          |
-| Test Case 2 | index: 0, within the list size, card: ATTACK        | Adds attack to the front of the list | yes          |
-| Test Case 3 | index: 3, within the list size, card: SHUFFLE       | Adds shuffle at index 3 (4th card)   | yes          |
-| Test Case 4 | index: 20, greater than the list size, card: DEFUSE | Adds defuse at the end               | yes          |
+|             | System under test                                   | Expected output                                                | Implemented? |
+|-------------|-----------------------------------------------------|----------------------------------------------------------------|--------------|
+| Test Case 1 | index: -1, card: EXPLODE                            | Throws IndexOutOfBoundsException                               | no           |
+| Test Case 2 | index: 0, within the list size, card: ATTACK        | Adds attack to the front of the list (end of array)            | no           |
+| Test Case 3 | index: 3, within the list size, card: SHUFFLE       | Adds shuffle at index 3 (4th card from the end of the array)   | no           |
+| Test Case 4 | index: 20, greater than the list size, card: DEFUSE | Adds defuse at the bottom of the list (the front of the array) | no           |
+
 
 ## Method 7: ```public boolean removeCardFromPile(Card card)```
 ### Step 1-3 Results
