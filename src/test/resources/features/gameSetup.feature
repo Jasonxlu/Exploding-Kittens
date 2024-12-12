@@ -11,11 +11,8 @@ Feature: Game setup
 
   Scenario Outline: Properly sets up game
     Given a newly created Turn Manager
-    When setupGameEngine is called
-    Then the turnManager takes in the input <numPlayers>
-    And the turnManager validates the number of players
-    And the turnManager takes in the input <playerNames>
-    And the game engine sets up <numPlayers> players with names <playerNames> and empty hands
+    When setupGameEngine is called with inputs <numPlayers> and <playerNames>
+    Then the game engine sets up <numPlayers> players with names <playerNames> and empty hands
     And the game engine sets up the draw pile with the default cards
     And the game engine sets up the discard pile as empty
     And the game engine adds defuse cards to the player hands and draw pile
