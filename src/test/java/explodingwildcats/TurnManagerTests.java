@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class TurnManagerTests {
 
   @Test
@@ -228,7 +226,7 @@ public class TurnManagerTests {
             .addMockedMethod("advanceTurn")
             .createMock();
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
@@ -252,7 +250,7 @@ public class TurnManagerTests {
 
     turnManager.numExtraCardsToDraw = 7;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
@@ -358,7 +356,7 @@ public class TurnManagerTests {
           "2, 0", "2, 1",
           "4, 0", "4, 3", "4, 2",
   })
-  public void advanceTurn_ReversedOrderFalse(int numOfPlayers, int currPlayerIndex) {
+  public void advanceTurn_ReversedOrderFalse_PlayerSurvived(int numOfPlayers, int currPlayerIndex) {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
@@ -370,7 +368,7 @@ public class TurnManagerTests {
     turnManager.numExtraCardsToDraw = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
 
     int expected = (currPlayerIndex + 1) % numOfPlayers;
     int actual = turnManager.currPlayerIndex;
@@ -385,7 +383,7 @@ public class TurnManagerTests {
           "2, 0", "2, 1",
           "4, 0", "4, 3", "4, 2",
   })
-  public void advanceTurn_ReversedOrderTrue(int numOfPlayers, int currPlayerIndex) {
+  public void advanceTurn_ReversedOrderTrue_PlayerSurvived(int numOfPlayers, int currPlayerIndex) {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
@@ -397,7 +395,7 @@ public class TurnManagerTests {
     turnManager.numExtraCardsToDraw = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
 
     int expected = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     int actual = turnManager.currPlayerIndex;
@@ -647,7 +645,7 @@ public class TurnManagerTests {
 
     turnManager.numExtraCardsToDraw = 0;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
 
     EasyMock.replay(gameEngine, turnManager);
 

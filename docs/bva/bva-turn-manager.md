@@ -101,22 +101,22 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ##### All-combination or each-choice: each-choice
 |              | System under test                                                                 | Expected output    | Implemented? |
 |--------------|-----------------------------------------------------------------------------------|--------------------|--------------|
-| Test Case 1  | numOfPlayers: 6, currPlayerIndex: 0, Reversed order: false, playerSurvived: true  | currPlayerIndex: 1 | no           |
-| Test Case 2  | numOfPlayers: 6, currPlayerIndex: 5, Reversed order: false, playerSurvived: true  | currPlayerIndex: 0 | no           |
-| Test Case 3  | numOfPlayers: 6, currPlayerIndex: 3, Reversed order: false, playerSurvived: true  | currPlayerIndex: 4 | no           |
-| Test Case 4  | numOfPlayers: 2, currPlayerIndex: 0, Reversed order: false, playerSurvived: true  | currPlayerIndex: 1 | no           |
-| Test Case 5  | numOfPlayers: 2, currPlayerIndex: 1, Reversed order: false, playerSurvived: true  | currPlayerIndex: 0 | no           |
-| Test Case 6  | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: false, playerSurvived: true  | currPlayerIndex: 1 | no           |
-| Test Case 7  | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: false, playerSurvived: true  | currPlayerIndex: 0 | no           |
-| Test Case 8  | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: false, playerSurvived: true  | currPlayerIndex: 3 | no           |
-| Test Case 9  | numOfPlayers: 6, currPlayerIndex: 0, Reversed order: true, playerSurvived: true   | currPlayerIndex: 5 | no           |
-| Test Case 10 | numOfPlayers: 6, currPlayerIndex: 5, Reversed order: true, playerSurvived: true   | currPlayerIndex: 4 | no           |
-| Test Case 11 | numOfPlayers: 6, currPlayerIndex: 3, Reversed order: true, playerSurvived: true   | currPlayerIndex: 2 | no           |
-| Test Case 12 | numOfPlayers: 2, currPlayerIndex: 0, Reversed order: true, playerSurvived: true   | currPlayerIndex: 1 | no           |
-| Test Case 13 | numOfPlayers: 2, currPlayerIndex: 1, Reversed order: true, playerSurvived: true   | currPlayerIndex: 0 | no           |
-| Test Case 14 | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: true, playerSurvived: true   | currPlayerIndex: 3 | no           |
-| Test Case 15 | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: true, playerSurvived: true   | currPlayerIndex: 2 | no           |
-| Test Case 16 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true, playerSurvived: true   | currPlayerIndex: 1 | no           |
+| Test Case 1  | numOfPlayers: 6, currPlayerIndex: 0, Reversed order: false, playerSurvived: true  | currPlayerIndex: 1 | yes          |
+| Test Case 2  | numOfPlayers: 6, currPlayerIndex: 5, Reversed order: false, playerSurvived: true  | currPlayerIndex: 0 | yes          |
+| Test Case 3  | numOfPlayers: 6, currPlayerIndex: 3, Reversed order: false, playerSurvived: true  | currPlayerIndex: 4 | yes          |
+| Test Case 4  | numOfPlayers: 2, currPlayerIndex: 0, Reversed order: false, playerSurvived: true  | currPlayerIndex: 1 | yes          |
+| Test Case 5  | numOfPlayers: 2, currPlayerIndex: 1, Reversed order: false, playerSurvived: true  | currPlayerIndex: 0 | yes          |
+| Test Case 6  | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: false, playerSurvived: true  | currPlayerIndex: 1 | yes          |
+| Test Case 7  | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: false, playerSurvived: true  | currPlayerIndex: 0 | yes          |
+| Test Case 8  | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: false, playerSurvived: true  | currPlayerIndex: 3 | yes          |
+| Test Case 9  | numOfPlayers: 6, currPlayerIndex: 0, Reversed order: true, playerSurvived: true   | currPlayerIndex: 5 | yes          |
+| Test Case 10 | numOfPlayers: 6, currPlayerIndex: 5, Reversed order: true, playerSurvived: true   | currPlayerIndex: 4 | yes          |
+| Test Case 11 | numOfPlayers: 6, currPlayerIndex: 3, Reversed order: true, playerSurvived: true   | currPlayerIndex: 2 | yes          |
+| Test Case 12 | numOfPlayers: 2, currPlayerIndex: 0, Reversed order: true, playerSurvived: true   | currPlayerIndex: 1 | yes          |
+| Test Case 13 | numOfPlayers: 2, currPlayerIndex: 1, Reversed order: true, playerSurvived: true   | currPlayerIndex: 0 | yes          |
+| Test Case 14 | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: true, playerSurvived: true   | currPlayerIndex: 3 | yes          |
+| Test Case 15 | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: true, playerSurvived: true   | currPlayerIndex: 2 | yes          |
+| Test Case 16 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true, playerSurvived: true   | currPlayerIndex: 1 | yes          |
 | Test Case 17 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: false, playerSurvived: false | currPlayerIndex: 2 | no           |
 | Test Case 18 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true, playerSurvived: false  | currPlayerIndex: 1 | no           |
 

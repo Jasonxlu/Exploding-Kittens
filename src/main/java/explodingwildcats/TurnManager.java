@@ -176,14 +176,14 @@ public class TurnManager {
       numExtraCardsToDraw--;
       drawAndProcessCard(false);
     } else {
-      advanceTurn();
+      advanceTurn(true);
     }
   }
 
   /**
    * Updates whose turn it is.
    */
-  public void advanceTurn() {
+  public void advanceTurn(boolean playerSurvived) {
     int numOfPlayers = gameEngine.getNumberOfPlayers();
     boolean orderReversed = gameEngine.getIsTurnOrderReversed();
 
@@ -354,7 +354,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
-    advanceTurn();
+    advanceTurn(true);
   }
 
   /**
