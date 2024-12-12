@@ -536,7 +536,11 @@ public class CardPileTests {
     pile.addCard(pileCard2);
     pile.addCard(pileCard3);
 
+    int expectedLength = 3;
+
     assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+
+    assertEquals(expectedLength, pile.getCards().length);
   }
 
   @Test
