@@ -8,10 +8,9 @@ import ui.UserInterface;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TurnManagerTests {
 
@@ -373,6 +372,7 @@ public class TurnManagerTests {
     int expected = (currPlayerIndex + 1) % numOfPlayers;
     int actual = turnManager.currPlayerIndex;
     assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
 
     EasyMock.verify(gameEngine);
   }
@@ -400,6 +400,7 @@ public class TurnManagerTests {
     int expected = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     int actual = turnManager.currPlayerIndex;
     assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
 
     EasyMock.verify(gameEngine);
   }
@@ -425,6 +426,7 @@ public class TurnManagerTests {
     int expected = 2;
     int actual = turnManager.currPlayerIndex;
     assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
 
     EasyMock.verify(gameEngine);
   }
@@ -450,6 +452,7 @@ public class TurnManagerTests {
     int expected = 1;
     int actual = turnManager.currPlayerIndex;
     assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
 
     EasyMock.verify(gameEngine);
   }

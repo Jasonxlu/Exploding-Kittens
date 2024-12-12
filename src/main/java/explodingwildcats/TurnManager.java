@@ -192,6 +192,8 @@ public class TurnManager {
     } else {
       currPlayerIndex = playerSurvived ? (currPlayerIndex + 1) % numOfPlayers : currPlayerIndex;
     }
+
+    playerTurnHasEnded = true;
   }
 
   /**
