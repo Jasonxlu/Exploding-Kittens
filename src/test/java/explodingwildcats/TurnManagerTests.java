@@ -3178,7 +3178,7 @@ public class TurnManagerTests {
     List<Player> playerList = List.of((new Player[]{joe, bob, jeff}));
     EasyMock.expect(gameEngine.getPlayers()).andReturn(playerList);
 
-    int numExtraCardsToDraw = 0;
+    int numExtraCardsToDraw = 1;
     turnManager.numExtraCardsToDraw = numExtraCardsToDraw;
 
     turnManager.isImplodingCatFaceUp = true;
