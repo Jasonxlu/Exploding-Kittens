@@ -540,5 +540,22 @@ public class CardPileTests {
     assertTrue(pile.removeCardFromPile(card, isPlayerHand));
   }
 
+  @Test
+  public void removeCardFromPile_multipleCardPile_notPlayerHand_implodeCard_returnTrue() {
+    CardPile pile = new CardPile();
+    Card card = Card.IMPLODE;
+
+    Card pileCard = Card.SEE_THE_FUTURE;
+    Card pileCard2 = Card.SHUFFLE;
+    Card pileCard3 = Card.IMPLODE;
+
+    boolean isPlayerHand = false;
+    pile.addCard(pileCard);
+    pile.addCard(pileCard2);
+    pile.addCard(pileCard3);
+
+    assertTrue(pile.removeCardFromPile(card, isPlayerHand));
+  }
+
 
 }

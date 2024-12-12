@@ -124,22 +124,22 @@
 
 ## Method 3: ```public boolean removeCardFromPile(Card card)```
 ### Step 1-3 Results
-|        | Input                                  | Input 2                                      | Input 3                                                                                                                                                                                            | Output             |  
-|--------|----------------------------------------|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|  
-| Step 1 | The cardpile arraylist                 | Boolean for if the cardpile is a player hand | The card being removed                                                                                                                                                                             | Boolean True/False |  
-| Step 2 | Collection                             | Boolean                                      | Cases                                                                                                                                                                                              | Boolean            |  
-| Step 3 | [], [one element], [multiple elements] | True/False                                   | ATTACK, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, IMPLODE, REVERSE, TARGETED_ATTACK, FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT, BEARD_CAT, RAINBOW_CAT | True/False         |  
+|        | Input                                  | Input 2                                      | Input 3                                                                                                                                                                                            | Output                                          |  
+|--------|----------------------------------------|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|  
+| Step 1 | The cardpile arraylist                 | Boolean for if the cardpile is a player hand | The card being removed                                                                                                                                                                             | Boolean True/False and the CardPile is modified |  
+| Step 2 | Collection                             | Boolean                                      | Cases                                                                                                                                                                                              | Boolean and collection modified                 |  
+| Step 3 | [], [one element], [multiple elements] | True/False                                   | ATTACK, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, IMPLODE, REVERSE, TARGETED_ATTACK, FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT, BEARD_CAT, RAINBOW_CAT | True/False and cardpile arraylist is modified   |  
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                                                                | Expected output | Implemented? |  
-|-------------|----------------------------------------------------------------------------------|-----------------|--------------|  
-| Test Case 1 | Cardpile: [], isPlayerHand: true, Card: ATTACK                                   | FALSE           |              |  
-| Test Case 2 | Cardpile: [ATTACK], isPlayerHand: false, Card: SKIP                              | FALSE           |              |  
-| Test Case 3 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, NOPE], isPlayerHand: false, Card: EXPLODE    | FALSE           |              |  
-| Test Case 4 | Cardpile: [DEFUSE], isPlayerHand: true, Card: DEFUSE                             | TRUE            |              |  
-| Test Case 5 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: false, Card: IMPLODE | TRUE            |              |
-| Test Case 6 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: true, Card: IMPLODE  | FALSE           |              |
+|             | System under test                                                                | Expected output              | Implemented? |  
+|-------------|----------------------------------------------------------------------------------|------------------------------|--------------|  
+| Test Case 1 | Cardpile: [], isPlayerHand: true, Card: ATTACK                                   | FALSE, CardPile not modified |              |  
+| Test Case 2 | Cardpile: [ATTACK], isPlayerHand: false, Card: SKIP                              | FALSE, CardPile not modified |              |  
+| Test Case 3 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, NOPE], isPlayerHand: false, Card: EXPLODE    | FALSE, CardPile not modified |              |  
+| Test Case 4 | Cardpile: [DEFUSE], isPlayerHand: true, Card: DEFUSE                             | TRUE, CardPile modified      |              |  
+| Test Case 5 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: false, Card: IMPLODE | TRUE, CardPile modified      |              |
+| Test Case 6 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: true, Card: IMPLODE  | FALSE, CardPile not modified |              |
 
 
 

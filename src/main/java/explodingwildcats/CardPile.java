@@ -110,7 +110,7 @@ public class CardPile {
   }
 
   /**
-   * TODO: Removes a card from the pile.
+   * Removes a card from the pile.
    *
    * @param card the card to remove
    * @param isPlayerHand whether the cardpile is a player hand.
