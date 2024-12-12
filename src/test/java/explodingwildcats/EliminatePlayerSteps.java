@@ -7,11 +7,20 @@ import io.cucumber.java.en.When;
 import org.easymock.EasyMock;
 import ui.UserInterface;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class EliminatePlayerSteps {
 
   private TurnManager turnManager;
   private UserInterface uiMock;
   private Player playerToBeEliminated;
+  private int initialNumPlayers;
+  private String[] initialPlayerNames;
 
   @Given("a TurnManager with {int} players")
   public void a_turn_manager_with_players(Integer numPlayers) {
@@ -22,6 +31,8 @@ public class EliminatePlayerSteps {
       sampleNames[i] = Integer.toString(i);
     }
 
+    this.initialPlayerNames = sampleNames;
+    initialNumPlayers = numPlayers;
     turnManager = new TurnManager(uiMock);
     turnManager.gameEngine.setUpPlayers(numPlayers, sampleNames);
   }
@@ -63,13 +74,34 @@ public class EliminatePlayerSteps {
 
   @When("the player draws a card to end their turn")
   public void the_player_draws_a_card_to_end_their_turn() {
-    turnManager.endTurn();
+    turnManager.endTurn(false);
   }
 
   @Then("the player is removed from the game")
   public void the_player_is_removed_from_the_game() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    int actualNumPlayers = turnManager.gameEngine.numOfPlayers;
+    int expectedNumPlayers = initialNumPlayers - 1;
+    assertEquals(expectedNumPlayers, actualNumPlayers);
+
+    List<Player> actualPlayers = turnManager.gameEngine.getPlayers();
+    String[] actualPlayerNames = actualPlayers.stream()
+            .map(Player::getName).toArray(String[]::new);
+
+    // expected player names should be
+    // the initial names minus the eliminated player's name.
+    String[] expectedPlayerNames = Arrays.stream(initialPlayerNames).filter(name ->
+            !name.equals(playerToBeEliminated.getName())).toArray(String[]::new);
+
+    assertArrayEquals(expectedPlayerNames, actualPlayerNames);
+
+
+    String expectedMessage = "No player with that name could be found.";
+    Exception exception = assertThrows(NoSuchElementException.class, () -> {
+      turnManager.gameEngine.getPlayerIndexByName(playerToBeEliminated.getName());
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
   }
 
   @Then("the turn is advanced to the next player")

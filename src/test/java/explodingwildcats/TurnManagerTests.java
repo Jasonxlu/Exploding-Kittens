@@ -187,7 +187,7 @@ public class TurnManagerTests {
 
     gameEngine.reverseTurnOrder();
     ui.println("Turn order was reversed.");
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(ui, gameEngine, turnManager);
 
@@ -208,7 +208,7 @@ public class TurnManagerTests {
 
     boolean drawAndProcessCardParameter = true;
     turnManager.drawAndProcessCard(drawAndProcessCardParameter);
-    turnManager.endTurn();
+    turnManager.endTurn(true);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doDrawFromBottom();
@@ -276,7 +276,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager, gameEngine);
 
@@ -303,7 +303,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager, gameEngine);
 
@@ -335,7 +335,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager, gameEngine);
 
@@ -702,7 +702,7 @@ public class TurnManagerTests {
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     int expected = 0;
     int actual = turnManager.numExtraCardsToDraw;
@@ -727,7 +727,7 @@ public class TurnManagerTests {
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     int expected = 0;
     int actual = turnManager.numExtraCardsToDraw;
@@ -752,7 +752,7 @@ public class TurnManagerTests {
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     int expected = 2;
     int actual = turnManager.numExtraCardsToDraw;
@@ -777,7 +777,7 @@ public class TurnManagerTests {
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     int expected = 6;
     int actual = turnManager.numExtraCardsToDraw;
@@ -1120,7 +1120,7 @@ public class TurnManagerTests {
 
     int extraCards = 0;
     turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager);
 
@@ -1302,7 +1302,7 @@ public class TurnManagerTests {
 
     EasyMock.expect(ui.promptPlayCard(false)).andReturn("");
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1391,7 +1391,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1432,7 +1432,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(rePrompting)).andReturn(newUserInput);
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1471,7 +1471,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn(newUserInput);
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1742,7 +1742,7 @@ public class TurnManagerTests {
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1778,7 +1778,7 @@ public class TurnManagerTests {
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
