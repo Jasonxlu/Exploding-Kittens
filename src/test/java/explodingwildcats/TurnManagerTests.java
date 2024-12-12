@@ -3027,7 +3027,7 @@ public class TurnManagerTests {
 
     // Expectations
     gameEngine.eliminatePlayer(playerIndex);
-    turnManager.advanceTurn(true);
+    turnManager.advanceTurn(false);
 
     EasyMock.replay(gameEngine, turnManager);
 
@@ -3055,7 +3055,7 @@ public class TurnManagerTests {
 
     // Expectations
     gameEngine.eliminatePlayer(playerIndex);
-    turnManager.advanceTurn(true);
+    turnManager.advanceTurn(false);
 
     EasyMock.replay(gameEngine, turnManager);
 
