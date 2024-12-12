@@ -495,11 +495,14 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.popTopCard()).andReturn(regularCard);
     turnManager.handleRegularCard(regularCard);
 
-    EasyMock.replay(gameEngine, turnManager);
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
 
-    turnManager.drawAndProcessCard(false);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    EasyMock.verify(gameEngine, turnManager);
+    turnManager.drawAndProcessCard(drawFromBottom);
+
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -513,16 +516,19 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = true;
+    ui.printDrawingCard(drawFromBottom);
+
     Card regularCard = Card.SKIP;
 
     EasyMock.expect(gameEngine.popBottomCard()).andReturn(regularCard);
     turnManager.handleRegularCard(regularCard);
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    turnManager.drawAndProcessCard(true);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -536,16 +542,19 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
+
     Card explodingCard = Card.EXPLODE;
 
     EasyMock.expect(gameEngine.popTopCard()).andReturn(explodingCard);
     turnManager.handleExplodingKitten();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    turnManager.drawAndProcessCard(false);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -559,16 +568,19 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = true;
+    ui.printDrawingCard(drawFromBottom);
+
     Card explodingCard = Card.EXPLODE;
 
     EasyMock.expect(gameEngine.popBottomCard()).andReturn(explodingCard);
     turnManager.handleExplodingKitten();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    turnManager.drawAndProcessCard(true);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -582,16 +594,19 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
+
     Card implodingCard = Card.IMPLODE;
 
     EasyMock.expect(gameEngine.popTopCard()).andReturn(implodingCard);
     turnManager.handleImplodingCat();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    turnManager.drawAndProcessCard(false);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -605,16 +620,19 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = true;
+    ui.printDrawingCard(drawFromBottom);
+
     Card implodingCard = Card.IMPLODE;
 
     EasyMock.expect(gameEngine.popBottomCard()).andReturn(implodingCard);
     turnManager.handleImplodingCat();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    turnManager.drawAndProcessCard(true);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -628,7 +646,8 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
-    ui.printDrawingCard(false);
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
 
     Card regularCard = Card.SKIP;
     String errorMessage = "Cannot add this card type to a player's hand";
