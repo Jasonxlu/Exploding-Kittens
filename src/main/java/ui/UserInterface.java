@@ -3,8 +3,8 @@ package ui;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -45,7 +45,7 @@ public class UserInterface {
   }
 
   /**
-   * Input map for translating to english
+   * Creates input map for translating to english.
    */
   public void createInputMap() {
     inputMap = new HashMap<>();
