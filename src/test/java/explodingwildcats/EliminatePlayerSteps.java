@@ -56,8 +56,9 @@ public class EliminatePlayerSteps {
 
   @Given("the current player has no defuses")
   public void the_current_player_has_no_defuses() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    while (playerToBeEliminated.hasCard(Card.DEFUSE)) {
+      playerToBeEliminated.removeCardFromHand(Card.DEFUSE);
+    }
   }
 
   @When("the player draws a card")
