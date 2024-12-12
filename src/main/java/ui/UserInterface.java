@@ -302,8 +302,7 @@ public class UserInterface {
    * @return the error message
    */
   public String printMismatchCardValidationCardsAndComboCount() {
-    final String message = "Number of cards returned by card validation does not match "
-            + "combo count.";
+    final String message = bundle.getString("error.mismatch_card_validation_combo_count");
     System.out.println(message);
     return message;
   }
