@@ -389,7 +389,8 @@ public class UserInterface {
    */
   public void printPlayers(String[] players) {
     for (int i = 0; i < players.length; i++) {
-      System.out.printf("Player #%d: %s%n", i + 1, players[i]);
+      System.out.println(MessageFormat.format(
+              bundle.getString("print.players"), i + 1, players[i]));
     }
   }
 }
