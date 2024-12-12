@@ -193,7 +193,7 @@ public class TurnManager {
       numExtraCardsToDraw--;
       drawAndProcessCard(false);
     } else {
-      drawAndProcessCard(false);
+      drawAndProcessCard(drawFromBottom);
       advanceTurn(true);
     }
   }
