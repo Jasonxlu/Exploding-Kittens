@@ -1,6 +1,6 @@
 package explodingwildcats;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import ui.UserInterface;
 
@@ -454,15 +454,20 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Eliminates the current player.
+   * Eliminates the current player.
    */
-  public void eliminateCurrentPlayer() {}
+  public void eliminateCurrentPlayer() {
+    gameEngine.eliminatePlayer(currPlayerIndex);
+    advanceTurn();
+  }
 
   /**
    * Does the effect of a targeted attack card.
    */
   public void doTargetedAttack() {
     boolean validPlayerFound = false;
+
+    printPlayers();
     String name = ui.promptTargetedAttack(false);
 
     while (!validPlayerFound) {
@@ -470,6 +475,7 @@ public class TurnManager {
         currPlayerIndex = gameEngine.getPlayerIndexByName(name);
         validPlayerFound = true;
       } catch (NoSuchElementException e) {
+        printPlayers();
         name = ui.promptTargetedAttack(true);
       }
     }
@@ -487,8 +493,9 @@ public class TurnManager {
    */
   public void do2CardCombo() {
     boolean validPlayerFound = false;
-    boolean validCardFound = false;
     int targetIndex = -1;
+
+    printPlayers();
     String name = ui.prompt2CardCombo(false);
 
     while (!validPlayerFound) {
@@ -496,6 +503,7 @@ public class TurnManager {
         targetIndex = gameEngine.getPlayerIndexByName(name);
         validPlayerFound = true;
       } catch (NoSuchElementException e) {
+        printPlayers();
         name = ui.prompt2CardCombo(true);
       }
     }
@@ -508,6 +516,7 @@ public class TurnManager {
     printPlayerHand(targetIndex);
     String card = ui.prompt2CardComboTarget(false);
     Card cardToGive = null;
+    boolean validCardFound = false;
 
     while (!validCardFound) {
       try {
@@ -536,8 +545,9 @@ public class TurnManager {
    */
   public void do3CardCombo() {
     boolean validPlayerFound = false;
-    boolean validCardFound = false;
     int targetIndex = -1;
+
+    printPlayers();
     String name = ui.prompt3CardComboTargetName(false);
 
     while (!validPlayerFound) {
@@ -545,6 +555,7 @@ public class TurnManager {
         targetIndex = gameEngine.getPlayerIndexByName(name);
         validPlayerFound = true;
       } catch (NoSuchElementException e) {
+        printPlayers();
         name = ui.prompt3CardComboTargetName(true);
       }
     }
@@ -556,6 +567,7 @@ public class TurnManager {
 
     String card = ui.prompt3CardComboTargetCard(false);
     Card cardToGive = null;
+    boolean validCardFound = false;
 
     while (!validCardFound) {
       try {
@@ -604,12 +616,11 @@ public class TurnManager {
    * Print the players in the game.
    */
   public void printPlayers() {
-    ArrayList<Player> players = (ArrayList<Player>) gameEngine.getPlayers();
+    List<Player> players = gameEngine.getPlayers();
     String[] playerNames = new String[players.size()];
     for (int i = 0; i < players.size(); i++) {
       playerNames[i] = players.get(i).getName();
     }
-
     ui.printPlayers(playerNames);
 
   }

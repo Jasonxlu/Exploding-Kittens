@@ -329,6 +329,32 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 4 | index: 6          | Throws IndexOutOfBoundsException                             | yes          |
 
 
+## Method 18: ```public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards)```
+### Step 1-3 Results
+|        | Input 1             | Input 2                                                  | Input 3                     | Input 4                                                                                                                                           | Output                                                                                          |
+|--------|---------------------|----------------------------------------------------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| Step 1 | card                | player index in array (calls getPlayerByIndex with this) | number of cards to look for | Player's hand                                                                                                                                     | checks whether the player has at least n copies of a card or errors if the player doesn't exist |
+| Step 2 | cases               | interval [0, 5]                                          | interval [1, MAX_INT]       | Collection of cases                                                                                                                               | Boolean or exception                                                                            |
+| Step 3 | All Card enum cases | -1, 0, 5, 6                                              | 0, 1, MAX_INT               | [], [same card], [different card], [< input 3 same card], [=input 3 same card], [> input 3 same card], [at least input 3 same card + other cards] | True, False or IndexOutOfBoundsException                                                        |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|              | System under test                                                                                                | Expected output                                      | Implemented? |
+|--------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|--------------|
+| Test Case 1  | card: DEFUSE, index: -1, numCards: 1, hand: N/A                                                                  | IndexOutOfBoundsException                            | yes          |
+| Test Case 2  | card: SHUFFLE, index: 0, numCards: 0, hand: N/A                                                                  | IllegalArgumentException                             | yes          |
+| Test Case 3  | card: ATTACK, index: 5, numCards: 1, hand: [ATTACK]                                                              | true                                                 | yes          |
+| Test Case 4  | card: BEARD_CAT, index: 5, numCards: MAX_INT, hand: [DEFUSE]                                                     | false                                                | yes          |
+| Test Case 5  | card: BEARD_CAT, index: 4, numCards: MAX_INT, hand: N/A                                                          | IndexOutOfBoundsException (when there are 4 players) | yes          |
+| Test Case 6  | card: DRAW_FROM_BOTTOM, index: 6, numCards: 1, hand: N/A                                                         | IndexOutOfBoundsException                            | yes          |
+| Test Case 7  | card: SHUFFLE, index: 2, numCards: 2, hand: [SHUFFLE]                                                            | false                                                | yes          |
+| Test Case 8  | card: SEE_THE_FUTURE, index: 2, numCards: 2, hand: [SEE_THE_FUTURE, SEE_THE_FUTURE]                              | true                                                 | yes          |
+| Test Case 9  | card: ATTACK, index: 2, numCards: 1, hand: [ATTACK, ATTACK]                                                      | true                                                 | yes          |
+| Test Case 10 | card: RAINBOW_CAT, index: 2, numCards: 3, hand: [ATTACK, RAINBOW_CAT, SHUFFLE, RAINBOW_CAT, RAINBOW_CAT, ATTACK] | true                                                 | yes          |
+| Test Case 11 | card: DEFUSE, index: 2, numCards: 1, hand: []                                                                    | false                                                | yes          |
+| Test Case 12 | card: DEFUSE, index: 2, numCards: 1, hand: [BEARD_CAT]                                                           | false                                                | yes          |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.

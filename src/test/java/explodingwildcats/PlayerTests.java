@@ -2,6 +2,8 @@ package explodingwildcats;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -141,4 +143,56 @@ public class PlayerTests {
 
     EasyMock.verify(hand);
   }
+
+
+  @ParameterizedTest
+  @EnumSource(
+          value = Card.class,
+          names = {"IMPLODE", "EXPLODE"},
+          mode = EnumSource.Mode.EXCLUDE
+  ) // Exclude specific cards from the test
+  public void removeCardFromHand_returnTrue(Card card) {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
+
+    // Mock the behavior of removeCardFromPile to always return false
+    EasyMock.expect(hand.removeCardFromPile(card, true)).andReturn(true);
+
+    EasyMock.replay(hand);
+
+    // Test the removeCardFromHand method
+    boolean result = player.removeCardFromHand(card);
+
+    // Assert that the method returns true
+    assertTrue(result);
+
+    EasyMock.verify(hand);
+  }
+
+  @ParameterizedTest
+  @EnumSource(
+          value = Card.class,
+          names = {"IMPLODE", "EXPLODE"},
+          mode = EnumSource.Mode.INCLUDE
+  ) // Include only specific cards in the test
+  public void removeCardFromHand_returnFalse(Card card) {
+    CardPile hand = EasyMock.createMock(CardPile.class);
+    Player player = new Player("Bob", hand);
+
+    EasyMock.expect(hand.removeCardFromPile(card, true)).andReturn(false);
+
+    EasyMock.replay(hand);
+
+    // Test the removeCardFromHand method
+    boolean result = player.removeCardFromHand(card);
+
+    // Assert that the method returns false
+    assertFalse(result);
+
+    EasyMock.verify(hand);
+
+  }
+
+
+
 }

@@ -253,14 +253,19 @@ public class GameEngine {
   }
 
   /**
-   * TODO: Checks if a player a number of the specified card.
+   * Checks if a player a number of the specified card.
    *
    * @param card card to check if a player has.
    * @param playerIndex index of the player in the players list.
    * @param numCards the number of cards to check for.
    */
-  public boolean playerHasCards(Card card, int playerIndex, int numCards) {
-    return true;
+  public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards) {
+    Player player = getPlayerByIndex(playerIndex);
+    if (numCards <= 0) {
+      throw new IllegalArgumentException("Number of cards must be greater than 0.");
+    }
+    return Arrays.stream(player.getHand()).filter(c -> c == card)
+            .count() >= numCards;
   }
 
   /**
@@ -415,7 +420,7 @@ public class GameEngine {
     }
 
     cardsPlayedHashMap.forEach((key, value) -> {
-      if (!playerHasCards(key, currPlayerIndex, value)) {
+      if (!playerHasAtLeastCards(key, currPlayerIndex, value)) {
         throw new IllegalArgumentException("Player does not have the input cards.");
       }
     });

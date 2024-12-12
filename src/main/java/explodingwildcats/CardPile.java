@@ -109,4 +109,14 @@ public class CardPile {
     Collections.shuffle(list);
   }
 
+  /**
+   * TODO: Removes a card from the pile.
+   *
+   * @param card the card to remove
+   * @param isPlayerHand whether the cardpile is a player hand.
+   * @return true if the card was removed, false otherwise
+   */
+  public boolean removeCardFromPile(Card card, boolean isPlayerHand) {
+    return false;
+  }
 }

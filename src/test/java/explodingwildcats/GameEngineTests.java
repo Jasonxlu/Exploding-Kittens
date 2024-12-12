@@ -1624,7 +1624,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1637,7 +1637,7 @@ public class GameEngineTests {
     boolean playerHasC1 = true;
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1).times(2);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 2)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 2)).andReturn(playerHasC1);
 
     EasyMock.replay(game);
 
@@ -1656,7 +1656,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1669,7 +1669,7 @@ public class GameEngineTests {
     boolean playerHasC1 = true;
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1).times(2);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 2)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 2)).andReturn(playerHasC1);
 
     EasyMock.replay(game);
 
@@ -1688,7 +1688,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1701,7 +1701,7 @@ public class GameEngineTests {
     boolean playerHasC1 = true;
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1).times(3);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 3)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 3)).andReturn(playerHasC1);
 
     EasyMock.replay(game);
 
@@ -1720,7 +1720,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1733,7 +1733,7 @@ public class GameEngineTests {
     boolean playerHasC1 = true;
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1).times(3);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 3)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 3)).andReturn(playerHasC1);
 
     EasyMock.replay(game);
 
@@ -1752,7 +1752,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1769,8 +1769,8 @@ public class GameEngineTests {
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
     EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andReturn(playerHasC1);
-    EasyMock.expect(game.playerHasCards(c2, playerIndex, 1)).andReturn(playerHasC2);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 1)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c2, playerIndex, 1)).andReturn(playerHasC2);
 
     EasyMock.replay(game);
 
@@ -1789,7 +1789,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1807,8 +1807,8 @@ public class GameEngineTests {
     EasyMock.expect(game.getCardByName(c1And3String)).andReturn(c1And3);
     EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
     EasyMock.expect(game.getCardByName(c1And3String)).andReturn(c1And3);
-    EasyMock.expect(game.playerHasCards(c1And3, playerIndex, 2)).andReturn(playerHasC1And3);
-    EasyMock.expect(game.playerHasCards(c2, playerIndex, 1)).andReturn(playerHasC2);
+    EasyMock.expect(game.playerHasAtLeastCards(c1And3, playerIndex, 2)).andReturn(playerHasC1And3);
+    EasyMock.expect(game.playerHasAtLeastCards(c2, playerIndex, 1)).andReturn(playerHasC2);
 
     EasyMock.replay(game);
 
@@ -1827,7 +1827,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1843,8 +1843,8 @@ public class GameEngineTests {
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
     EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andReturn(playerHasC1);
-    EasyMock.expect(game.playerHasCards(c2, playerIndex, 1)).andReturn(playerHasC2);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 1)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c2, playerIndex, 1)).andReturn(playerHasC2);
 
     EasyMock.replay(game);
 
@@ -1867,7 +1867,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1883,8 +1883,8 @@ public class GameEngineTests {
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
     EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andReturn(playerHasC1);
-    EasyMock.expect(game.playerHasCards(c2, playerIndex, 1)).andReturn(playerHasC2);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 1)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c2, playerIndex, 1)).andReturn(playerHasC2);
 
     EasyMock.replay(game);
 
@@ -1907,7 +1907,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1927,9 +1927,9 @@ public class GameEngineTests {
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1);
     EasyMock.expect(game.getCardByName(c2String)).andReturn(c2);
     EasyMock.expect(game.getCardByName(c3String)).andReturn(c3);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 1)).andReturn(playerHasC1);
-    EasyMock.expect(game.playerHasCards(c2, playerIndex, 1)).andReturn(playerHasC2);
-    EasyMock.expect(game.playerHasCards(c3, playerIndex, 1)).andReturn(playerHasC3);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 1)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c2, playerIndex, 1)).andReturn(playerHasC2);
+    EasyMock.expect(game.playerHasAtLeastCards(c3, playerIndex, 1)).andReturn(playerHasC3);
 
     EasyMock.replay(game);
 
@@ -1952,7 +1952,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -1984,7 +1984,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -2001,7 +2001,7 @@ public class GameEngineTests {
     String exceptionMessage = "Player does not exist at this index";
 
     // Allow any of the cards to trigger the exception
-    EasyMock.expect(game.playerHasCards(EasyMock.or(
+    EasyMock.expect(game.playerHasAtLeastCards(EasyMock.or(
                     EasyMock.eq(c1),
                     EasyMock.eq(c2)
             ), EasyMock.eq(playerIndex), EasyMock.eq(1)))
@@ -2027,7 +2027,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -2040,7 +2040,7 @@ public class GameEngineTests {
     boolean playerHasC1 = true;
 
     EasyMock.expect(game.getCardByName(c1String)).andReturn(c1).times(3);
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 3)).andReturn(playerHasC1);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 3)).andReturn(playerHasC1);
 
     EasyMock.replay(game);
 
@@ -2059,7 +2059,7 @@ public class GameEngineTests {
     GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
             .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
             .addMockedMethod("getCardByName")
-            .addMockedMethod("playerHasCards")
+            .addMockedMethod("playerHasAtLeastCards")
             .createMock();
 
     int playerIndex = 0;
@@ -2072,7 +2072,7 @@ public class GameEngineTests {
 
     boolean playerHasCards = false;
     // Allow any of the cards to trigger the exception
-    EasyMock.expect(game.playerHasCards(c1, playerIndex, 2)).andReturn(playerHasCards);
+    EasyMock.expect(game.playerHasAtLeastCards(c1, playerIndex, 2)).andReturn(playerHasCards);
 
     EasyMock.replay(game);
 
@@ -2427,7 +2427,7 @@ public class GameEngineTests {
 
     // Function call
     Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-        game.eliminatePlayer(playerIndex);
+      game.eliminatePlayer(playerIndex);
     });
 
     // Actual values
@@ -2445,5 +2445,336 @@ public class GameEngineTests {
 
     // Verification
     EasyMock.verify(playerFactory, cardPileFactory, playerHand, p1, p2, p3, p4, p5, p6);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_playerIndexOutOfRange_throwsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.DEFUSE;
+    int numCards = 1;
+    int outOfRangePlayerIndex = -1;
+    String exceptionMessage = "Player does not exist at this index";
+    EasyMock.expect(game.getPlayerByIndex(outOfRangePlayerIndex)).andThrow(
+            new IndexOutOfBoundsException(exceptionMessage)
+    );
+
+    EasyMock.replay(game);
+
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.playerHasAtLeastCards(cardToGet, outOfRangePlayerIndex, numCards);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(exceptionMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_numCardsIs0_throwsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.SHUFFLE;
+    int numCards = 0;
+    int playerIndex = 0;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    EasyMock.replay(game);
+
+    String expectedMessage = "Number of cards must be greater than 0.";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_singleCard_hasCard_returnTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.ATTACK;
+    int numCards = 1;
+    int playerIndex = 0;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card[] playerHand = { cardToGet };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = true;
+    boolean actualResult = game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_singleCard_doesNotHaveCard_returnFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.BEARD_CAT;
+    int numCards = Integer.MAX_VALUE;
+    int playerIndex = 5;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card otherCard = Card.DEFUSE;
+    Card[] playerHand = { otherCard };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = false;
+    boolean actualResult = game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_playerDoesNotExistAtIndex_throwsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.DEFUSE;
+    int numCards = 1;
+    int outOfRangePlayerIndex = 4;
+    String exceptionMessage = "Player does not exist at this index";
+    EasyMock.expect(game.getPlayerByIndex(outOfRangePlayerIndex)).andThrow(
+            new IndexOutOfBoundsException(exceptionMessage)
+    );
+
+    EasyMock.replay(game);
+
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.playerHasAtLeastCards(cardToGet, outOfRangePlayerIndex, numCards);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(exceptionMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_indexOutOfRangeUpper_throwsException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.DRAW_FROM_BOTTOM;
+    int numCards = 1;
+    int outOfRangePlayerIndex = 6;
+    String exceptionMessage = "Player does not exist at this index";
+    EasyMock.expect(game.getPlayerByIndex(outOfRangePlayerIndex)).andThrow(
+            new IndexOutOfBoundsException(exceptionMessage)
+    );
+
+    EasyMock.replay(game);
+
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      game.playerHasAtLeastCards(cardToGet, outOfRangePlayerIndex, numCards);
+    });
+    String actualMessage = exception.getMessage();
+    assertEquals(exceptionMessage, actualMessage);
+
+    EasyMock.verify(game);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_2Cards_onlyHasOne_returnFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.SHUFFLE;
+    int numCards = 2;
+    int playerIndex = 2;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card[] playerHand = { cardToGet };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = false;
+    boolean actualResult = game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_1Cards_has2_returnTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.ATTACK;
+    int numCards = 1;
+    int playerIndex = 2;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card[] playerHand = { cardToGet, cardToGet };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = true;
+    boolean actualResult = game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_3Cards_has3PlusOthers_returnTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.RAINBOW_CAT;
+    int numCards = 3;
+    int playerIndex = 2;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card[] playerHand = { Card.ATTACK, cardToGet, Card.SHUFFLE, cardToGet, cardToGet, Card.ATTACK };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = true;
+    boolean actualResult = game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_1Card_hasNone_returnFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.DEFUSE;
+    int numCards = 1;
+    int playerIndex = 2;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    Card[] playerHand = new Card[0];
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = false;
+    boolean actualResult = game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void playerHasAtLeastCards_differentCardInHand_returnsFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = EasyMock.partialMockBuilder(GameEngine.class)
+            .withConstructor(playerFactory, cardPileFactory, drawPile, discardPile)
+            .addMockedMethod("getPlayerByIndex")
+            .createMock();
+
+    Card cardToGet = Card.BEARD_CAT;
+    int numCards = 1;
+    int playerIndex = 2;
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerByIndex(playerIndex)).andReturn(player);
+
+    // Player hand has a card, but not the requested one
+    Card[] playerHand = { Card.DEFUSE };
+    EasyMock.expect(player.getHand()).andReturn(playerHand);
+
+    EasyMock.replay(game, player);
+
+    boolean expectedResult = false;
+    boolean actualResult = game.playerHasAtLeastCards(cardToGet, playerIndex, numCards);
+
+    assertEquals(expectedResult, actualResult);
+
+    EasyMock.verify(game, player);
   }
 }
