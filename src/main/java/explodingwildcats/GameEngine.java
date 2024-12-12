@@ -123,6 +123,9 @@ public class GameEngine {
    * @return whether the game is over.
    */
   public boolean isGameOver() {
+    if (numOfPlayers > 1) {
+      return false;
+    }
     return true;
   }
 
