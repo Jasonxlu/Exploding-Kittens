@@ -10,7 +10,7 @@ import ui.UserInterface;
 public class TurnManager {
 
   private final UserInterface ui;
-  private final GameEngine gameEngine;
+  final GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;

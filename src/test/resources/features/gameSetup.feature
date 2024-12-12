@@ -20,6 +20,9 @@ Feature: Game setup
     And the game engine inserts the exploding cards into the draw pile
 
   Examples:
-    |numPlayers|playerNames        |
-    |3         |"Jason,Isa,Brennan"|
-    |2         |"John,Alice"       |
+    |numPlayers|playerNames                  |
+    |2         |"Jane,John"                  |
+    |6         |"Jane,John,Foo,Bar,Alice,Joe"|
+    |3         |"Jason,Isa,Brennan"          |
+    |4         |"Brennan,Isa,Jason,Joe"      |
+    |5         |"Brennan,Isa,Jason,Joe,Ava"  |

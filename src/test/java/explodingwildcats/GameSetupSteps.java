@@ -6,12 +6,20 @@ import io.cucumber.java.en.When;
 import org.easymock.EasyMock;
 import ui.UserInterface;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameSetupSteps {
 
   private TurnManager turnManager;
   private UserInterface uiMock;
+
+  private String[] names;
+  private int numPlayers;
 
   @Given("a newly created Turn Manager")
   public void a_newly_created_turn_manager() {
@@ -23,7 +31,8 @@ public class GameSetupSteps {
   public void setup_game_engine_is_called_with_player_info_inputs(
           Integer numPlayers,
           String playerNames) {
-    String[] names = playerNames.split(",");
+    names = playerNames.split(",");
+    this.numPlayers = numPlayers;
 
     EasyMock.expect(uiMock.getNumberOfPlayers()).andReturn(numPlayers);
     EasyMock.expect(uiMock.getPlayerNames(numPlayers)).andReturn(names);
