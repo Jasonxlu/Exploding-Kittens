@@ -280,7 +280,7 @@ public class UserInterface {
    * @return the error message
    */
   public String printMustPlay2Or3CardsAsComboError() {
-    final String message = "You must play 2 or 3 cards as a combo.";
+    final String message = bundle.getString("error.must_play_2_or_3_cards");
     System.out.println(message);
     return message;
   }
