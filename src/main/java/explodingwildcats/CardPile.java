@@ -28,6 +28,14 @@ public class CardPile {
   }
 
   /**
+   * TODO: Adds a card to the pile at the index provided or errors if not possible.
+   *
+   * @param c Card being added
+   * @param index desired index to add to
+   */
+  public void addCardAt(Card c, int index) {}
+
+  /**
    * Returns all the cards in the pile.
    *
    * @return Card array of all the cards
