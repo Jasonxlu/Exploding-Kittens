@@ -101,6 +101,10 @@ public class GameEngine {
       throw new IllegalArgumentException("Too many players");
     }
 
+    if (Arrays.stream(names).distinct().count() != names.length) {
+      throw new IllegalArgumentException("Players have duplicate names");
+    }
+
     this.numOfPlayers = numberOfPlayers;
 
     for (int i = 0; i < numberOfPlayers; i++) {

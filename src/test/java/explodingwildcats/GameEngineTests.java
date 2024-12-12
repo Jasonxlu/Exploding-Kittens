@@ -160,6 +160,30 @@ public class GameEngineTests {
   }
 
   @Test
+  public void setUpPlayers_duplicateNames_ThrowException() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    EasyMock.replay(playerFactory, cardPileFactory);
+
+    final int numPlayers = 3;
+    String[] names = {"Joe", "Jeff", "Joe"};
+
+    String expectedMessage = "Players have duplicate names";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      game.setUpPlayers(numPlayers, names);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(playerFactory, cardPileFactory);
+  }
+
+  @Test
   public void dealDefuses_TwoPlayers() {
     PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
     CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);

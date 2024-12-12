@@ -17,7 +17,7 @@
 | Test Case 3 | int: 2, list: [two elements]          | None, modified fields    | yes          |
 | Test Case 4 | int: 6, list: [max size]              | None, modified fields    | yes          |
 | Test Case 5 | int: 7, list: [more than one element] | IllegalArgumentException | yes          |
-| Test Case 6 | int: 3, list: ["Joe", "Jeff", "Joe"]  | IllegalArgumentException | no           |
+| Test Case 6 | int: 3, list: ["Joe", "Jeff", "Joe"]  | IllegalArgumentException | yes          |
 
 
 
