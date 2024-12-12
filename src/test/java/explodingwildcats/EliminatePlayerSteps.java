@@ -39,8 +39,7 @@ public class EliminatePlayerSteps {
 
   @Given("turn order is reversed {booleanValue}")
   public void turn_order_is_reversed_false(Boolean isReversed) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    turnManager.gameEngine.isTurnOrderReversed = isReversed;
   }
 
   @Given("an exploding kitten at the top of the draw pile")
