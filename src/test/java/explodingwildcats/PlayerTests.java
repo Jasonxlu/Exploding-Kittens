@@ -211,4 +211,13 @@ public class PlayerTests {
     assertArrayEquals(cards, result);
   }
 
+  @Test
+  public void getName_returnsName() {
+    Player player = new Player("Bob");
+
+    String name = player.getName();
+
+    assertEquals("Bob", name);
+  }
+
 }
