@@ -1081,9 +1081,7 @@ public class TurnManagerTests {
 
   @Test
   public void doSkip_numExtraCardsToDrawOne_numExtraCardsToDrawDecremented() {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = new TurnManager();
 
     turnManager.numExtraCardsToDraw = 1;
 
@@ -1097,9 +1095,7 @@ public class TurnManagerTests {
 
   @Test
   public void doSkip_numExtraCardsToDrawTwo_numExtraCardsToDrawDecremented() {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = new TurnManager();
 
     int extraCards = 2;
 
