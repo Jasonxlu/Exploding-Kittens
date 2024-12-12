@@ -222,8 +222,8 @@ public class UserInterface {
    * @return the new user input.
    */
   public String printLastPlayerDidNotHaveNopeAndGetNewPlayer(String playerName) {
-    System.out.printf("%s does not have a Nope card in their hand. "
-            + "Please type in a different player.%n", playerName);
+    System.out.println(MessageFormat.format(
+            bundle.getString("error.nope_card_not_found"), playerName));
     return scanner.nextLine().trim();
   }
 
