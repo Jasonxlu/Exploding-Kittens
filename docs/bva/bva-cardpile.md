@@ -137,7 +137,7 @@
 | Test Case 1 | index: -1, card: EXPLODE                            | Throws IndexOutOfBoundsException     | yes          |
 | Test Case 2 | index: 0, within the list size, card: ATTACK        | Adds attack to the front of the list | yes          |
 | Test Case 3 | index: 3, within the list size, card: SHUFFLE       | Adds shuffle at index 3 (4th card)   | yes          |
-| Test Case 4 | index: 20, greater than the list size, card: DEFUSE | Adds defuse at the end               | no           |
+| Test Case 4 | index: 20, greater than the list size, card: DEFUSE | Adds defuse at the end               | yes          |
 
 
 ## Recall the 4 steps of BVA

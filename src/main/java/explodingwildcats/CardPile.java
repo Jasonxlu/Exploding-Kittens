@@ -36,9 +36,11 @@ public class CardPile {
   public void addCardAt(Card c, int index) {
     if (index < 0) {
       throw new IndexOutOfBoundsException("Index cannot be negative");
+    } else if (index >= cardList.size()) {
+      cardList.add(c);
+    } else {
+      cardList.add(index, c);
     }
-
-    cardList.add(index, c);
   }
 
   /**
