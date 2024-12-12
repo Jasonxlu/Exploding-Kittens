@@ -493,4 +493,13 @@ public class CardPileTests {
 
     EasyMock.verify(pile);
   }
+
+  @Test
+  public void removeCardFromPile_emptyPile_isPlayerHand_attackCard_returnFalse() {
+    CardPile pile = new CardPile();
+    Card card = Card.ATTACK;
+    boolean isPlayerHand = true;
+    assertFalse(pile.removeCardFromPile(card, isPlayerHand));
+  }
+
 }

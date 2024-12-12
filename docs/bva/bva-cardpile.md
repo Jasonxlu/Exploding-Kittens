@@ -122,6 +122,26 @@
 | Test Case 5  | Card Pile: [Max Cards: All 53 Cards]    | Different Ordering | yes          |
 
 
+## Method 3: ```public boolean removeCardFromPile(Card card)```
+### Step 1-3 Results
+|        | Input                                  | Input 2                                      | Input 3                                                                                                                                                                                            | Output             |  
+|--------|----------------------------------------|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|  
+| Step 1 | The cardpile arraylist                 | Boolean for if the cardpile is a player hand | The card being removed                                                                                                                                                                             | Boolean True/False |  
+| Step 2 | Collection                             | Boolean                                      | Cases                                                                                                                                                                                              | Boolean            |  
+| Step 3 | [], [one element], [multiple elements] | True/False                                   | ATTACK, DEFUSE, NOPE, SEE_THE_FUTURE, SHUFFLE, SKIP, EXPLODE, ALTER_THE_FUTURE, DRAW_FROM_BOTTOM, IMPLODE, REVERSE, TARGETED_ATTACK, FERAL_CAT, TACO_CAT, HAIRY_POTATO_CAT, BEARD_CAT, RAINBOW_CAT | True/False         |  
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                                                | Expected output | Implemented? |  
+|-------------|----------------------------------------------------------------------------------|-----------------|--------------|  
+| Test Case 1 | Cardpile: [], isPlayerHand: true, Card: ATTACK                                   | FALSE           |              |  
+| Test Case 2 | Cardpile: [ATTACK], isPlayerHand: false, Card: SKIP                              | FALSE           |              |  
+| Test Case 3 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, NOPE], isPlayerHand: false, Card: EXPLODE    | FALSE           |              |  
+| Test Case 4 | Cardpile: [DEFUSE], isPlayerHand: true, Card: DEFUSE                             | TRUE            |              |  
+| Test Case 5 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: false, Card: IMPLODE | TRUE            |              |
+| Test Case 6 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: true, Card: IMPLODE  | FALSE           |              |
+
+
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
