@@ -9,3 +9,23 @@ Feature: Eliminate Player
   - Removes the player from the game
   - Advances the turn properly
   - Removes the Exploding/Imploding kitten from the draw pile
+
+  Scenario Outline:
+    Given a TurnManager with <numPlayers> players
+    And current player index <currPlayerIndex>
+    And turn order is reversed <turnOrderIsReversed>
+    And an exploding kitten at the top of the draw pile
+    And the current player has no defuses
+    When the player draws a card
+    Then the player is removed from the game
+    And the turn is advanced to the next player
+    And the exploding kitten is removed from the draw pile
+
+  Examples:
+    |numPlayers|currPlayerIndex|turnOrderIsReversed|
+    |2         |0              |false              |
+    |3         |2              |false              |
+    |6         |0              |false              |
+    |2         |0              |true               |
+    |4         |3              |true               |
+    |6         |5              |true               |
