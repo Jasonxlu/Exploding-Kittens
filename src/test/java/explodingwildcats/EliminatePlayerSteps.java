@@ -61,10 +61,9 @@ public class EliminatePlayerSteps {
     }
   }
 
-  @When("the player draws a card")
-  public void the_player_draws_a_card() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  @When("the player draws a card to end their turn")
+  public void the_player_draws_a_card_to_end_their_turn() {
+    turnManager.endTurn();
   }
 
   @Then("the player is removed from the game")
