@@ -682,18 +682,21 @@ public class CardPileTests {
     Card testCard = Card.SHUFFLE;
     int newSize = 11;
 
+    // Expected Values
+    int expectedAddIndex = 7;
+
     // Call function
     pile.addCardAt(testCard, index);
 
     // Assertions
     Card[] cards = pile.getCards();
     assertEquals(newSize, cards.length);
-    assertEquals(testCard, cards[index]);
-    for (int i = 0; i < 3; i++) {
+    assertEquals(testCard, cards[expectedAddIndex]);
+    for (int i = 0; i < expectedAddIndex; i++) {
       assertEquals(existingCard, cards[i]); // before new card
     }
 
-    for (int i = index + 1; i < newSize; i++) {
+    for (int i = index + expectedAddIndex; i < newSize; i++) {
       assertEquals(existingCard, cards[i]); // after new card
     }
   }
