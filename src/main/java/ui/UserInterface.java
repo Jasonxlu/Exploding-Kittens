@@ -1,6 +1,7 @@
 package ui;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -54,6 +55,10 @@ public class UserInterface {
         name = scanner.nextLine().trim();
 
         if (!name.isEmpty()) {
+          if (Arrays.asList(playerNames).contains(name)) {
+            System.out.println("There already exists a player with that name.");
+            continue;
+          }
           break;
         } else {
           System.out.println("Name cannot be empty. Please enter a valid name.");

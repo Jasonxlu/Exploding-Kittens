@@ -2,21 +2,22 @@
 
 ## Method 1: ```public void setUpPlayers(int numberOfPlayers, String[] names)```
 ### Step 1-3 Results
-|        | Input 1           | Input 2                                                | Output                                                          |
-|--------|-------------------|--------------------------------------------------------|-----------------------------------------------------------------|
-| Step 1 | number of players | list of player names                                   | modified Player and numberOfPlayer fields of the class or error |
-| Step 2 | interval [2, 6]   | Collection                                             | None (modified fields) or Exception                             |
-| Step 3 | 1, 2, 6, 7        | [], [one element], [more than one element], [max size] | N/A (modified fields) or Exception                              |
+|        | Input 1           | Input 2                                                                       | Output                                                          |
+|--------|-------------------|-------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| Step 1 | number of players | list of player names                                                          | modified Player and numberOfPlayer fields of the class or error |
+| Step 2 | interval [2, 6]   | Collection                                                                    | None (modified fields) or Exception                             |
+| Step 3 | 1, 2, 6, 7        | [], [one element], [more than one element], [max size], [contains duplicates] | N/A (modified fields) or Exception                              |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                     | Expected output          | Implemented? |
-|--------------|---------------------------------------|--------------------------|--------------|
-| Test Case 1  | int: 1, list: [one elements]          | IllegalArgumentException | yes          |
-| Test Case 2  | int: 1, list: []                      | IllegalArgumentException | yes          |
-| Test Case 3  | int: 2, list: [two elements]          | None, modified fields    | yes          |
-| Test Case 4  | int: 6, list: [max size]              | None, modified fields    | yes          |
-| Test Case 5  | int: 7, list: [more than one element] | IllegalArgumentException | yes          |
+|             | System under test                     | Expected output          | Implemented? |
+|-------------|---------------------------------------|--------------------------|--------------|
+| Test Case 1 | int: 1, list: [one elements]          | IllegalArgumentException | yes          |
+| Test Case 2 | int: 1, list: []                      | IllegalArgumentException | yes          |
+| Test Case 3 | int: 2, list: [two elements]          | None, modified fields    | yes          |
+| Test Case 4 | int: 6, list: [max size]              | None, modified fields    | yes          |
+| Test Case 5 | int: 7, list: [more than one element] | IllegalArgumentException | yes          |
+| Test Case 6 | int: 3, list: ["Joe", "Jeff", "Joe"]  | IllegalArgumentException | yes          |
 
 
 
