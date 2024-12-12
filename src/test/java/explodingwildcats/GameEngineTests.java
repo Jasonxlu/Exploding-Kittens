@@ -2841,4 +2841,19 @@ public class GameEngineTests {
 
     assertEquals(expectedResult, actualResult);
   }
+
+  @Test
+  public void isGameOver_noPlayers_returnTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory);
+
+    int numPlayers = 0;
+    game.numOfPlayers = numPlayers;
+
+    boolean expectedResult = true;
+    boolean actualResult = game.isGameOver();
+
+    assertEquals(expectedResult, actualResult);
+  }
 }
