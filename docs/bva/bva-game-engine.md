@@ -386,7 +386,28 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 1 | numOfPlayers: 1   | True            | yes          |
 | Test Case 2 | numOfPlayers: 0   | True            | yes          |
 | Test Case 3 | numOfPlayers: 2   | False           | yes          |
-| Test Case 3 | numOfPlayers: 6   | False           | yes          |
+| Test Case 4 | numOfPlayers: 6   | False           | yes          |
+
+
+## Method 21: ```public Card[] peekDrawPile()```
+### Step 1-3 Results
+|        | Input 1                                                                         | Output                                                    |
+|--------|---------------------------------------------------------------------------------|-----------------------------------------------------------|
+| Step 1 | The game's draw pile                                                            | Array of cards from the top of the pile                   |
+| Step 2 | Cases                                                                           | Collection                                                |
+| Step 3 | [], [one element], [two elements], [three elements], [more than three elements] | [], [one element], [multiple elements], [max elements: 3] |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                                           | Expected output                               | Implemented? |
+|-------------|-------------------------------------------------------------|-----------------------------------------------|--------------|
+| Test Case 1 | Drawpile: []                                                | []                                            |              |
+| Test Case 2 | Drawpile: [ATTACK]                                          | [ATTACK]                                      |              |
+| Test Case 3 | Drawpile: [SKIP, DEFUSE]                                    | [SKIP, DEFUSE]                                |              |
+| Test Case 4 | Drawpile: [EXPLODE, IMPLODE, TACO_CAT]                      | [EXPLODE, IMPLODE, TACO_CAT]                  |              |
+| Test Case 5 | Drawpile: [SHUFFLE, SEE_THE_FUTURE, ALTER_THE_FUTURE, SKIP] | [SHUFFLE, SEE_THE_FUTURE, ALTER_THE_FUTURE]   |              |
+
+
 
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
