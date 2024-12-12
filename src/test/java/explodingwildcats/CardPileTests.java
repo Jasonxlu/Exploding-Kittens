@@ -657,7 +657,6 @@ public class CardPileTests {
     // Call function
     pile.addCardAt(testCard, index);
 
-
     // Assertions
     Card[] cards = pile.getCards();
     assertEquals(newSize, cards.length);
@@ -717,14 +716,17 @@ public class CardPileTests {
     Card testCard = Card.DEFUSE;
     int newSize = 11;
 
+    // Expected Value
+    int expectedAddIndex = 0;
+
     // Call function
     pile.addCardAt(testCard, index);
 
     // Assertions
     Card[] cards = pile.getCards();
     assertEquals(newSize, cards.length);
-    assertEquals(testCard, cards[originalSize]);
-    for (int i = 0; i < originalSize; i++) {
+    assertEquals(testCard, cards[expectedAddIndex]);
+    for (int i = 1; i < newSize; i++) {
       assertEquals(existingCard, cards[i]);
     }
   }
