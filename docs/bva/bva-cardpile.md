@@ -133,14 +133,14 @@
 ##### All-combination or each-choice: each-choice
 
 |             | System under test                                                                | Expected output              | Implemented? |  
-|-------------|----------------------------------------------------------------------------------|------------------------------|-------------|  
-| Test Case 1 | Cardpile: [], isPlayerHand: true, Card: ATTACK                                   | FALSE, CardPile not modified | yes         |  
-| Test Case 2 | Cardpile: [ATTACK], isPlayerHand: false, Card: SKIP                              | FALSE, CardPile not modified | yes         |  
-| Test Case 3 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, NOPE], isPlayerHand: false, Card: EXPLODE    | FALSE, CardPile not modified | yes         |  
-| Test Case 4 | Cardpile: [DEFUSE], isPlayerHand: true, Card: DEFUSE                             | TRUE, CardPile modified      | yes         |  
-| Test Case 5 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: false, Card: IMPLODE | TRUE, CardPile modified      | yes         |
-| Test Case 6 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: true, Card: IMPLODE  | FALSE, CardPile not modified | yes         |
-| Test Case 7 | Cardpile: [SEE_THE_FUTURE, SHUFFLE], isPlayerHand: true, Card: EXPLODE           | FALSE, CardPile not modified |             |
+|-------------|----------------------------------------------------------------------------------|------------------------------|--------------|  
+| Test Case 1 | Cardpile: [], isPlayerHand: true, Card: ATTACK                                   | FALSE, CardPile not modified | yes          |  
+| Test Case 2 | Cardpile: [ATTACK], isPlayerHand: false, Card: SKIP                              | FALSE, CardPile not modified | yes          |  
+| Test Case 3 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, NOPE], isPlayerHand: false, Card: EXPLODE    | FALSE, CardPile not modified | yes          |  
+| Test Case 4 | Cardpile: [DEFUSE], isPlayerHand: true, Card: DEFUSE                             | TRUE, CardPile modified      | yes          |  
+| Test Case 5 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: false, Card: IMPLODE | TRUE, CardPile modified      | yes          |
+| Test Case 6 | Cardpile: [SEE_THE_FUTURE, SHUFFLE, IMPLODE], isPlayerHand: true, Card: IMPLODE  | FALSE, CardPile not modified | yes          |
+| Test Case 7 | Cardpile: [SEE_THE_FUTURE, SHUFFLE], isPlayerHand: true, Card: EXPLODE           | FALSE, CardPile not modified | yes          |
 
 
 
