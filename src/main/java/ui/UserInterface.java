@@ -328,11 +328,10 @@ public class UserInterface {
    * @return the user's input.
    */
   public String prompt2CardComboTarget(boolean isRetry) {
-    if (isRetry) {
-      System.out.println("Invalid card. Please type in a valid card name.");
-    } else {
-      System.out.println("Please type in the name of the card you are giving up.");
-    }
+    String printMessage = isRetry
+            ? bundle.getString("prompt.combo_retry_card_2")
+            : bundle.getString("prompt.combo_target_card_2");
+    System.out.println(printMessage);
     return scanner.nextLine().trim();
   }
 
