@@ -85,6 +85,9 @@ public class TurnManager {
    * Does the effect of an alter the future card.
    */
   public void doAlterTheFuture() {
+
+    ui.printAlteringTheFuture();
+
     Card[] peekedCards = gameEngine.peekDrawPile();
     int numToReorder = peekedCards.length;
 
@@ -110,7 +113,7 @@ public class TurnManager {
    */
   public void doReverse() {
     gameEngine.reverseTurnOrder();
-    ui.println("Turn order was reversed.");
+    ui.printTurnOrderReversed();
     endTurn();
   }
 
@@ -119,6 +122,7 @@ public class TurnManager {
    * Calls the corresponding function.
    */
   public void drawAndProcessCard(boolean drawFromBottom) {
+    ui.printDrawingCard(drawFromBottom);
     Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
 
     switch (drawnCard) {
@@ -149,6 +153,7 @@ public class TurnManager {
       case IMPLODE:
         throw new IllegalArgumentException("Cannot add this card type to a player's hand");
       default:
+        ui.printAddingCardToHand(card.name());
         Player currPlayer = gameEngine.getPlayers().get(currPlayerIndex);
         currPlayer.addCardToHand(card);
     }
@@ -159,6 +164,7 @@ public class TurnManager {
    */
   public void handleExplodingKitten() {
     boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
+    ui.printDrawExplodingKitten(hasDefuse);
 
     if (hasDefuse) {
       gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex);
@@ -176,6 +182,7 @@ public class TurnManager {
    * Handles the case where the imploding cat is drawn.
    */
   public void handleImplodingCat() {
+    ui.printDrawImplodingKitten(isImplodingCatFaceUp);
     if (isImplodingCatFaceUp) {
       eliminateCurrentPlayer();
     } else {
@@ -343,6 +350,8 @@ public class TurnManager {
    * Does the effect of a see the future card.
    */
   public void doSeeTheFuture() {
+
+    ui.printSeeingTheFuture();
     Card[] peekedCards = gameEngine.peekDrawPile();
 
     String peekedCardsMessage = "Top: " + peekedCards[0].name();
@@ -373,6 +382,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
+    ui.printAttacking(numExtraCardsToDraw);
     advanceTurn(true);
   }
 
@@ -402,6 +412,7 @@ public class TurnManager {
       }
 
       if (player.removeCardFromHand(Card.NOPE)) { // 'plays' the card.
+        ui.printNopePlayed();
         return true;
       }
       name = ui.printLastPlayerDidNotHaveNopeAndGetNewPlayer(player.getName());
@@ -458,6 +469,7 @@ public class TurnManager {
    * Does the effect of a shuffle card.
    */
   public void doShuffle() {
+    ui.printShuffling();
     gameEngine.shuffleDrawPile();
     endTurn();
   }
@@ -466,6 +478,7 @@ public class TurnManager {
    * Does the effect of a skip card.
    */
   public void doSkip() {
+    ui.printSkipping();
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
     } else {
@@ -477,6 +490,7 @@ public class TurnManager {
    * Eliminates the current player.
    */
   public void eliminateCurrentPlayer() {
+    ui.printPlayerEliminated();
     gameEngine.eliminatePlayer(currPlayerIndex);
     advanceTurn(false);
   }
@@ -487,6 +501,7 @@ public class TurnManager {
   public void doTargetedAttack() {
     boolean validPlayerFound = false;
 
+    ui.printDoingTargetedAttack();
     printPlayers();
     String name = ui.promptTargetedAttack(false);
 
@@ -506,6 +521,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
+    ui.printTargetedAttackResult(numExtraCardsToDraw);
   }
 
   /**
@@ -514,6 +530,8 @@ public class TurnManager {
   public void do2CardCombo() {
     boolean validPlayerFound = false;
     int targetIndex = -1;
+
+    ui.printDoingCardCombo(2);
 
     printPlayers();
     String name = ui.prompt2CardCombo(false);
@@ -567,6 +585,7 @@ public class TurnManager {
     boolean validPlayerFound = false;
     int targetIndex = -1;
 
+    ui.printDoingCardCombo(3);
     printPlayers();
     String name = ui.prompt3CardComboTargetName(false);
 
