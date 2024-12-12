@@ -10,7 +10,7 @@ import ui.UserInterface;
 public class TurnManager {
 
   private final UserInterface ui;
-  private final GameEngine gameEngine;
+  final GameEngine gameEngine;
   int numExtraCardsToDraw; // Package private to support unit testing.
   int currPlayerIndex; // Package private to support unit testing.
   boolean isImplodingCatFaceUp = false;
@@ -22,6 +22,21 @@ public class TurnManager {
    */
   public TurnManager() {
     this.ui = new UserInterface();
+    PlayerFactory playerFactory = new PlayerFactory();
+    CardPileFactory cardPileFactory = new CardPileFactory();
+
+    this.gameEngine = new GameEngine(playerFactory, cardPileFactory);
+
+    this.numExtraCardsToDraw = 0;
+  }
+
+  /**
+   * Package private constructor for TurnManager, only mocking the UI.
+   * (For the purpose of BDD.)
+   *
+   */
+  TurnManager(UserInterface ui) {
+    this.ui = ui;
     PlayerFactory playerFactory = new PlayerFactory();
     CardPileFactory cardPileFactory = new CardPileFactory();
 
