@@ -370,6 +370,43 @@ Note: I do not believe there is a max size for the discard pile.
 | Test Case 1 | card: DEFUSE, index: -1 | Calls drawPile.addCardAt and throws IndexOutOfBoundsException    | yes          |
 | Test Case 2 | card: SHUFFLE, index: 0 | Calls drawPile.addCardAt without error                           | yes          |
 
+
+## Method 20: ```public boolean isGameOver()```
+### Step 1-3 Results
+|        | Input 1                             | Output             |
+|--------|-------------------------------------|--------------------|
+| Step 1 | Number of players left in the game  | Boolean true/false |
+| Step 2 | Cases                               | Boolean            |
+| Step 3 | numOfPlayers > 1, numOfPlayers <= 1 | True or False      |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test | Expected output | Implemented? |
+|-------------|-------------------|-----------------|--------------|
+| Test Case 1 | numOfPlayers: 1   | True            | yes          |
+| Test Case 2 | numOfPlayers: 0   | True            | yes          |
+| Test Case 3 | numOfPlayers: 2   | False           | yes          |
+| Test Case 4 | numOfPlayers: 6   | False           | yes          |
+
+
+## Method 21: ```public Card[] peekDrawPile()```
+### Step 1-3 Results
+|        | Input 1                                                  | Output                                                    |
+|--------|----------------------------------------------------------|-----------------------------------------------------------|
+| Step 1 | The game's draw pile peeked array                        | Array of cards from the top of the pile                   |
+| Step 2 | Collection                                               | Collection                                                |
+| Step 3 | [], [one element], [two elements], [max: three elements] | [], [one element], [multiple elements], [max elements: 3] |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+|             | System under test                             | Expected output                  | Implemented? |
+|-------------|-----------------------------------------------|----------------------------------|--------------|
+| Test Case 1 | Peeked Drawpile: []                           | []                               | yes          |
+| Test Case 2 | Peeked Drawpile: [ATTACK]                     | [ATTACK]                         | yes          |
+| Test Case 3 | Peeked Drawpile: [SKIP, DEFUSE]               | [SKIP, DEFUSE]                   | yes          |
+| Test Case 4 | Peeked Drawpile: [EXPLODE, IMPLODE, TACO_CAT] | [EXPLODE, IMPLODE, TACO_CAT]     | yes          |
+
+
 ## Recall the 4 steps of BVA
 ### Step 1: Describe the input and output in terms of the domain.
 ### Step 2: Choose the data type for the input and the output from the BVA Catalog.

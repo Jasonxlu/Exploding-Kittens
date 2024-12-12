@@ -2826,4 +2826,166 @@ public class GameEngineTests {
 
     EasyMock.verify(drawPile);
   }
+
+  @Test
+  public void isGameOver_onePlayer_returnTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory);
+
+    int numPlayers = 1;
+    game.numOfPlayers = numPlayers;
+
+    boolean expectedResult = true;
+    boolean actualResult = game.isGameOver();
+
+    assertEquals(expectedResult, actualResult);
+  }
+
+  @Test
+  public void isGameOver_noPlayers_returnTrue() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory);
+
+    int numPlayers = 0;
+    game.numOfPlayers = numPlayers;
+
+    boolean expectedResult = true;
+    boolean actualResult = game.isGameOver();
+
+    assertEquals(expectedResult, actualResult);
+  }
+
+  @Test
+  public void isGameOver_twoPlayers_returnFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory);
+
+    int numPlayers = 2;
+    game.numOfPlayers = numPlayers;
+
+    boolean expectedResult = false;
+    boolean actualResult = game.isGameOver();
+
+    assertEquals(expectedResult, actualResult);
+  }
+
+  @Test
+  public void isGameOver_sixPlayers_returnFalse() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory);
+
+    int numPlayers = 6;
+    game.numOfPlayers = numPlayers;
+
+    boolean expectedResult = false;
+    boolean actualResult = game.isGameOver();
+
+    assertEquals(expectedResult, actualResult);
+  }
+
+  @Test
+  public void peekDrawPile_emptyPile_returnEmptyPeek() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card[] empty = new Card[0];
+    EasyMock.expect(drawPile.peek()).andReturn(empty);
+
+    EasyMock.replay(drawPile);
+
+    Card[] expectedCards = new Card[0];
+    Card[] actualCards = game.peekDrawPile();
+
+    assertArrayEquals(expectedCards, actualCards);
+
+    EasyMock.verify(drawPile);
+  }
+
+  @Test
+  public void peekDrawPile_oneCardPile_returnOneCardPeek() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card[] oneCard = { Card.ATTACK };
+    EasyMock.expect(drawPile.peek()).andReturn(oneCard);
+
+    EasyMock.replay(drawPile);
+
+    Card[] expectedCards = { Card.ATTACK };
+    Card[] actualCards = game.peekDrawPile();
+
+    assertArrayEquals(expectedCards, actualCards);
+
+    EasyMock.verify(drawPile);
+  }
+
+  @Test
+  public void peekDrawPile_twoCardPile_returnTwoCardPeek() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card[] twoCard = { Card.SKIP, Card.DEFUSE };
+    EasyMock.expect(drawPile.peek()).andReturn(twoCard);
+
+    EasyMock.replay(drawPile);
+
+    Card[] expectedCards = { Card.SKIP, Card.DEFUSE };
+    Card[] actualCards = game.peekDrawPile();
+
+    assertArrayEquals(expectedCards, actualCards);
+
+    EasyMock.verify(drawPile);
+  }
+
+  @Test
+  public void peekDrawPile_threeCardPile_returnThreeCardPeek() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card[] threeCard = { Card.EXPLODE, Card.IMPLODE, Card.TACO_CAT };
+    EasyMock.expect(drawPile.peek()).andReturn(threeCard);
+
+    EasyMock.replay(drawPile);
+
+    Card[] expectedCards = { Card.EXPLODE, Card.IMPLODE, Card.TACO_CAT };
+    Card[] actualCards = game.peekDrawPile();
+
+    assertArrayEquals(expectedCards, actualCards);
+
+    EasyMock.verify(drawPile);
+  }
+
+  @Test
+  public void shuffleDrawPile_shuffleCalled() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    drawPile.shuffle();
+    EasyMock.expectLastCall();
+
+    EasyMock.replay(drawPile);
+
+    game.shuffleDrawPile();
+
+    EasyMock.verify(drawPile);
+  }
 }
