@@ -134,7 +134,7 @@
 
 |             | System under test                                   | Expected output                      | Implemented? |
 |-------------|-----------------------------------------------------|--------------------------------------|--------------|
-| Test Case 1 | index: -1, card: EXPLODE                            | Throws IndexOutOfBoundsException     | no           |
+| Test Case 1 | index: -1, card: EXPLODE                            | Throws IndexOutOfBoundsException     | yes          |
 | Test Case 2 | index: 0, within the list size, card: ATTACK        | Adds attack to the front of the list | no           |
 | Test Case 3 | index: 3, within the list size, card: SHUFFLE       | Adds shuffle at index 3 (4th card)   | no           |
 | Test Case 4 | index: 20, greater than the list size, card: DEFUSE | Adds defuse at the end               | no           |

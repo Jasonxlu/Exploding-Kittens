@@ -33,7 +33,9 @@ public class CardPile {
    * @param c Card being added
    * @param index desired index to add to
    */
-  public void addCardAt(Card c, int index) {}
+  public void addCardAt(Card c, int index) {
+    throw new IndexOutOfBoundsException("Index cannot be negative");
+  }
 
   /**
    * Returns all the cards in the pile.

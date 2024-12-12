@@ -493,4 +493,19 @@ public class CardPileTests {
 
     EasyMock.verify(pile);
   }
+  @Test
+  public void addCardAt_NegOne_ThrowsException() {
+    CardPile pile = new CardPile();
+
+    int index = -1;
+    Card c = Card.EXPLODE;
+
+    String expectedMessage = "Index cannot be negative";
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+      pile.addCardAt(c, index);
+    });
+
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
 }
