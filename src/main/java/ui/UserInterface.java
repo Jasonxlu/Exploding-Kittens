@@ -234,17 +234,11 @@ public class UserInterface {
    * @return the trimmed, lowercase input
    */
   public String promptPlayCard(boolean rePrompting) {
-    if (rePrompting) {
-      System.out.print("Unable to parse input. "
-              + "Hit enter to end your turn and draw a card, "
-              + "or type the name of the card you want to play "
-              + "(or type '2/3 cat cards'): ");
-    } else {
-      System.out.print("Do you want to play a card, or end your turn? "
-              + "Hit enter to end your turn and draw a card, "
-              + "or type the name of the card you want to play "
-              + "(or type '2/3 cat cards'): ");
-    }
+    String printMessage = rePrompting
+            ? bundle.getString("prompt.play_card_reprompt")
+            : bundle.getString("prompt.play_card");
+
+    System.out.println(printMessage);
     return scanner.nextLine().trim().toLowerCase();
   }
 
