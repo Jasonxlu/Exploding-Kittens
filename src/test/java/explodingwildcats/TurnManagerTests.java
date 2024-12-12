@@ -741,7 +741,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void endTurn_drawCounterOne_callsDrawAndProcessCard() {
+  public void endTurn_drawCounterOne_notDrawFromBottom_callsDrawAndProcessCard() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
@@ -751,12 +751,13 @@ public class TurnManagerTests {
             .createMock();
 
     turnManager.numExtraCardsToDraw = 1;
+    boolean drawFromBottom = false;
 
-    turnManager.drawAndProcessCard(false);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn(false);
+    turnManager.endTurn(drawFromBottom);
 
     int expected = 0;
     int actual = turnManager.numExtraCardsToDraw;
