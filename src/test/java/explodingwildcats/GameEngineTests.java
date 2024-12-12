@@ -2928,4 +2928,25 @@ public class GameEngineTests {
 
     EasyMock.verify(drawPile);
   }
+
+  @Test
+  public void peekDrawPile_twoCardPile_returnTwoCardPeek() {
+    PlayerFactory playerFactory = EasyMock.createMock(PlayerFactory.class);
+    CardPileFactory cardPileFactory = EasyMock.createMock(CardPileFactory.class);
+    CardPile drawPile = EasyMock.createMock(CardPile.class);
+    CardPile discardPile = EasyMock.createMock(CardPile.class);
+    GameEngine game = new GameEngine(playerFactory, cardPileFactory, drawPile, discardPile);
+
+    Card[] twoCard = { Card.SKIP, Card.DEFUSE };
+    EasyMock.expect(drawPile.peek()).andReturn(twoCard);
+
+    EasyMock.replay(drawPile);
+
+    Card[] expectedCards = { Card.SKIP, Card.DEFUSE };
+    Card[] actualCards = game.peekDrawPile();
+
+    assertArrayEquals(expectedCards, actualCards);
+
+    EasyMock.verify(drawPile);
+  }
 }
