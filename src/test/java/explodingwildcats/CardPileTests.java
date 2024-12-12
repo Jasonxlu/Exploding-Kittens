@@ -651,15 +651,19 @@ public class CardPileTests {
     Card testCard = Card.ATTACK;
     int newSize = 4;
 
+    // Expected Values
+    int expectedAddIndex = pile.getCards().length;
+
     // Call function
     pile.addCardAt(testCard, index);
+
 
     // Assertions
     Card[] cards = pile.getCards();
     assertEquals(newSize, cards.length);
-    assertEquals(testCard, cards[index]);
+    assertEquals(testCard, cards[expectedAddIndex]);
     for (int i = 0; i < 3; i++) {
-      assertEquals(existingCard, cards[i + 1]);
+      assertEquals(existingCard, cards[i]);
     }
   }
 
