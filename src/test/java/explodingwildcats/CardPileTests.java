@@ -530,5 +530,15 @@ public class CardPileTests {
     assertFalse(pile.removeCardFromPile(card, isPlayerHand));
   }
 
+  @Test
+  public void removeCardFromPile_singleCardPile_isPlayerHand_defuseCard_returnTrue() {
+    CardPile pile = new CardPile();
+    Card card = Card.DEFUSE;
+    boolean isPlayerHand = true;
+    pile.addCard(card);
+
+    assertTrue(pile.removeCardFromPile(card, isPlayerHand));
+  }
+
 
 }
