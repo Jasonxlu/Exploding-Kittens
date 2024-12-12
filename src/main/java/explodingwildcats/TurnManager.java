@@ -521,7 +521,12 @@ public class TurnManager {
     while (!validPlayerFound) {
       try {
         targetIndex = gameEngine.getPlayerIndexByName(name);
-        validPlayerFound = true;
+        if (targetIndex == currPlayerIndex) {
+          printPlayers();
+          name = ui.prompt2CardCombo(true);
+        } else {
+          validPlayerFound = true;
+        }
       } catch (NoSuchElementException e) {
         printPlayers();
         name = ui.prompt2CardCombo(true);

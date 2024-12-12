@@ -386,13 +386,13 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                                                                             | Expected output                                                                                                                                       | Implemented? |
-|-------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | Target name: ""; "John", Card name: "explode"; "attack", Target Hand: [ATTACK]                | CurrPlayer is re-prompted for input, Target is re-prompted for input, Card is removed from target player's hand, Card is added to CurrPlayer's hand   | yes          |
-| Test Case 2 | Target name: "Invalid"; "Jane", Card name: "skip", Target Hand: [SKIP, SEE_THE_FUTURE]        | CurrPlayer is re-prompted for input, Card is removed from target's hand, Card is added to CurrPlayer's hand                                           | yes          |
-| Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                        | yes          |
-| Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                                | yes          |
-| Test Case 5 | Target name: "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]          | Target is re-prompted for input, Card is removed from target player's hand and added to CurrPlayer's hand                                             | yes          |
+|             | System under test                                                                             | Expected output                                                                                                                                     | Implemented? |
+|-------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | Target name: ""; "John", Card name: "explode"; "attack", Target Hand: [ATTACK]                | CurrPlayer is re-prompted for input, Target is re-prompted for input, Card is removed from target player's hand, Card is added to CurrPlayer's hand | yes          |
+| Test Case 2 | Target name: "Invalid"; "Jane", Card name: "skip", Target Hand: [SKIP, SEE_THE_FUTURE]        | CurrPlayer is re-prompted for input, Card is removed from target's hand, Card is added to CurrPlayer's hand                                         | yes          |
+| Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                      | yes          |
+| Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                              | yes          |
+| Test Case 5 | Target name: "John"; "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]   | CurrPlayer is re-prompted for input, Target is re-prompted for input, Card is removed from target player's hand and added to CurrPlayer's hand      | yes          |
 
 
 ## Method 21: ```public void doGameLoop()```
