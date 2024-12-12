@@ -24,6 +24,14 @@ public class GameSetupSteps {
           Integer numPlayers,
           String playerNames) {
     String[] names = playerNames.split(",");
+
+    EasyMock.expect(uiMock.getNumberOfPlayers()).andReturn(numPlayers);
+    EasyMock.expect(uiMock.getPlayerNames(numPlayers)).andReturn(names);
+    EasyMock.replay(uiMock);
+
+    turnManager.setupGameEngine();
+
+    EasyMock.verify(uiMock);
   }
 
   @Then("the game engine sets up the players with empty hands")
