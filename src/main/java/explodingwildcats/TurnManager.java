@@ -176,22 +176,24 @@ public class TurnManager {
       numExtraCardsToDraw--;
       drawAndProcessCard(false);
     } else {
-      advanceTurn();
+      advanceTurn(true);
     }
   }
 
   /**
    * Updates whose turn it is.
    */
-  public void advanceTurn() {
+  public void advanceTurn(boolean playerSurvived) {
     int numOfPlayers = gameEngine.getNumberOfPlayers();
     boolean orderReversed = gameEngine.getIsTurnOrderReversed();
 
     if (orderReversed) {
       currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     } else {
-      currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
+      currPlayerIndex = playerSurvived ? (currPlayerIndex + 1) % numOfPlayers : currPlayerIndex;
     }
+
+    playerTurnHasEnded = true;
   }
 
   /**
@@ -354,7 +356,7 @@ public class TurnManager {
     } else {
       numExtraCardsToDraw += 2;
     }
-    advanceTurn();
+    advanceTurn(true);
   }
 
   /**
@@ -454,9 +456,12 @@ public class TurnManager {
   }
 
   /**
-   * TODO: Eliminates the current player.
+   * Eliminates the current player.
    */
-  public void eliminateCurrentPlayer() {}
+  public void eliminateCurrentPlayer() {
+    gameEngine.eliminatePlayer(currPlayerIndex);
+    advanceTurn();
+  }
 
   /**
    * Does the effect of a targeted attack card.

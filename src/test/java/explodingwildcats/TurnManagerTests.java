@@ -8,9 +8,6 @@ import ui.UserInterface;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -228,7 +225,7 @@ public class TurnManagerTests {
             .addMockedMethod("advanceTurn")
             .createMock();
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
@@ -252,7 +249,7 @@ public class TurnManagerTests {
 
     turnManager.numExtraCardsToDraw = 7;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
@@ -358,7 +355,7 @@ public class TurnManagerTests {
           "2, 0", "2, 1",
           "4, 0", "4, 3", "4, 2",
   })
-  public void advanceTurn_ReversedOrderFalse(int numOfPlayers, int currPlayerIndex) {
+  public void advanceTurn_ReversedOrderFalse_PlayerSurvived(int numOfPlayers, int currPlayerIndex) {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
@@ -370,11 +367,12 @@ public class TurnManagerTests {
     turnManager.numExtraCardsToDraw = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
 
     int expected = (currPlayerIndex + 1) % numOfPlayers;
     int actual = turnManager.currPlayerIndex;
     assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
 
     EasyMock.verify(gameEngine);
   }
@@ -385,7 +383,7 @@ public class TurnManagerTests {
           "2, 0", "2, 1",
           "4, 0", "4, 3", "4, 2",
   })
-  public void advanceTurn_ReversedOrderTrue(int numOfPlayers, int currPlayerIndex) {
+  public void advanceTurn_ReversedOrderTrue_PlayerSurvived(int numOfPlayers, int currPlayerIndex) {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
@@ -397,11 +395,64 @@ public class TurnManagerTests {
     turnManager.numExtraCardsToDraw = 0;
     turnManager.currPlayerIndex = currPlayerIndex;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
 
     int expected = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     int actual = turnManager.currPlayerIndex;
     assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
+
+    EasyMock.verify(gameEngine);
+  }
+
+  @Test
+  public void advanceTurn_ReservedOrderFalse_PlayerDidNotSurvive() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int numOfPlayers = 4;
+    int currPlayerIndex = 2;
+
+    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(false).anyTimes();
+    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
+    EasyMock.replay(gameEngine);
+
+    turnManager.numExtraCardsToDraw = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    turnManager.advanceTurn(false);
+
+    int expected = 2;
+    int actual = turnManager.currPlayerIndex;
+    assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
+
+    EasyMock.verify(gameEngine);
+  }
+
+  @Test
+  public void advanceTurn_ReservedOrderTrue_PlayerDidNotSurvive() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    int numOfPlayers = 4;
+    int currPlayerIndex = 2;
+
+    EasyMock.expect(gameEngine.getIsTurnOrderReversed()).andReturn(true).anyTimes();
+    EasyMock.expect(gameEngine.getNumberOfPlayers()).andReturn(numOfPlayers).anyTimes();
+    EasyMock.replay(gameEngine);
+
+    turnManager.numExtraCardsToDraw = 0;
+    turnManager.currPlayerIndex = currPlayerIndex;
+
+    turnManager.advanceTurn(false);
+
+    int expected = 1;
+    int actual = turnManager.currPlayerIndex;
+    assertEquals(expected, actual);
+    assertTrue(turnManager.playerTurnHasEnded);
 
     EasyMock.verify(gameEngine);
   }
@@ -647,7 +698,7 @@ public class TurnManagerTests {
 
     turnManager.numExtraCardsToDraw = 0;
 
-    turnManager.advanceTurn();
+    turnManager.advanceTurn(true);
 
     EasyMock.replay(gameEngine, turnManager);
 
@@ -2922,6 +2973,135 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, ui, john, jane);
   }
 
+  @Test
+  public void eliminateCurrentPlayer_NegOne_ThrowsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .createMock();
+
+    // Class state set up
+    turnManager.currPlayerIndex = -1;
+
+    // Test Input
+    int playerIndex = -1;
+
+    // Expected Values
+    String expectedMessage = "Player does not exist at this index";
+
+    // Expectations
+    gameEngine.eliminatePlayer(playerIndex);
+    EasyMock.expectLastCall().andThrow(new IndexOutOfBoundsException(expectedMessage));
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    // Test
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, turnManager::eliminateCurrentPlayer);
+
+    // Actual Values
+    String actualMessage = exception.getMessage();
+
+    // Assertion
+    assertEquals(expectedMessage, actualMessage);
+
+    // Verification
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void eliminateCurrentPlayer_Zero_EliminatesPlayerAndAdvancesTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .createMock();
+
+    // Class state set up
+    turnManager.currPlayerIndex = 0;
+
+    // Test Input
+    int playerIndex = 0;
+
+    // Expectations
+    gameEngine.eliminatePlayer(playerIndex);
+    turnManager.advanceTurn();
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    // Test
+    turnManager.eliminateCurrentPlayer();
+
+    // Verification
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void eliminateCurrentPlayer_Five_EliminatesPlayerAndAdvancesTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .createMock();
+
+    // Class state set up
+    turnManager.currPlayerIndex = 5;
+
+    // Test Input
+    int playerIndex = 5;
+
+    // Expectations
+    gameEngine.eliminatePlayer(playerIndex);
+    turnManager.advanceTurn();
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    // Test
+    turnManager.eliminateCurrentPlayer();
+
+    // Verification
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void eliminateCurrentPlayer_Six_ThrowsException() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .createMock();
+
+    // Class state set up
+    turnManager.currPlayerIndex = 6;
+
+    // Test Input
+    int playerIndex = 6;
+
+    // Expected Values
+    String expectedMessage = "Player does not exist at this index";
+
+    // Expectations
+    gameEngine.eliminatePlayer(playerIndex);
+    EasyMock.expectLastCall().andThrow(new IndexOutOfBoundsException(expectedMessage));
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    // Test
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, turnManager::eliminateCurrentPlayer);
+
+    // Actual Values
+    String actualMessage = exception.getMessage();
+
+    // Assertion
+    assertEquals(expectedMessage, actualMessage);
+
+    // Verification
+    EasyMock.verify(gameEngine, turnManager);
+  }
 }
 
 
