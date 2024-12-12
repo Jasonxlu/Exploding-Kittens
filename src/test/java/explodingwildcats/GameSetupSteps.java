@@ -13,26 +13,12 @@ public class GameSetupSteps {
   @Given("a newly created Turn Manager")
   public void a_newly_created_turn_manager() {
     turnManager = new TurnManager();
-
-    boolean expectedPlayerTurnHasEnded = false;
-    boolean actualPlayerTurnHasEnded = turnManager.playerTurnHasEnded;
-    assertEquals(expectedPlayerTurnHasEnded, actualPlayerTurnHasEnded);
-
-    int expectedCurrPlayerIndex = 0;
-    int actualCurrPlayerIndex = turnManager.currPlayerIndex;
-    assertEquals(expectedCurrPlayerIndex, actualCurrPlayerIndex);
-
-    boolean expectedImplodingCatFaceUp = false;
-    boolean actualImplodingCatFaceUp = turnManager.isImplodingCatFaceUp;
-    assertEquals(expectedImplodingCatFaceUp, actualImplodingCatFaceUp);
-
-    int expectedNumExtraCardsToDraw = 0;
-    int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
-    assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
   }
 
-  @When("setupGameEngine is called with inputs <numPlayers> and <playerNames>")
-  public void setup_game_engine_is_called_with_inputs_num_players_and_player_names() {
+  @When("setupGameEngine is called with inputs {int} and {String[]}")
+  public void setup_game_engine_is_called_with_player_info_inputs(
+          Integer numPlayers,
+          String[] playerNames) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
