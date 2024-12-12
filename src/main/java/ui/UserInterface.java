@@ -47,16 +47,16 @@ public class UserInterface {
     int numOfPlayers = 0;
 
     while (true) {
-      System.out.print("Enter the number of players (between 2 and 6): ");
+      System.out.print(bundle.getString("prompt.enter_number_of_players"));
       try {
         numOfPlayers = Integer.parseInt(scanner.nextLine().trim());
         if (numOfPlayers >= 2 && numOfPlayers <= 6) {
           break;
         } else {
-          System.out.println("Number of players must be between 2 and 6");
+          System.out.println(bundle.getString("error.number_of_players_out_of_range"));
         }
       } catch (NumberFormatException e) {
-        System.out.println("Invalid input. Number of players must be an integer.");
+        System.out.println(bundle.getString("error.invalid_number_of_players_input"));
       }
     }
 
