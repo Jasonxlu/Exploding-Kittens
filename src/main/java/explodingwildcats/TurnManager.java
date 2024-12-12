@@ -1,6 +1,6 @@
 package explodingwildcats;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import ui.UserInterface;
 
@@ -613,12 +613,11 @@ public class TurnManager {
    * Print the players in the game.
    */
   public void printPlayers() {
-    ArrayList<Player> players = (ArrayList<Player>) gameEngine.getPlayers();
+    List<Player> players = gameEngine.getPlayers();
     String[] playerNames = new String[players.size()];
     for (int i = 0; i < players.size(); i++) {
       playerNames[i] = players.get(i).getName();
     }
-
     ui.printPlayers(playerNames);
 
   }
