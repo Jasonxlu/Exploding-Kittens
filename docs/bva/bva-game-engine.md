@@ -391,20 +391,20 @@ Note: I do not believe there is a max size for the discard pile.
 
 ## Method 21: ```public Card[] peekDrawPile()```
 ### Step 1-3 Results
-|        | Input 1                                | Output                                                    |
-|--------|----------------------------------------|-----------------------------------------------------------|
-| Step 1 | The game's draw pile                   | Array of cards from the top of the pile                   |
-| Step 2 | Collection                             | Collection                                                |
-| Step 3 | [], [one element], [multiple elements] | [], [one element], [multiple elements], [max elements: 3] |
+|        | Input 1                                                  | Output                                                    |
+|--------|----------------------------------------------------------|-----------------------------------------------------------|
+| Step 1 | The game's draw pile peeked array                        | Array of cards from the top of the pile                   |
+| Step 2 | Collection                                               | Collection                                                |
+| Step 3 | [], [one element], [two elements], [max: three elements] | [], [one element], [multiple elements], [max elements: 3] |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test                                           | Expected output                               | Implemented? |
-|-------------|-------------------------------------------------------------|-----------------------------------------------|--------------|
-| Test Case 1 | Drawpile: []                                                | []                                            | yes          |
-| Test Case 2 | Drawpile: [ATTACK]                                          | [ATTACK]                                      | yes          |
-| Test Case 3 | Drawpile: [SKIP, DEFUSE]                                    | [SKIP, DEFUSE]                                | yes          |
-| Test Case 4 | Drawpile: [EXPLODE, IMPLODE, TACO_CAT]                      | [EXPLODE, IMPLODE, TACO_CAT]                  | yes          |
+|             | System under test                      | Expected output                               | Implemented? |
+|-------------|----------------------------------------|-----------------------------------------------|--------------|
+| Test Case 1 | Peeked Drawpile: []                    | []                                            | yes          |
+| Test Case 2 | Peeked Drawpile: [ATTACK]                     | [ATTACK]                                      | yes          |
+| Test Case 3 | Peeked Drawpile: [SKIP, DEFUSE]               | [SKIP, DEFUSE]                                | yes          |
+| Test Case 4 | Peeked Drawpile: [EXPLODE, IMPLODE, TACO_CAT] | [EXPLODE, IMPLODE, TACO_CAT]                  | yes          |
 
 
 
