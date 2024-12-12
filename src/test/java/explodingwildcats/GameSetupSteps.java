@@ -73,12 +73,6 @@ public class GameSetupSteps {
     throw new io.cucumber.java.PendingException();
   }
 
-  @Then("the game engine sets up the discard pile as empty")
-  public void the_game_engine_sets_up_the_discard_pile_as_empty() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
-
   @Then("the game engine adds defuse cards to the player hands and draw pile")
   public void the_game_engine_adds_defuse_cards_to_the_player_hands_and_draw_pile() {
     // Write code here that turns the phrase above into concrete actions
@@ -91,8 +85,14 @@ public class GameSetupSteps {
     throw new io.cucumber.java.PendingException();
   }
 
-  @Then("the game engine inserts the exploding cards into the draw pile")
-  public void the_game_engine_inserts_the_exploding_cards_into_the_draw_pile() {
+  @Then("the game engine draw pile is properly set up")
+  public void the_game_engine_draw_pile_is_properly_set_up() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+  }
+
+  @Then("the game engine sets up the discard pile as empty")
+  public void the_game_engine_sets_up_the_discard_pile_as_empty() {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }

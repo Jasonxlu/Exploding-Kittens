@@ -13,11 +13,10 @@ Feature: Game setup
     Given a newly created Turn Manager
     When setupGameEngine is called with inputs <numPlayers> and <playerNames>
     Then the game engine sets up the players with empty hands
-    And the game engine sets up the draw pile with the default cards
-    And the game engine sets up the discard pile as empty
     And the game engine adds defuse cards to the player hands and draw pile
     And the game engine deals cards to each player
-    And the game engine inserts the exploding cards into the draw pile
+    And the game engine draw pile is properly set up
+    And the game engine sets up the discard pile as empty
 
   Examples:
     |numPlayers|playerNames                  |
