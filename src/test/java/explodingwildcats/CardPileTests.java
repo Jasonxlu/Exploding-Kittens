@@ -409,6 +409,7 @@ public class CardPileTests {
 
     pile.shuffleList(EasyMock.anyObject());
     EasyMock.expectLastCall().andAnswer(() -> {
+      @SuppressWarnings("unchecked")
       List<Card> list = (List<Card>) EasyMock.getCurrentArguments()[0]; // Get the argument passed to shuffleList
       Collections.swap(list, 0, list.size() - 1); // Swap the first and last cards as a simple shuffle
       return null; // shuffleList is void, so return null
@@ -447,6 +448,7 @@ public class CardPileTests {
 
     pile.shuffleList(EasyMock.anyObject());
     EasyMock.expectLastCall().andAnswer(() -> {
+      @SuppressWarnings("unchecked")
       List<Card> list = (List<Card>) EasyMock.getCurrentArguments()[0]; // Get the argument passed to shuffleList
       Collections.swap(list, 0, list.size() - 1); // Swap the first and last cards as a simple shuffle
       return null; // shuffleList is void, so return null
