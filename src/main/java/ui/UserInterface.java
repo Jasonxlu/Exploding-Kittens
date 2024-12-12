@@ -15,7 +15,8 @@ public class UserInterface {
   private final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
   /**
-   * Public constructor for UserInterface
+   * Public constructor for UserInterface.
+   *
    * @param language chosen by the players at the start
    */
   public UserInterface(String language) {
@@ -24,6 +25,7 @@ public class UserInterface {
 
   /**
    * Sets the bundle for the specified language.
+   *
    * @param language the players would like to play in
    */
   public ResourceBundle getResourceBundle(String language) {
@@ -34,7 +36,7 @@ public class UserInterface {
       locale = Locale.ENGLISH;
     }
 
-    return ResourceBundle.getBundle("ui_messages", locale);
+    return ResourceBundle.getBundle("ui_message", locale);
   }
 
   /**
