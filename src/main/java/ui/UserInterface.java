@@ -1,6 +1,7 @@
 package ui;
 
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -135,13 +136,13 @@ public class UserInterface {
   /**
    * Prompts the user to enter a valid new position for the
    * exploding kitten or the imploding cat in the draw pile.
-   * The position must be between 0 (inclusive) and drawPileSize (exclusive).
+   * The position must be between 0 (inclusive) and drawPileSize (inclusive).
    *
    * @param drawPileSize the size of the draw pile
    * @param explodingKitten determines whether it's asking for the placement
    *                        of an exploding kitten or imploding cat.
    *
-   * @return a valid position within the range 0 to drawPileSize - 1
+   * @return a valid position within the range 0 to drawPileSize
    */
   public int promptPlacementForExplodeOrImplode(int drawPileSize, boolean explodingKitten) {
     int placementIndex = -1;
@@ -149,14 +150,14 @@ public class UserInterface {
 
     while (true) {
       System.out.printf("Enter the position to place "
-              + "the %s (0-%d): ", cardName, drawPileSize - 1);
+              + "the %s (0 = top of the pile, %d = bottom of the pile): ", cardName, drawPileSize);
       try {
         placementIndex = Integer.parseInt(scanner.nextLine().trim());
-        if (placementIndex >= 0 && placementIndex < drawPileSize) {
+        if (placementIndex >= 0 && placementIndex <= drawPileSize) {
           break;
         } else {
           System.out.printf("Invalid position. "
-                  + "Please enter a number between 0 and %d.%n", drawPileSize - 1);
+                  + "Please enter a number between 0 and %d.%n", drawPileSize);
         }
       } catch (NumberFormatException e) {
         System.out.println("Invalid input. Please enter a valid integer.");
@@ -252,7 +253,6 @@ public class UserInterface {
   }
 
   /**
-<<<<<<< HEAD
    * Print and return the error message.
    *
    * @return the error message
