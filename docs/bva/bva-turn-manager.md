@@ -117,7 +117,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 14 | numOfPlayers: 4, currPlayerIndex: 0, Reversed order: true, playerSurvived: true   | currPlayerIndex: 3 | yes          |
 | Test Case 15 | numOfPlayers: 4, currPlayerIndex: 3, Reversed order: true, playerSurvived: true   | currPlayerIndex: 2 | yes          |
 | Test Case 16 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true, playerSurvived: true   | currPlayerIndex: 1 | yes          |
-| Test Case 17 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: false, playerSurvived: false | currPlayerIndex: 2 | no           |
+| Test Case 17 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: false, playerSurvived: false | currPlayerIndex: 2 | yes          |
 | Test Case 18 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true, playerSurvived: false  | currPlayerIndex: 1 | no           |
 
 

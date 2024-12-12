@@ -190,7 +190,7 @@ public class TurnManager {
     if (orderReversed) {
       currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     } else {
-      currPlayerIndex = (currPlayerIndex + 1) % numOfPlayers;
+      currPlayerIndex = playerSurvived ? (currPlayerIndex + 1) % numOfPlayers : currPlayerIndex;
     }
   }
 
