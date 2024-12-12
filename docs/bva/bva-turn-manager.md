@@ -504,3 +504,23 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 4 | index: 6          | IndexOutOfBoundsException                        | yes          |
 
 
+## Method 27: ```public void printTurnInfo()```
+### Step 1-3 Results
+|        | Input 1                                              | Input 2                                               | Input 3                | Input 4                  | Input 5                                                                            | Output                                                                                                                        |
+|--------|------------------------------------------------------|-------------------------------------------------------|------------------------|--------------------------|------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | player name                                          | player names                                          | is turn order reversed | imploding cat is face up | Top 3 draw pile cards                                                              | None, parameters passed to ui.printGameState - only difference is printImplodingIsNext = imploding is face up and is top card |
+| Step 2 | String                                               | Collection                                            | Boolean                | Boolean                  | Collection of Cases                                                                | None, parameters passed to ui.printGameState                                                                                  |
+| Step 3 | No boundary cases - just passed to ui.printGameState | No boundary cases - just passed to ui.printGameState  | T/F                    | T/F                      | [], [one element], [max_size = 3 elements], [IMPLODE on top], [IMPLODE not on top] | None, parameters passed to ui.printGameState.                                                                                 |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                                                                                     | Expected output                                       | Implemented? |
+|-------------|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------|
+| Test Case 1 | input1: "Joe", input2: ["Joe", "Bob"], input3: false, input4: false, input5: []                                       | ui.printGameState called with print imploding = false | no           |
+| Test Case 2 | input1: "Joe", input2: ["Joe", "Bob", "Jeff"], input3: true, input4: false, input5: [ATTACK]                          | ui.printGameState called with print imploding = false | no           |
+| Test Case 3 | input1: "Bob", input2: [], input3: true, input4: true, input5: [ATTACK]                                               | ui.printGameState called with print imploding = false | no           |
+| Test Case 4 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [EXPLODE, IMPLODE, SKIP] | ui.printGameState called with print imploding = false | no           |
+| Test Case 5 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [IMPLODE, SKIP]          | ui.printGameState called with print imploding = true  | no           |
+
+
