@@ -423,12 +423,12 @@ public class UserInterface {
    * In other words, it takes the input in any language and turns it to english.
    *
    * @param userInput the string to be normalised
-   * @return the english version of the string
+   * @return the english version of the string or the original input if there's no translation
    */
   public String normaliseInput(String userInput) {
     String normalised = inputMap.get(userInput.trim().toLowerCase());
     if (normalised == null) {
-      throw new IllegalArgumentException(bundle.getString("error.invalid_input"));
+      return userInput;
     }
     return normalised;
   }
