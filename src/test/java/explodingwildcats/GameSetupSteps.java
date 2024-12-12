@@ -15,16 +15,16 @@ public class GameSetupSteps {
     turnManager = new TurnManager();
   }
 
-  @When("setupGameEngine is called with inputs {int} and {String[]}")
+  @When("setupGameEngine is called with inputs {int} and {string}")
   public void setup_game_engine_is_called_with_player_info_inputs(
           Integer numPlayers,
-          String[] playerNames) {
+          String playerNames) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
 
-  @Then("the game engine sets up <numPlayers> players with names <playerNames> and empty hands")
-  public void the_game_engine_sets_up_num_players_players_with_names_player_names_and_empty_hands() {
+  @Then("the game engine sets up the players with empty hands")
+  public void the_game_engine_sets_up_the_players_with_empty_hands() {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
