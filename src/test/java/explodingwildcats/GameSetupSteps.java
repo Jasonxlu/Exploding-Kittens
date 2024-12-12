@@ -45,8 +45,18 @@ public class GameSetupSteps {
 
   @Then("the game engine sets up the players")
   public void the_game_engine_sets_up_the_players() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    List<Player> actualPlayers = turnManager.gameEngine.getPlayers();
+    int expectedNumPlayers = numPlayers;
+    int actualNumPlayers = actualPlayers.size();
+    assertEquals(expectedNumPlayers, actualNumPlayers);
+
+    // assert names are equal
+    List<String> actualPlayerNames = actualPlayers.stream()
+            .map(Player::getName).collect(Collectors.toList());
+    for (String name : names) {
+      boolean hasName = actualPlayerNames.contains(name);
+      assertTrue(hasName);
+    }
   }
 
   @Then("the game engine adds defuse cards to the player hands and draw pile")
