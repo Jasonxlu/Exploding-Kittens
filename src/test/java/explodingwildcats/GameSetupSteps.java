@@ -3,24 +3,27 @@ package explodingwildcats;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.easymock.EasyMock;
+import ui.UserInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GameSetupSteps {
 
-  TurnManager turnManager;
+  private TurnManager turnManager;
+  private UserInterface uiMock;
 
   @Given("a newly created Turn Manager")
   public void a_newly_created_turn_manager() {
-    turnManager = new TurnManager();
+    uiMock = EasyMock.createMock(UserInterface.class);
+    turnManager = new TurnManager(uiMock);
   }
 
   @When("setupGameEngine is called with inputs {int} and {string}")
   public void setup_game_engine_is_called_with_player_info_inputs(
           Integer numPlayers,
           String playerNames) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    String[] names = playerNames.split(",");
   }
 
   @Then("the game engine sets up the players with empty hands")

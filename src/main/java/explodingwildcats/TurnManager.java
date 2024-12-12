@@ -31,6 +31,21 @@ public class TurnManager {
   }
 
   /**
+   * Package private constructor for TurnManager, only mocking the UI.
+   * (For the purpose of BDD.)
+   *
+   */
+  TurnManager(UserInterface ui) {
+    this.ui = ui;
+    PlayerFactory playerFactory = new PlayerFactory();
+    CardPileFactory cardPileFactory = new CardPileFactory();
+
+    this.gameEngine = new GameEngine(playerFactory, cardPileFactory);
+
+    this.numExtraCardsToDraw = 0;
+  }
+
+  /**
    * Package private constructor for TurnManager.
    * Having a different package private one avoids spotbugs storing mutable object error.
    *
