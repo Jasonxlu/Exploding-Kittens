@@ -522,5 +522,5 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 3 | input1: "", input2: [] (impossible), input3: true, input4: true, input5: [] (impossible), input6: 3                              | ui.printGameState called with print imploding = false | yes          |
 | Test Case 4 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [EXPLODE, IMPLODE, SKIP], input6: 2 | ui.printGameState called with print imploding = false | yes          |
 | Test Case 5 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [IMPLODE, SKIP], input6: 0          | ui.printGameState called with print imploding = true  | yes          |
-
+Note: input 5 is obtained from a call to peekDrawPile, which returns up to the top 3 cards, and the top card is the 0th index of the input 5 array.
 
