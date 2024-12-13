@@ -724,7 +724,7 @@ public class CardPileTests {
   }
 
   @Test
-  public void shuffleList_expectOrderLikelyChanged() {
+  public void shuffleList_expectOrderChanged() {
     CardPile pile = new CardPile();
 
     // Create a list with known order
