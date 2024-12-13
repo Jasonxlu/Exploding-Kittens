@@ -183,6 +183,7 @@ public class TurnManager {
       int drawPileSize = gameEngine.getDrawPile().length;
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
       gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
+      isImplodingCatFaceUp = true;
     }
   }
 

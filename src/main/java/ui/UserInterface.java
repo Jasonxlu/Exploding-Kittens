@@ -186,13 +186,13 @@ public class UserInterface {
   /**
    * Prompts the user to enter a valid new position for the
    * exploding kitten or the imploding cat in the draw pile.
-   * The position must be between 0 (inclusive) and drawPileSize (exclusive).
+   * The position must be between 0 (inclusive) and drawPileSize (inclusive).
    *
    * @param drawPileSize the size of the draw pile
    * @param explodingKitten determines whether it's asking for the placement
    *                        of an exploding kitten or imploding cat.
    *
-   * @return a valid position within the range 0 to drawPileSize - 1
+   * @return a valid position within the range 0 to drawPileSize
    */
   public int promptPlacementForExplodeOrImplode(int drawPileSize, boolean explodingKitten) {
     int placementIndex = -1;
@@ -202,15 +202,15 @@ public class UserInterface {
 
     while (true) {
       System.out.println(MessageFormat.format(
-              bundle.getString("prompt.place_card_position"), cardName, drawPileSize - 1));
+              bundle.getString("prompt.place_card_position"), cardName, drawPileSize));
 
       try {
         placementIndex = Integer.parseInt(scanner.nextLine().trim());
-        if (placementIndex >= 0 && placementIndex < drawPileSize) {
+        if (placementIndex >= 0 && placementIndex <= drawPileSize) {
           break;
         } else {
           System.out.println(MessageFormat.format(
-                  bundle.getString("error.invalid_position"), drawPileSize - 1));
+                  bundle.getString("error.invalid_position"), drawPileSize));
         }
       } catch (NumberFormatException e) {
         System.out.println(bundle.getString("error.invalid_input_integer"));
