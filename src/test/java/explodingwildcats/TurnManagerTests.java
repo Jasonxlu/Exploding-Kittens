@@ -1668,6 +1668,31 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
+    Card card;
+    switch (cardName) {
+      case "taco cat":
+        card = Card.TACO_CAT;
+        break;
+      case "beard cat":
+        card = Card.BEARD_CAT;
+        break;
+      case "rainbow cat":
+        card = Card.RAINBOW_CAT;
+        break;
+      case "feral cat":
+        card = Card.FERAL_CAT;
+        break;
+      case "hairy potato cat":
+        card = Card.HAIRY_POTATO_CAT;
+        break;
+      default:
+        throw new IllegalArgumentException("csv arguments do not match a card type.");
+    }
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(card);
+    ui.printUnplayableCardErrorCatCard();
+
+    EasyMock.replay(gameEngine, ui);
+
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       turnManager.getPlayableCard(cardName);
     });
@@ -1675,6 +1700,8 @@ public class TurnManagerTests {
     String expectedMessage = "You must play a cat card as a combo.";
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine, ui);
   }
 
 

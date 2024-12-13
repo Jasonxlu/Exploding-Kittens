@@ -313,11 +313,11 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 8  | "alter the future", input 2: ALTER_THE_FUTURE | Card.ALTER_THE_FUTURE                     | yes          |
 | Test Case 9  | "invalid", input 2: throws exception          | IllegalArgumentException                  | yes          |
 | Test Case 10 | "nope", input 2: NOPE                         | IllegalArgumentException + calls ui print | yes          |
-| Test Case 11 | "taco cat", input 2: TACO_CAT                 | IllegalArgumentException + calls ui print | no           |
-| Test Case 12 | "beard cat", input 2: BEARD_CAT               | IllegalArgumentException + calls ui print | no           |
-| Test Case 13 | "rainbow cat", input 2: RAINBOW CAT           | IllegalArgumentException + calls ui print | no           |
-| Test Case 14 | "feral cat", input 2: FERAL CAT               | IllegalArgumentException + calls ui print | no           |
-| Test Case 15 | "hairy potato cat", input 2: HAIRY POTATO CAT | IllegalArgumentException + calls ui print | no           |
+| Test Case 11 | "taco cat", input 2: TACO_CAT                 | IllegalArgumentException + calls ui print | yes          |
+| Test Case 12 | "beard cat", input 2: BEARD_CAT               | IllegalArgumentException + calls ui print | yes          |
+| Test Case 13 | "rainbow cat", input 2: RAINBOW CAT           | IllegalArgumentException + calls ui print | yes          |
+| Test Case 14 | "feral cat", input 2: FERAL CAT               | IllegalArgumentException + calls ui print | yes          |
+| Test Case 15 | "hairy potato cat", input 2: HAIRY POTATO CAT | IllegalArgumentException + calls ui print | yes          |
 
 
 ## Method 17: ```public void playCardLoop()```
