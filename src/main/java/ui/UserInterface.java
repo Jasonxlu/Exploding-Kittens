@@ -561,21 +561,22 @@ public class UserInterface {
 
   /**
    * Prints the error message from a validation exception message.
+   * 
    * @param exceptionMessage the exception's message.
    */
   public void printValidateComboCardErrorMessage(String exceptionMessage) {
     switch (exceptionMessage) {
       case "Not a valid combo size.":
-        System.out.println("Invalid input: not a valid combo size.");
+        System.out.println(bundle.getString("combo_error.invalid_size"));
         break;
       case "Player does not have the input cards.":
-        System.out.println("Invalid input: you do not have the input cards.");
+        System.out.println(bundle.getString("combo_error.cards_missing"));
         break;
       case "Cat cards must be matching or feral.":
-        System.out.println("Invalid input: cat cards must be matching or feral.");
+        System.out.println(bundle.getString("combo_error.not_matching_or_feral"));
         break;
       case "Cards must be matching.":
-        System.out.println("Invalid input: cards must be matching.");
+        System.out.println(bundle.getString("combo_error.not_matching"));
         break;
       default:
         break;
