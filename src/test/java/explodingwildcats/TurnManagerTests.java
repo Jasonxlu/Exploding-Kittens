@@ -1868,6 +1868,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(impossibleCardReturn, currPlayerIndex);
     EasyMock.replay(turnManager, gameEngine, ui);
 
     String expectedMessage = "A card was played that should not have been played.";
