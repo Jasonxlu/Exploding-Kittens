@@ -1583,9 +1583,15 @@ public class TurnManagerTests {
 
     String cardName = "draw from bottom";
     Card expectedCard = Card.DRAW_FROM_BOTTOM;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(expectedCard);
+
+    EasyMock.replay(gameEngine);
+
     Card actualCard = turnManager.getPlayableCard(cardName);
 
     assertEquals(expectedCard, actualCard);
+
+    EasyMock.verify(gameEngine);
   }
 
   @Test
