@@ -191,6 +191,7 @@ public class TurnManager {
       int drawPileSize = gameEngine.getDrawPile().length;
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
       gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
+      isImplodingCatFaceUp = true;
     }
     return false;
   }
@@ -296,10 +297,10 @@ public class TurnManager {
         continue;
       }
 
-      if (userInputCard.equals("2 cat cards")) {
+      if (userInputCard.equals("2 cards")) {
         shouldReprompt = promptAndPlayCombo(2);
         continue;
-      } else if (userInputCard.equals("3 cat cards")) {
+      } else if (userInputCard.equals("3 cards")) {
         shouldReprompt = promptAndPlayCombo(3);
         continue;
       }

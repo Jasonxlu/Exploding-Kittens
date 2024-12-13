@@ -971,6 +971,7 @@ public class TurnManagerTests {
 
     boolean returnValue = turnManager.handleImplodingCat();
     assertFalse(returnValue);
+    assertTrue(turnManager.isImplodingCatFaceUp);
 
     EasyMock.verify(gameEngine, ui);
   }
@@ -1756,7 +1757,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     boolean isRePrompting = true;
-    String userInput = "2 cat cards";
+    String userInput = "2 cards";
     int numCatCards = 2;
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
@@ -1792,7 +1793,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
 
     boolean isRePrompting = false;
-    String userInput = "3 cat cards";
+    String userInput = "3 cards";
     int numCatCards = 3;
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(userInput);
     EasyMock.expect(turnManager.promptAndPlayCombo(numCatCards)).andReturn(isRePrompting);
