@@ -1687,6 +1687,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doAttack();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
