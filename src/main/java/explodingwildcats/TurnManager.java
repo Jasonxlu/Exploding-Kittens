@@ -117,17 +117,17 @@ public class TurnManager {
   /**
    * Draws a card from the Game Engine's draw pile.
    * Calls the corresponding function.
+   *
+   * @return whether a turn advance happened.
    */
-  public void drawAndProcessCard(boolean drawFromBottom) {
+  public boolean drawAndProcessCard(boolean drawFromBottom) {
     Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
 
     switch (drawnCard) {
       case EXPLODE:
-        handleExplodingKitten();
-        break;
+        return handleExplodingKitten();
       case IMPLODE:
-        handleImplodingCat();
-        break;
+        return handleImplodingCat();
       default:
         try {
           handleRegularCard(drawnCard);
@@ -136,6 +136,7 @@ public class TurnManager {
         }
         break;
     }
+    return false;
   }
 
   /**
@@ -156,8 +157,10 @@ public class TurnManager {
 
   /**
    * Handles the case where the exploding kitten is drawn.
+   *
+   * @return whether the player died.
    */
-  public void handleExplodingKitten() {
+  public boolean handleExplodingKitten() {
     boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
 
     if (hasDefuse) {
@@ -169,33 +172,44 @@ public class TurnManager {
       gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
     } else {
       eliminateCurrentPlayer();
+      return true;
     }
+
+    return false;
   }
 
   /**
    * Handles the case where the imploding cat is drawn.
+   *
+   * @return whether the player was eliminated.
    */
-  public void handleImplodingCat() {
+  public boolean handleImplodingCat() {
     if (isImplodingCatFaceUp) {
       eliminateCurrentPlayer();
+      return true;
     } else {
       int drawPileSize = gameEngine.getDrawPile().length;
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
       gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
       isImplodingCatFaceUp = true;
     }
+    return false;
   }
 
   /**
    * Ends a player's turn.
+   * 
+   * @param drawFromBottom whether to draw from the bottom of the draw pile
    */
   public void endTurn(boolean drawFromBottom) {
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
-      drawAndProcessCard(drawFromBottom);
+      drawAndProcessCard(drawFromBottom); // don't advance the turn either way
     } else {
-      drawAndProcessCard(drawFromBottom);
-      advanceTurn(true);
+      boolean alreadyAdvanced = drawAndProcessCard(drawFromBottom);
+      if (!alreadyAdvanced) {
+        advanceTurn(true);
+      }
     }
   }
 
@@ -209,7 +223,9 @@ public class TurnManager {
     if (orderReversed) {
       currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     } else {
-      currPlayerIndex = playerSurvived ? (currPlayerIndex + 1) % numOfPlayers : currPlayerIndex;
+      currPlayerIndex = playerSurvived
+              ? (currPlayerIndex + 1) % numOfPlayers
+              : currPlayerIndex % numOfPlayers;
     }
 
     playerTurnHasEnded = true;
