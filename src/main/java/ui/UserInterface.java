@@ -443,7 +443,7 @@ public class UserInterface {
   }
 
   /**
-   * Prints reversing the turn order
+   * Prints reversing the turn order.
    */
   public void printTurnOrderReversed() {
     System.out.println("Turn order was reversed.");
@@ -456,7 +456,8 @@ public class UserInterface {
    */
   public void printAttacking(int numExtraCards) {
     String cardPlural = numExtraCards == 1 ? "card" : "cards";
-    System.out.printf("Attacking! The next player has to draw %d extra %s.%n", numExtraCards, cardPlural);
+    System.out.printf("Attacking! The next player has to draw %d extra %s.%n",
+            numExtraCards, cardPlural);
   }
 
   /**
