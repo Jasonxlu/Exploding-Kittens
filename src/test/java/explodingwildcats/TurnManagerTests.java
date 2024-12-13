@@ -943,7 +943,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void endTurn_drawCounterIs0_drawFromBottom_drawReturnsTrue_ExtraCardsDecremented_advanceTurnNotCalled() {
+  public void endTurn_drawCounterIs0_drawFromBottom_drawReturnsTrue_advanceTurnNotCalled() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
@@ -957,6 +957,36 @@ public class TurnManagerTests {
 
     boolean eliminated = true;
     EasyMock.expect(turnManager.drawAndProcessCard(drawFromBottom)).andReturn(eliminated);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.endTurn(drawFromBottom);
+
+    int expected = 0;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void endTurn_drawCounterIs0_drawFromTop_drawReturnsFalse_advanceIsCalled() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .addMockedMethod("drawAndProcessCard")
+            .createMock();
+
+    turnManager.numExtraCardsToDraw = 0;
+    boolean drawFromBottom = false;
+
+    boolean eliminated = false;
+    EasyMock.expect(turnManager.drawAndProcessCard(drawFromBottom)).andReturn(eliminated);
+
+    // call advance turn
+    turnManager.advanceTurn(!eliminated); // call with survived = true (not eliminated)
 
     EasyMock.replay(gameEngine, turnManager);
 
