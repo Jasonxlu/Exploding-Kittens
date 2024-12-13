@@ -194,13 +194,13 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("endTurn")
+            .addMockedMethod("advanceTurn")
             .createMock();
 
     gameEngine.reverseTurnOrder();
     ui.printTurnOrderReversed();
 
-    turnManager.endTurn(false);
+    turnManager.advanceTurn(true);
 
     EasyMock.replay(ui, gameEngine, turnManager);
 
