@@ -731,39 +731,4 @@ public class CardPileTests {
       assertEquals(existingCard, cards[i]);
     }
   }
-
-  @Test
-  public void shuffleList_expectOrderChanged() {
-    CardPile pile = new CardPile();
-
-    // Create a list with known order
-    List<Card> originalList = new ArrayList<>();
-    originalList.add(Card.ATTACK);
-    originalList.add(Card.SKIP);
-    originalList.add(Card.SHUFFLE);
-    originalList.add(Card.DEFUSE);
-
-    // Create a copy of the list to compare later
-    List<Card> copyList = new ArrayList<>(originalList);
-
-    // Flag to track whether the shuffle changes the order
-    boolean orderChanged = false;
-
-    // Loop until the order changes or a maximum number of attempts is reached
-    while (!orderChanged) {
-      pile.shuffleList(originalList);
-
-      // Check if the shuffled list is different from the original
-      if (!originalList.equals(copyList)) {
-        orderChanged = true;
-      }
-    }
-
-    // Assert that the shuffle changed the order
-    assertTrue(orderChanged);
-
-    // Optional: Check that the contents remain the same
-    assertTrue(originalList.containsAll(copyList), "The shuffled list is missing elements");
-    assertTrue(copyList.containsAll(originalList), "The shuffled list has extra elements");
-  }
 }

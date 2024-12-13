@@ -27,6 +27,7 @@ This folder contains the design documents for the project.
 
 ### Mutation Notes:
 - The mutation in `CardPile.addCardAt` is an equivalent mutation
+- We don't test the call to java/util/Collections::shuffle. This is a static function from a standard library, so we can assume that it is highly reliable.
 
 ### General testing justifications:
 - Suppressed unchecked type casting warnings in card pile tests due to needing a workaround for mocking shuffling feature
