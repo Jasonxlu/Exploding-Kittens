@@ -1705,6 +1705,30 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, ui);
   }
 
+  @Test
+  public void getPlayableCard_playedDefuseCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "defuse";
+    Card card = Card.DEFUSE;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(card);
+    ui.printUnplayableCardErrorDefuse();
+
+    EasyMock.replay(gameEngine, ui);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "You cannot play a defuse right now.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine, ui);
+  }
+
   @ParameterizedTest
   @CsvSource({
     "taco cat", "beard cat", "rainbow cat", "feral cat", "hairy potato cat"

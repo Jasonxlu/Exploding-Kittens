@@ -320,7 +320,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 15 | "hairy potato cat", input 2: HAIRY POTATO CAT | IllegalArgumentException + calls ui print | yes          |
 | Test Case 16 | "exploding kitten", input 2: EXPLODING_KITTEN | IllegalArgumentException                  | yes          |
 | Test Case 17 | "imploding kitten", input 2: IMPLODING_KITTEN | IllegalArgumentException                  | yes          |
-| Test Case 17 | "defuse", input 2: DEFUSE                     | IllegalArgumentException + calls ui print | no           |
+| Test Case 18 | "defuse", input 2: DEFUSE                     | IllegalArgumentException + calls ui print | yes          |
 
 
 ## Method 17: ```public void playCardLoop()```

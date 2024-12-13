@@ -479,6 +479,9 @@ public class TurnManager {
       case NOPE:
         ui.printUnplayableCardErrorNope();
         throw new IllegalArgumentException("You cannot play a nope right now.");
+      case DEFUSE:
+        ui.printUnplayableCardErrorDefuse();
+        throw new IllegalArgumentException("You cannot play a defuse right now.");
       case TACO_CAT:
       case BEARD_CAT:
       case RAINBOW_CAT:
