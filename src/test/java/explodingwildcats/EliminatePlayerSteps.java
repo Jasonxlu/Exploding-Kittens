@@ -22,6 +22,7 @@ public class EliminatePlayerSteps {
   private int initialNumPlayers;
   private String[] initialPlayerNames;
   private int initialPlayerIndex;
+  private Card[] initialDrawPile;
 
   @Given("a TurnManager with {int} players")
   public void a_turn_manager_with_players(Integer numPlayers) {
@@ -57,14 +58,16 @@ public class EliminatePlayerSteps {
 
   @Given("an exploding kitten at the top of the draw pile")
   public void an_exploding_kitten_at_the_top_of_the_draw_pile() {
-    Card thirdCard = Card.SKIP;
-    turnManager.gameEngine.addCardToDrawPileAt(thirdCard,0);
+    Card explodingKitten = Card.EXPLODE;
+    turnManager.gameEngine.addCardToDrawPileAt(explodingKitten,0);
 
     Card secondCard = Card.ATTACK;
     turnManager.gameEngine.addCardToDrawPileAt(secondCard,1);
 
-    Card explodingKitten = Card.EXPLODE;
-    turnManager.gameEngine.addCardToDrawPileAt(explodingKitten,2);
+    Card thirdCard = Card.SKIP;
+    turnManager.gameEngine.addCardToDrawPileAt(thirdCard,2);
+
+    initialDrawPile = new Card[] {explodingKitten, secondCard, thirdCard};
   }
 
   @Given("the current player has no defuses")
