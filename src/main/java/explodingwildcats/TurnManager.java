@@ -466,36 +466,35 @@ public class TurnManager {
   }
 
 
+  /**
+   * Get the card by the cardName. If it's not playable, throw an exception.
+   * Package private for unit testing.
+   *
+   * @param cardName the string card name.
+   * @return the Card if it is playable.
+   */
   Card getPlayableCard(String cardName) {
-    switch (cardName) {
-      case "attack":
-        return Card.ATTACK;
-      case "skip":
-        return Card.SKIP;
-      case "targeted attack":
-        return Card.TARGETED_ATTACK;
-      case "shuffle":
-        return Card.SHUFFLE;
-      case "see the future":
-        return Card.SEE_THE_FUTURE;
-      case "reverse":
-        return Card.REVERSE;
-      case "draw from bottom":
-        return Card.DRAW_FROM_BOTTOM;
-      case "alter the future":
-        return Card.ALTER_THE_FUTURE;
-      case "nope":
+    Card card = gameEngine.getCardByName(cardName);
+    switch (card) {
+      case NOPE:
+        ui.printUnplayableCardErrorNope();
         throw new IllegalArgumentException("You cannot play a nope right now.");
-      case "taco cat":
-      case "beard cat":
-      case "rainbow cat":
-      case "feral cat":
-      case "hairy potato cat":
+      case DEFUSE:
+        ui.printUnplayableCardErrorDefuse();
+        throw new IllegalArgumentException("You cannot play a defuse right now.");
+      case TACO_CAT:
+      case BEARD_CAT:
+      case RAINBOW_CAT:
+      case FERAL_CAT:
+      case HAIRY_POTATO_CAT:
+        ui.printUnplayableCardErrorCatCard();
         throw new IllegalArgumentException("You must play a cat card as a combo.");
+      case EXPLODE:
+      case IMPLODE:
+        throw new IllegalArgumentException("You cannot play an exploding/imploding kitten.");
       default:
-        break;
+        return card;
     }
-    throw new IllegalArgumentException("Could not parse input.");
   }
 
   /**
