@@ -1602,9 +1602,15 @@ public class TurnManagerTests {
 
     String cardName = "alter the future";
     Card expectedCard = Card.ALTER_THE_FUTURE;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(expectedCard);
+
+    EasyMock.replay(gameEngine);
+
     Card actualCard = turnManager.getPlayableCard(cardName);
 
     assertEquals(expectedCard, actualCard);
+
+    EasyMock.verify(gameEngine);
   }
 
   @Test
