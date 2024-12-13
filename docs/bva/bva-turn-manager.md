@@ -417,10 +417,10 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Step 3 | T/F                                        | None, call playCardLoop() while game is not over |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test       | Expected output           | Implemented? |
-|-------------|-------------------------|---------------------------|--------------|
-| Test Case 1 | input 1: true           | returns                   | yes          |
-| Test Case 2 | input 1: false --> true | calls playCardLoop() once | yes          |
+|             | System under test       | Expected output                             | Implemented? |
+|-------------|-------------------------|---------------------------------------------|--------------|
+| Test Case 1 | input 1: true           | returns and prints winner                   | yes          |
+| Test Case 2 | input 1: false --> true | calls playCardLoop() once and prints winner | yes          |
 
 
 ## Method 22: ```public void setupGameEngine()```
