@@ -432,4 +432,35 @@ public class UserInterface {
     }
     return normalised;
   }
+  
+  /**
+   * Prints information about the current state of the game.
+   */
+  public void printGameState(String playerName,
+                             String[] playerNames,
+                             int numExtraCardsToDraw,
+                             boolean isTurnOrderReversed,
+                             boolean printImplodingKittenIsNext) {
+    System.out.printf("%s, it's your turn.%n", playerName);
+    if (numExtraCardsToDraw > 0) {
+      System.out.printf("You must take %d extra turns.%n", numExtraCardsToDraw);
+    }
+
+    if (isTurnOrderReversed) {
+      for (String name : playerNames) {
+        System.out.printf("<-- %s ", name);
+      }
+      System.out.print("<--");
+    } else {
+      System.out.print("--> ");
+      for (String name : playerNames) {
+        System.out.printf("%s --> ", name);
+      }
+    }
+    System.out.println();
+
+    if (printImplodingKittenIsNext) {
+      System.out.println("The imploding kitten is at the top of the draw pile.");
+    }
+  }
 }
