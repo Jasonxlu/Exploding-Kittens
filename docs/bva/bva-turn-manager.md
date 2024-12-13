@@ -40,18 +40,18 @@
 
 ## Method 3: ```public void doReverse()```
 ### Step 1-3 Results
-|        | Input 1                                                             | Input 2                                                   | Output                                                                                                                        |
-|--------|---------------------------------------------------------------------|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | Current player's turn                                               | GameEngine.isTurnOrderReversed                            | Calls GameEngine.reverseTurnOrder, then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn().        |
-| Step 2 | Cases (different Players) (changed by TurnManager.endTurn function) | Boolean (changed by GameEngine.reverseTurnOrder function) | None (Calls GameEngine.reverseTurnOrder, then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn()). |
-| Step 3 | TurnManager.endTurn function                                        | GameEngine.reverseTurnOrder                               | N/A (Calls GameEngine.reverseTurnOrder, then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn()).  |
+|        | Input 1                                                                 | Input 2                                                   | Output                                                                                                                            |
+|--------|-------------------------------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Current player's turn                                                   | GameEngine.isTurnOrderReversed                            | Calls GameEngine.reverseTurnOrder, then UserInterface.println("Turn order was reversed."), then TurnManager.advanceTurn().        |
+| Step 2 | Cases (different Players) (changed by TurnManager.advanceTurn function) | Boolean (changed by GameEngine.reverseTurnOrder function) | None (Calls GameEngine.reverseTurnOrder, then UserInterface.println("Turn order was reversed."), then TurnManager.advanceTurn()). |
+| Step 3 | TurnManager.advanceTurn function                                        | GameEngine.reverseTurnOrder                               | N/A (Calls GameEngine.reverseTurnOrder, then UserInterface.println("Turn order was reversed."), then TurnManager.advanceTurn()).  |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|              | System under test                                          | Expected output                                                                                                          | Implemented? |
-|--------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.endTurn() called | yes          |
+|              | System under test                                          | Expected output                                                                                                              | Implemented? |
+|--------------|------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.advanceTurn() called | no           |
 
 
 ## Method 4: ```public void doDrawFromBottom()```
