@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EliminatePlayerSteps {
 
-  private TurnManager turnManager;
+  TurnManager turnManager;
   private UserInterface uiMock;
   private Player playerToBeEliminated;
   private int initialNumPlayers;
   private String[] initialPlayerNames;
   private int initialPlayerIndex;
-  private Card[] initialDrawPile;
+  Card[] initialDrawPile;
 
   @Given("a TurnManager with {int} players")
   public void a_turn_manager_with_players(Integer numPlayers) {

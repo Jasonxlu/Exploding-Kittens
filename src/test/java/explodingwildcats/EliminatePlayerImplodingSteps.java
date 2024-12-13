@@ -10,10 +10,20 @@ public class EliminatePlayerImplodingSteps {
     this.eliminatePlayerSteps = eliminatePlayerSteps;
   }
 
-  @Given("an imploding kitten at the top of the draw pile")
-  public void an_imploding_kitten_at_the_top_of_the_draw_pile() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  @Given("a face up imploding kitten at the top of the draw pile")
+  public void a_face_up_imploding_kitten_at_the_top_of_the_draw_pile() {
+    Card implodingKitten = Card.IMPLODE;
+    eliminatePlayerSteps.turnManager.gameEngine.addCardToDrawPileAt(implodingKitten,0);
+
+    Card secondCard = Card.ATTACK;
+    eliminatePlayerSteps.turnManager.gameEngine.addCardToDrawPileAt(secondCard,1);
+
+    Card thirdCard = Card.SKIP;
+    eliminatePlayerSteps.turnManager.gameEngine.addCardToDrawPileAt(thirdCard,2);
+
+    eliminatePlayerSteps.initialDrawPile = new Card[] {thirdCard, secondCard, implodingKitten};
+
+    eliminatePlayerSteps.turnManager.isImplodingCatFaceUp = true;
   }
 
   @Given("the current player has defuses")

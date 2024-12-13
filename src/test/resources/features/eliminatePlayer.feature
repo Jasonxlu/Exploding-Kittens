@@ -35,7 +35,7 @@ Feature: Eliminate Player
     Given a TurnManager with <numPlayers> players
     And current player index <currPlayerIndex>
     And turn order reversed set to <turnOrderIsReversed>
-    And an imploding kitten at the top of the draw pile
+    And a face up imploding kitten at the top of the draw pile
     And the current player has defuses
     When the player draws a card to end their turn
     Then the player is removed from the game
