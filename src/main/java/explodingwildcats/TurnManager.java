@@ -83,206 +83,6 @@ public class TurnManager {
   }
 
   /**
-   * Does the effect of an alter the future card.
-   */
-  public void doAlterTheFuture() {
-
-    ui.printAlteringTheFuture();
-
-    Card[] peekedCards = gameEngine.peekDrawPile();
-    int numToReorder = peekedCards.length;
-
-    String[] cardNames = new String[peekedCards.length];
-    for (int i = 0; i < peekedCards.length; i++) {
-      cardNames[i] = peekedCards[i].name();
-    }
-
-    ui.printPeekedCards(cardNames);
-
-    int[] newOrder = ui.promptNewOrder(numToReorder);
-    Card[] newTopCards = new Card[numToReorder];
-    for (int i = 0; i < numToReorder; i++) {
-      newTopCards[i] = peekedCards[newOrder[i] - 1];
-    }
-    gameEngine.replaceTopDrawPileCards(newTopCards);
-  }
-
-  /**
-   * Does the effect of a reverse card.
-   */
-  public void doReverse() {
-    gameEngine.reverseTurnOrder();
-    ui.printTurnOrderReversed();
-    advanceTurn(true);
-  }
-
-  /**
-   * Draws a card from the Game Engine's draw pile.
-   * Calls the corresponding function.
-   *
-   * @param drawFromBottom whether to draw from the bottom.
-   *
-   * @return whether a turn advance happened.
-   */
-  public boolean drawAndProcessCard(boolean drawFromBottom) {
-    ui.printDrawingCard(drawFromBottom);
-
-    Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
-
-    switch (drawnCard) {
-      case EXPLODE:
-        return handleExplodingKitten();
-      case IMPLODE:
-        return handleImplodingCat();
-      default:
-        try {
-          handleRegularCard(drawnCard);
-        } catch (Exception e) {
-          ui.println(e.getMessage());
-        }
-        break;
-    }
-    return false;
-  }
-
-  /**
-   * Adds the card to the player's hand and calls endTurn.
-   *
-   * @param card the card drawn from the draw pile
-   */
-  public void handleRegularCard(Card card) {
-    switch (card) {
-      case EXPLODE:
-      case IMPLODE:
-        throw new IllegalArgumentException("Cannot add this card type to a player's hand");
-      default:
-        ui.printAddingCardToHand(card.name());
-        Player currPlayer = gameEngine.getPlayers().get(currPlayerIndex);
-        currPlayer.addCardToHand(card);
-    }
-  }
-
-  /**
-   * Handles the case where the exploding kitten is drawn.
-   *
-   * @return whether the player died.
-   */
-  public boolean handleExplodingKitten() {
-    boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
-    ui.printDrawExplodingKitten(hasDefuse);
-
-    if (hasDefuse) {
-      gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex);
-      gameEngine.discardCard(Card.DEFUSE);
-
-      int drawPileSize = gameEngine.getDrawPile().length;
-      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, true);
-      gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
-    } else {
-      eliminateCurrentPlayer();
-      return true;
-    }
-
-    return false;
-  }
-
-  /**
-   * Handles the case where the imploding cat is drawn.
-   *
-   * @return whether the player was eliminated.
-   */
-  public boolean handleImplodingCat() {
-    ui.printDrawImplodingKitten(isImplodingCatFaceUp);
-
-    if (isImplodingCatFaceUp) {
-      eliminateCurrentPlayer();
-      return true;
-    } else {
-      int drawPileSize = gameEngine.getDrawPile().length;
-      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
-      gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
-      isImplodingCatFaceUp = true;
-    }
-    return false;
-  }
-
-  /**
-   * Ends a player's turn.
-   *
-   * @param drawFromBottom whether to draw from the bottom of the draw pile.
-   */
-  public void endTurn(boolean drawFromBottom) {
-    if (numExtraCardsToDraw > 0) {
-      numExtraCardsToDraw--;
-      drawAndProcessCard(drawFromBottom); // don't advance the turn either way
-    } else {
-      boolean alreadyAdvanced = drawAndProcessCard(drawFromBottom);
-      if (!alreadyAdvanced) {
-        advanceTurn(true);
-      }
-    }
-  }
-
-  /**
-   * Updates whose turn it is.
-   */
-  public void advanceTurn(boolean playerSurvived) {
-    int numOfPlayers = gameEngine.getNumberOfPlayers();
-    boolean orderReversed = gameEngine.getIsTurnOrderReversed();
-
-    if (orderReversed) {
-      currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
-    } else {
-      currPlayerIndex = playerSurvived
-              ? (currPlayerIndex + 1) % numOfPlayers
-              : currPlayerIndex % numOfPlayers;
-    }
-
-    playerTurnHasEnded = true;
-  }
-
-  /**
-   * Prompts the user for which cat cards to play as a combo.
-   * Returns true if the turnManager should reprompt.
-   * Made package private to support unit testing.
-   *
-   * @param numCards the number of cards to play.
-   */
-  boolean promptAndPlayCombo(int numCards) {
-    if (numCards != 2 && numCards != 3) {
-      String errorMessage = ui.printMustPlay2Or3CardsAsComboError();
-      throw new IllegalArgumentException(errorMessage);
-    }
-    String[] stringCards = ui.promptPlayComboCards(numCards);
-    if (stringCards.length != numCards) {
-      String errorMessage = ui.printMismatchUserCardsAndComboCount();
-      throw new IllegalStateException(errorMessage);
-    }
-    Card[] cards;
-    try {
-      cards = gameEngine.validateComboCards(stringCards, currPlayerIndex);
-    } catch (Exception validateCardException) {
-      ui.printValidateComboCardErrorMessage(validateCardException.getMessage());
-      return true;
-    }
-    if (cards.length != numCards) {
-      String message = ui.printMismatchCardValidationCardsAndComboCount();
-      throw new IllegalStateException(message);
-    }
-    if (numCards == 2) {
-      do2CardCombo();
-    } else {
-      do3CardCombo();
-    }
-
-    for (Card card : cards) {
-      gameEngine.removeCardFromPlayer(card, currPlayerIndex);
-    }
-    return false;
-  }
-
-
-  /**
    * Does the main game loop.
    */
   public void doGameLoop() {
@@ -293,7 +93,6 @@ public class TurnManager {
     String winnerName = gameEngine.getPlayerByIndex(currPlayerIndex).getName();
     ui.printWinner(winnerName);
   }
-
 
   /**
    * Prompts if the current player wants to play a card w/ UI.promptPlayCard().
@@ -373,6 +172,38 @@ public class TurnManager {
     }
   }
 
+
+  /**
+   * Get the card by the cardName. If it's not playable, throw an exception.
+   * Package private for unit testing.
+   *
+   * @param cardName the string card name.
+   * @return the Card if it is playable.
+   */
+  Card getPlayableCard(String cardName) {
+    Card card = gameEngine.getCardByName(cardName);
+    switch (card) {
+      case NOPE:
+        ui.printUnplayableCardErrorNope();
+        throw new IllegalArgumentException("You cannot play a nope right now.");
+      case DEFUSE:
+        ui.printUnplayableCardErrorDefuse();
+        throw new IllegalArgumentException("You cannot play a defuse right now.");
+      case TACO_CAT:
+      case BEARD_CAT:
+      case RAINBOW_CAT:
+      case FERAL_CAT:
+      case HAIRY_POTATO_CAT:
+        ui.printUnplayableCardErrorCatCard();
+        throw new IllegalArgumentException("You must play a cat card as a combo.");
+      case EXPLODE:
+      case IMPLODE:
+        throw new IllegalArgumentException("You cannot play an exploding/imploding kitten.");
+      default:
+        return card;
+    }
+  }
+
   /**
    * Prints information about the current turn.
    */
@@ -393,6 +224,81 @@ public class TurnManager {
             numExtraCardsToDraw,
             gameEngine.getIsTurnOrderReversed(),
             printImplodingIsNext);
+  }
+
+
+  /**
+   * Does the effect of an alter the future card.
+   */
+  public void doAlterTheFuture() {
+
+    ui.printAlteringTheFuture();
+
+    Card[] peekedCards = gameEngine.peekDrawPile();
+    int numToReorder = peekedCards.length;
+
+    String[] cardNames = new String[peekedCards.length];
+    for (int i = 0; i < peekedCards.length; i++) {
+      cardNames[i] = peekedCards[i].name();
+    }
+
+    ui.printPeekedCards(cardNames);
+
+    int[] newOrder = ui.promptNewOrder(numToReorder);
+    Card[] newTopCards = new Card[numToReorder];
+    for (int i = 0; i < numToReorder; i++) {
+      newTopCards[i] = peekedCards[newOrder[i] - 1];
+    }
+    gameEngine.replaceTopDrawPileCards(newTopCards);
+  }
+
+  /**
+   * Does the effect of a reverse card.
+   */
+  public void doReverse() {
+    gameEngine.reverseTurnOrder();
+    ui.printTurnOrderReversed();
+    advanceTurn(true);
+  }
+
+  /**
+   * Prompts the user for which cat cards to play as a combo.
+   * Returns true if the turnManager should reprompt.
+   * Made package private to support unit testing.
+   *
+   * @param numCards the number of cards to play.
+   */
+  boolean promptAndPlayCombo(int numCards) {
+    if (numCards != 2 && numCards != 3) {
+      String errorMessage = ui.printMustPlay2Or3CardsAsComboError();
+      throw new IllegalArgumentException(errorMessage);
+    }
+    String[] stringCards = ui.promptPlayComboCards(numCards);
+    if (stringCards.length != numCards) {
+      String errorMessage = ui.printMismatchUserCardsAndComboCount();
+      throw new IllegalStateException(errorMessage);
+    }
+    Card[] cards;
+    try {
+      cards = gameEngine.validateComboCards(stringCards, currPlayerIndex);
+    } catch (Exception validateCardException) {
+      ui.printValidateComboCardErrorMessage(validateCardException.getMessage());
+      return true;
+    }
+    if (cards.length != numCards) {
+      String message = ui.printMismatchCardValidationCardsAndComboCount();
+      throw new IllegalStateException(message);
+    }
+    if (numCards == 2) {
+      do2CardCombo();
+    } else {
+      do3CardCombo();
+    }
+
+    for (Card card : cards) {
+      gameEngine.removeCardFromPlayer(card, currPlayerIndex);
+    }
+    return false;
   }
 
   /**
@@ -432,6 +338,19 @@ public class TurnManager {
   }
 
   /**
+   * Decides whether to nope the previously played card.
+   *
+   * @return a boolean representing whether the previously played card should be noped.
+   */
+  public boolean promptPlayNope() {
+    boolean somebodyPlayedNopeCard = promptAndValidateNopePlayerAndPlayNopeIfSo();
+    if (somebodyPlayedNopeCard) {
+      return !promptPlayNope();
+    }
+    return false;
+  }
+
+  /**
    * Prompts if a player wants to play a nope card w/ UI.promptNope().
    * If not, returns false - nobody played a nope.
    * If so, checks if the input player is a valid player,
@@ -464,51 +383,6 @@ public class TurnManager {
     }
   }
 
-
-  /**
-   * Get the card by the cardName. If it's not playable, throw an exception.
-   * Package private for unit testing.
-   *
-   * @param cardName the string card name.
-   * @return the Card if it is playable.
-   */
-  Card getPlayableCard(String cardName) {
-    Card card = gameEngine.getCardByName(cardName);
-    switch (card) {
-      case NOPE:
-        ui.printUnplayableCardErrorNope();
-        throw new IllegalArgumentException("You cannot play a nope right now.");
-      case DEFUSE:
-        ui.printUnplayableCardErrorDefuse();
-        throw new IllegalArgumentException("You cannot play a defuse right now.");
-      case TACO_CAT:
-      case BEARD_CAT:
-      case RAINBOW_CAT:
-      case FERAL_CAT:
-      case HAIRY_POTATO_CAT:
-        ui.printUnplayableCardErrorCatCard();
-        throw new IllegalArgumentException("You must play a cat card as a combo.");
-      case EXPLODE:
-      case IMPLODE:
-        throw new IllegalArgumentException("You cannot play an exploding/imploding kitten.");
-      default:
-        return card;
-    }
-  }
-
-  /**
-   * Decides whether to nope the previously played card.
-   *
-   * @return a boolean representing whether the previously played card should be noped.
-   */
-  public boolean promptPlayNope() {
-    boolean somebodyPlayedNopeCard = promptAndValidateNopePlayerAndPlayNopeIfSo();
-    if (somebodyPlayedNopeCard) {
-      return !promptPlayNope();
-    }
-    return false;
-  }
-
   /**
    * Does the effect of a shuffle card.
    */
@@ -527,15 +401,6 @@ public class TurnManager {
     } else {
       advanceTurn(true);
     }
-  }
-
-  /**
-   * Eliminates the current player.
-   */
-  public void eliminateCurrentPlayer() {
-    ui.printPlayerEliminated();
-    gameEngine.eliminatePlayer(currPlayerIndex);
-    advanceTurn(false);
   }
 
   /**
@@ -714,6 +579,139 @@ public class TurnManager {
       playerNames[i] = players.get(i).getName();
     }
     ui.printPlayers(playerNames);
+  }
 
+  /**
+   * Ends a player's turn.
+   *
+   * @param drawFromBottom whether to draw from the bottom of the draw pile.
+   */
+  public void endTurn(boolean drawFromBottom) {
+    if (numExtraCardsToDraw > 0) {
+      numExtraCardsToDraw--;
+      drawAndProcessCard(drawFromBottom); // don't advance the turn either way
+    } else {
+      boolean alreadyAdvanced = drawAndProcessCard(drawFromBottom);
+      if (!alreadyAdvanced) {
+        advanceTurn(true);
+      }
+    }
+  }
+
+  /**
+   * Draws a card from the Game Engine's draw pile.
+   * Calls the corresponding function.
+   *
+   * @param drawFromBottom whether to draw from the bottom.
+   *
+   * @return whether a turn advance happened.
+   */
+  public boolean drawAndProcessCard(boolean drawFromBottom) {
+    ui.printDrawingCard(drawFromBottom);
+
+    Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
+
+    switch (drawnCard) {
+      case EXPLODE:
+        return handleExplodingKitten();
+      case IMPLODE:
+        return handleImplodingCat();
+      default:
+        try {
+          handleRegularCard(drawnCard);
+        } catch (Exception e) {
+          ui.println(e.getMessage());
+        }
+        break;
+    }
+    return false;
+  }
+
+  /**
+   * Handles the case where the exploding kitten is drawn.
+   *
+   * @return whether the player died.
+   */
+  public boolean handleExplodingKitten() {
+    boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
+    ui.printDrawExplodingKitten(hasDefuse);
+
+    if (hasDefuse) {
+      gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex);
+      gameEngine.discardCard(Card.DEFUSE);
+
+      int drawPileSize = gameEngine.getDrawPile().length;
+      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, true);
+      gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
+    } else {
+      eliminateCurrentPlayer();
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Handles the case where the imploding cat is drawn.
+   *
+   * @return whether the player was eliminated.
+   */
+  public boolean handleImplodingCat() {
+    ui.printDrawImplodingKitten(isImplodingCatFaceUp);
+
+    if (isImplodingCatFaceUp) {
+      eliminateCurrentPlayer();
+      return true;
+    } else {
+      int drawPileSize = gameEngine.getDrawPile().length;
+      int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
+      gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
+      isImplodingCatFaceUp = true;
+    }
+    return false;
+  }
+
+  /**
+   * Adds the card to the player's hand and calls endTurn.
+   *
+   * @param card the card drawn from the draw pile
+   */
+  public void handleRegularCard(Card card) {
+    switch (card) {
+      case EXPLODE:
+      case IMPLODE:
+        throw new IllegalArgumentException("Cannot add this card type to a player's hand");
+      default:
+        ui.printAddingCardToHand(card.name());
+        Player currPlayer = gameEngine.getPlayers().get(currPlayerIndex);
+        currPlayer.addCardToHand(card);
+    }
+  }
+
+  /**
+   * Eliminates the current player.
+   */
+  public void eliminateCurrentPlayer() {
+    ui.printPlayerEliminated();
+    gameEngine.eliminatePlayer(currPlayerIndex);
+    advanceTurn(false);
+  }
+
+  /**
+   * Updates whose turn it is.
+   */
+  public void advanceTurn(boolean playerSurvived) {
+    int numOfPlayers = gameEngine.getNumberOfPlayers();
+    boolean orderReversed = gameEngine.getIsTurnOrderReversed();
+
+    if (orderReversed) {
+      currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
+    } else {
+      currPlayerIndex = playerSurvived
+              ? (currPlayerIndex + 1) % numOfPlayers
+              : currPlayerIndex % numOfPlayers;
+    }
+
+    playerTurnHasEnded = true;
   }
 }
