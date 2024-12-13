@@ -3930,6 +3930,13 @@ public class TurnManagerTests {
 
     EasyMock.verify(gameEngine, ui, jane, joe, jeff, bob);
   }
+
+  @Test
+  public void turnManagerConstructorTest() {
+    String language = "spanish";
+    TurnManager turnManager = new TurnManager(language);
+    assertNotNull(turnManager);
+  }
 }
 
 
