@@ -1526,9 +1526,15 @@ public class TurnManagerTests {
 
     String cardName = "shuffle";
     Card expectedCard = Card.SHUFFLE;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(expectedCard);
+
+    EasyMock.replay(gameEngine);
+
     Card actualCard = turnManager.getPlayableCard(cardName);
 
     assertEquals(expectedCard, actualCard);
+
+    EasyMock.verify(gameEngine);
   }
 
   @Test
