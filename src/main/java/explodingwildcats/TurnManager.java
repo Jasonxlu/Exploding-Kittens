@@ -527,7 +527,7 @@ public class TurnManager {
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
     } else {
-      endTurn(false);
+      advanceTurn(true);
     }
   }
 

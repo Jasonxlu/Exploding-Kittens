@@ -1441,12 +1441,12 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.partialMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
-            .addMockedMethod("endTurn")
+            .addMockedMethod("advanceTurn")
             .createMock();
 
     int extraCards = 0;
     turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.endTurn(false);
+    turnManager.advanceTurn(true);
 
     ui.printSkipping();
 
