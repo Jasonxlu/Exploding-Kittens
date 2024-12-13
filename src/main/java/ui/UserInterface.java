@@ -439,14 +439,14 @@ public class UserInterface {
   * Prints seeing the future.
   */
   public void printSeeingTheFuture() {
-    System.out.println("Seeing the future...");
+    System.out.println(bundle.getString("feedback.seeing_future"));
   }
 
   /**
    * Prints altering the future.
    */
   public void printAlteringTheFuture() {
-    System.out.println("Altering the future...");
+    System.out.println(bundle.getString("feedback.altering_future"));
   }
 
   /**
@@ -456,9 +456,9 @@ public class UserInterface {
    */
   public void printDrawingCard(boolean fromBottom) {
     if (fromBottom) {
-      System.out.println("Drawing a card from the bottom...");
+      System.out.println(bundle.getString("feedback.drawing_from_bottom"));
     } else {
-      System.out.println("Drawing a card...");
+      System.out.println(bundle.getString("feedback.drawing"));
     }
   }
 
@@ -468,10 +468,9 @@ public class UserInterface {
    * @param hasDefuse whether the player has a defuse card.
    */
   public void printDrawExplodingKitten(boolean hasDefuse) {
-    System.out.println("Oh no! You drew an exploding kitten!");
+    System.out.println(bundle.getString("feedback.drew_exploding"));
     if (hasDefuse) {
-      System.out.println("Using your defuse! "
-              + "Choose where to place the exploding kitten in the draw pile.");
+      System.out.println(bundle.getString("feedback.using_defuse"));
     }
   }
 
@@ -482,10 +481,9 @@ public class UserInterface {
    */
   public void printDrawImplodingKitten(boolean isFaceUp) {
     if (isFaceUp) {
-      System.out.println("Oh no! You drew an imploding kitten and it was face up!");
+      System.out.println(bundle.getString("feedback.drew_face_up_imploding"));
     } else {
-      System.out.println("You drew an imploding kitten!"
-              + "Choose where to place the imploding kitten face up in the draw pile.");
+      System.out.println(bundle.getString("feedback.drew_face_down_imploding"));
     }
   }
 
@@ -495,14 +493,15 @@ public class UserInterface {
    * @param cardName the card.
    */
   public void printAddingCardToHand(String cardName) {
-    System.out.printf("Added a %s to your hand.%n", cardName);
+    System.out.printf(MessageFormat.format(
+            bundle.getString("feedback.added_card_to_hand"), cardName));
   }
 
   /**
    * Prints reversing the turn order.
    */
   public void printTurnOrderReversed() {
-    System.out.println("Turn order was reversed.");
+    System.out.println(bundle.getString("feedback.reversed_order"));
   }
 
   /**
@@ -511,29 +510,32 @@ public class UserInterface {
    * @param numExtraCards the number of extra cards to draw after the attack.
    */
   public void printAttacking(int numExtraCards) {
-    String cardPlural = numExtraCards == 1 ? "card" : "cards";
-    System.out.printf("Attacking! The next player has to draw %d extra %s.%n", numExtraCards, cardPlural);
+    String cardPlural = numExtraCards == 1
+            ? bundle.getString("feedback.card_singular")
+            : bundle.getString("feedback.card_plural");
+    System.out.printf(MessageFormat.format(
+            bundle.getString("feedback.attacking"), numExtraCards, cardPlural));
   }
 
   /**
    * Prints shuffling.
    */
   public void printShuffling() {
-    System.out.println("Shuffling the draw pile...");
+    System.out.println(bundle.getString("feedback.shuffling"));
   }
 
   /**
    * Prints skipping.
    */
   public void printSkipping() {
-    System.out.println("Skipping your turn...");
+    System.out.println(bundle.getString("feedback.skipping"));
   }
 
   /**
    * Prints doing a targeted attack.
    */
   public void printDoingTargetedAttack() {
-    System.out.println("Doing a targeted attack...");
+    System.out.println(bundle.getString("feedback.targeted_attack"));
   }
 
   /**
@@ -543,9 +545,8 @@ public class UserInterface {
    */
   public void printTargetedAttackResult(int numExtraCards) {
     String cardPlural = numExtraCards == 1 ? "card" : "cards";
-    System.out.printf("Did a targeted attack! The next player has to draw %d extra %s.%n",
-            numExtraCards,
-            cardPlural);
+    System.out.println(MessageFormat.format(
+            bundle.getString("feedback.targeted_attack_result"), numExtraCards, cardPlural));
   }
 
   /**
@@ -554,21 +555,22 @@ public class UserInterface {
    * @param numCards number of cards.
    */
   public void printDoingCardCombo(int numCards) {
-    System.out.printf("Doing a %d-card combo. Select a victim:%n", numCards);
+    System.out.println(MessageFormat.format(
+            bundle.getString("feedback.combo"), numCards));
   }
 
   /**
    * Prints doing a 3 card combo on a target.
    */
   public void printNopePlayed() {
-    System.out.println("Played a Nope card!");
+    System.out.println(bundle.getString("feedback.nope"));
   }
 
   /**
    * Prints that the current player was eliminated.
    */
   public void printPlayerEliminated() {
-    System.out.println("You have been eliminated.");
+    System.out.println(bundle.getString("feedback.elimination"));
   }
 
   /**
