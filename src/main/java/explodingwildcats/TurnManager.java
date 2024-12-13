@@ -264,6 +264,7 @@ public class TurnManager {
     try {
       cards = gameEngine.validateComboCards(stringCards, currPlayerIndex);
     } catch (Exception validateCardException) {
+      ui.printValidateComboCardErrorMessage(validateCardException.getMessage());
       return true;
     }
     if (cards.length != numCards) {
@@ -336,6 +337,7 @@ public class TurnManager {
           shouldReprompt = false;
           continue;
         }
+        gameEngine.removeCardFromPlayer(cardToPlay, currPlayerIndex);
         switch (cardToPlay) {
           case ATTACK:
             doAttack();
@@ -516,7 +518,6 @@ public class TurnManager {
   public void doShuffle() {
     ui.printShuffling();
     gameEngine.shuffleDrawPile();
-    endTurn(false);
   }
 
   /**
