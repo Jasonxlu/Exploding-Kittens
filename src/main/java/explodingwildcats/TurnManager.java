@@ -334,6 +334,7 @@ public class TurnManager {
           shouldReprompt = false;
           continue;
         }
+        gameEngine.removeCardFromPlayer(cardToPlay, currPlayerIndex);
         switch (cardToPlay) {
           case ATTACK:
             doAttack();

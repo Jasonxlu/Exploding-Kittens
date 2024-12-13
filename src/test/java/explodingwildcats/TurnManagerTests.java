@@ -1674,6 +1674,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doAttack();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
@@ -1716,6 +1717,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doSeeTheFuture();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = false; // do not terminate loop
@@ -1853,6 +1855,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(impossibleCardReturn, currPlayerIndex);
     EasyMock.replay(turnManager, gameEngine, ui);
 
     String expectedMessage = "A card was played that should not have been played.";
@@ -1895,6 +1898,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doAlterTheFuture();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = false; // do not terminate loop
@@ -1911,6 +1915,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.playerHasCard(newUserInputCard, currPlayerIndex)).andReturn(newPlayerHasCard);
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(newUserInputCard, currPlayerIndex);
     turnManager.doSkip();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
@@ -1954,6 +1959,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doShuffle();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = false; // do not terminate loop
@@ -1970,6 +1976,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.playerHasCard(newUserInputCard, currPlayerIndex)).andReturn(newPlayerHasCard);
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(newUserInputCard, currPlayerIndex);
     turnManager.doTargetedAttack();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
@@ -2011,6 +2018,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doReverse();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // terminate loop
@@ -2060,6 +2068,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope2ndTime = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope2ndTime);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doDrawFromBottom();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // terminate loop
