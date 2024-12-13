@@ -380,7 +380,20 @@ public class UserInterface {
   }
 
   /**
-<<<<<<< HEAD
+   * Prints that nopes cannot be played as regular cards.
+   */
+  public void printUnplayableCardErrorNope() {
+    System.out.println("You cannot play a nope right now.");
+  }
+
+  /**
+   * Prints that nopes cannot be played as regular cards.
+   */
+  public void printUnplayableCardErrorCatCard() {
+    System.out.println("You must play a cat card as a combo.");
+  }
+
+  /**
   * Prints seeing the future.
   */
   public void printSeeingTheFuture() {
