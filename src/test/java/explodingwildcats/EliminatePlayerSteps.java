@@ -67,7 +67,7 @@ public class EliminatePlayerSteps {
     Card thirdCard = Card.SKIP;
     turnManager.gameEngine.addCardToDrawPileAt(thirdCard,2);
 
-    initialDrawPile = new Card[] {explodingKitten, secondCard, thirdCard};
+    initialDrawPile = new Card[] {thirdCard, secondCard, explodingKitten};
   }
 
   @Given("the current player has no defuses")
@@ -134,8 +134,14 @@ public class EliminatePlayerSteps {
 
   @Then("the exploding kitten is removed from the draw pile")
   public void the_exploding_kitten_is_removed_from_the_draw_pile() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    Card[] actualDrawPile = turnManager.gameEngine.getDrawPile();
+
+    // expected draw pile should be the same minus the exploding kitten.
+    Card[] expectedDrawPile = new Card[2];
+    expectedDrawPile[0] = initialDrawPile[0];
+    expectedDrawPile[1] = initialDrawPile[1];
+
+    assertArrayEquals(expectedDrawPile, actualDrawPile);
   }
 
   @Given("turn order is reversed true")
