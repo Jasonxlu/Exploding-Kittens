@@ -318,6 +318,8 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 13 | "rainbow cat", input 2: RAINBOW CAT           | IllegalArgumentException + calls ui print | yes          |
 | Test Case 14 | "feral cat", input 2: FERAL CAT               | IllegalArgumentException + calls ui print | yes          |
 | Test Case 15 | "hairy potato cat", input 2: HAIRY POTATO CAT | IllegalArgumentException + calls ui print | yes          |
+| Test Case 16 | "exploding kitten", input 2: EXPLODING_KITTEN | IllegalArgumentException                  | no           |
+| Test Case 17 | "imploding kitten", input 2: IMPLODING_KITTEN | IllegalArgumentException                  | no           |
 
 
 ## Method 17: ```public void playCardLoop()```
