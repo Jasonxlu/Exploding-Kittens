@@ -17,16 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EliminatePlayerSteps {
 
   TurnManager turnManager;
-  private UserInterface uiMock;
   Player playerToBeEliminated;
   private int initialNumPlayers;
   private String[] initialPlayerNames;
-  private int initialPlayerIndex;
   Card[] initialDrawPile;
 
   @Given("a TurnManager with {int} players")
   public void a_turn_manager_with_players(Integer numPlayers) {
-    uiMock = EasyMock.createMock(UserInterface.class);
+    UserInterface uiMock = EasyMock.createMock(UserInterface.class);
 
     String[] sampleNames = new String[numPlayers];
     for (int i = 0; i < numPlayers; i++) {
@@ -41,7 +39,6 @@ public class EliminatePlayerSteps {
 
   @Given("current player index {int}")
   public void current_player_index(Integer currPlayerIndex) {
-    initialPlayerIndex = currPlayerIndex;
     turnManager.currPlayerIndex = currPlayerIndex;
     playerToBeEliminated = turnManager.gameEngine.getPlayerByIndex(currPlayerIndex);
   }
