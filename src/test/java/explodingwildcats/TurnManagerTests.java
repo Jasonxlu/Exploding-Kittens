@@ -2214,6 +2214,8 @@ public class TurnManagerTests {
             new IllegalArgumentException(exceptionMessage)
     );
 
+    ui.printValidateComboCardErrorMessage(exceptionMessage);
+
     EasyMock.replay(turnManager, gameEngine, ui);
 
     boolean expectedReturn = true;

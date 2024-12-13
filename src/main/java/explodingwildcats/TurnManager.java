@@ -262,6 +262,7 @@ public class TurnManager {
     try {
       cards = gameEngine.validateComboCards(stringCards, currPlayerIndex);
     } catch (Exception validateCardException) {
+      ui.printValidateComboCardErrorMessage(validateCardException.getMessage());
       return true;
     }
     if (cards.length != numCards) {
