@@ -177,8 +177,8 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 4 | draw counter: 1, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | yes          |
 | Test Case 5 | draw counter: >1, drawFromBottom: false | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | yes          |
 | Test Case 6 | draw counter: >1, drawFromBottom: true  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | yes          |
-| Test Case 7 | draw counter: 9, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | no           |
-| Test Case 8 | draw counter: 9, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | no           |
+| Test Case 7 | draw counter: 9, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | yes          |
+| Test Case 8 | draw counter: 9, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | yes          |
 
 
 ## Method 10: ```public void handleExplodingKitten()```
