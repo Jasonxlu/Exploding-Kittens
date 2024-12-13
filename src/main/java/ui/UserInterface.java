@@ -465,21 +465,21 @@ public class UserInterface {
    * Prints that nopes cannot be played as regular cards.
    */
   public void printUnplayableCardErrorNope() {
-    System.out.println("You cannot play a nope right now.");
+    System.out.println(bundle.getString("error.unplayable_card_nope"));
   }
 
   /**
    * Prints that defuses cannot be played as regular cards.
    */
   public void printUnplayableCardErrorDefuse() {
-    System.out.println("You cannot play a defuse right now.");
+    System.out.println(bundle.getString("error.unplayable_card_defuse"));
   }
 
   /**
    * Prints that cat cards cannot be played as regular cards.
    */
   public void printUnplayableCardErrorCatCard() {
-    System.out.println("You must play a cat card as a combo.");
+    System.out.println(bundle.getString("error.unplayable_card_cat"));
   }
 
   /**
