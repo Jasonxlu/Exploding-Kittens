@@ -13,4 +13,4 @@
 - Gradle 8.10
 
 ## Acknowledgements
-REFERENCES, SOURCE OF HELP ETC
+- [Here Be Kittens](https://explodi.ng/decks)
