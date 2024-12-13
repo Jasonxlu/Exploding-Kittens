@@ -210,12 +210,12 @@ public class UserInterface {
       System.out.print("Unable to parse input. "
               + "Hit enter to end your turn and draw a card, "
               + "or type the name of the card you want to play "
-              + "(or type '2/3 cat cards'): ");
+              + "(or type '2/3 cards'): ");
     } else {
       System.out.print("Do you want to play a card, or end your turn? "
               + "Hit enter to end your turn and draw a card, "
               + "or type the name of the card you want to play "
-              + "(or type '2/3 cat cards'): ");
+              + "(or type '2/3 cards'): ");
     }
     return scanner.nextLine().trim().toLowerCase();
   }
@@ -228,7 +228,7 @@ public class UserInterface {
    */
   public String[] promptPlayComboCards(int numToPlay) {
     String[] cards = new String[numToPlay];
-    System.out.println("Which cat cards do you want to play?");
+    System.out.println("Which cards do you want to play?");
     for (int i = 0; i < numToPlay; i++) {
       System.out.printf("Card #%d: ", i + 1);
       cards[i] = scanner.nextLine().trim().toLowerCase();
