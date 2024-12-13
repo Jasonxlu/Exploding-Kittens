@@ -121,25 +121,27 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 18 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true, playerSurvived: false  | currPlayerIndex: 1, sets turn over flag to true | yes          |
 
 
-## Method 7: ```public void drawAndProcessCard(boolean drawFromBottom)```
+## Method 7: ```public boolean drawAndProcessCard(boolean drawFromBottom)```
 ### Step 1-3 Results
-|        | Input 1                           | Input 2        | Output                                                                                                                           |
-|--------|-----------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | Card drawn from the draw pile     | drawFromBottom | Executes the respective function based on the type (either calls handleExplodingKitten, handleImplodingCat or handleRegularCard) |
-| Step 2 | Case                              | Boolean        |                                                                                                                                  |
-| Step 3 | EXPLODE, IMPLODE, all other cases | True, False    |                                                                                                                                  |
+|        | Input 1                           | Input 2        | Input 3                                   | Output                                                                                                                                                                                  |
+|--------|-----------------------------------|----------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Card drawn from the draw pile     | drawFromBottom | Result of handleExploding/handleImploding | Boolean - whether a player was eliminated. Also cases: executes the respective function based on the type (either calls handleExplodingKitten, handleImplodingCat or handleRegularCard) |
+| Step 2 | Case                              | Boolean        | Boolean                                   | Boolean, cases                                                                                                                                                                          |
+| Step 3 | EXPLODE, IMPLODE, all other cases | True, False    | T/F                                       | Either calls handleExplodingKitten, handleImplodingCat or handleRegularCard. handleRegularCard returns false, returns the result of the others.                                         |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test                                     | Expected output                         | Implemented? |
-|-------------|-------------------------------------------------------|-----------------------------------------|--------------|
-| Test Case 1 | Card drawn: all other cases, drawFromBottom: False    | Calls handleRegularCard()               | yes          |
-| Test Case 2 | Card drawn: all other cases, drawFromBottom: True     | Calls handleRegularCard()               | yes          |
-| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False            | Calls handleExplodingKitten()           | yes          |
-| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True             | Calls handleExplodingKitten()           | yes          |
-| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False            | Calls handleImplodingCat()              | yes          |
-| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True             | Calls handleImplodingCat()              | yes          |
-| Test Case 7 | Card drawn: EXPLODE or IMPLODE, drawFromBottom: False | Calls handleRegularCard() and it throws | yes          |
+|             | System under test                                                | Expected output                         | Implemented? |
+|-------------|------------------------------------------------------------------|-----------------------------------------|--------------|
+| Test Case 1 | Card drawn: all other cases, drawFromBottom: False, input 3: N/A | Returns false and handleRegularCard()   | yes          |
+| Test Case 2 | Card drawn: all other cases, drawFromBottom: True, input 3: N/A  | Returns false and handleRegularCard()   | yes          |
+| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False, input 3: True        | Returns handleExplodingKitten(), true   | yes          |
+| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True, input 3: True         | Returns handleExplodingKitten(), true   | yes          |
+| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False, input 3: True        | Returns handleImplodingCat(), true      | yes          |
+| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True, input 3: True         | Returns handleImplodingCat(), true      | yes          |
+| Test Case 7 | Card drawn: EXPLODE or IMPLODE, drawFromBottom: False            | Calls handleRegularCard() and it throws | yes          |
+| Test Case 8 | Card drawn: IMPLODE, drawFromBottom: False, input 3: False       | Returns handleImplodingCat(), false     | no           |
+| Test Case 9 | Card drawn: EXPLODE, drawFromBottom: True, input 3: False        | Returns handleImplodingCat(), false     | no           |
 
 
 ## Method 8: ```public void handleRegularCard(Card drawnCard)```
@@ -161,52 +163,55 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 9: ```public void endTurn()```
 ### Step 1-3 Results
-|        | Input 1                 | Output                                                                                  |
-|--------|-------------------------|-----------------------------------------------------------------------------------------|
-| Step 1 | numExtraCardsToDraw     | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
-| Step 2 | Counts                  | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
-| Step 3 | 0, 1, >1, max value (7) | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
+|        | Input 1                 | Input 2                         | Output                                                                                                                                                               |
+|--------|-------------------------|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | numExtraCardsToDraw     | Whether a player got eliminated | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw. Does not call advanceTurn if a player got eliminated by drawAndProcessCard. |
+| Step 2 | Counts                  | Boolean                         | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw. Does not call advanceTurn if a player got eliminated by drawAndProcessCard. |
+| Step 3 | 0, 1, >1, max value (7) | T/F                             | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw. Does not call advanceTurn if a player got eliminated by drawAndProcessCard. |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output                                             | Implemented? |
-|-------------|-------------------|-------------------------------------------------------------|--------------|
-| Test Case 1 | draw counter: 0   | Calls advanceTurn and decrements numExtraCardsToDraw        | yes          |
-| Test Case 2 | draw counter: 1   | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
-| Test Case 3 | draw counter: >1  | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
-| Test Case 4 | draw counter: 7   | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
+|             | System under test               | Expected output                                                                              | Implemented? |
+|-------------|---------------------------------|----------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | draw counter: 0, eliminated: F  | Calls advanceTurn and decrements numExtraCardsToDraw                                         | yes          |
+| Test Case 2 | draw counter: 1, eliminated: F  | Calls drawAndProcessCard and decrements numExtraCardsToDraw                                  | yes          |
+| Test Case 3 | draw counter: >1, eliminated: F | Calls drawAndProcessCard and decrements numExtraCardsToDraw                                  | yes          |
+| Test Case 4 | draw counter: 7, eliminated: F  | Calls drawAndProcessCard and decrements numExtraCardsToDraw                                  | yes          |
+| Test Case 5 | draw counter: 7, eliminated: T  | Calls drawAndProcessCard and decrements numExtraCardsToDraw.                                 | no           |
+| Test Case 6 | draw counter: 0, eliminated: T  | Calls drawAndProcessCard and decrements numExtraCardsToDraw, then does not call advanceTurn. | no           |
+| Test Case 7 | draw counter: 0, eliminated: F  | Calls drawAndProcessCard and decrements numExtraCardsToDraw, then calls advanceTurn.         | no           |
 
 
-## Method 10: ```public void handleExplodingKitten()```
+## Method 10: ```public boolean handleExplodingKitten()```
 ### Step 1-3 Results
-|        | Input 1                                         | Output                                                                                                |
-|--------|-------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| Step 1 | Player has defuse                               | Cases: player either gets eliminated or not (discards defuse, adds exploding kitten back to draw pile |
-| Step 2 | Boolean - comes from gameEngine.playerHasCard() | None, cases: player elimination or not                                                                |
-| Step 3 | True, False                                     | None, cases: player elimination or not                                                                |
+|        | Input 1                                         | Output                                                                                               |
+|--------|-------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| Step 1 | Player has defuse                               | Whether the player gets eliminated or not (discards defuse, adds exploding kitten back to draw pile) |
+| Step 2 | Boolean - comes from gameEngine.playerHasCard() | Boolean, cases: player elimination or not                                                            |
+| Step 3 | True, False                                     | T/F, cases: player elimination or not                                                                |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output                                                                                                                                                                | Implemented? |
-|-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called                                                                                                                            | yes          |
-| Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index) | yes          |
+|             | System under test | Expected output                                                                                                                                                                               | Implemented? |
+|-------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called, returns true                                                                                                                             | yes          |
+| Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index), returns false | yes          |
 
 
-## Method 11: ```public void handleImplodingCat()```
+## Method 11: ```public boolean handleImplodingCat()```
 ### Step 1-3 Results
-|        | Input 1              | Output                                                                             |
-|--------|----------------------|------------------------------------------------------------------------------------|
-| Step 1 | isImplodingCatFaceUp | Cases: player gets eliminated or imploding card is placed in the draw pile face up |
-| Step 2 | Boolean              | None, cases: player elimination or not                                             |
-| Step 3 | True, False          | None, cases: player elimination or not                                             |
+|        | Input 1              | Output                                                                                                        |
+|--------|----------------------|---------------------------------------------------------------------------------------------------------------|
+| Step 1 | isImplodingCatFaceUp | Whether the player gets eliminated or imploding card is placed in the draw pile face up                       |
+| Step 2 | Boolean              | Boolean + behavior based on boolean                                                                           |
+| Step 3 | True, False          | T: player got eliminated. F: player did not get eliminated. The behavior adding it back is dependent on this. |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test            | Expected output                                                                           | Implemented? |
-|-------------|------------------------------|-------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | isImplodingCardFaceUp: True  | TurnManager's eliminateCurrentPlayer() gets called                                        | yes          |
-| Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up | yes          |
+|             | System under test            | Expected output                                                                                            | Implemented? |
+|-------------|------------------------------|------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | isImplodingCardFaceUp: True  | TurnManager's eliminateCurrentPlayer() gets called and return true                                         | yes          |
+| Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up and return false | yes          |
 
 
 ## Method 12: ```public boolean promptPlayNope()```

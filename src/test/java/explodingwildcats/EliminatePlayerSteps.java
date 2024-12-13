@@ -21,6 +21,7 @@ public class EliminatePlayerSteps {
   private Player playerToBeEliminated;
   private int initialNumPlayers;
   private String[] initialPlayerNames;
+  private int initialPlayerIndex;
 
   @Given("a TurnManager with {int} players")
   public void a_turn_manager_with_players(Integer numPlayers) {
@@ -39,6 +40,7 @@ public class EliminatePlayerSteps {
 
   @Given("current player index {int}")
   public void current_player_index(Integer currPlayerIndex) {
+    initialPlayerIndex = currPlayerIndex;
     turnManager.currPlayerIndex = currPlayerIndex;
     playerToBeEliminated = turnManager.gameEngine.getPlayerByIndex(currPlayerIndex);
   }
@@ -106,8 +108,25 @@ public class EliminatePlayerSteps {
 
   @Then("the turn is advanced to the next player")
   public void the_turn_is_advanced_to_the_next_player() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    boolean isReversed = turnManager.gameEngine.isTurnOrderReversed;
+
+    int expectedNewIndex;
+    if (isReversed) {
+      // if reversed, index should decrement by one (and wrap around)
+      expectedNewIndex = initialPlayerIndex - 1;
+      if (expectedNewIndex < 0) {
+        expectedNewIndex = turnManager.gameEngine.getNumberOfPlayers() - 1;
+      }
+    } else {
+      // if not reversed, index should stay the same (and wrap around)
+      expectedNewIndex = initialPlayerIndex;
+      if (expectedNewIndex == turnManager.gameEngine.getNumberOfPlayers()) {
+        expectedNewIndex = 0;
+      }
+    }
+
+    int actualNewIndex = turnManager.currPlayerIndex;
+    assertEquals(expectedNewIndex, actualNewIndex);
   }
 
   @Then("the exploding kitten is removed from the draw pile")
