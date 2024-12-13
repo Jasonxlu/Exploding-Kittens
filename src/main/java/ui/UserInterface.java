@@ -68,7 +68,7 @@ public class UserInterface {
    * @return the number of players as an integer between 2 and 6, inclusive
    */
   public int getNumberOfPlayers() {
-    int numOfPlayers = 0;
+    int numOfPlayers;
 
     while (true) {
       System.out.print(bundle.getString("prompt.enter_number_of_players"));
@@ -197,7 +197,7 @@ public class UserInterface {
    * @return a valid position within the range 0 to drawPileSize
    */
   public int promptPlacementForExplodeOrImplode(int drawPileSize, boolean explodingKitten) {
-    int placementIndex = -1;
+    int placementIndex;
     String cardName = explodingKitten
             ? bundle.getString("card.exploding_kitten")
             : bundle.getString("card.imploding_cat");
@@ -252,7 +252,7 @@ public class UserInterface {
   /**
    * Prompts the player to play a card.
    *
-   * @param rePrompting whether the user is reprompting.
+   * @param rePrompting whether the user is re-prompting.
    * @return the trimmed, lowercase input
    */
   public String promptPlayCard(boolean rePrompting) {
@@ -493,7 +493,7 @@ public class UserInterface {
    * @param cardName the card.
    */
   public void printAddingCardToHand(String cardName) {
-    System.out.printf(MessageFormat.format(
+    System.out.println(MessageFormat.format(
             bundle.getString("feedback.added_card_to_hand"), cardName));
   }
 
@@ -513,7 +513,7 @@ public class UserInterface {
     String cardPlural = numExtraCards == 1
             ? bundle.getString("feedback.card_singular")
             : bundle.getString("feedback.card_plural");
-    System.out.printf(MessageFormat.format(
+    System.out.println(MessageFormat.format(
             bundle.getString("feedback.attacking"), numExtraCards, cardPlural));
   }
 
@@ -595,6 +595,7 @@ public class UserInterface {
               bundle.getString("game_state.extra_turns"), numExtraCardsToDraw));
     }
 
+    System.out.print(bundle.getString("game_state.general_order"));
     if (isTurnOrderReversed) {
       for (String name : playerNames) {
         System.out.printf("<-- %s ", name);
