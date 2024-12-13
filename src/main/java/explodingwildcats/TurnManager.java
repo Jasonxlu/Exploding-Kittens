@@ -114,7 +114,7 @@ public class TurnManager {
   public void doReverse() {
     gameEngine.reverseTurnOrder();
     ui.printTurnOrderReversed();
-    endTurn(false);
+    advanceTurn(true);
   }
 
   /**
