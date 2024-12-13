@@ -514,7 +514,6 @@ public class TurnManager {
   public void doShuffle() {
     ui.printShuffling();
     gameEngine.shuffleDrawPile();
-    endTurn(false);
   }
 
   /**
