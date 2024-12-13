@@ -187,7 +187,7 @@ public class TurnManagerTests {
 
     gameEngine.reverseTurnOrder();
     ui.println("Turn order was reversed.");
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(ui, gameEngine, turnManager);
 
@@ -203,12 +203,10 @@ public class TurnManagerTests {
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
             .withConstructor(ui, gameEngine)
             .addMockedMethod("endTurn")
-            .addMockedMethod("drawAndProcessCard")
             .createMock();
 
-    boolean drawAndProcessCardParameter = true;
-    turnManager.drawAndProcessCard(drawAndProcessCardParameter);
-    turnManager.endTurn();
+    boolean endTurnParameter = true;
+    turnManager.endTurn(endTurnParameter);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doDrawFromBottom();
@@ -276,7 +274,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager, gameEngine);
 
@@ -303,7 +301,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager, gameEngine);
 
@@ -335,7 +333,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager, gameEngine);
 
@@ -687,7 +685,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void endTurn_drawCounterZero_callsAdvanceTurn() {
+  public void endTurn_drawCounterZero_notDrawFromBottom_drawsAndCallsAdvanceTurn() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
@@ -697,12 +695,14 @@ public class TurnManagerTests {
             .createMock();
 
     turnManager.numExtraCardsToDraw = 0;
+    boolean drawFromBottom = false;
 
+    turnManager.drawAndProcessCard(drawFromBottom);
     turnManager.advanceTurn(true);
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(drawFromBottom);
 
     int expected = 0;
     int actual = turnManager.numExtraCardsToDraw;
@@ -712,7 +712,34 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void endTurn_drawCounterOne_callsDrawAndProcessCard() {
+  public void endTurn_drawCounterZero_drawFromBottom_drawsAndCallsAdvanceTurn() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .addMockedMethod("drawAndProcessCard")
+            .createMock();
+
+    turnManager.numExtraCardsToDraw = 0;
+    boolean drawFromBottom = true;
+
+    turnManager.drawAndProcessCard(drawFromBottom);
+    turnManager.advanceTurn(true);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.endTurn(drawFromBottom);
+
+    int expected = 0;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void endTurn_drawCounterOne_notDrawFromBottom_callsDrawAndProcessCard() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
@@ -722,12 +749,13 @@ public class TurnManagerTests {
             .createMock();
 
     turnManager.numExtraCardsToDraw = 1;
+    boolean drawFromBottom = false;
 
-    turnManager.drawAndProcessCard(false);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(drawFromBottom);
 
     int expected = 0;
     int actual = turnManager.numExtraCardsToDraw;
@@ -737,7 +765,33 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void endTurn_drawCounterGreaterThanOne_callsDrawAndProcessCard() {
+  public void endTurn_drawCounterOne_drawFromBottom_callsDrawAndProcessCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .addMockedMethod("drawAndProcessCard")
+            .createMock();
+
+    turnManager.numExtraCardsToDraw = 1;
+    boolean drawFromBottom = true;
+
+    turnManager.drawAndProcessCard(drawFromBottom);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.endTurn(drawFromBottom);
+
+    int expected = 0;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void endTurn_drawCounterGreaterThanOne_notDrawFromBottom_callsDrawAndProcessCard() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
@@ -747,12 +801,13 @@ public class TurnManagerTests {
             .createMock();
 
     turnManager.numExtraCardsToDraw = 3;
+    boolean drawFromBottom = false;
 
-    turnManager.drawAndProcessCard(false);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(drawFromBottom);
 
     int expected = 2;
     int actual = turnManager.numExtraCardsToDraw;
@@ -762,7 +817,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void endTurn_drawCounterMaxValue_callsDrawAndProcessCard() {
+  public void endTurn_drawCounterGreaterThanOne_drawFromBottom_callsDrawAndProcessCard() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
@@ -771,15 +826,68 @@ public class TurnManagerTests {
             .addMockedMethod("drawAndProcessCard")
             .createMock();
 
-    turnManager.numExtraCardsToDraw = 7;
+    turnManager.numExtraCardsToDraw = 3;
+    boolean drawFromBottom = true;
 
-    turnManager.drawAndProcessCard(false);
+    turnManager.drawAndProcessCard(drawFromBottom);
 
     EasyMock.replay(gameEngine, turnManager);
 
-    turnManager.endTurn();
+    turnManager.endTurn(drawFromBottom);
 
-    int expected = 6;
+    int expected = 2;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void endTurn_drawCounterMaxValue_notDrawFromBottom_callsDrawAndProcessCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .addMockedMethod("drawAndProcessCard")
+            .createMock();
+
+    turnManager.numExtraCardsToDraw = 9;
+    boolean drawFromBottom = false;
+
+    turnManager.drawAndProcessCard(drawFromBottom);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.endTurn(drawFromBottom);
+
+    int expected = 8;
+    int actual = turnManager.numExtraCardsToDraw;
+    assertEquals(expected, actual);
+
+    EasyMock.verify(gameEngine, turnManager);
+  }
+
+  @Test
+  public void endTurn_drawCounterMaxValue_drawFromBottom_callsDrawAndProcessCard() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+            .withConstructor(ui, gameEngine)
+            .addMockedMethod("advanceTurn")
+            .addMockedMethod("drawAndProcessCard")
+            .createMock();
+
+    turnManager.numExtraCardsToDraw = 9;
+    boolean drawFromBottom = true;
+
+    turnManager.drawAndProcessCard(drawFromBottom);
+
+    EasyMock.replay(gameEngine, turnManager);
+
+    turnManager.endTurn(drawFromBottom);
+
+    int expected = 8;
     int actual = turnManager.numExtraCardsToDraw;
     assertEquals(expected, actual);
 
@@ -1122,7 +1230,7 @@ public class TurnManagerTests {
 
     int extraCards = 0;
     turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.endTurn();
+    turnManager.endTurn(false);
 
     EasyMock.replay(turnManager);
 
@@ -1304,7 +1412,7 @@ public class TurnManagerTests {
 
     EasyMock.expect(ui.promptPlayCard(false)).andReturn("");
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1393,7 +1501,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(false)).andReturn(newUserInput);
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1434,7 +1542,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(rePrompting)).andReturn(newUserInput);
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1473,7 +1581,7 @@ public class TurnManagerTests {
     turnManager.printPlayerHand(turnManager.currPlayerIndex);
     String newUserInput = "";
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn(newUserInput);
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1744,7 +1852,7 @@ public class TurnManagerTests {
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
@@ -1780,7 +1888,7 @@ public class TurnManagerTests {
 
     EasyMock.expect(ui.promptPlayCard(isRePrompting)).andReturn("");
 
-    turnManager.endTurn();
+    turnManager.endTurn(false);
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
       return null;
