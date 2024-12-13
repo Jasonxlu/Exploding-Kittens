@@ -210,8 +210,8 @@ public class TurnManager {
 
   /**
    * Ends a player's turn.
-   * 
-   * @param drawFromBottom whether to draw from the bottom of the draw pile
+   *
+   * @param drawFromBottom whether to draw from the bottom of the draw pile.
    */
   public void endTurn(boolean drawFromBottom) {
     if (numExtraCardsToDraw > 0) {
@@ -382,8 +382,8 @@ public class TurnManager {
     if (isImplodingCatFaceUp) {
       // check if imploding kitten is the top card.
       Card[] topCards = gameEngine.peekDrawPile();
-      printImplodingIsNext = topCards.length > 0 &&
-              topCards[0] == Card.IMPLODE;
+      printImplodingIsNext = topCards.length > 0
+              && topCards[0] == Card.IMPLODE;
     }
     ui.printGameState(playerName,
             playerNames,
