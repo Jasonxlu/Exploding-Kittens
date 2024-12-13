@@ -432,7 +432,7 @@ public class UserInterface {
     }
     return normalised;
   }
-  
+
   /**
    * Prints information about the current state of the game.
    */
@@ -441,9 +441,11 @@ public class UserInterface {
                              int numExtraCardsToDraw,
                              boolean isTurnOrderReversed,
                              boolean printImplodingKittenIsNext) {
-    System.out.printf("%s, it's your turn.%n", playerName);
+    System.out.println(MessageFormat.format(
+            bundle.getString("game_state.current_turn"), playerName));
     if (numExtraCardsToDraw > 0) {
-      System.out.printf("You must take %d extra turns.%n", numExtraCardsToDraw);
+      System.out.println(MessageFormat.format(
+              bundle.getString("game_state.extra_turns"), numExtraCardsToDraw));
     }
 
     if (isTurnOrderReversed) {
@@ -460,7 +462,7 @@ public class UserInterface {
     System.out.println();
 
     if (printImplodingKittenIsNext) {
-      System.out.println("The imploding kitten is at the top of the draw pile.");
+      System.out.println(bundle.getString("game_state.imploding_cat_warning"));
     }
   }
 }
