@@ -18,17 +18,19 @@ Feature: Eliminate Player
     And the current player has no defuses
     When the player draws a card to end their turn
     Then the player is removed from the game
-    And the turn is advanced to the next player
+    And the current player index changes to <newCurrPlayerIndex>
     And the exploding kitten is removed from the draw pile
 
   Examples:
-    |numPlayers|currPlayerIndex|turnOrderIsReversed|
-    |2         |0              |false              |
-    |3         |2              |false              |
-    |6         |0              |false              |
-    |2         |0              |true               |
-    |4         |3              |true               |
-    |6         |5              |true               |
+    |numPlayers|currPlayerIndex|turnOrderIsReversed|newCurrPlayerIndex|
+    |2         |0              |false              |0                 |
+    |3         |2              |false              |0                 |
+    |4         |2              |false              |2                 |
+    |6         |0              |false              |0                 |
+    |2         |0              |true               |0                 |
+    |3         |0              |true               |1                 |
+    |4         |3              |true               |2                 |
+    |6         |5              |true               |4                 |
 
 
   Scenario Outline: Player is eliminated by imploding kitten
@@ -39,14 +41,16 @@ Feature: Eliminate Player
     And the current player has defuses
     When the player draws a card to end their turn
     Then the player is removed from the game
-    And the turn is advanced to the next player
+    And the current player index changes to <newCurrPlayerIndex>
     And the imploding kitten is removed from the draw pile
 
   Examples:
-    |numPlayers|currPlayerIndex|turnOrderIsReversed|
-    |2         |0              |false              |
-    |3         |2              |false              |
-    |6         |0              |false              |
-    |2         |0              |true               |
-    |4         |3              |true               |
-    |6         |5              |true               |
+    |numPlayers|currPlayerIndex|turnOrderIsReversed|newCurrPlayerIndex|
+    |2         |0              |false              |0                 |
+    |3         |2              |false              |0                 |
+    |4         |2              |false              |2                 |
+    |6         |0              |false              |0                 |
+    |2         |0              |true               |0                 |
+    |3         |0              |true               |1                 |
+    |4         |3              |true               |2                 |
+    |6         |5              |true               |4                 |
