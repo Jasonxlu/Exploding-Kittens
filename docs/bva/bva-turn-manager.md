@@ -301,23 +301,23 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 ### Step 4:
 ##### All-combination or each-choice: all-combination
 
-|              | System under test                             | Expected output                            | Implemented? |
-|--------------|-----------------------------------------------|--------------------------------------------|--------------|
-| Test Case 1  | "attack", input 2: ATTACK                     | Card.ATTACK                                | no           |
-| Test Case 2  | "skip", input 2: SKIP                         | Card.ATTACK                                | no           |
-| Test Case 3  | "targeted attack", input 2: TARGETED_ATTACK   | Card.TARGETED_ATTACK                       | no           |
-| Test Case 4  | "shuffle", input 2: SHUFFLE                   | Card.SHUFFLE                               | no           |
-| Test Case 5  | "see the future", input 2: SEE_THE_FUTURE     | Card.SEE_THE_FUTURE                        | no           |
-| Test Case 6  | "reverse", input 2: REVERSE                   | Card.REVERSE                               | no           |
-| Test Case 7  | "draw from bottom", input 2: DRAW_FROM_BOTTOM | Card.DRAW_FROM_BOTTOM                      | no           |
-| Test Case 8  | "alter the future", input 2: ALTER_THE_FUTURE | Card.ALTER_THE_FUTURE                      | no           |
-| Test Case 9  | "invalid", input 2: throws exception          | IllegalArgumentException                   | no           |
-| Test Case 10 | "nope", input 2: NOPE                         | IllegalArgumentException + calls ui print  | no           |
-| Test Case 11 | "taco cat", input 2: TACO_CAT                 | IllegalArgumentException + calls ui print  | no           |
-| Test Case 12 | "beard cat", input 2: BEARD_CAT               | IllegalArgumentException + calls ui print  | no           |
-| Test Case 13 | "rainbow cat", input 2: RAINBOW CAT           | IllegalArgumentException + calls ui print  | no           |
-| Test Case 14 | "feral cat", input 2: FERAL CAT               | IllegalArgumentException + calls ui print  | no           |
-| Test Case 15 | "hairy potato cat", input 2: HAIRY POTATO CAT | IllegalArgumentException + calls ui print  | no           |
+|              | System under test                             | Expected output                           | Implemented? |
+|--------------|-----------------------------------------------|-------------------------------------------|--------------|
+| Test Case 1  | "attack", input 2: ATTACK                     | Card.ATTACK                               | yes          |
+| Test Case 2  | "skip", input 2: SKIP                         | Card.SKIP                                 | yes          |
+| Test Case 3  | "targeted attack", input 2: TARGETED_ATTACK   | Card.TARGETED_ATTACK                      | no           |
+| Test Case 4  | "shuffle", input 2: SHUFFLE                   | Card.SHUFFLE                              | no           |
+| Test Case 5  | "see the future", input 2: SEE_THE_FUTURE     | Card.SEE_THE_FUTURE                       | no           |
+| Test Case 6  | "reverse", input 2: REVERSE                   | Card.REVERSE                              | no           |
+| Test Case 7  | "draw from bottom", input 2: DRAW_FROM_BOTTOM | Card.DRAW_FROM_BOTTOM                     | no           |
+| Test Case 8  | "alter the future", input 2: ALTER_THE_FUTURE | Card.ALTER_THE_FUTURE                     | no           |
+| Test Case 9  | "invalid", input 2: throws exception          | IllegalArgumentException                  | no           |
+| Test Case 10 | "nope", input 2: NOPE                         | IllegalArgumentException + calls ui print | no           |
+| Test Case 11 | "taco cat", input 2: TACO_CAT                 | IllegalArgumentException + calls ui print | no           |
+| Test Case 12 | "beard cat", input 2: BEARD_CAT               | IllegalArgumentException + calls ui print | no           |
+| Test Case 13 | "rainbow cat", input 2: RAINBOW CAT           | IllegalArgumentException + calls ui print | no           |
+| Test Case 14 | "feral cat", input 2: FERAL CAT               | IllegalArgumentException + calls ui print | no           |
+| Test Case 15 | "hairy potato cat", input 2: HAIRY POTATO CAT | IllegalArgumentException + calls ui print | no           |
 
 
 ## Method 17: ```public void playCardLoop()```
