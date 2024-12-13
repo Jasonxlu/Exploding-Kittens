@@ -20,6 +20,8 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
+    ui.printAlteringTheFuture();
+
     Card cardPeeked = Card.SKIP;
     Card[] peekedCards = new Card[] { cardPeeked };
 
@@ -49,6 +51,8 @@ public class TurnManagerTests {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    ui.printAlteringTheFuture();
 
     Card topCardPeeked = Card.NOPE;
     Card secondCardPeeked = Card.ATTACK;
@@ -80,6 +84,8 @@ public class TurnManagerTests {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    ui.printAlteringTheFuture();
 
     Card topCardPeeked = Card.IMPLODE;
     Card secondCardPeeked = Card.DEFUSE;
@@ -113,6 +119,8 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
+    ui.printSeeingTheFuture();
+
     Card cardPeeked = Card.TARGETED_ATTACK;
     Card[] peekedCards = new Card[] { cardPeeked };
 
@@ -134,6 +142,8 @@ public class TurnManagerTests {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    ui.printSeeingTheFuture();
 
     Card topCardPeeked = Card.DEFUSE;
     Card secondCardPeeked = Card.IMPLODE;
@@ -157,6 +167,8 @@ public class TurnManagerTests {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    ui.printSeeingTheFuture();
 
     Card topCardPeeked = Card.NOPE;
     Card secondCardPeeked = Card.EXPLODE;
@@ -186,7 +198,8 @@ public class TurnManagerTests {
             .createMock();
 
     gameEngine.reverseTurnOrder();
-    ui.println("Turn order was reversed.");
+    ui.printTurnOrderReversed();
+
     turnManager.endTurn(false);
 
     EasyMock.replay(ui, gameEngine, turnManager);
@@ -224,12 +237,14 @@ public class TurnManagerTests {
             .addMockedMethod("advanceTurn")
             .createMock();
 
+    int expectedNumExtraCardsToDraw = 1;
+    ui.printAttacking(expectedNumExtraCardsToDraw);
+
     turnManager.advanceTurn(true);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
 
-    int expectedNumExtraCardsToDraw = 1;
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
@@ -246,14 +261,17 @@ public class TurnManagerTests {
             .addMockedMethod("advanceTurn")
             .createMock();
 
+
     turnManager.numExtraCardsToDraw = 7;
+    int expectedNumExtraCardsToDraw = 9;
+
+    ui.printAttacking(expectedNumExtraCardsToDraw);
 
     turnManager.advanceTurn(true);
     EasyMock.replay(ui, gameEngine, turnManager);
 
     turnManager.doAttack();
 
-    int expectedNumExtraCardsToDraw = 9;
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
@@ -270,6 +288,8 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .createMock();
 
+    ui.printShuffling();
+
     // One card in the draw pile
     Card[] drawPile = new Card[] { Card.DEFUSE };
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
@@ -277,7 +297,7 @@ public class TurnManagerTests {
     gameEngine.shuffleDrawPile();
     turnManager.endTurn(false);
 
-    EasyMock.replay(turnManager, gameEngine);
+    EasyMock.replay(turnManager, gameEngine, ui);
 
     turnManager.doShuffle();
 
@@ -285,7 +305,7 @@ public class TurnManagerTests {
     Card[] actualDrawPile = gameEngine.getDrawPile();
     assertEquals(drawPile.length, actualDrawPile.length);
 
-    EasyMock.verify(turnManager, gameEngine);
+    EasyMock.verify(turnManager, gameEngine, ui);
   }
 
   @Test
@@ -298,13 +318,15 @@ public class TurnManagerTests {
             .createMock();
 
 
+    ui.printShuffling();
+
     Card[] drawPile = new Card[] { Card.ATTACK, Card.REVERSE, Card.NOPE };
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(drawPile);
 
     gameEngine.shuffleDrawPile();
     turnManager.endTurn(false);
 
-    EasyMock.replay(turnManager, gameEngine);
+    EasyMock.replay(turnManager, gameEngine, ui);
 
     turnManager.doShuffle();
 
@@ -312,7 +334,7 @@ public class TurnManagerTests {
     Card[] actualDrawPile = gameEngine.getDrawPile();
     assertEquals(drawPile.length, actualDrawPile.length);
 
-    EasyMock.verify(turnManager, gameEngine);
+    EasyMock.verify(turnManager, gameEngine, ui);
   }
 
   @Test
@@ -324,6 +346,7 @@ public class TurnManagerTests {
             .addMockedMethod("endTurn")
             .createMock();
 
+    ui.printShuffling();
 
     Card[] drawPile = new Card[] { Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK, Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK,
             Card.SKIP, Card.ATTACK, Card.TARGETED_ATTACK, Card.SHUFFLE, Card.SEE_THE_FUTURE, Card.NOPE, Card.REVERSE, Card.DRAW_FROM_BOTTOM,
@@ -336,7 +359,7 @@ public class TurnManagerTests {
     gameEngine.shuffleDrawPile();
     turnManager.endTurn(false);
 
-    EasyMock.replay(turnManager, gameEngine);
+    EasyMock.replay(turnManager, gameEngine, ui);
 
     turnManager.doShuffle();
 
@@ -344,7 +367,7 @@ public class TurnManagerTests {
     Card[] actualDrawPile = gameEngine.getDrawPile();
     assertEquals(drawPile.length, actualDrawPile.length);
 
-    EasyMock.verify(turnManager, gameEngine);
+    EasyMock.verify(turnManager, gameEngine, ui);
   }
 
 
@@ -472,12 +495,15 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.popTopCard()).andReturn(regularCard);
     turnManager.handleRegularCard(regularCard);
 
-    EasyMock.replay(gameEngine, turnManager);
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
 
-    boolean result = turnManager.drawAndProcessCard(false);
+    EasyMock.replay(gameEngine, turnManager, ui);
+
+    boolean result = turnManager.drawAndProcessCard(drawFromBottom);
     assertFalse(result);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -491,17 +517,20 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = true;
+    ui.printDrawingCard(drawFromBottom);
+
     Card regularCard = Card.SKIP;
 
     EasyMock.expect(gameEngine.popBottomCard()).andReturn(regularCard);
     turnManager.handleRegularCard(regularCard);
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    boolean result = turnManager.drawAndProcessCard(true);
+    boolean result = turnManager.drawAndProcessCard(drawFromBottom);
     assertFalse(result);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -515,18 +544,21 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
+
     Card explodingCard = Card.EXPLODE;
 
     EasyMock.expect(gameEngine.popTopCard()).andReturn(explodingCard);
     boolean eliminated = true;
     EasyMock.expect(turnManager.handleExplodingKitten()).andReturn(eliminated);
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     boolean result = turnManager.drawAndProcessCard(false);
     assertEquals(eliminated, result);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -540,18 +572,21 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = true;
+    ui.printDrawingCard(drawFromBottom);
+
     Card explodingCard = Card.EXPLODE;
 
     EasyMock.expect(gameEngine.popBottomCard()).andReturn(explodingCard);
     boolean eliminated = true;
     EasyMock.expect(turnManager.handleExplodingKitten()).andReturn(eliminated);
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    boolean result = turnManager.drawAndProcessCard(true);
+    boolean result = turnManager.drawAndProcessCard(drawFromBottom);
     assertEquals(eliminated, result);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -565,6 +600,9 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
+
     Card implodingCard = Card.IMPLODE;
 
     EasyMock.expect(gameEngine.popTopCard()).andReturn(implodingCard);
@@ -572,12 +610,12 @@ public class TurnManagerTests {
     boolean eliminated = true;
     EasyMock.expect(turnManager.handleImplodingCat()).andReturn(eliminated);
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    boolean result = turnManager.drawAndProcessCard(false);
+    boolean result = turnManager.drawAndProcessCard(drawFromBottom);
     assertEquals(eliminated, result);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -591,6 +629,9 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
+    boolean drawFromBottom = true;
+    ui.printDrawingCard(drawFromBottom);
+
     Card implodingCard = Card.IMPLODE;
 
     EasyMock.expect(gameEngine.popBottomCard()).andReturn(implodingCard);
@@ -598,12 +639,12 @@ public class TurnManagerTests {
     boolean eliminated = true;
     EasyMock.expect(turnManager.handleImplodingCat()).andReturn(eliminated);
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
-    boolean result = turnManager.drawAndProcessCard(true);
+    boolean result = turnManager.drawAndProcessCard(drawFromBottom);
     assertEquals(eliminated, result);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -616,6 +657,9 @@ public class TurnManagerTests {
             .addMockedMethod("handleExplodingKitten")
             .addMockedMethod("handleImplodingCat")
             .createMock();
+
+    boolean drawFromBottom = false;
+    ui.printDrawingCard(drawFromBottom);
 
     Card regularCard = Card.SKIP;
     String errorMessage = "Cannot add this card type to a player's hand";
@@ -694,6 +738,8 @@ public class TurnManagerTests {
     Player player = EasyMock.createMock(Player.class);
     Card card = Card.SKIP;
     List<Player> players = List.of(player);
+
+    ui.printAddingCardToHand(card.name());
 
     EasyMock.expect(gameEngine.getPlayers()).andReturn(players);
     player.addCardToHand(card);
@@ -1063,15 +1109,17 @@ public class TurnManagerTests {
     turnManager.currPlayerIndex = 0;
     boolean hasDefuse = false;
 
+    ui.printDrawExplodingKitten(hasDefuse);
+
     EasyMock.expect(gameEngine.playerHasCard(Card.DEFUSE, turnManager.currPlayerIndex)).andReturn(hasDefuse);
     turnManager.eliminateCurrentPlayer();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     boolean returnValue = turnManager.handleExplodingKitten();
     assertTrue(returnValue);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -1084,6 +1132,8 @@ public class TurnManagerTests {
     boolean hasDefuse = true;
     int placementLocation = 0;
     int drawPileSize = 3;
+
+    ui.printDrawExplodingKitten(hasDefuse);
 
     EasyMock.expect(gameEngine.playerHasCard(Card.DEFUSE, turnManager.currPlayerIndex)).andReturn(hasDefuse);
     gameEngine.removeCardFromPlayer(Card.DEFUSE, turnManager.currPlayerIndex);
@@ -1187,15 +1237,17 @@ public class TurnManagerTests {
     turnManager.currPlayerIndex = 0;
     turnManager.isImplodingCatFaceUp = true;
 
+    ui.printDrawImplodingKitten(turnManager.isImplodingCatFaceUp);
+
     // Expectations
     turnManager.eliminateCurrentPlayer();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     boolean returnValue = turnManager.handleImplodingCat();
     assertTrue(returnValue);
 
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -1204,10 +1256,13 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
+
     turnManager.currPlayerIndex = 0;
     turnManager.isImplodingCatFaceUp = false;
     int placementLocation = 0;
     int drawPileSize = 3;
+
+    ui.printDrawImplodingKitten(turnManager.isImplodingCatFaceUp);
 
     EasyMock.expect(gameEngine.getDrawPile()).andReturn(new Card[drawPileSize]);
     EasyMock.expect(ui.promptPlacementForExplodeOrImplode(drawPileSize, false)).andReturn(placementLocation);
@@ -1222,6 +1277,7 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, ui);
   }
 
+  @Test
   public void promptAndValidateNopePlayerAndPlayNopeIfSo_uiPromptNopeReturnsEmptyString_returnFalse() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
@@ -1253,6 +1309,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(validPlayerIndex);
     EasyMock.expect(gameEngine.getPlayerByIndex(validPlayerIndex)).andReturn(player);
     EasyMock.expect(player.removeCardFromHand(Card.NOPE)).andReturn(true);
+
+    ui.printNopePlayed();
 
     EasyMock.replay(gameEngine, ui, player);
 
@@ -1314,6 +1372,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getPlayerByIndex(validPlayerIndex2)).andReturn(player2);
     EasyMock.expect(player2.removeCardFromHand(Card.NOPE)).andReturn(true);
 
+    ui.printNopePlayed();
+
     EasyMock.replay(gameEngine, ui, player1, player2);
 
     boolean actualReturnValue = turnManager.promptAndValidateNopePlayerAndPlayNopeIfSo();
@@ -1354,30 +1414,38 @@ public class TurnManagerTests {
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = new TurnManager(ui);
 
+    ui.printSkipping();
     turnManager.numExtraCardsToDraw = 1;
 
+    EasyMock.replay(ui);
     turnManager.doSkip();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
     int expectedNumExtraCardsToDraw = 0;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+    EasyMock.verify(ui);
   }
 
   @Test
   public void doSkip_numExtraCardsToDrawTwo_numExtraCardsToDrawDecremented() {
-    TurnManager turnManager = new TurnManager();
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui);
 
     int extraCards = 2;
 
     turnManager.numExtraCardsToDraw = 2;
 
+    ui.printSkipping();
+
+    EasyMock.replay(ui);
     turnManager.doSkip();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
     int expectedNumExtraCardsToDraw = extraCards - 1;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
+    EasyMock.verify(ui);
   }
 
   @Test
@@ -1393,7 +1461,9 @@ public class TurnManagerTests {
     turnManager.numExtraCardsToDraw = extraCards;
     turnManager.endTurn(false);
 
-    EasyMock.replay(turnManager);
+    ui.printSkipping();
+
+    EasyMock.replay(turnManager, ui, gameEngine);
 
     turnManager.doSkip();
 
@@ -1401,7 +1471,7 @@ public class TurnManagerTests {
 
     assertEquals(extraCards, actualNumExtraCardsToDraw);
 
-    EasyMock.verify(turnManager);
+    EasyMock.verify(turnManager, ui, gameEngine);
   }
 
   @Test
@@ -2282,6 +2352,8 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingTargetedAttack();
+
     String invalidPlayerName = "";
     int currPlayerIndex = 3;
     int expectedPlayerIndex = 0;
@@ -2294,6 +2366,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.getPlayerIndexByName(invalidPlayerName)).andThrow(new NoSuchElementException("No player with that name could be found."));
     EasyMock.expect(ui.promptTargetedAttack(true)).andReturn("John");
     EasyMock.expect(gameEngine.getPlayerIndexByName("John")).andReturn(expectedPlayerIndex);
+
+    ui.printTargetedAttackResult(extraCards + 1);
 
     EasyMock.replay(ui, gameEngine, turnManager);
 
@@ -2319,6 +2393,8 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingTargetedAttack();
+
     String validPlayerName = "John";
     int extraCards = 0;
     int currPlayerIndex = 0;
@@ -2330,15 +2406,19 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(validPlayerName);
     EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(expectedPlayerIndex);
 
-    EasyMock.replay(ui, gameEngine, turnManager);
-
     turnManager.numExtraCardsToDraw = extraCards;
     turnManager.currPlayerIndex = currPlayerIndex;
+
+    int expectedNumExtraCardsToDraw = extraCards + 1;
+    ui.printTargetedAttackResult(expectedNumExtraCardsToDraw);
+
+    EasyMock.replay(ui, gameEngine, turnManager);
+
+
     turnManager.doTargetedAttack();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
     int actualPlayerIndex = turnManager.currPlayerIndex;
-    int expectedNumExtraCardsToDraw = extraCards + 1;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
     assertEquals(expectedPlayerIndex, actualPlayerIndex);
@@ -2355,10 +2435,15 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingTargetedAttack();
+
     String validPlayerName = "Jane";
     int extraCards = 7;
     int currPlayerIndex = 2;
     int expectedPlayerIndex = 4;
+
+    turnManager.numExtraCardsToDraw = extraCards;
+    turnManager.currPlayerIndex = currPlayerIndex;
 
     turnManager.printPlayers();
     EasyMock.expectLastCall();
@@ -2366,15 +2451,15 @@ public class TurnManagerTests {
     EasyMock.expect(ui.promptTargetedAttack(false)).andReturn(validPlayerName);
     EasyMock.expect(gameEngine.getPlayerIndexByName(validPlayerName)).andReturn(expectedPlayerIndex);
 
+    int expectedNumExtraCardsToDraw = 9;
+    ui.printTargetedAttackResult(expectedNumExtraCardsToDraw);
+
     EasyMock.replay(ui, gameEngine, turnManager);
 
-    turnManager.numExtraCardsToDraw = extraCards;
-    turnManager.currPlayerIndex = currPlayerIndex;
     turnManager.doTargetedAttack();
 
     int actualNumExtraCardsToDraw = turnManager.numExtraCardsToDraw;
     int actualPlayerIndex = turnManager.currPlayerIndex;
-    int expectedNumExtraCardsToDraw = extraCards + 2;
 
     assertEquals(expectedNumExtraCardsToDraw, actualNumExtraCardsToDraw);
     assertEquals(expectedPlayerIndex, actualPlayerIndex);
@@ -2549,6 +2634,8 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingCardCombo(2);
+
     String invalidTargetName = "";
     String invalidCardName = "explode";
     String targetName = "John";
@@ -2610,6 +2697,8 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingCardCombo(2);
+
     String invalidTargetName = "invalid";
     String targetName = "Jane";
     String cardName = "skip";
@@ -2666,6 +2755,8 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingCardCombo(2);
+
     String targetName = "John";
 
     int targetIndex = 3;
@@ -2693,6 +2784,7 @@ public class TurnManagerTests {
     EasyMock.verify(ui, gameEngine, targetPlayer, turnManager);
   }
 
+
   @Test
   public void do2CardCombo_validTargetName_validCardName_targetHandMaxCards_modifyBothPlayerHands() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
@@ -2702,6 +2794,8 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayerHand")
             .addMockedMethod("printPlayers")
             .createMock();
+
+    ui.printDoingCardCombo(2);
 
     String targetName = "Jane";
     String cardName = "shuffle";
@@ -2766,6 +2860,8 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayerHand")
             .addMockedMethod("printPlayers")
             .createMock();
+
+    ui.printDoingCardCombo(2);
 
     String missingCardName = "exploding kitten";
     String currPlayerName = "John";
@@ -2832,6 +2928,7 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingCardCombo(3);
 
     String invalidTargetName = "";
     String invalidCardName = "explode";
@@ -2889,6 +2986,7 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingCardCombo(3);
 
     String invalidTargetName = "invalid";
     String targetName = "Jane";
@@ -2943,6 +3041,7 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingCardCombo(3);
 
     String targetName = "John";
 
@@ -2980,6 +3079,7 @@ public class TurnManagerTests {
             .addMockedMethod("printPlayers")
             .createMock();
 
+    ui.printDoingCardCombo(3);
 
     String targetName = "Jane";
     String cardName = "shuffle";
@@ -3041,6 +3141,8 @@ public class TurnManagerTests {
             .withConstructor(ui, gameEngine)
             .addMockedMethod("printPlayers")
             .createMock();
+
+    ui.printDoingCardCombo(3);
 
     String missingCardName = "exploding kitten";
     String currName = "John";
@@ -3302,6 +3404,7 @@ public class TurnManagerTests {
             .addMockedMethod("advanceTurn")
             .createMock();
 
+
     // Class state set up
     turnManager.currPlayerIndex = -1;
 
@@ -3344,18 +3447,23 @@ public class TurnManagerTests {
 
     // Test Input
     int playerIndex = 0;
+    String playerName = "name";
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(player.getName()).andReturn(playerName);
 
     // Expectations
     gameEngine.eliminatePlayer(playerIndex);
     turnManager.advanceTurn(false);
 
-    EasyMock.replay(gameEngine, turnManager);
+    ui.printPlayerEliminated();
+
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     // Test
     turnManager.eliminateCurrentPlayer();
 
     // Verification
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test
@@ -3376,14 +3484,15 @@ public class TurnManagerTests {
     // Expectations
     gameEngine.eliminatePlayer(playerIndex);
     turnManager.advanceTurn(false);
+    ui.printPlayerEliminated();
 
-    EasyMock.replay(gameEngine, turnManager);
+    EasyMock.replay(gameEngine, turnManager, ui);
 
     // Test
     turnManager.eliminateCurrentPlayer();
 
     // Verification
-    EasyMock.verify(gameEngine, turnManager);
+    EasyMock.verify(gameEngine, turnManager, ui);
   }
 
   @Test

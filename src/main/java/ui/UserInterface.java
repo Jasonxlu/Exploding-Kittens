@@ -96,7 +96,9 @@ public class UserInterface {
     boolean orderSet = false;
     while (!orderSet) {
       orderSet = true;
-      String[] enteredOrder = scanner.nextLine().trim().split(",");
+      String enteredOrderStr = scanner.nextLine();
+      String[] enteredOrder = enteredOrderStr.trim().split(",");
+      System.out.println(enteredOrder.length);
       if (enteredOrder.length != numToReorder) {
         orderSet = false;
         System.out.println("Error: Please enter exactly " + numToReorder + " numbers.");
@@ -378,7 +380,144 @@ public class UserInterface {
   }
 
   /**
+<<<<<<< HEAD
+  * Prints seeing the future.
+  */
+  public void printSeeingTheFuture() {
+    System.out.println("Seeing the future...");
+  }
+
+  /**
+   * Prints altering the future.
+   */
+  public void printAlteringTheFuture() {
+    System.out.println("Altering the future...");
+  }
+
+  /**
+   * Prints drawing a card.
+   * @param fromBottom whether the player drew from the bottom.
+   */
+  public void printDrawingCard(boolean fromBottom) {
+    if (fromBottom) {
+      System.out.println("Drawing a card from the bottom...");
+    } else {
+      System.out.println("Drawing a card...");
+    }
+  }
+
+  /**
+   * Prints drawing an exploding kitten.
+   * @param hasDefuse whether the player has a defuse card.
+   */
+  public void printDrawExplodingKitten(boolean hasDefuse) {
+    System.out.println("Oh no! You drew an exploding kitten!");
+    if (hasDefuse) {
+      System.out.println("Using your defuse! "
+              + "Choose where to place the exploding kitten in the draw pile.");
+    }
+  }
+
+  /**
+   * Prints drawing an imploding kitten.
+   * @param isFaceUp whether it was face up already.
+   */
+  public void printDrawImplodingKitten(boolean isFaceUp) {
+    if (isFaceUp) {
+      System.out.println("Oh no! You drew an imploding kitten and it was face up!");
+    } else {
+      System.out.println("You drew an imploding kitten!"
+              + "Choose where to place the imploding kitten face up in the draw pile.");
+    }
+  }
+
+  /**
+   * Prints adding a card to your hand.
+   * @param cardName the card.
+   */
+  public void printAddingCardToHand(String cardName) {
+    System.out.printf("Added a %s to your hand.%n", cardName);
+  }
+
+  /**
+   * Prints reversing the turn order
+   */
+  public void printTurnOrderReversed() {
+    System.out.println("Turn order was reversed.");
+  }
+
+  /**
+   * Prints attacking.
+   * @param numExtraCards the number of extra cards to draw after the attack.
+   */
+  public void printAttacking(int numExtraCards) {
+    String cardPlural = numExtraCards == 1 ? "card" : "cards";
+    System.out.printf("Attacking! The next player has to draw %d extra %s.%n", numExtraCards, cardPlural);
+  }
+
+  /**
+   * Prints shuffling.
+   */
+  public void printShuffling() {
+    System.out.println("Shuffling the draw pile...");
+  }
+
+  /**
+   * Prints skipping.
+   */
+  public void printSkipping() {
+    System.out.println("Skipping your turn...");
+  }
+
+  /**
+   * Prints doing a targeted attack.
+   */
+  public void printDoingTargetedAttack() {
+    System.out.println("Doing a targeted attack...");
+  }
+
+  /**
+   * Prints doing a targeted attack result.
+   * @param numExtraCards the number of extra cards to draw after the attack.
+   */
+  public void printTargetedAttackResult(int numExtraCards) {
+    String cardPlural = numExtraCards == 1 ? "card" : "cards";
+    System.out.printf("Did a targeted attack! The next player has to draw %d extra %s.%n",
+            numExtraCards,
+            cardPlural);
+  }
+
+  /**
+   * Prints doing an n-card combo.
+   * @param numCards number of cards.
+   */
+  public void printDoingCardCombo(int numCards) {
+    System.out.printf("Doing a %d-card combo. Select a victim:%n", numCards);
+  }
+
+  /**
+   * Prints doing a 3 card combo on a target.
+   */
+  public void printNopePlayed() {
+    System.out.println("Played a Nope card!");
+  }
+
+  /**
+   * Prints that the current player was eliminated.
+   */
+  public void printPlayerEliminated() {
+    System.out.println("You have been eliminated.");
+  }
+
+  /**
    * Prints information about the current state of the game.
+   *
+   * @param playerName the player name.
+   * @param playerNames all the players' names.
+   * @param numExtraCardsToDraw the number of extra cards to draw.
+   * @param isTurnOrderReversed whether the turn order is currently reversed.
+   * @param printImplodingKittenIsNext whether to print that the imploding kitten is
+   *                                   at the top of the draw pile.
    */
   public void printGameState(String playerName,
                              String[] playerNames,
