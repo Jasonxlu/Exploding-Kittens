@@ -380,7 +380,6 @@ public class UserInterface {
   }
 
   /**
-<<<<<<< HEAD
   * Prints seeing the future.
   */
   public void printSeeingTheFuture() {
@@ -396,6 +395,7 @@ public class UserInterface {
 
   /**
    * Prints drawing a card.
+   *
    * @param fromBottom whether the player drew from the bottom.
    */
   public void printDrawingCard(boolean fromBottom) {
@@ -408,6 +408,7 @@ public class UserInterface {
 
   /**
    * Prints drawing an exploding kitten.
+   *
    * @param hasDefuse whether the player has a defuse card.
    */
   public void printDrawExplodingKitten(boolean hasDefuse) {
@@ -420,6 +421,7 @@ public class UserInterface {
 
   /**
    * Prints drawing an imploding kitten.
+   *
    * @param isFaceUp whether it was face up already.
    */
   public void printDrawImplodingKitten(boolean isFaceUp) {
@@ -433,6 +435,7 @@ public class UserInterface {
 
   /**
    * Prints adding a card to your hand.
+   *
    * @param cardName the card.
    */
   public void printAddingCardToHand(String cardName) {
@@ -440,7 +443,7 @@ public class UserInterface {
   }
 
   /**
-   * Prints reversing the turn order
+   * Prints reversing the turn order.
    */
   public void printTurnOrderReversed() {
     System.out.println("Turn order was reversed.");
@@ -448,11 +451,13 @@ public class UserInterface {
 
   /**
    * Prints attacking.
+   *
    * @param numExtraCards the number of extra cards to draw after the attack.
    */
   public void printAttacking(int numExtraCards) {
     String cardPlural = numExtraCards == 1 ? "card" : "cards";
-    System.out.printf("Attacking! The next player has to draw %d extra %s.%n", numExtraCards, cardPlural);
+    System.out.printf("Attacking! The next player has to draw %d extra %s.%n",
+            numExtraCards, cardPlural);
   }
 
   /**
@@ -478,6 +483,7 @@ public class UserInterface {
 
   /**
    * Prints doing a targeted attack result.
+   *
    * @param numExtraCards the number of extra cards to draw after the attack.
    */
   public void printTargetedAttackResult(int numExtraCards) {
@@ -489,6 +495,7 @@ public class UserInterface {
 
   /**
    * Prints doing an n-card combo.
+   *
    * @param numCards number of cards.
    */
   public void printDoingCardCombo(int numCards) {
