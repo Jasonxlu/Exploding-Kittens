@@ -1620,13 +1620,19 @@ public class TurnManagerTests {
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
     String cardName = "invalid";
+    String exceptionMessage = "Could not parse input.";
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andThrow(
+            new IllegalArgumentException(exceptionMessage));
+
+    EasyMock.replay(gameEngine);
+
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       turnManager.getPlayableCard(cardName);
     });
 
-    String expectedMessage = "Could not parse input.";
     String actualMessage = exception.getMessage();
-    assertEquals(expectedMessage, actualMessage);
+    assertEquals(exceptionMessage, actualMessage);
+    EasyMock.verify(gameEngine);
   }
 
   @Test
