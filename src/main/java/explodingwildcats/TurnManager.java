@@ -377,7 +377,6 @@ public class TurnManager {
    * Does the effect of a draw from bottom card.
    */
   public void doDrawFromBottom() {
-    drawAndProcessCard(true);
     endTurn(true);
   }
 
