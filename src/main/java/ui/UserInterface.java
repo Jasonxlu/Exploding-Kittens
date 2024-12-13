@@ -257,8 +257,8 @@ public class UserInterface {
     String printMessage = rePrompting
             ? bundle.getString("prompt.play_card_reprompt")
             : bundle.getString("prompt.play_card");
-
     System.out.println(printMessage);
+
     String card = scanner.nextLine().trim().toLowerCase();
     return normaliseInput(card);
   }
@@ -271,7 +271,7 @@ public class UserInterface {
    */
   public String[] promptPlayComboCards(int numToPlay) {
     String[] cards = new String[numToPlay];
-    System.out.println(bundle.getString("prompt.play_combo_cards"));
+    System.out.println("Which cards do you want to play?");
     for (int i = 0; i < numToPlay; i++) {
       System.out.printf(MessageFormat.format(
               bundle.getString("prompt.combo_card_number"), i + 1));
