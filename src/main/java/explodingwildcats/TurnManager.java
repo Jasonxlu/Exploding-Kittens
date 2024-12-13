@@ -198,6 +198,7 @@ public class TurnManager {
 
   /**
    * Ends a player's turn.
+   * 
    * @param drawFromBottom whether to draw from the bottom of the draw pile
    */
   public void endTurn(boolean drawFromBottom) {
