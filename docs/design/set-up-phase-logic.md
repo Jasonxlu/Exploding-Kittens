@@ -3,7 +3,7 @@
 ## Setting up the GameEngine
 
 ### Collecting User Input
-- Get the number of players from the user
+- Get the number of players from the user (must be between 2 and 6)
 - Get the names of each player from the user
 
 ### Setting up players
