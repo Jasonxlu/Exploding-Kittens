@@ -51,7 +51,7 @@
 
 |              | System under test                                          | Expected output                                                                                                              | Implemented? |
 |--------------|------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.advanceTurn() called | no           |
+| Test Case 1  | Current state of GameEngine.isTurnReversed & player's turn | GameEngine.reverseTurnOrder(), then UserInterface.println("Turn order was reversed."), then TurnManager.advanceTurn() called | yes          |
 
 
 ## Method 4: ```public void doDrawFromBottom()```
