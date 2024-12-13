@@ -1971,6 +1971,7 @@ public class TurnManagerTests {
     boolean somebodyPlayedNope = false;
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(userInputCard, currPlayerIndex);
     turnManager.doShuffle();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = false; // do not terminate loop
@@ -1987,6 +1988,7 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.playerHasCard(newUserInputCard, currPlayerIndex)).andReturn(newPlayerHasCard);
     EasyMock.expect(turnManager.promptPlayNope()).andReturn(somebodyPlayedNope);
 
+    gameEngine.removeCardFromPlayer(newUserInputCard, currPlayerIndex);
     turnManager.doTargetedAttack();
     EasyMock.expectLastCall().andAnswer(() -> {
       turnManager.playerTurnHasEnded = true; // Manually terminate loop
