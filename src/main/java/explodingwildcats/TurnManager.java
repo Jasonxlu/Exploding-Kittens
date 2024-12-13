@@ -19,9 +19,10 @@ public class TurnManager {
   /**
    * Public constructor for TurnManager.
    *
+   * @param language takes in the language the players chose.
    */
-  public TurnManager() {
-    this.ui = new UserInterface();
+  public TurnManager(String language) {
+    this.ui = new UserInterface(language);
     PlayerFactory playerFactory = new PlayerFactory();
     CardPileFactory cardPileFactory = new CardPileFactory();
 
@@ -91,14 +92,12 @@ public class TurnManager {
     Card[] peekedCards = gameEngine.peekDrawPile();
     int numToReorder = peekedCards.length;
 
-    String peekedCardsMessage = "Top: " + peekedCards[0].name();
-    if (numToReorder > 1) {
-      peekedCardsMessage += ", 2nd: " + peekedCards[1].name();
+    String[] cardNames = new String[peekedCards.length];
+    for (int i = 0; i < peekedCards.length; i++) {
+      cardNames[i] = peekedCards[i].name();
     }
-    if (numToReorder == 3) {
-      peekedCardsMessage += ", 3rd: " + peekedCards[2].name();
-    }
-    ui.println(peekedCardsMessage);
+
+    ui.printPeekedCards(cardNames);
 
     int[] newOrder = ui.promptNewOrder(numToReorder);
     Card[] newTopCards = new Card[numToReorder];
@@ -290,6 +289,9 @@ public class TurnManager {
     while (!gameEngine.isGameOver()) {
       playCardLoop();
     }
+
+    String winnerName = gameEngine.getPlayerByIndex(currPlayerIndex).getName();
+    ui.printWinner(winnerName);
   }
 
 
@@ -401,15 +403,12 @@ public class TurnManager {
     ui.printSeeingTheFuture();
     Card[] peekedCards = gameEngine.peekDrawPile();
 
-    String peekedCardsMessage = "Top: " + peekedCards[0].name();
-    if (peekedCards.length > 1) {
-      peekedCardsMessage += ", 2nd: " + peekedCards[1].name();
-    }
-    if (peekedCards.length == 3) {
-      peekedCardsMessage += ", 3rd: " + peekedCards[2].name();
+    String[] cardNames = new String[peekedCards.length];
+    for (int i = 0; i < peekedCards.length; i++) {
+      cardNames[i] = peekedCards[i].name();
     }
 
-    ui.println(peekedCardsMessage);
+    ui.printPeekedCards(cardNames);
   }
 
   /**

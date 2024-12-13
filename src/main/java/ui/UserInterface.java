@@ -3,6 +3,10 @@ package ui;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 /**
@@ -10,7 +14,78 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
+  private final ResourceBundle bundle;
+  private Map<String, String> inputMap;
+  private Map<String, String> cardNameMap;
   private final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+
+  /**
+   * Public constructor for UserInterface.
+   *
+   * @param language chosen by the players at the start
+   */
+  public UserInterface(String language) {
+    this.bundle = getResourceBundle(language);
+    createInputMap();
+    createCardNamesMap();
+  }
+
+  /**
+   * Sets the bundle for the specified language.
+   *
+   * @param language the players would like to play in
+   */
+  public ResourceBundle getResourceBundle(String language) {
+    Locale locale;
+    if (language.equalsIgnoreCase("spanish")) {
+      locale = new Locale("es", "VE");
+    } else {
+      locale = Locale.ENGLISH;
+    }
+
+    return ResourceBundle.getBundle("ui_message", locale);
+  }
+
+  /**
+   * Creates input map for translating to english.
+   */
+  public void createInputMap() {
+    inputMap = new HashMap<>();
+    inputMap.put(bundle.getString("card.attack"), "attack");
+    inputMap.put(bundle.getString("card.skip"), "skip");
+    inputMap.put(bundle.getString("card.targeted_attack"), "targeted attack");
+    inputMap.put(bundle.getString("card.shuffle"), "shuffle");
+    inputMap.put(bundle.getString("card.see_the_future"), "see the future");
+    inputMap.put(bundle.getString("card.reverse"), "reverse");
+    inputMap.put(bundle.getString("card.draw_from_bottom"), "draw from bottom");
+    inputMap.put(bundle.getString("card.alter_the_future"), "alter the future");
+    inputMap.put(bundle.getString("input.2_cards"), "2 cards");
+    inputMap.put(bundle.getString("input.3_cards"), "3 cards");
+  }
+
+  /**
+   * Creates input map for translating to english.
+   */
+  public void createCardNamesMap() {
+    cardNameMap = new HashMap<>();
+    cardNameMap.put("ATTACK", bundle.getString("card.attack"));
+    cardNameMap.put("DEFUSE", bundle.getString("card.defuse"));
+    cardNameMap.put("NOPE", bundle.getString("card.nope"));
+    cardNameMap.put("SEE_THE_FUTURE", bundle.getString("card.see_the_future"));
+    cardNameMap.put("SHUFFLE", bundle.getString("card.shuffle"));
+    cardNameMap.put("SKIP", bundle.getString("card.skip"));
+    cardNameMap.put("EXPLODE", bundle.getString("card.explode"));
+    cardNameMap.put("ALTER_THE_FUTURE", bundle.getString("card.alter_the_future"));
+    cardNameMap.put("DRAW_FROM_BOTTOM", bundle.getString("card.draw_from_bottom"));
+    cardNameMap.put("IMPLODE", bundle.getString("card.implode"));
+    cardNameMap.put("REVERSE", bundle.getString("card.reverse"));
+    cardNameMap.put("TARGETED_ATTACK", bundle.getString("card.targeted_attack"));
+    cardNameMap.put("FERAL_CAT", bundle.getString("card.feral_cat"));
+    cardNameMap.put("TACO_CAT", bundle.getString("card.taco_cat"));
+    cardNameMap.put("HAIRY_POTATO_CAT", bundle.getString("card.hairy_potato_cat"));
+    cardNameMap.put("BEARD_CAT", bundle.getString("card.beard_cat"));
+    cardNameMap.put("RAINBOW_CAT", bundle.getString("card.rainbow_cat"));
+  }
 
   /**
    * Prompts the user to enter the number of players for the game.
@@ -19,19 +94,19 @@ public class UserInterface {
    * @return the number of players as an integer between 2 and 6, inclusive
    */
   public int getNumberOfPlayers() {
-    int numOfPlayers = 0;
+    int numOfPlayers;
 
     while (true) {
-      System.out.print("Enter the number of players (between 2 and 6): ");
+      System.out.print(bundle.getString("prompt.enter_number_of_players"));
       try {
         numOfPlayers = Integer.parseInt(scanner.nextLine().trim());
         if (numOfPlayers >= 2 && numOfPlayers <= 6) {
           break;
         } else {
-          System.out.println("Number of players must be between 2 and 6");
+          System.out.println(bundle.getString("error.number_of_players_out_of_range"));
         }
       } catch (NumberFormatException e) {
-        System.out.println("Invalid input. Number of players must be an integer.");
+        System.out.println(bundle.getString("error.invalid_number_of_players_input"));
       }
     }
 
@@ -52,17 +127,19 @@ public class UserInterface {
       String name;
 
       while (true) {
-        System.out.printf("Enter player %d's name: ", playerNum);
+        String prompt = MessageFormat.format(
+                bundle.getString("prompt.enter_player_name"), playerNum);
+        System.out.print(prompt);
         name = scanner.nextLine().trim();
 
         if (!name.isEmpty()) {
           if (Arrays.asList(playerNames).contains(name)) {
-            System.out.println("There already exists a player with that name.");
+            System.out.println(bundle.getString("error.duplicate_name"));
             continue;
           }
           break;
         } else {
-          System.out.println("Name cannot be empty. Please enter a valid name.");
+          System.out.println(bundle.getString("error.empty_name"));
         }
       }
 
@@ -87,10 +164,7 @@ public class UserInterface {
    * @param numToReorder the string to print.
    */
   public int[] promptNewOrder(int numToReorder) {
-    System.out.println("Please enter the new order in the format: "
-            + "<# of first card>, "
-            + "<# of second card>, "
-            + "<# of third card>.");
+    System.out.println(bundle.getString("prompt.new_order_instruction"));
     int[] newOrder = new int[numToReorder];
 
     boolean orderSet = false;
@@ -101,7 +175,8 @@ public class UserInterface {
       System.out.println(enteredOrder.length);
       if (enteredOrder.length != numToReorder) {
         orderSet = false;
-        System.out.println("Error: Please enter exactly " + numToReorder + " numbers.");
+        System.out.println(MessageFormat.format(
+                bundle.getString("error.invalid_order_length"), numToReorder));
         continue;
       }
       boolean[] seenNums = new boolean[numToReorder];
@@ -110,8 +185,8 @@ public class UserInterface {
           int num = Integer.parseInt(enteredOrder[i].trim());
           if (num < 1 || num > numToReorder) {
             orderSet = false;
-            System.out.println("You entered a number outside of the range to reorder (1-"
-                    + numToReorder + ").");
+            System.out.println(MessageFormat.format(
+                    bundle.getString("error.number_out_of_range"), numToReorder));
             break;
           }
           seenNums[num - 1] = true;
@@ -119,7 +194,7 @@ public class UserInterface {
         }
       } catch (NumberFormatException e) {
         orderSet = false;
-        System.out.println("You entered an invalid number.");
+        System.out.println(bundle.getString("error.invalid_number"));
         continue;
       }
 
@@ -127,7 +202,8 @@ public class UserInterface {
       for (int i = 0; i < seenNums.length; i++) {
         if (!seenNums[i]) {
           orderSet = false;
-          System.out.println("You forgot to set " + i + " in your new order.");
+          System.out.println(MessageFormat.format(
+                  bundle.getString("error.missing_order_number"), i + 1));
           break;
         }
       }
@@ -147,22 +223,25 @@ public class UserInterface {
    * @return a valid position within the range 0 to drawPileSize
    */
   public int promptPlacementForExplodeOrImplode(int drawPileSize, boolean explodingKitten) {
-    int placementIndex = -1;
-    String cardName = explodingKitten ? "Exploding Kitten" : "Imploding Cat";
+    int placementIndex;
+    String cardName = explodingKitten
+            ? bundle.getString("card.exploding_kitten")
+            : bundle.getString("card.imploding_cat");
 
     while (true) {
-      System.out.printf("Enter the position to place "
-              + "the %s (0 = top of the pile, %d = bottom of the pile): ", cardName, drawPileSize);
+      System.out.println(MessageFormat.format(
+              bundle.getString("prompt.place_card_position"), cardName, drawPileSize));
+
       try {
         placementIndex = Integer.parseInt(scanner.nextLine().trim());
         if (placementIndex >= 0 && placementIndex <= drawPileSize) {
           break;
         } else {
-          System.out.printf("Invalid position. "
-                  + "Please enter a number between 0 and %d.%n", drawPileSize);
+          System.out.println(MessageFormat.format(
+                  bundle.getString("error.invalid_position"), drawPileSize));
         }
       } catch (NumberFormatException e) {
-        System.out.println("Invalid input. Please enter a valid integer.");
+        System.out.println(bundle.getString("error.invalid_input_integer"));
       }
     }
 
@@ -176,16 +255,10 @@ public class UserInterface {
    * @return the user's input.
    */
   public String promptNope(boolean isRetry) {
-    String printMessage;
-    if (isRetry) {
-      printMessage = "Unable to find that player. "
-              + "Please type in a valid player name, "
-              + "or hit enter if nobody wants to play a Nope.";
-    } else {
-      printMessage = "Does anyone want to play a Nope card? "
-              + "If so, type in the player's name. "
-              + "If not, hit enter.";
-    }
+    String printMessage = isRetry
+            ? bundle.getString("prompt.nope_retry")
+            : bundle.getString("prompt.nope_play");
+
     System.out.println(printMessage);
     return scanner.nextLine().trim();
   }
@@ -197,30 +270,25 @@ public class UserInterface {
    * @return the new user input.
    */
   public String printLastPlayerDidNotHaveNopeAndGetNewPlayer(String playerName) {
-    System.out.printf("%s does not have a Nope card in their hand. "
-            + "Please type in a different player.%n", playerName);
+    System.out.println(MessageFormat.format(
+            bundle.getString("error.nope_card_not_found"), playerName));
     return scanner.nextLine().trim();
   }
 
   /**
    * Prompts the player to play a card.
    *
-   * @param rePrompting whether the user is reprompting.
+   * @param rePrompting whether the user is re-prompting.
    * @return the trimmed, lowercase input
    */
   public String promptPlayCard(boolean rePrompting) {
-    if (rePrompting) {
-      System.out.print("Unable to parse input.\n"
-              + "Hit enter to end your turn and draw a card, "
-              + "or type the name of the card you want to play "
-              + "(or type '2/3 cards'): ");
-    } else {
-      System.out.print("Do you want to play a card, or end your turn?\n"
-              + "Hit enter to end your turn and draw a card, "
-              + "or type the name of the card you want to play "
-              + "(or type '2/3 cards'): ");
-    }
-    return scanner.nextLine().trim().toLowerCase();
+    String printMessage = rePrompting
+            ? bundle.getString("prompt.play_card_reprompt")
+            : bundle.getString("prompt.play_card");
+    System.out.println(printMessage);
+
+    String card = scanner.nextLine().trim().toLowerCase();
+    return normaliseInput(card);
   }
 
   /**
@@ -231,10 +299,12 @@ public class UserInterface {
    */
   public String[] promptPlayComboCards(int numToPlay) {
     String[] cards = new String[numToPlay];
-    System.out.println("Which cards do you want to play?");
+    System.out.println(bundle.getString("prompt.play_combo_cards"));
     for (int i = 0; i < numToPlay; i++) {
-      System.out.printf("Card #%d: ", i + 1);
-      cards[i] = scanner.nextLine().trim().toLowerCase();
+      System.out.printf(MessageFormat.format(
+              bundle.getString("prompt.combo_card_number"), i + 1));
+      String card = scanner.nextLine().trim().toLowerCase();
+      cards[i] = normaliseInput(card);
     }
     return cards;
   }
@@ -246,11 +316,11 @@ public class UserInterface {
    * @return the user's input.
    */
   public String promptTargetedAttack(boolean isRetry) {
-    if (isRetry) {
-      System.out.println("Unable to find that player. Please type in a valid player name.");
-    } else {
-      System.out.println("Who would you like to attack? Please type in the player's name.");
-    }
+    String printMessage = isRetry
+            ? bundle.getString("prompt.targeted_attack_retry")
+            : bundle.getString("prompt.targeted_attack");
+
+    System.out.println(printMessage);
     return scanner.nextLine().trim();
   }
 
@@ -260,7 +330,7 @@ public class UserInterface {
    * @return the error message
    */
   public String printMustPlay2Or3CardsAsComboError() {
-    final String message = "You must play 2 or 3 cards as a combo.";
+    final String message = bundle.getString("error.must_play_2_or_3_cards");
     System.out.println(message);
     return message;
   }
@@ -271,7 +341,7 @@ public class UserInterface {
    * @return the error message
    */
   public String printMismatchUserCardsAndComboCount() {
-    final String message = "Number of cards returned by user does not match combo count.";
+    final String message = bundle.getString("error.mismatch_user_cards_combo_count");
     System.out.println(message);
     return message;
   }
@@ -282,8 +352,7 @@ public class UserInterface {
    * @return the error message
    */
   public String printMismatchCardValidationCardsAndComboCount() {
-    final String message = "Number of cards returned by card validation does not match "
-            + "combo count.";
+    final String message = bundle.getString("error.mismatch_card_validation_combo_count");
     System.out.println(message);
     return message;
   }
@@ -295,12 +364,10 @@ public class UserInterface {
    * @return the user's input.
    */
   public String prompt2CardCombo(boolean isRetry) {
-    if (isRetry) {
-      System.out.println("Unable to find that player. Please type in a valid player name.");
-    } else {
-      System.out.println("Who would you like to target with your 2 card combo? "
-              + "Please type in the player's name.");
-    }
+    String printMessage = isRetry
+            ? bundle.getString("prompt.combo_target_name_2")
+            : bundle.getString("prompt.combo_retry_name_2");
+    System.out.println(printMessage);
     return scanner.nextLine().trim();
   }
 
@@ -311,19 +378,19 @@ public class UserInterface {
    * @return the user's input.
    */
   public String prompt2CardComboTarget(boolean isRetry) {
-    if (isRetry) {
-      System.out.println("Invalid card. Please type in a valid card name.");
-    } else {
-      System.out.println("Please type in the name of the card you are giving up.");
-    }
-    return scanner.nextLine().trim();
+    String printMessage = isRetry
+            ? bundle.getString("prompt.combo_retry_card_2")
+            : bundle.getString("prompt.combo_target_card_2");
+    System.out.println(printMessage);
+    String cardName = scanner.nextLine().toLowerCase().trim();
+    return normaliseInput(cardName);
   }
 
   /**
    * Prints the error message for when the target player has no cards to steal.
    */
   public void printCardComboErrorTargetPlayerHasNoCards() {
-    System.out.println("The target player has no cards to steal.");
+    System.out.println(bundle.getString("error.target_player_no_cards"));
   }
 
   /**
@@ -333,12 +400,10 @@ public class UserInterface {
    * @return the user's input.
    */
   public String prompt3CardComboTargetName(boolean isRetry) {
-    if (isRetry) {
-      System.out.println("Unable to find that player. Please type in a valid player name.");
-    } else {
-      System.out.println("Who would you like to target with your 3 card combo? "
-              + "Please type in the player's name.");
-    }
+    String printMessage = isRetry
+            ? bundle.getString("prompt.combo_retry_name_3")
+            : bundle.getString("prompt.combo_target_name_3");
+    System.out.println(printMessage);
     return scanner.nextLine().trim();
   }
 
@@ -349,12 +414,12 @@ public class UserInterface {
    * @return the user's input.
    */
   public String prompt3CardComboTargetCard(boolean isRetry) {
-    if (isRetry) {
-      System.out.println("Invalid card. Please type in a valid card name.");
-    } else {
-      System.out.println("Please type in the name of the card you are asking to steal.");
-    }
-    return scanner.nextLine().trim();
+    String printMessage = isRetry
+            ? bundle.getString("prompt.combo_retry_card_3")
+            : bundle.getString("prompt.combo_target_card_3");
+    System.out.println(printMessage);
+    String cardName = scanner.nextLine().toLowerCase().trim();
+    return normaliseInput(cardName);
   }
 
   /**
@@ -364,7 +429,8 @@ public class UserInterface {
    */
   public void printPlayerHand(String[] hand) {
     for (int i = 0; i < hand.length; i++) {
-      System.out.printf("Card #%d: %s%n", i + 1, hand[i]);
+      System.out.println(MessageFormat.format(
+              bundle.getString("print.player_hand"), i + 1, cardNameMap.get(hand[i])));
     }
   }
 
@@ -375,45 +441,59 @@ public class UserInterface {
    */
   public void printPlayers(String[] players) {
     for (int i = 0; i < players.length; i++) {
-      System.out.printf("Player #%d: %s%n", i + 1, players[i]);
+      System.out.println(MessageFormat.format(
+              bundle.getString("print.players"), i + 1, players[i]));
     }
+  }
+
+  /**
+   * Normalises the user input.
+   * In other words, it takes the input in any language and turns it to english.
+   *
+   * @param userInput the string to be normalised
+   * @return the english version of the string or the original input if there's no translation
+   */
+  public String normaliseInput(String userInput) {
+    String normalised = inputMap.get(userInput.trim().toLowerCase());
+    if (normalised == null) {
+      return userInput;
+    }
+    return normalised;
   }
 
   /**
    * Prints that nopes cannot be played as regular cards.
    */
   public void printUnplayableCardErrorNope() {
-    System.out.println("You cannot play a nope right now.");
+    System.out.println(bundle.getString("error.unplayable_card_nope"));
   }
 
   /**
    * Prints that defuses cannot be played as regular cards.
    */
   public void printUnplayableCardErrorDefuse() {
-    System.out.println("You cannot play a defuse right now.");
+    System.out.println(bundle.getString("error.unplayable_card_defuse"));
   }
 
   /**
    * Prints that cat cards cannot be played as regular cards.
    */
   public void printUnplayableCardErrorCatCard() {
-    System.out.println("You must play a cat card as a combo.");
+    System.out.println(bundle.getString("error.unplayable_card_cat"));
   }
 
   /**
-=======
->>>>>>> main
   * Prints seeing the future.
   */
   public void printSeeingTheFuture() {
-    System.out.println("Seeing the future...");
+    System.out.println(bundle.getString("feedback.seeing_future"));
   }
 
   /**
    * Prints altering the future.
    */
   public void printAlteringTheFuture() {
-    System.out.println("Altering the future...");
+    System.out.println(bundle.getString("feedback.altering_future"));
   }
 
   /**
@@ -423,9 +503,9 @@ public class UserInterface {
    */
   public void printDrawingCard(boolean fromBottom) {
     if (fromBottom) {
-      System.out.println("Drawing a card from the bottom...");
+      System.out.println(bundle.getString("feedback.drawing_from_bottom"));
     } else {
-      System.out.println("Drawing a card...");
+      System.out.println(bundle.getString("feedback.drawing"));
     }
   }
 
@@ -435,10 +515,9 @@ public class UserInterface {
    * @param hasDefuse whether the player has a defuse card.
    */
   public void printDrawExplodingKitten(boolean hasDefuse) {
-    System.out.println("Oh no! You drew an exploding kitten!");
+    System.out.println(bundle.getString("feedback.drew_exploding"));
     if (hasDefuse) {
-      System.out.println("Using your defuse! "
-              + "Choose where to place the exploding kitten in the draw pile.");
+      System.out.println(bundle.getString("feedback.using_defuse"));
     }
   }
 
@@ -449,10 +528,9 @@ public class UserInterface {
    */
   public void printDrawImplodingKitten(boolean isFaceUp) {
     if (isFaceUp) {
-      System.out.println("Oh no! You drew an imploding kitten and it was face up!");
+      System.out.println(bundle.getString("feedback.drew_face_up_imploding"));
     } else {
-      System.out.println("You drew an imploding kitten!"
-              + "Choose where to place the imploding kitten face up in the draw pile.");
+      System.out.println(bundle.getString("feedback.drew_face_down_imploding"));
     }
   }
 
@@ -462,14 +540,15 @@ public class UserInterface {
    * @param cardName the card.
    */
   public void printAddingCardToHand(String cardName) {
-    System.out.printf("Added a %s to your hand.%n", cardName);
+    System.out.println(MessageFormat.format(
+            bundle.getString("feedback.added_card_to_hand"), cardNameMap.get(cardName)));
   }
 
   /**
    * Prints reversing the turn order.
    */
   public void printTurnOrderReversed() {
-    System.out.println("Turn order was reversed.");
+    System.out.println(bundle.getString("feedback.reversed_order"));
   }
 
   /**
@@ -478,30 +557,32 @@ public class UserInterface {
    * @param numExtraCards the number of extra cards to draw after the attack.
    */
   public void printAttacking(int numExtraCards) {
-    String cardPlural = numExtraCards == 1 ? "card" : "cards";
-    System.out.printf("Attacking! The next player has to draw %d extra %s.%n",
-            numExtraCards, cardPlural);
+    String cardPlural = numExtraCards == 1
+            ? bundle.getString("feedback.card_singular")
+            : bundle.getString("feedback.card_plural");
+    System.out.println(MessageFormat.format(
+            bundle.getString("feedback.attacking"), numExtraCards, cardPlural));
   }
 
   /**
    * Prints shuffling.
    */
   public void printShuffling() {
-    System.out.println("Shuffling the draw pile...");
+    System.out.println(bundle.getString("feedback.shuffling"));
   }
 
   /**
    * Prints skipping.
    */
   public void printSkipping() {
-    System.out.println("Skipping your turn...");
+    System.out.println(bundle.getString("feedback.skipping"));
   }
 
   /**
    * Prints doing a targeted attack.
    */
   public void printDoingTargetedAttack() {
-    System.out.println("Doing a targeted attack...");
+    System.out.println(bundle.getString("feedback.targeted_attack"));
   }
 
   /**
@@ -511,9 +592,8 @@ public class UserInterface {
    */
   public void printTargetedAttackResult(int numExtraCards) {
     String cardPlural = numExtraCards == 1 ? "card" : "cards";
-    System.out.printf("Did a targeted attack! The next player has to draw %d extra %s.%n",
-            numExtraCards,
-            cardPlural);
+    System.out.println(MessageFormat.format(
+            bundle.getString("feedback.targeted_attack_result"), numExtraCards, cardPlural));
   }
 
   /**
@@ -522,26 +602,28 @@ public class UserInterface {
    * @param numCards number of cards.
    */
   public void printDoingCardCombo(int numCards) {
-    System.out.printf("Doing a %d-card combo. Select a victim:%n", numCards);
+    System.out.println(MessageFormat.format(
+            bundle.getString("feedback.combo"), numCards));
   }
 
   /**
    * Prints the error message from a validation exception message.
+   *
    * @param exceptionMessage the exception's message.
    */
   public void printValidateComboCardErrorMessage(String exceptionMessage) {
     switch (exceptionMessage) {
       case "Not a valid combo size.":
-        System.out.println("Invalid input: not a valid combo size.");
+        System.out.println(bundle.getString("combo_error.invalid_size"));
         break;
       case "Player does not have the input cards.":
-        System.out.println("Invalid input: you do not have the input cards.");
+        System.out.println(bundle.getString("combo_error.cards_missing"));
         break;
       case "Cat cards must be matching or feral.":
-        System.out.println("Invalid input: cat cards must be matching or feral.");
+        System.out.println(bundle.getString("combo_error.not_matching_or_feral"));
         break;
       case "Cards must be matching.":
-        System.out.println("Invalid input: cards must be matching.");
+        System.out.println(bundle.getString("combo_error.not_matching"));
         break;
       default:
         break;
@@ -552,14 +634,41 @@ public class UserInterface {
    * Prints doing a 3 card combo on a target.
    */
   public void printNopePlayed() {
-    System.out.println("Played a Nope card!");
+    System.out.println(bundle.getString("feedback.nope"));
   }
 
   /**
    * Prints that the current player was eliminated.
    */
   public void printPlayerEliminated() {
-    System.out.println("You have been eliminated.");
+    System.out.println(bundle.getString("feedback.elimination"));
+  }
+
+  /**
+   * Prints the peeked cards.
+   *
+   * @param cardNames list of card names
+   */
+  public void printPeekedCards(String[] cardNames) {
+    StringBuilder message = new StringBuilder();
+
+    if (cardNames.length > 0) {
+      message.append(bundle.getString("label.top"))
+              .append(": ")
+              .append(cardNameMap.get(cardNames[0]));
+    }
+    if (cardNames.length > 1) {
+      message.append(", ")
+              .append(bundle.getString("label.second"))
+              .append(": ").append(cardNameMap.get(cardNames[1]));
+    }
+    if (cardNames.length == 3) {
+      message.append(", ")
+              .append(bundle.getString("label.third"))
+              .append(": ").append(cardNameMap.get(cardNames[2]));
+    }
+
+    System.out.println(message);
   }
 
   /**
@@ -577,11 +686,14 @@ public class UserInterface {
                              int numExtraCardsToDraw,
                              boolean isTurnOrderReversed,
                              boolean printImplodingKittenIsNext) {
-    System.out.printf("%s, it's your turn.%n", playerName);
+    System.out.println(MessageFormat.format(
+            bundle.getString("game_state.current_turn"), playerName));
     if (numExtraCardsToDraw > 0) {
-      System.out.printf("You must take %d extra turns.%n", numExtraCardsToDraw);
+      System.out.println(MessageFormat.format(
+              bundle.getString("game_state.extra_turns"), numExtraCardsToDraw));
     }
 
+    System.out.print(bundle.getString("game_state.general_order"));
     if (isTurnOrderReversed) {
       for (String name : playerNames) {
         System.out.printf("<-- %s ", name);
@@ -596,7 +708,17 @@ public class UserInterface {
     System.out.println();
 
     if (printImplodingKittenIsNext) {
-      System.out.println("The imploding kitten is at the top of the draw pile.");
+      System.out.println(bundle.getString("game_state.imploding_cat_warning"));
     }
+  }
+
+  /**
+   * Celebrates the winner.
+   *
+   * @param winnerName the player name who won
+   */
+  public void printWinner(String winnerName) {
+    System.out.println(MessageFormat.format(
+            bundle.getString("game_state.winner"), winnerName.toUpperCase()));
   }
 }
