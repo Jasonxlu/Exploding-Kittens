@@ -1659,6 +1659,29 @@ public class TurnManagerTests {
     EasyMock.verify(gameEngine, ui);
   }
 
+  @Test
+  public void getPlayableCard_playedExplodingKitten() {
+    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
+    UserInterface ui = EasyMock.createMock(UserInterface.class);
+    TurnManager turnManager = new TurnManager(ui, gameEngine);
+
+    String cardName = "exploding kitten";
+    Card card = Card.EXPLODE;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(card);
+
+    EasyMock.replay(gameEngine, ui);
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      turnManager.getPlayableCard(cardName);
+    });
+
+    String expectedMessage = "You cannot play an exploding/imploding kitten.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine, ui);
+  }
+
   @ParameterizedTest
   @CsvSource({
     "taco cat", "beard cat", "rainbow cat", "feral cat", "hairy potato cat"

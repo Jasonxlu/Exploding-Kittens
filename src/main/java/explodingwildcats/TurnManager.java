@@ -486,6 +486,9 @@ public class TurnManager {
       case HAIRY_POTATO_CAT:
         ui.printUnplayableCardErrorCatCard();
         throw new IllegalArgumentException("You must play a cat card as a combo.");
+      case EXPLODE:
+      case IMPLODE:
+        throw new IllegalArgumentException("You cannot play an exploding/imploding kitten.");
       default:
         return card;
     }
