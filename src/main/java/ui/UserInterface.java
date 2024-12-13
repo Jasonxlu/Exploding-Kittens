@@ -57,8 +57,8 @@ public class UserInterface {
     inputMap.put(bundle.getString("input.reverse"), "reverse");
     inputMap.put(bundle.getString("input.draw_from_bottom"), "draw from bottom");
     inputMap.put(bundle.getString("input.alter_the_future"), "alter the future");
-    inputMap.put(bundle.getString("input.2_cards"), "2 cat cards");
-    inputMap.put(bundle.getString("input.3_cards"), "3 cat cards");
+    inputMap.put(bundle.getString("input.2_cards"), "2 cards");
+    inputMap.put(bundle.getString("input.3_cards"), "3 cards");
   }
 
   /**
