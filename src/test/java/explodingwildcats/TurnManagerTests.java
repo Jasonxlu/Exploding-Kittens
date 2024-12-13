@@ -2641,7 +2641,11 @@ public class TurnManagerTests {
             .createMock();
 
     boolean isGameOver = true;
+    String winnerName = "Player 1";
+
     EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
+    EasyMock.expect(gameEngine.getPlayerByIndex(EasyMock.anyInt())).andReturn(new Player(winnerName));
+    ui.printWinner(winnerName);
 
     EasyMock.replay(ui, gameEngine, turnManager);
 
@@ -2660,12 +2664,16 @@ public class TurnManagerTests {
             .createMock();
 
     boolean isGameOver = false;
-    EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
+    String winnerName = "Player 2";
 
+    EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
     turnManager.playCardLoop();
 
     isGameOver = true;
     EasyMock.expect(gameEngine.isGameOver()).andReturn(isGameOver);
+    EasyMock.expect(gameEngine.getPlayerByIndex(EasyMock.anyInt())).andReturn(new Player(winnerName));
+    ui.printWinner(winnerName);
+
 
     EasyMock.replay(ui, gameEngine, turnManager);
 

@@ -711,4 +711,14 @@ public class UserInterface {
       System.out.println(bundle.getString("game_state.imploding_cat_warning"));
     }
   }
+
+  /**
+   * Celebrates the winner.
+   *
+   * @param winnerName the player name who won
+   */
+  public void printWinner(String winnerName) {
+    System.out.println(MessageFormat.format(
+            bundle.getString("game_state.winner"), winnerName.toUpperCase()));
+  }
 }

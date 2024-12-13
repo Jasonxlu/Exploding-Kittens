@@ -289,6 +289,9 @@ public class TurnManager {
     while (!gameEngine.isGameOver()) {
       playCardLoop();
     }
+
+    String winnerName = gameEngine.getPlayerByIndex(currPlayerIndex).getName();
+    ui.printWinner(winnerName);
   }
 
 
