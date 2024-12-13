@@ -3,6 +3,8 @@ package explodingwildcats;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 public class EliminatePlayerImplodingSteps {
   EliminatePlayerSteps eliminatePlayerSteps;
 
@@ -36,7 +38,13 @@ public class EliminatePlayerImplodingSteps {
 
   @Then("the imploding kitten is removed from the draw pile")
   public void the_imploding_kitten_is_removed_from_the_draw_pile() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    Card[] actualDrawPile = eliminatePlayerSteps.turnManager.gameEngine.getDrawPile();
+
+    // expected draw pile should be the same minus the imploding kitten.
+    Card[] expectedDrawPile = new Card[2];
+    expectedDrawPile[0] = eliminatePlayerSteps.initialDrawPile[0];
+    expectedDrawPile[1] = eliminatePlayerSteps.initialDrawPile[1];
+
+    assertArrayEquals(expectedDrawPile, actualDrawPile);
   }
 }
