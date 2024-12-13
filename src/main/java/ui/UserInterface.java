@@ -624,6 +624,33 @@ public class UserInterface {
   }
 
   /**
+   * Prints the peeked cards.
+   *
+   * @param cardNames list of card names
+   */
+  public void printPeekedCards(String[] cardNames) {
+    StringBuilder message = new StringBuilder();
+
+    if (cardNames.length > 0) {
+      message.append(bundle.getString("label.top"))
+              .append(": ")
+              .append(cardNameMap.get(cardNames[0]));
+    }
+    if (cardNames.length > 1) {
+      message.append(", ")
+              .append(bundle.getString("label.second"))
+              .append(": ").append(cardNameMap.get(cardNames[1]));
+    }
+    if (cardNames.length == 3) {
+      message.append(", ")
+              .append(bundle.getString("label.third"))
+              .append(": ").append(cardNameMap.get(cardNames[2]));
+    }
+
+    System.out.println(message);
+  }
+
+  /**
    * Prints information about the current state of the game.
    *
    * @param playerName the player name.

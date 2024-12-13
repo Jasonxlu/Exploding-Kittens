@@ -29,7 +29,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with peeked cards
-    ui.println("Top: SKIP");
+    String[] cardNames = new String[] { cardPeeked.name() };
+    ui.printPeekedCards(cardNames);
     int[] newOrder = new int[] {1};
 
     // 3. ui.promptNewOrder called with number of peeked cards
@@ -62,7 +63,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with peeked cards
-    ui.println("Top: NOPE, 2nd: ATTACK");
+    String[] cardNames = new String[] { topCardPeeked.name(), secondCardPeeked.name() };
+    ui.printPeekedCards(cardNames);
     int[] newOrder = new int[] {2, 1};
 
     // 3. ui.promptNewOrder called with number of peeked cards
@@ -96,7 +98,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with peeked cards
-    ui.println("Top: IMPLODE, 2nd: DEFUSE, 3rd: REVERSE");
+    String[] cardNames = new String[] { topCardPeeked.name(), secondCardPeeked.name(), thirdCardPeeked.name() };
+    ui.printPeekedCards(cardNames);
     int[] newOrder = new int[] {3, 2, 1};
 
     // 3. ui.promptNewOrder called with number of peeked cards
@@ -128,7 +131,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with the peeked cards
-    ui.println("Top: TARGETED_ATTACK");
+    String[] cardNames = new String[] { cardPeeked.name() };
+    ui.printPeekedCards(cardNames);
 
     EasyMock.replay(ui, gameEngine);
 
@@ -153,7 +157,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with the peeked cards
-    ui.println("Top: DEFUSE, 2nd: IMPLODE");
+    String[] cardNames = { topCardPeeked.name(), secondCardPeeked.name() };
+    ui.printPeekedCards(cardNames);
 
     EasyMock.replay(ui, gameEngine);
 
@@ -179,7 +184,8 @@ public class TurnManagerTests {
     EasyMock.expect(gameEngine.peekDrawPile()).andReturn(peekedCards);
 
     // 2. ui.println called with the peeked cards
-    ui.println("Top: NOPE, 2nd: EXPLODE, 3rd: REVERSE");
+    String[] cardNames = { topCardPeeked.name(), secondCardPeeked.name(), thirdCardPeeked.name() };
+    ui.printPeekedCards(cardNames);
 
     EasyMock.replay(ui, gameEngine);
 
