@@ -305,7 +305,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |--------------|-----------------------------------------------|-------------------------------------------|--------------|
 | Test Case 1  | "attack", input 2: ATTACK                     | Card.ATTACK                               | yes          |
 | Test Case 2  | "skip", input 2: SKIP                         | Card.SKIP                                 | yes          |
-| Test Case 3  | "targeted attack", input 2: TARGETED_ATTACK   | Card.TARGETED_ATTACK                      | no           |
+| Test Case 3  | "targeted attack", input 2: TARGETED_ATTACK   | Card.TARGETED_ATTACK                      | yes          |
 | Test Case 4  | "shuffle", input 2: SHUFFLE                   | Card.SHUFFLE                              | no           |
 | Test Case 5  | "see the future", input 2: SEE_THE_FUTURE     | Card.SEE_THE_FUTURE                       | no           |
 | Test Case 6  | "reverse", input 2: REVERSE                   | Card.REVERSE                              | no           |
