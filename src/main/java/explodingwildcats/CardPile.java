@@ -81,15 +81,6 @@ public class CardPile {
   }
 
   /**
-   * Checks if a specified card is in the pile list.
-   *
-   * @return true if the card is in the pile, false otherwise.
-   */
-  public boolean contains(Card c) {
-    return cardList.contains(c);
-  }
-
-  /**
    * Sets the ith card in the pile to c.
    *
    * @param i the index in the array to set to c.
@@ -142,5 +133,14 @@ public class CardPile {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Checks if a specified card is in the pile list.
+   *
+   * @return true if the card is in the pile, false otherwise.
+   */
+  public boolean contains(Card c) {
+    return cardList.contains(c);
   }
 }

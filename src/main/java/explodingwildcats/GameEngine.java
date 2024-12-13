@@ -55,6 +55,28 @@ public class GameEngine {
     isTurnOrderReversed = false;
   }
 
+  public int getNumberOfPlayers() {
+    return numOfPlayers;
+  }
+
+  public List<Player> getPlayers() {
+    return new ArrayList<>(players);
+  }
+
+  /**
+   * Getter for draw pile cards.
+   */
+  public Card[] getDrawPile() {
+    return drawPile.getCards();
+  }
+
+  /**
+   * Getter for isTurnOrderReversed.
+   */
+  public boolean getIsTurnOrderReversed() {
+    return isTurnOrderReversed;
+  }
+
   /**
    * Adds the starting deck of cards to the drawPile.
    */
@@ -113,26 +135,6 @@ public class GameEngine {
     }
   }
 
-  public int getNumberOfPlayers() {
-    return numOfPlayers;
-  }
-
-  public List<Player> getPlayers() {
-    return new ArrayList<>(players);
-  }
-
-  /**
-   * Returns whether the game is over.
-   *
-   * @return whether the game is over.
-   */
-  public boolean isGameOver() {
-    if (numOfPlayers > 1) {
-      return false;
-    }
-    return true;
-  }
-
   /**
    * Add defuse cards to both player hands and the draw pile.
    */
@@ -181,10 +183,22 @@ public class GameEngine {
   }
 
   /**
-   * Getter for draw pile cards.
+   * Method for shuffling the draw pile.
    */
-  public Card[] getDrawPile() {
-    return drawPile.getCards();
+  public void shuffleDrawPile() {
+    drawPile.shuffle();
+  }
+
+  /**
+   * Returns whether the game is over.
+   *
+   * @return whether the game is over.
+   */
+  public boolean isGameOver() {
+    if (numOfPlayers > 1) {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -195,24 +209,10 @@ public class GameEngine {
   }
 
   /**
-   * Method for shuffling the draw pile.
-   */
-  public void shuffleDrawPile() {
-    drawPile.shuffle();
-  }
-
-  /**
    * Reverses the turn order.
    */
   public void reverseTurnOrder() {
     isTurnOrderReversed = !isTurnOrderReversed;
-  }
-
-  /**
-   * Getter for isTurnOrderReversed.
-   */
-  public boolean getIsTurnOrderReversed() {
-    return isTurnOrderReversed;
   }
 
   /**
@@ -249,34 +249,7 @@ public class GameEngine {
   }
 
   /**
-   * Checks if a player has a specified card.
-   *
-   * @param card card to check if a player has.
-   * @param playerIndex index of the player in the players list.
-   */
-  public boolean playerHasCard(Card card, int playerIndex) {
-    Player targetPlayer = getPlayerByIndex(playerIndex);
-    return targetPlayer.hasCard(card);
-  }
-
-  /**
-   * Checks if a player a number of the specified card.
-   *
-   * @param card card to check if a player has.
-   * @param playerIndex index of the player in the players list.
-   * @param numCards the number of cards to check for.
-   */
-  public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards) {
-    Player player = getPlayerByIndex(playerIndex);
-    if (numCards <= 0) {
-      throw new IllegalArgumentException("Number of cards must be greater than 0.");
-    }
-    return Arrays.stream(player.getHand()).filter(c -> c == card)
-            .count() >= numCards;
-  }
-
-  /**
-   * TODO: eliminates the player at that index.
+   * Eliminates the player at that index.
    */
   public void eliminatePlayer(int playerIndex) {
     if (playerIndex < 0 || playerIndex >= numOfPlayers) {
@@ -303,6 +276,17 @@ public class GameEngine {
   }
 
   /**
+   * Checks if a player has a specified card.
+   *
+   * @param card card to check if a player has.
+   * @param playerIndex index of the player in the players list.
+   */
+  public boolean playerHasCard(Card card, int playerIndex) {
+    Player targetPlayer = getPlayerByIndex(playerIndex);
+    return targetPlayer.hasCard(card);
+  }
+
+  /**
    * Returns the player at the index in the list or errors if it doesn't exist.
    *
    * @param playerIndex  index of the player in the players list.
@@ -325,59 +309,11 @@ public class GameEngine {
   }
 
   /**
-   * TODO: add the specified card to a specified location in the card pile.
+   * Add the specified card to a specified location in the card pile.
    */
   public void addCardToDrawPileAt(Card card, int index) {
     drawPile.addCardAt(card, index);
   }
-
-  /**
-   * Returns the correct card based on the String name.
-   *
-   * @param cardName the String version of the card.
-   * @return the Card.
-   */
-  public Card getCardByName(String cardName) {
-    switch (cardName) {
-      case "attack":
-        return Card.ATTACK;
-      case "skip":
-        return Card.SKIP;
-      case "targeted attack":
-        return Card.TARGETED_ATTACK;
-      case "shuffle":
-        return Card.SHUFFLE;
-      case "see the future":
-        return Card.SEE_THE_FUTURE;
-      case "reverse":
-        return Card.REVERSE;
-      case "draw from bottom":
-        return Card.DRAW_FROM_BOTTOM;
-      case "alter the future":
-        return Card.ALTER_THE_FUTURE;
-      case "nope":
-        return Card.NOPE;
-      case "taco cat":
-        return Card.TACO_CAT;
-      case "beard cat":
-        return Card.BEARD_CAT;
-      case "rainbow cat":
-        return Card.RAINBOW_CAT;
-      case "feral cat":
-        return Card.FERAL_CAT;
-      case "hairy potato cat":
-        return Card.HAIRY_POTATO_CAT;
-      case "exploding kitten":
-        return Card.EXPLODE;
-      case "imploding kitten":
-        return Card.IMPLODE;
-      case "defuse":
-        return Card.DEFUSE;
-      default:
-        throw new IllegalArgumentException("Could not parse input.");
-    }
-  }
-
 
   /**
    * Gets the index of the player in the GameEngine's Player List by their name.
@@ -393,7 +329,6 @@ public class GameEngine {
     }
     throw new NoSuchElementException("No player with that name could be found.");
   }
-
 
   /**
    * Validates that the player has the given cards and that they can be played as a combo.
@@ -446,5 +381,68 @@ public class GameEngine {
     }
 
     return returnCards;
+  }
+
+  /**
+   * Checks if a player a number of the specified card.
+   *
+   * @param card card to check if a player has.
+   * @param playerIndex index of the player in the players list.
+   * @param numCards the number of cards to check for.
+   */
+  public boolean playerHasAtLeastCards(Card card, int playerIndex, int numCards) {
+    Player player = getPlayerByIndex(playerIndex);
+    if (numCards <= 0) {
+      throw new IllegalArgumentException("Number of cards must be greater than 0.");
+    }
+    return Arrays.stream(player.getHand()).filter(c -> c == card)
+            .count() >= numCards;
+  }
+
+  /**
+   * Returns the correct card based on the String name.
+   *
+   * @param cardName the String version of the card.
+   * @return the Card.
+   */
+  public Card getCardByName(String cardName) {
+    switch (cardName) {
+      case "attack":
+        return Card.ATTACK;
+      case "skip":
+        return Card.SKIP;
+      case "targeted attack":
+        return Card.TARGETED_ATTACK;
+      case "shuffle":
+        return Card.SHUFFLE;
+      case "see the future":
+        return Card.SEE_THE_FUTURE;
+      case "reverse":
+        return Card.REVERSE;
+      case "draw from bottom":
+        return Card.DRAW_FROM_BOTTOM;
+      case "alter the future":
+        return Card.ALTER_THE_FUTURE;
+      case "nope":
+        return Card.NOPE;
+      case "taco cat":
+        return Card.TACO_CAT;
+      case "beard cat":
+        return Card.BEARD_CAT;
+      case "rainbow cat":
+        return Card.RAINBOW_CAT;
+      case "feral cat":
+        return Card.FERAL_CAT;
+      case "hairy potato cat":
+        return Card.HAIRY_POTATO_CAT;
+      case "exploding kitten":
+        return Card.EXPLODE;
+      case "imploding kitten":
+        return Card.IMPLODE;
+      case "defuse":
+        return Card.DEFUSE;
+      default:
+        throw new IllegalArgumentException("Could not parse input.");
+    }
   }
 }
