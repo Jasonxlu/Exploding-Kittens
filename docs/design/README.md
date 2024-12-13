@@ -23,6 +23,7 @@ This folder contains the design documents for the project.
     - Some differences in card numbers:
         - Added an extra defuse (6 defuses available, not 5)
         - Added an extra exploding kitten (4 exploding kittens available, not 3)
+- `Favor` card not included since it was omitted in rule book
 
 ### Mutation Notes:
 - The mutation in `CardPile.addCardAt` is an equivalent mutation
