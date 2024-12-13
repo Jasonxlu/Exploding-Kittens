@@ -165,7 +165,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |--------|-------------------------|------------------------------------|-----------------------------------------------------------------------------------------|
 | Step 1 | numExtraCardsToDraw     | whether to draw from bottom or not | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw |
 | Step 2 | Counts                  | Boolean                            | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw |
-| Step 3 | 0, 1, >1, max value (7) | True, False                        | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw |
+| Step 3 | 0, 1, >1, max value (9) | True, False                        | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
@@ -177,8 +177,8 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 4 | draw counter: 1, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | yes          |
 | Test Case 5 | draw counter: >1, drawFromBottom: false | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | yes          |
 | Test Case 6 | draw counter: >1, drawFromBottom: true  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | yes          |
-| Test Case 7 | draw counter: 7, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | yes          |
-| Test Case 8 | draw counter: 7, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | yes          |
+| Test Case 7 | draw counter: 9, drawFromBottom: false  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false) | no           |
+| Test Case 8 | draw counter: 9, drawFromBottom: true   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)  | no           |
 
 
 ## Method 10: ```public void handleExplodingKitten()```
