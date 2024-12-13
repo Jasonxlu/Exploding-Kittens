@@ -660,7 +660,7 @@ public class TurnManagerTests {
   }
 
   @Test
-  public void drawAndProcessCard_implodeCardFromBottom_handleImplodingCatReturnsFalse_returnFalse() {
+  public void drawAndProcessCard_explodeCardFromBottom_handleExplodingCatReturnsFalse_returnFalse() {
     GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
     UserInterface ui = EasyMock.createMock(UserInterface.class);
     TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
@@ -670,12 +670,12 @@ public class TurnManagerTests {
             .addMockedMethod("handleImplodingCat")
             .createMock();
 
-    Card implodingCard = Card.IMPLODE;
+    Card implodingCard = Card.EXPLODE;
 
     EasyMock.expect(gameEngine.popBottomCard()).andReturn(implodingCard);
 
     boolean eliminated = false;
-    EasyMock.expect(turnManager.handleImplodingCat()).andReturn(eliminated);
+    EasyMock.expect(turnManager.handleExplodingKitten()).andReturn(eliminated);
 
     EasyMock.replay(gameEngine, turnManager);
 
