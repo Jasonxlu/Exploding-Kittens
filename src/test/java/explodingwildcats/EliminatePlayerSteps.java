@@ -143,11 +143,4 @@ public class EliminatePlayerSteps {
 
     assertArrayEquals(expectedDrawPile, actualDrawPile);
   }
-
-  @Given("turn order is reversed true")
-  public void turn_order_is_reversed_true() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
-
 }
