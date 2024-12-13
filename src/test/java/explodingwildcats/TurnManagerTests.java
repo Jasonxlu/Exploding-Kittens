@@ -878,7 +878,7 @@ public class TurnManagerTests {
             .addMockedMethod("drawAndProcessCard")
             .createMock();
 
-    turnManager.numExtraCardsToDraw = 7;
+    turnManager.numExtraCardsToDraw = 9;
     boolean drawFromBottom = true;
 
     turnManager.drawAndProcessCard(drawFromBottom);
@@ -887,7 +887,7 @@ public class TurnManagerTests {
 
     turnManager.endTurn(drawFromBottom);
 
-    int expected = 6;
+    int expected = 8;
     int actual = turnManager.numExtraCardsToDraw;
     assertEquals(expected, actual);
 
