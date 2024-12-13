@@ -1476,9 +1476,7 @@ public class TurnManagerTests {
 
   @Test
   public void getPlayableCard_attack() {
-    GameEngine gameEngine = EasyMock.createMock(GameEngine.class);
-    UserInterface ui = EasyMock.createMock(UserInterface.class);
-    TurnManager turnManager = new TurnManager(ui, gameEngine);
+    TurnManager turnManager = new TurnManager();
 
     String cardName = "attack";
     Card expectedCard = Card.ATTACK;
