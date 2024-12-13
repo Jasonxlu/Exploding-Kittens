@@ -306,9 +306,9 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 1  | "attack", input 2: ATTACK                     | Card.ATTACK                               | yes          |
 | Test Case 2  | "skip", input 2: SKIP                         | Card.SKIP                                 | yes          |
 | Test Case 3  | "targeted attack", input 2: TARGETED_ATTACK   | Card.TARGETED_ATTACK                      | yes          |
-| Test Case 4  | "shuffle", input 2: SHUFFLE                   | Card.SHUFFLE                              | no           |
-| Test Case 5  | "see the future", input 2: SEE_THE_FUTURE     | Card.SEE_THE_FUTURE                       | no           |
-| Test Case 6  | "reverse", input 2: REVERSE                   | Card.REVERSE                              | no           |
+| Test Case 4  | "shuffle", input 2: SHUFFLE                   | Card.SHUFFLE                              | yes          |
+| Test Case 5  | "see the future", input 2: SEE_THE_FUTURE     | Card.SEE_THE_FUTURE                       | yes          |
+| Test Case 6  | "reverse", input 2: REVERSE                   | Card.REVERSE                              | yes          |
 | Test Case 7  | "draw from bottom", input 2: DRAW_FROM_BOTTOM | Card.DRAW_FROM_BOTTOM                     | no           |
 | Test Case 8  | "alter the future", input 2: ALTER_THE_FUTURE | Card.ALTER_THE_FUTURE                     | no           |
 | Test Case 9  | "invalid", input 2: throws exception          | IllegalArgumentException                  | no           |

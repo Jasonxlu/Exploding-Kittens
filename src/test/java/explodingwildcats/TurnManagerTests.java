@@ -1564,9 +1564,15 @@ public class TurnManagerTests {
 
     String cardName = "reverse";
     Card expectedCard = Card.REVERSE;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(expectedCard);
+
+    EasyMock.replay(gameEngine);
+
     Card actualCard = turnManager.getPlayableCard(cardName);
 
     assertEquals(expectedCard, actualCard);
+
+    EasyMock.verify(gameEngine);
   }
 
   @Test
