@@ -28,8 +28,10 @@ public class EliminatePlayerImplodingSteps {
 
   @Given("the current player has defuses")
   public void the_current_player_has_defuses() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    // give them 3 defuses.
+    eliminatePlayerSteps.playerToBeEliminated.addCardToHand(Card.DEFUSE);
+    eliminatePlayerSteps.playerToBeEliminated.addCardToHand(Card.DEFUSE);
+    eliminatePlayerSteps.playerToBeEliminated.addCardToHand(Card.DEFUSE);
   }
 
   @Then("the imploding kitten is removed from the draw pile")

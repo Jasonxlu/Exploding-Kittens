@@ -18,7 +18,7 @@ public class EliminatePlayerSteps {
 
   TurnManager turnManager;
   private UserInterface uiMock;
-  private Player playerToBeEliminated;
+  Player playerToBeEliminated;
   private int initialNumPlayers;
   private String[] initialPlayerNames;
   private int initialPlayerIndex;
