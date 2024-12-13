@@ -56,18 +56,18 @@
 
 ## Method 4: ```public void doDrawFromBottom()```
 ### Step 1-3 Results
-|        | Input 1                                                                                              | Output                                                                                                                                                |
-|--------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | GameEngine's draw pile                                                                               | Calls drawAndProcessCard(drawFromBottom = true), so that gameEngine.popBottomCard() is called instead of gameEngine.drawCard(). Then calls endTurn(). |
-| Step 2 | Collection (of Cards - cases)                                                                        | None (calls drawAndProcessCard(drawFromBottom = true), then endTurn()).                                                                               |
-| Step 3 | [one element], [more than one element] (Both tests covered by mocked drawAndProcessCard() function.) | None (calls drawAndProcessCard(drawFromBottom = true), then endTurn()).                                                                               |
+|        | Input 1                                                                                              | Output                                                                                                        |
+|--------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| Step 1 | GameEngine's draw pile                                                                               | Calls endTurn(drawFromBottom = true) so that it ends the current turn and so that gameEngine.popBottomCard(). |
+| Step 2 | Collection (of Cards - cases)                                                                        | None (calls endTurn(drawFromBottom = true)).                                                                  |
+| Step 3 | [one element], [more than one element] (Both tests covered by mocked drawAndProcessCard() function.) | None (calls endTurn(drawFromBottom = true)).                                                                  |
 
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|              | System under test                                       | Expected output                                                                    | Implemented? |
-|--------------|---------------------------------------------------------|------------------------------------------------------------------------------------|--------------|
-| Test Case 1  | Current state of GameEngine's draw pile & player's turn | drawAndProcessCard(drawFromBottom = true) is called, and then endTurn() is called. | yes          |
+|              | System under test                                       | Expected output                           | Implemented? |
+|--------------|---------------------------------------------------------|-------------------------------------------|--------------|
+| Test Case 1  | Current state of GameEngine's draw pile & player's turn | endTurn(drawFromBottom = true) is called. | yes          |
 
 
 ## Method 5: ```public void doAttack()```
@@ -121,25 +121,27 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 18 | numOfPlayers: 4, currPlayerIndex: 2, Reversed order: true, playerSurvived: false  | currPlayerIndex: 1, sets turn over flag to true | yes          |
 
 
-## Method 7: ```public void drawAndProcessCard(boolean drawFromBottom)```
+## Method 7: ```public boolean drawAndProcessCard(boolean drawFromBottom)```
 ### Step 1-3 Results
-|        | Input 1                           | Input 2        | Output                                                                                                                           |
-|--------|-----------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------|
-| Step 1 | Card drawn from the draw pile     | drawFromBottom | Executes the respective function based on the type (either calls handleExplodingKitten, handleImplodingCat or handleRegularCard) |
-| Step 2 | Case                              | Boolean        |                                                                                                                                  |
-| Step 3 | EXPLODE, IMPLODE, all other cases | True, False    |                                                                                                                                  |
+|        | Input 1                           | Input 2        | Input 3                                   | Output                                                                                                                                                                                  |
+|--------|-----------------------------------|----------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | Card drawn from the draw pile     | drawFromBottom | Result of handleExploding/handleImploding | Boolean - whether a player was eliminated. Also cases: executes the respective function based on the type (either calls handleExplodingKitten, handleImplodingCat or handleRegularCard) |
+| Step 2 | Case                              | Boolean        | Boolean                                   | Boolean, cases                                                                                                                                                                          |
+| Step 3 | EXPLODE, IMPLODE, all other cases | True, False    | T/F                                       | Either calls handleExplodingKitten, handleImplodingCat or handleRegularCard. handleRegularCard returns false, returns the result of the others.                                         |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test                                     | Expected output                         | Implemented? |
-|-------------|-------------------------------------------------------|-----------------------------------------|--------------|
-| Test Case 1 | Card drawn: all other cases, drawFromBottom: False    | Calls handleRegularCard()               | yes          |
-| Test Case 2 | Card drawn: all other cases, drawFromBottom: True     | Calls handleRegularCard()               | yes          |
-| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False            | Calls handleExplodingKitten()           | yes          |
-| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True             | Calls handleExplodingKitten()           | yes          |
-| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False            | Calls handleImplodingCat()              | yes          |
-| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True             | Calls handleImplodingCat()              | yes          |
-| Test Case 7 | Card drawn: EXPLODE or IMPLODE, drawFromBottom: False | Calls handleRegularCard() and it throws | yes          |
+|             | System under test                                                | Expected output                         | Implemented? |
+|-------------|------------------------------------------------------------------|-----------------------------------------|--------------|
+| Test Case 1 | Card drawn: all other cases, drawFromBottom: False, input 3: N/A | Returns false and handleRegularCard()   | yes          |
+| Test Case 2 | Card drawn: all other cases, drawFromBottom: True, input 3: N/A  | Returns false and handleRegularCard()   | yes          |
+| Test Case 3 | Card drawn: EXPLODE, drawFromBottom: False, input 3: True        | Returns handleExplodingKitten(), true   | yes          |
+| Test Case 4 | Card drawn: EXPLODE, drawFromBottom: True, input 3: True         | Returns handleExplodingKitten(), true   | yes          |
+| Test Case 5 | Card drawn: IMPLODE, drawFromBottom: False, input 3: True        | Returns handleImplodingCat(), true      | yes          |
+| Test Case 6 | Card drawn: IMPLODE, drawFromBottom: True, input 3: True         | Returns handleImplodingCat(), true      | yes          |
+| Test Case 7 | Card drawn: EXPLODE or IMPLODE, drawFromBottom: False            | Calls handleRegularCard() and it throws | yes          |
+| Test Case 8 | Card drawn: IMPLODE, drawFromBottom: False, input 3: False       | Returns handleImplodingCat(), false     | yes          |
+| Test Case 9 | Card drawn: EXPLODE, drawFromBottom: True, input 3: False        | Returns handleImplodingCat(), false     | yes          |
 
 
 ## Method 8: ```public void handleRegularCard(Card drawnCard)```
@@ -159,54 +161,62 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 3 | Card: EXPLODE     | IllegalArgumentException             | yes          |
 
 
-## Method 9: ```public void endTurn()```
+## Method 9: ```public void endTurn(boolean drawFromBottom)```
 ### Step 1-3 Results
-|        | Input 1                 | Output                                                                                  |
-|--------|-------------------------|-----------------------------------------------------------------------------------------|
-| Step 1 | numExtraCardsToDraw     | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
-| Step 2 | Counts                  | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
-| Step 3 | 0, 1, >1, max value (7) | None, either calls drawAndProcessCard or advanceTurn and decrements numExtraCardsToDraw |
+|        | Input 1                 | Input 2                            | Input 3                         | Output                                                                                                                                                               |
+|--------|-------------------------|------------------------------------|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | numExtraCardsToDraw     | whether to draw from bottom or not | Whether a player got eliminated | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw. Does not call advanceTurn if a player got eliminated by drawAndProcessCard. |
+| Step 2 | Counts                  | Boolean                            | Boolean                         | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw.                                                                             |
+| Step 3 | 0, 1, >1, max value (9) | True, False                        | T/F                             | None, calls drawAndProcessCard and either advanceTurn or decrements numExtraCardsToDraw.                                                                             |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output                                             | Implemented? |
-|-------------|-------------------|-------------------------------------------------------------|--------------|
-| Test Case 1 | draw counter: 0   | Calls advanceTurn and decrements numExtraCardsToDraw        | yes          |
-| Test Case 2 | draw counter: 1   | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
-| Test Case 3 | draw counter: >1  | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
-| Test Case 4 | draw counter: 7   | Calls drawAndProcessCard and decrements numExtraCardsToDraw | yes          |
+|              | System under test                                      | Expected output                                                                                    | Implemented? |
+|--------------|--------------------------------------------------------|----------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1  | draw counter: 0, drawFromBottom: false, eliminated: F  | Calls drawAndProcessCard(false) and advanceTurn                                                    | yes          |
+| Test Case 2  | draw counter: 0, drawFromBottom: true, eliminated: F   | Calls drawAndProcessCard(true) and advanceTurn                                                     | yes          |
+| Test Case 3  | draw counter: 1, drawFromBottom: false, eliminated: F  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false)                                 | yes          |
+| Test Case 4  | draw counter: 1, drawFromBottom: true, eliminated: F   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)                                  | yes          |
+| Test Case 5  | draw counter: >1, drawFromBottom: false, eliminated: F | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false)                                 | yes          |
+| Test Case 6  | draw counter: >1, drawFromBottom: true, eliminated: F  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)                                  | yes          |
+| Test Case 7  | draw counter: 9, drawFromBottom: false, eliminated: F  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(false)                                 | yes          |
+| Test Case 8  | draw counter: 9, drawFromBottom: true, eliminated: F   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)                                  | yes          |
+| Test Case 9  | draw counter: 9, drawFromBottom: true, eliminated: T   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true)                                  | yes          |
+| Test Case 10 | draw counter: 0, drawFromBottom: true, eliminated: T   | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true), then does not call advanceTurn. | yes          |
+| Test Case 11 | draw counter: 0, drawFromBottom: false, eliminated: F  | Decrements numExtraCardsToDraw and calls drawAndProcessCard(true), then calls advanceTurn          | yes          |
 
 
-## Method 10: ```public void handleExplodingKitten()```
+
+## Method 10: ```public boolean handleExplodingKitten()```
 ### Step 1-3 Results
-|        | Input 1                                         | Output                                                                                                |
-|--------|-------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| Step 1 | Player has defuse                               | Cases: player either gets eliminated or not (discards defuse, adds exploding kitten back to draw pile |
-| Step 2 | Boolean - comes from gameEngine.playerHasCard() | None, cases: player elimination or not                                                                |
-| Step 3 | True, False                                     | None, cases: player elimination or not                                                                |
+|        | Input 1                                         | Output                                                                                               |
+|--------|-------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| Step 1 | Player has defuse                               | Whether the player gets eliminated or not (discards defuse, adds exploding kitten back to draw pile) |
+| Step 2 | Boolean - comes from gameEngine.playerHasCard() | Boolean, cases: player elimination or not                                                            |
+| Step 3 | True, False                                     | T/F, cases: player elimination or not                                                                |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test | Expected output                                                                                                                                                                | Implemented? |
-|-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called                                                                                                                            | yes          |
-| Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index) | yes          |
+|             | System under test | Expected output                                                                                                                                                                               | Implemented? |
+|-------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | hasDefuse: False  | Turn manager's eliminateCurrentPlayer() gets called, returns true                                                                                                                             | yes          |
+| Test Case 2 | hasDefuse: True   | Calls gameEngine.removeCardFromPlayer(Card.DEFUSE, currPlayerIndex), calls adds gameEngine.discardCard(Card.DEFUSE), calls GameEngine.addCardToDrawPileAt(Card.EXPLODE, index), returns false | yes          |
 
 
-## Method 11: ```public void handleImplodingCat()```
+## Method 11: ```public boolean handleImplodingCat()```
 ### Step 1-3 Results
-|        | Input 1              | Output                                                                             |
-|--------|----------------------|------------------------------------------------------------------------------------|
-| Step 1 | isImplodingCatFaceUp | Cases: player gets eliminated or imploding card is placed in the draw pile face up |
-| Step 2 | Boolean              | None, cases: player elimination or not                                             |
-| Step 3 | True, False          | None, cases: player elimination or not                                             |
+|        | Input 1              | Output                                                                                                        |
+|--------|----------------------|---------------------------------------------------------------------------------------------------------------|
+| Step 1 | isImplodingCatFaceUp | Whether the player gets eliminated or imploding card is placed in the draw pile face up                       |
+| Step 2 | Boolean              | Boolean + behavior based on boolean                                                                           |
+| Step 3 | True, False          | T: player got eliminated. F: player did not get eliminated. The behavior adding it back is dependent on this. |
 
 ### Step 4:
 ##### All-combination or each-choice: each-choice
-|             | System under test            | Expected output                                                                           | Implemented? |
-|-------------|------------------------------|-------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | isImplodingCardFaceUp: True  | TurnManager's eliminateCurrentPlayer() gets called                                        | yes          |
-| Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up | yes          |
+|             | System under test            | Expected output                                                                                            | Implemented? |
+|-------------|------------------------------|------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | isImplodingCardFaceUp: True  | TurnManager's eliminateCurrentPlayer() gets called and return true                                         | yes          |
+| Test Case 2 | isImplodingCardFaceUp: False | Calls GameEngine.addCardToDrawPileAt(Card.IMPLODE, index) and sets the face to be face up and return false | yes          |
 
 
 ## Method 12: ```public boolean promptPlayNope()```
@@ -334,8 +344,8 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 8  | input1 = valid card ("shuffle"), input2 = SHUFFLE, input3 = true (can play). Input 4 = N/A. Input 6 = false. Make input 5 false so it prompts again. input1 = valid card ("targeted attack"), input2 = TARGETED_ATTACK, input3 = true (can play). Input 4 = N/A. Input 6 = false. Make input 5 true so it doesn't prompt again. | Calls `doShuffle()` and continues loop. Calls `doTargetedAttack()` and ends loop | yes          |
 | Test Case 9  | input1 = valid card ("reverse"), input2 = REVERSE, input3 = true (can play). Input 4 = N/A. Input 6 = false. Make input 5 true so it doesn't prompt again.                                                                                                                                                                      | Calls `doReverse()` and ends loop                                                | yes          |
 | Test Case 10 | input1 = valid card ("draw from bottom"), input2 = DRAW_FROM_BOTTOM, input3 = true (can play). Input 4 = N/A. Input 6 = true. Should reprompt. Use the same inputs, and make input 5 true so it doesn't prompt again.                                                                                                           | Continue loop, then calls `doDrawFromBottom()` and ends loop                     | yes          |
-| Test Case 11 | input1 = valid play combo input ("2 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(2), which returns false. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                | Calls `promptAndPlayComboCatCards(2)` and continues loop.                        | yes          |
-| Test Case 12 | input1 = valid play combo input ("3 cat cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(3), which returns true. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                 | Calls `promptAndPlayComboCatCards(3)` and continues loop.                        | yes          |
+| Test Case 11 | input1 = valid play combo input ("2 cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(2), which returns false. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                    | Calls `promptAndPlayComboCatCards(2)` and continues loop.                        | yes          |
+| Test Case 12 | input1 = valid play combo input ("3 cards"), input 2, 3, and 4 = N/A. Should call promptAndPlayComboCatCards(3), which returns true. Make input 5 false so it reprompts, then input 1 = "".                                                                                                                                     | Calls `promptAndPlayComboCatCards(3)` and continues loop.                        | yes          |
 
 
 ## Method 18: ```public void promptAndPlayCombo(int numCards)```
@@ -386,13 +396,13 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                                                                             | Expected output                                                                                                                                       | Implemented? |
-|-------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| Test Case 1 | Target name: ""; "John", Card name: "explode"; "attack", Target Hand: [ATTACK]                | CurrPlayer is re-prompted for input, Target is re-prompted for input, Card is removed from target player's hand, Card is added to CurrPlayer's hand   | yes          |
-| Test Case 2 | Target name: "Invalid"; "Jane", Card name: "skip", Target Hand: [SKIP, SEE_THE_FUTURE]        | CurrPlayer is re-prompted for input, Card is removed from target's hand, Card is added to CurrPlayer's hand                                           | yes          |
-| Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                        | yes          |
-| Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                                | yes          |
-| Test Case 5 | Target name: "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]          | Target is re-prompted for input, Card is removed from target player's hand and added to CurrPlayer's hand                                             | yes          |
+|             | System under test                                                                             | Expected output                                                                                                                                     | Implemented? |
+|-------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Test Case 1 | Target name: ""; "John", Card name: "explode"; "attack", Target Hand: [ATTACK]                | CurrPlayer is re-prompted for input, Target is re-prompted for input, Card is removed from target player's hand, Card is added to CurrPlayer's hand | yes          |
+| Test Case 2 | Target name: "Invalid"; "Jane", Card name: "skip", Target Hand: [SKIP, SEE_THE_FUTURE]        | CurrPlayer is re-prompted for input, Card is removed from target's hand, Card is added to CurrPlayer's hand                                         | yes          |
+| Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                      | yes          |
+| Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                              | yes          |
+| Test Case 5 | Target name: "John"; "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]  | CurrPlayer is re-prompted for input, Target is re-prompted for input, Card is removed from target player's hand and added to CurrPlayer's hand      | yes          |
 
 
 ## Method 21: ```public void doGameLoop()```
@@ -440,13 +450,13 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
-|             | System under test                                                                             | Expected output                                                                                                                                                   | Implemented? |
-|-------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+|             | System under test                                                                             | Expected output                                                                                                                                               | Implemented? |
+|-------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
 | Test Case 1 | Target name: ""; "John", Card name: "explode"; "attack", Target Hand: [ATTACK]                | CurrPlayer is re-prompted for name input, CurrPlayer is re-prompted for card input, Card is removed from target player's hand, Card is added to CurrPlayer's hand | yes          |
-| Test Case 2 | Target name: "Invalid"; "Jane", Card name: "skip", Target Hand: [SKIP, SEE_THE_FUTURE]        | CurrPlayer is re-prompted for input, Card is removed from target's hand, Card is added to CurrPlayer's hand                                                       | yes          |
-| Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                                    | yes          |
-| Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                                            | yes          |
-| Test Case 5 | Target name: "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]          | CurrPlayer is not re-prompted, no change to either hand/cardpile                                                                                                  |              |
+| Test Case 2 | Target name: "Invalid"; "Jane", Card name: "skip", Target Hand: [SKIP, SEE_THE_FUTURE]        | CurrPlayer is re-prompted for input, Card is removed from target's hand, Card is added to CurrPlayer's hand                                                   | yes          |
+| Test Case 3 | Target name: "John", Target Hand: []                                                          | Target is not prompted for input, no effect to either cardpile                                                                                                | yes          |
+| Test Case 4 | Target name: "Jane", Card name: "shuffle", Target Hand: [51 PLAYABLE CARDS, Shuffle included] | Card is removed from target's hand, card is added to CurrPlayer's hand                                                                                        | yes          |
+| Test Case 5 | Target name: "John"; "Smith", Card name: "exploding kitten"; "defuse", Target Hand: [DEFUSE]  | CurrPlayer is re-prompted, no change to either hand/cardpile                                                                                                  |              |
 
 
 ## Method 24: ```public void printPlayerHand(int playerIndex)```
@@ -503,4 +513,24 @@ Note: Inputs 1-3 are handled with retries if an invalid input is provided or a r
 | Test Case 3 | index: 5          | Calls gameEngine.eliminatePlayer and advanceTurn | yes          |
 | Test Case 4 | index: 6          | IndexOutOfBoundsException                        | yes          |
 
+
+## Method 27: ```public void printTurnInfo()```
+### Step 1-3 Results
+|        | Input 1                                              | Input 2                                               | Input 3                | Input 4                  | Input 5                                                                            | Input 6                                              | Output                                                                                                                        |
+|--------|------------------------------------------------------|-------------------------------------------------------|------------------------|--------------------------|------------------------------------------------------------------------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Step 1 | player name                                          | player names                                          | is turn order reversed | imploding cat is face up | Top 3 draw pile cards                                                              | number of extra cards to draw                        | None, parameters passed to ui.printGameState - only difference is printImplodingIsNext = imploding is face up and is top card |
+| Step 2 | String                                               | Collection                                            | Boolean                | Boolean                  | Collection of Cases                                                                | Interval                                             | None, parameters passed to ui.printGameState                                                                                  |
+| Step 3 | No boundary cases - just passed to ui.printGameState | No boundary cases - just passed to ui.printGameState  | T/F                    | T/F                      | [], [one element], [max_size = 3 elements], [IMPLODE on top], [IMPLODE not on top] | No boundary cases - just passed to ui.printGameState | None, parameters passed to ui.printGameState.                                                                                 |
+
+### Step 4:
+##### All-combination or each-choice: each-choice
+
+|             | System under test                                                                                                                | Expected output                                       | Implemented? |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------|
+| Test Case 1 | input1: "Joe", input2: ["Joe", "Bob"], input3: false, input4: false, input5: N/A, input6: 0                                      | ui.printGameState called with print imploding = false | yes          |
+| Test Case 2 | input1: "Joe", input2: ["Joe", "Bob", "Jeff"], input3: true, input4: true, input5: [ATTACK], input6: 1                           | ui.printGameState called with print imploding = false | yes          |
+| Test Case 3 | input1: "", input2: [] (impossible), input3: true, input4: true, input5: [] (impossible), input6: 3                              | ui.printGameState called with print imploding = false | yes          |
+| Test Case 4 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [EXPLODE, IMPLODE, SKIP], input6: 2 | ui.printGameState called with print imploding = false | yes          |
+| Test Case 5 | input1: "Jane", input2: ["Joe", "Bob", "Jeff", "Jane"], input3: false, input4: true, input5: [IMPLODE, SKIP], input6: 0          | ui.printGameState called with print imploding = true  | yes          |
+Note: input 5 is obtained from a call to peekDrawPile, which returns up to the top 3 cards, and the top card is the 0th index of the input 5 array.
 

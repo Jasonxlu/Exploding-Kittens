@@ -1,5 +1,6 @@
 package explodingwildcats;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -651,15 +652,18 @@ public class CardPileTests {
     Card testCard = Card.ATTACK;
     int newSize = 4;
 
+    // Expected Values
+    int expectedAddIndex = pile.getCards().length;
+
     // Call function
     pile.addCardAt(testCard, index);
 
     // Assertions
     Card[] cards = pile.getCards();
     assertEquals(newSize, cards.length);
-    assertEquals(testCard, cards[index]);
+    assertEquals(testCard, cards[expectedAddIndex]);
     for (int i = 0; i < 3; i++) {
-      assertEquals(existingCard, cards[i + 1]);
+      assertEquals(existingCard, cards[i]);
     }
   }
 
@@ -678,18 +682,21 @@ public class CardPileTests {
     Card testCard = Card.SHUFFLE;
     int newSize = 11;
 
+    // Expected Values
+    int expectedAddIndex = 7;
+
     // Call function
     pile.addCardAt(testCard, index);
 
     // Assertions
     Card[] cards = pile.getCards();
     assertEquals(newSize, cards.length);
-    assertEquals(testCard, cards[index]);
-    for (int i = 0; i < 3; i++) {
+    assertEquals(testCard, cards[expectedAddIndex]);
+    for (int i = 0; i < expectedAddIndex; i++) {
       assertEquals(existingCard, cards[i]); // before new card
     }
 
-    for (int i = index + 1; i < newSize; i++) {
+    for (int i = index + expectedAddIndex; i < newSize; i++) {
       assertEquals(existingCard, cards[i]); // after new card
     }
   }
@@ -710,15 +717,53 @@ public class CardPileTests {
     Card testCard = Card.DEFUSE;
     int newSize = 11;
 
+    // Expected Value
+    int expectedAddIndex = 0;
+
     // Call function
     pile.addCardAt(testCard, index);
 
     // Assertions
     Card[] cards = pile.getCards();
     assertEquals(newSize, cards.length);
-    assertEquals(testCard, cards[originalSize]);
-    for (int i = 0; i < originalSize; i++) {
+    assertEquals(testCard, cards[expectedAddIndex]);
+    for (int i = 1; i < newSize; i++) {
       assertEquals(existingCard, cards[i]);
     }
+  }
+
+  @Test
+  public void shuffleList_expectOrderChanged() {
+    CardPile pile = new CardPile();
+
+    // Create a list with known order
+    List<Card> originalList = new ArrayList<>();
+    originalList.add(Card.ATTACK);
+    originalList.add(Card.SKIP);
+    originalList.add(Card.SHUFFLE);
+    originalList.add(Card.DEFUSE);
+
+    // Create a copy of the list to compare later
+    List<Card> copyList = new ArrayList<>(originalList);
+
+    // Flag to track whether the shuffle changes the order
+    boolean orderChanged = false;
+
+    // Loop until the order changes or a maximum number of attempts is reached
+    while (!orderChanged) {
+      pile.shuffleList(originalList);
+
+      // Check if the shuffled list is different from the original
+      if (!originalList.equals(copyList)) {
+        orderChanged = true;
+      }
+    }
+
+    // Assert that the shuffle changed the order
+    assertTrue(orderChanged);
+
+    // Optional: Check that the contents remain the same
+    assertTrue(originalList.containsAll(copyList), "The shuffled list is missing elements");
+    assertTrue(copyList.containsAll(originalList), "The shuffled list has extra elements");
   }
 }

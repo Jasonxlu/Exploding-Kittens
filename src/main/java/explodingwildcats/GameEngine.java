@@ -19,7 +19,7 @@ public class GameEngine {
   private PlayerFactory playerFactory;
   private CardPileFactory cardPileFactory;
 
-  private boolean isTurnOrderReversed;
+  boolean isTurnOrderReversed; // package private to support BDD testing.
 
   /**
    * Unit testing constructor for GameEngine.
@@ -99,6 +99,10 @@ public class GameEngine {
 
     if (numberOfPlayers > 6) {
       throw new IllegalArgumentException("Too many players");
+    }
+
+    if (Arrays.stream(names).distinct().count() != names.length) {
+      throw new IllegalArgumentException("Players have duplicate names");
     }
 
     this.numOfPlayers = numberOfPlayers;

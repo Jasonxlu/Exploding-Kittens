@@ -114,24 +114,26 @@ public class TurnManager {
   public void doReverse() {
     gameEngine.reverseTurnOrder();
     ui.printTurnOrderReversed();
-    endTurn();
+    endTurn(false);
   }
 
   /**
    * Draws a card from the Game Engine's draw pile.
    * Calls the corresponding function.
+   * @param drawFromBottom whether to draw from the bottom.
+   *
+   * @return whether a turn advance happened.
    */
-  public void drawAndProcessCard(boolean drawFromBottom) {
+  public boolean drawAndProcessCard(boolean drawFromBottom) {
     ui.printDrawingCard(drawFromBottom);
+
     Card drawnCard = drawFromBottom ? gameEngine.popBottomCard() : gameEngine.popTopCard();
 
     switch (drawnCard) {
       case EXPLODE:
-        handleExplodingKitten();
-        break;
+        return handleExplodingKitten();
       case IMPLODE:
-        handleImplodingCat();
-        break;
+        return handleImplodingCat();
       default:
         try {
           handleRegularCard(drawnCard);
@@ -140,6 +142,7 @@ public class TurnManager {
         }
         break;
     }
+    return false;
   }
 
   /**
@@ -161,8 +164,10 @@ public class TurnManager {
 
   /**
    * Handles the case where the exploding kitten is drawn.
+   *
+   * @return whether the player died.
    */
-  public void handleExplodingKitten() {
+  public boolean handleExplodingKitten() {
     boolean hasDefuse = gameEngine.playerHasCard(Card.DEFUSE, currPlayerIndex);
     ui.printDrawExplodingKitten(hasDefuse);
 
@@ -175,32 +180,46 @@ public class TurnManager {
       gameEngine.addCardToDrawPileAt(Card.EXPLODE, placementIndex);
     } else {
       eliminateCurrentPlayer();
+      return true;
     }
+
+    return false;
   }
 
   /**
    * Handles the case where the imploding cat is drawn.
+   *
+   * @return whether the player was eliminated.
    */
-  public void handleImplodingCat() {
+  public boolean handleImplodingCat() {
     ui.printDrawImplodingKitten(isImplodingCatFaceUp);
+
     if (isImplodingCatFaceUp) {
       eliminateCurrentPlayer();
+      return true;
     } else {
       int drawPileSize = gameEngine.getDrawPile().length;
       int placementIndex = ui.promptPlacementForExplodeOrImplode(drawPileSize, false);
       gameEngine.addCardToDrawPileAt(Card.IMPLODE, placementIndex);
+      isImplodingCatFaceUp = true;
     }
+    return false;
   }
 
   /**
    * Ends a player's turn.
+   * 
+   * @param drawFromBottom whether to draw from the bottom of the draw pile
    */
-  public void endTurn() {
+  public void endTurn(boolean drawFromBottom) {
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
-      drawAndProcessCard(false);
+      drawAndProcessCard(drawFromBottom); // don't advance the turn either way
     } else {
-      advanceTurn(true);
+      boolean alreadyAdvanced = drawAndProcessCard(drawFromBottom);
+      if (!alreadyAdvanced) {
+        advanceTurn(true);
+      }
     }
   }
 
@@ -214,7 +233,9 @@ public class TurnManager {
     if (orderReversed) {
       currPlayerIndex = (currPlayerIndex - 1 + numOfPlayers) % numOfPlayers;
     } else {
-      currPlayerIndex = playerSurvived ? (currPlayerIndex + 1) % numOfPlayers : currPlayerIndex;
+      currPlayerIndex = playerSurvived
+              ? (currPlayerIndex + 1) % numOfPlayers
+              : currPlayerIndex % numOfPlayers;
     }
 
     playerTurnHasEnded = true;
@@ -279,18 +300,19 @@ public class TurnManager {
     boolean shouldReprompt = false;
     // advanceTurn will set playerTurnHasEnded to false.
     while (!playerTurnHasEnded) {
+      printTurnInfo();
       printPlayerHand(currPlayerIndex);
       String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
-        endTurn();
+        endTurn(false);
         shouldReprompt = false;
         continue;
       }
 
-      if (userInputCard.equals("2 cat cards")) {
+      if (userInputCard.equals("2 cards")) {
         shouldReprompt = promptAndPlayCombo(2);
         continue;
-      } else if (userInputCard.equals("3 cat cards")) {
+      } else if (userInputCard.equals("3 cards")) {
         shouldReprompt = promptAndPlayCombo(3);
         continue;
       }
@@ -347,6 +369,28 @@ public class TurnManager {
   }
 
   /**
+   * Prints information about the current turn.
+   */
+  public void printTurnInfo() {
+    Player player = gameEngine.getPlayerByIndex(currPlayerIndex);
+    String playerName = player.getName();
+    String[] playerNames = gameEngine.getPlayers().stream()
+            .map(Player::getName).toArray(String[]::new);
+    boolean printImplodingIsNext = false;
+    if (isImplodingCatFaceUp) {
+      // check if imploding kitten is the top card.
+      Card[] topCards = gameEngine.peekDrawPile();
+      printImplodingIsNext = topCards.length > 0 &&
+              topCards[0] == Card.IMPLODE;
+    }
+    ui.printGameState(playerName,
+            playerNames,
+            numExtraCardsToDraw,
+            gameEngine.getIsTurnOrderReversed(),
+            printImplodingIsNext);
+  }
+
+  /**
    * Does the effect of a see the future card.
    */
   public void doSeeTheFuture() {
@@ -369,8 +413,7 @@ public class TurnManager {
    * Does the effect of a draw from bottom card.
    */
   public void doDrawFromBottom() {
-    drawAndProcessCard(true);
-    endTurn();
+    endTurn(true);
   }
 
   /**
@@ -471,7 +514,7 @@ public class TurnManager {
   public void doShuffle() {
     ui.printShuffling();
     gameEngine.shuffleDrawPile();
-    endTurn();
+    endTurn(false);
   }
 
   /**
@@ -482,7 +525,7 @@ public class TurnManager {
     if (numExtraCardsToDraw > 0) {
       numExtraCardsToDraw--;
     } else {
-      endTurn();
+      endTurn(false);
     }
   }
 
@@ -539,7 +582,12 @@ public class TurnManager {
     while (!validPlayerFound) {
       try {
         targetIndex = gameEngine.getPlayerIndexByName(name);
-        validPlayerFound = true;
+        if (targetIndex == currPlayerIndex) {
+          printPlayers();
+          name = ui.prompt2CardCombo(true);
+        } else {
+          validPlayerFound = true;
+        }
       } catch (NoSuchElementException e) {
         printPlayers();
         name = ui.prompt2CardCombo(true);
@@ -592,7 +640,12 @@ public class TurnManager {
     while (!validPlayerFound) {
       try {
         targetIndex = gameEngine.getPlayerIndexByName(name);
-        validPlayerFound = true;
+        if (targetIndex == currPlayerIndex) {
+          printPlayers();
+          name = ui.prompt3CardComboTargetName(true);
+        } else {
+          validPlayerFound = true;
+        }
       } catch (NoSuchElementException e) {
         printPlayers();
         name = ui.prompt3CardComboTargetName(true);

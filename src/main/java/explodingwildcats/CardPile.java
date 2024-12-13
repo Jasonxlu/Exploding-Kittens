@@ -28,7 +28,7 @@ public class CardPile {
   }
 
   /**
-   * Adds a card to the pile at the index provided or errors if not possible.
+   * Adds a card to the pile at the corresponding index provided or errors if not possible.
    *
    * @param c Card being added
    * @param index desired index to add to
@@ -37,9 +37,11 @@ public class CardPile {
     if (index < 0) {
       throw new IndexOutOfBoundsException("Index cannot be negative");
     } else if (index >= cardList.size()) {
-      cardList.add(c);
+      cardList.add(0, c);
     } else {
-      cardList.add(index, c);
+      final int deckSize = cardList.size();
+      final int correspondingIndex = deckSize - index;
+      cardList.add(correspondingIndex, c);
     }
   }
 
