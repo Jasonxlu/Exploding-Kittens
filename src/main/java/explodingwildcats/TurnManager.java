@@ -290,6 +290,7 @@ public class TurnManager {
     boolean shouldReprompt = false;
     // advanceTurn will set playerTurnHasEnded to false.
     while (!playerTurnHasEnded) {
+      printTurnInfo();
       printPlayerHand(currPlayerIndex);
       String userInputCard = ui.promptPlayCard(shouldReprompt);
       if (userInputCard.isEmpty()) {
@@ -355,6 +356,28 @@ public class TurnManager {
         shouldReprompt = false;
       }
     }
+  }
+
+  /**
+   * Prints information about the current turn.
+   */
+  public void printTurnInfo() {
+    Player player = gameEngine.getPlayerByIndex(currPlayerIndex);
+    String playerName = player.getName();
+    String[] playerNames = gameEngine.getPlayers().stream()
+            .map(Player::getName).toArray(String[]::new);
+    boolean printImplodingIsNext = false;
+    if (isImplodingCatFaceUp) {
+      // check if imploding kitten is the top card.
+      Card[] topCards = gameEngine.peekDrawPile();
+      printImplodingIsNext = topCards.length > 0 &&
+              topCards[0] == Card.IMPLODE;
+    }
+    ui.printGameState(playerName,
+            playerNames,
+            numExtraCardsToDraw,
+            gameEngine.getIsTurnOrderReversed(),
+            printImplodingIsNext);
   }
 
   /**
