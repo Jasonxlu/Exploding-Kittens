@@ -1488,9 +1488,15 @@ public class TurnManagerTests {
 
     String cardName = "skip";
     Card expectedCard = Card.SKIP;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(expectedCard);
+
+    EasyMock.replay(gameEngine);
+
     Card actualCard = turnManager.getPlayableCard(cardName);
 
     assertEquals(expectedCard, actualCard);
+
+    EasyMock.verify(gameEngine);
   }
 
   @Test
