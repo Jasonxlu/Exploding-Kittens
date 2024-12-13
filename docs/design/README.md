@@ -24,6 +24,10 @@ This folder contains the design documents for the project.
         - Added an extra defuse (6 defuses available, not 5)
         - Added an extra exploding kitten (4 exploding kittens available, not 3)
 - `Favor` card not included since it was omitted in rule book
+- `Reverse` card functionality different from original game:
+    - In the original game, the reverse card reverses the order of play or subtracts one from the number of cards the player has to draw
+    - In our game, the reverse card reverses the order of play
+    - Justification: All team members played by the altered rule and implemented it as such
 
 ### Mutation Notes:
 - The mutation in `CardPile.addCardAt` is an equivalent mutation
