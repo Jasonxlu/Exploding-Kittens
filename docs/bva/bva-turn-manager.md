@@ -312,7 +312,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 | Test Case 7  | "draw from bottom", input 2: DRAW_FROM_BOTTOM | Card.DRAW_FROM_BOTTOM                     | yes          |
 | Test Case 8  | "alter the future", input 2: ALTER_THE_FUTURE | Card.ALTER_THE_FUTURE                     | yes          |
 | Test Case 9  | "invalid", input 2: throws exception          | IllegalArgumentException                  | yes          |
-| Test Case 10 | "nope", input 2: NOPE                         | IllegalArgumentException + calls ui print | no           |
+| Test Case 10 | "nope", input 2: NOPE                         | IllegalArgumentException + calls ui print | yes          |
 | Test Case 11 | "taco cat", input 2: TACO_CAT                 | IllegalArgumentException + calls ui print | no           |
 | Test Case 12 | "beard cat", input 2: BEARD_CAT               | IllegalArgumentException + calls ui print | no           |
 | Test Case 13 | "rainbow cat", input 2: RAINBOW CAT           | IllegalArgumentException + calls ui print | no           |

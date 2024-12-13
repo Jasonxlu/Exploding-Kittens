@@ -1642,6 +1642,12 @@ public class TurnManagerTests {
     TurnManager turnManager = new TurnManager(ui, gameEngine);
 
     String cardName = "nope";
+    Card card = Card.NOPE;
+    EasyMock.expect(gameEngine.getCardByName(cardName)).andReturn(card);
+    ui.printUnplayableCardErrorNope();
+
+    EasyMock.replay(gameEngine, ui);
+
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       turnManager.getPlayableCard(cardName);
     });
@@ -1649,6 +1655,8 @@ public class TurnManagerTests {
     String expectedMessage = "You cannot play a nope right now.";
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
+
+    EasyMock.verify(gameEngine, ui);
   }
 
   @ParameterizedTest
