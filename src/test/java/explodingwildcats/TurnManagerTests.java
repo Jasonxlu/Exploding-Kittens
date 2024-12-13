@@ -948,6 +948,7 @@ public class TurnManagerTests {
     EasyMock.replay(gameEngine, ui);
 
     turnManager.handleImplodingCat();
+    assertTrue(turnManager.isImplodingCatFaceUp);
 
     EasyMock.verify(gameEngine, ui);
   }
