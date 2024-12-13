@@ -16,6 +16,7 @@ public class UserInterface {
 
   private final ResourceBundle bundle;
   private Map<String, String> inputMap;
+  private Map<String, String> cardNameMap;
   private final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
   /**
@@ -26,6 +27,7 @@ public class UserInterface {
   public UserInterface(String language) {
     this.bundle = getResourceBundle(language);
     createInputMap();
+    createCardNamesMap();
   }
 
   /**
@@ -49,16 +51,40 @@ public class UserInterface {
    */
   public void createInputMap() {
     inputMap = new HashMap<>();
-    inputMap.put(bundle.getString("input.attack"), "attack");
-    inputMap.put(bundle.getString("input.skip"), "skip");
-    inputMap.put(bundle.getString("input.targeted_attack"), "targeted attack");
-    inputMap.put(bundle.getString("input.shuffle"), "shuffle");
-    inputMap.put(bundle.getString("input.see_the_future"), "see the future");
-    inputMap.put(bundle.getString("input.reverse"), "reverse");
-    inputMap.put(bundle.getString("input.draw_from_bottom"), "draw from bottom");
-    inputMap.put(bundle.getString("input.alter_the_future"), "alter the future");
+    inputMap.put(bundle.getString("card.attack"), "attack");
+    inputMap.put(bundle.getString("card.skip"), "skip");
+    inputMap.put(bundle.getString("card.targeted_attack"), "targeted attack");
+    inputMap.put(bundle.getString("card.shuffle"), "shuffle");
+    inputMap.put(bundle.getString("card.see_the_future"), "see the future");
+    inputMap.put(bundle.getString("card.reverse"), "reverse");
+    inputMap.put(bundle.getString("card.draw_from_bottom"), "draw from bottom");
+    inputMap.put(bundle.getString("card.alter_the_future"), "alter the future");
     inputMap.put(bundle.getString("input.2_cards"), "2 cards");
     inputMap.put(bundle.getString("input.3_cards"), "3 cards");
+  }
+
+  /**
+   * Creates input map for translating to english.
+   */
+  public void createCardNamesMap() {
+    cardNameMap = new HashMap<>();
+    cardNameMap.put("ATTACK", bundle.getString("card.attack"));
+    cardNameMap.put("DEFUSE", bundle.getString("card.defuse"));
+    cardNameMap.put("NOPE", bundle.getString("card.nope"));
+    cardNameMap.put("SEE_THE_FUTURE", bundle.getString("card.see_the_future"));
+    cardNameMap.put("SHUFFLE", bundle.getString("card.shuffle"));
+    cardNameMap.put("SKIP", bundle.getString("card.skip"));
+    cardNameMap.put("EXPLODE", bundle.getString("card.explode"));
+    cardNameMap.put("ALTER_THE_FUTURE", bundle.getString("card.alter_the_future"));
+    cardNameMap.put("DRAW_FROM_BOTTOM", bundle.getString("card.draw_from_bottom"));
+    cardNameMap.put("IMPLODE", bundle.getString("card.implode"));
+    cardNameMap.put("REVERSE", bundle.getString("card.reverse"));
+    cardNameMap.put("TARGETED_ATTACK", bundle.getString("card.targeted_attack"));
+    cardNameMap.put("FERAL_CAT", bundle.getString("card.feral_cat"));
+    cardNameMap.put("TACO_CAT", bundle.getString("card.taco_cat"));
+    cardNameMap.put("HAIRY_POTATO_CAT", bundle.getString("card.hairy_potato_cat"));
+    cardNameMap.put("BEARD_CAT", bundle.getString("card.beard_cat"));
+    cardNameMap.put("RAINBOW_CAT", bundle.getString("card.rainbow_cat"));
   }
 
   /**
@@ -404,7 +430,7 @@ public class UserInterface {
   public void printPlayerHand(String[] hand) {
     for (int i = 0; i < hand.length; i++) {
       System.out.println(MessageFormat.format(
-              bundle.getString("print.player_hand"), i + 1, hand[i]));
+              bundle.getString("print.player_hand"), i + 1, cardNameMap.get(hand[i])));
     }
   }
 
@@ -494,7 +520,7 @@ public class UserInterface {
    */
   public void printAddingCardToHand(String cardName) {
     System.out.println(MessageFormat.format(
-            bundle.getString("feedback.added_card_to_hand"), cardName));
+            bundle.getString("feedback.added_card_to_hand"), cardNameMap.get(cardName)));
   }
 
   /**
@@ -561,7 +587,7 @@ public class UserInterface {
 
   /**
    * Prints the error message from a validation exception message.
-   * 
+   *
    * @param exceptionMessage the exception's message.
    */
   public void printValidateComboCardErrorMessage(String exceptionMessage) {
