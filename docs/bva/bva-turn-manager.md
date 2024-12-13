@@ -276,11 +276,11 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 
 ## Method 15: ```public void doSkip()```
 ### Step 1-3 Results
-|        | Input                                            | Output                                                                 |
-|--------|--------------------------------------------------|------------------------------------------------------------------------|
-| Step 1 | TurnManager's numExtraCardsToDraw                | Turn manager's endTurn is called or numExtraCardsToDraw is decremented |
-| Step 2 | Cases                                            | None (endTurn is called or number of extra cards to draw is modified)  |
-| Step 3 | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0 | None, turn ended or extra cards to draw is decremented                 |
+|        | Input                                            | Output                                                                     |
+|--------|--------------------------------------------------|----------------------------------------------------------------------------|
+| Step 1 | TurnManager's numExtraCardsToDraw                | Turn manager's advanceTurn is called or numExtraCardsToDraw is decremented |
+| Step 2 | Cases                                            | None (advanceTurn is called or number of extra cards to draw is modified)  |
+| Step 3 | numExtraCardsToDraw > 0, numExtraCardsToDraw = 0 | None, turn advanced or extra cards to draw is decremented                  |
 ### Step 4:
 ##### All-combination or each-choice: each-choice
 
@@ -288,7 +288,7 @@ _Note: By the game rules and previous checks, there can only be up to 6 players,
 |--------------|----------------------------------------------------------------|---------------------------------|--------------|
 | Test Case 1  | currPlayerIndex: 0, numExtraCardsToDraw: 1                     | numExtraCardsToDraw decremented | yes          |
 | Test Case 2  | currPlayerIndex: Number of players - 1, numExtraCardsToDraw: 2 | numExtraCardsToDraw decremented | yes          |
-| Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | endTurn() is called             | yes          |
+| Test Case 3  | currPlayerIndex: 0, numExtraCardsToDraw: 0                     | advanceTurn() is called         | yes          |
 
 
 ## Method 16: ```public void getPlayableCard()```
